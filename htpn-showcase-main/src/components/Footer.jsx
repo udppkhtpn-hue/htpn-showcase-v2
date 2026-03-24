@@ -1,18 +1,42 @@
+import '../styles/footer.css'
+
 export default function Footer() {
+  const scrollTo = (id) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <footer>
-      <div className="footer-inner">
-        <div className="footer-brand">
+    <footer className="footer">
+      <div className="footer__inner">
+        <div className="footer__brand">
           <img src="/logo.jpg" alt="HTPN Logo" />
-          <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: '0.9rem', fontWeight: 600, color: 'var(--gold)' }}>
-              AI Team HTPN Kajang
-            </div>
-            <div className="footer-text">Hospital Tengku Permaisuri Norashikin · Kajang, Selangor</div>
-          </div>
+          <span className="footer__brand-text">HTPN AI Team</span>
         </div>
-        <div className="footer-copy">© 2026 HTPN Kajang · Kementerian Kesihatan Malaysia</div>
+
+        <nav className="footer__links">
+          {[
+            ['Projects',   'projects'],
+            ['Pipeline',   'pipeline'],
+            ['About',      'about'],
+            ['Contact',    'contact'],
+          ].map(([label, id]) => (
+            <button key={id} className="footer__link" onClick={() => scrollTo(id)}>{label}</button>
+          ))}
+        </nav>
+
+        <div className="footer__right">
+          <div>© 2025 HTPN AI Team</div>
+          <div>Ministry of Health Malaysia</div>
+          <div>Hospital Tengku Permaisuri Norashikin</div>
+        </div>
       </div>
+
+      <div className="footer__divider" />
+
+      <p className="footer__tagline">
+        Advancing Digital Health · Built from the Ward Up.
+      </p>
     </footer>
   )
 }
