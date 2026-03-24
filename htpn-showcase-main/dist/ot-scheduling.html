@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OT Slot Booking System</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0B1929;--mid:#132338;--dark:#0a1520;--lt:#1E3A5F;--teal:#0EA5A0;--tl2:#14B8B2;--amb:#F59E0B;--red:#EF4444;--grn:#10B981;--w:#F8FAFC;--g3:#94A3B8;--g5:#64748B;--g7:#475569}
+html{height:100%}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--w);height:100%;display:flex;flex-direction:column;overflow:hidden}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+input,select,textarea{font-family:inherit;font-size:16px}/* 16px prevents iOS zoom */
+
+/* LOGIN */
+#login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px}
+.lcard{background:var(--mid);border:1px solid rgba(14,165,160,.3);border-radius:12px;padding:32px 24px;width:100%;max-width:380px;box-shadow:0 0 60px rgba(14,165,160,.08)}
+.llogo{text-align:center;margin-bottom:24px}
+.lico{width:52px;height:52px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 10px}
+.lh1{font-size:18px;font-weight:800;letter-spacing:.5px}
+.lsub{font-size:11px;color:var(--g5);margin-top:3px;letter-spacing:1px;text-transform:uppercase}
+.flabel{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:5px;margin-top:14px}
+.finput{width:100%;padding:10px 12px;background:var(--bg);border:1px solid rgba(14,165,160,.25);border-radius:5px;color:var(--w);font-size:14px;outline:none;-webkit-appearance:none}
+.finput:focus{border-color:var(--teal)}
+.lbtn{width:100%;margin-top:20px;padding:13px;background:var(--teal);color:var(--bg);font-size:14px;font-weight:800;letter-spacing:.5px;border:none;border-radius:5px;cursor:pointer;text-transform:uppercase}
+.lbtn:active{background:var(--tl2)}
+.lerr{color:var(--red);font-size:12px;margin-top:10px;text-align:center;min-height:18px}
+.lhint{margin-top:14px;padding:10px;background:rgba(14,165,160,.06);border-radius:6px;font-size:11px;color:var(--g5);line-height:1.7}
+.lhint strong{color:var(--teal)}
+
+/* APP SHELL */
+#app{display:none;flex-direction:column;height:100%;overflow:hidden}
+
+/* TOP BAR — desktop: single row. Mobile: two rows (logo+user top, nav bottom) */
+.topbar{background:var(--mid);border-bottom:1px solid rgba(14,165,160,.2);display:flex;flex-wrap:wrap;align-items:center;padding:0 12px;gap:6px;flex-shrink:0;min-height:52px}
+.tlogo{color:var(--teal);font-weight:800;font-size:14px;display:flex;align-items:center;gap:5px;padding:8px 0}
+.tsep{width:1px;height:26px;background:rgba(14,165,160,.2);flex-shrink:0}
+.tnav{display:flex;gap:2px;flex:1;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0}
+.tnav::-webkit-scrollbar{display:none}
+.nbtn{padding:6px 10px;border:none;border-radius:4px;background:transparent;color:var(--g3);font-size:12px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap;flex-shrink:0}
+.nbtn:active,.nbtn:hover{background:rgba(14,165,160,.1);color:var(--w)}
+.nbtn.on{background:rgba(14,165,160,.2);color:var(--teal)}
+.ubadge{display:flex;align-items:center;gap:6px;background:rgba(14,165,160,.08);border:1px solid rgba(14,165,160,.2);border-radius:20px;padding:3px 10px 3px 3px;margin-left:auto;flex-shrink:0}
+.uav{width:26px;height:26px;background:var(--teal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--bg)}
+.uname{font-size:12px;font-weight:700;white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis}
+.urole{font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.5px}
+.mbadge{background:var(--amb);color:var(--bg);font-size:9px;font-weight:800;padding:1px 6px;border-radius:3px;letter-spacing:.5px;text-transform:uppercase}
+.lout{padding:6px 10px;border:1px solid rgba(239,68,68,.3);border-radius:4px;background:transparent;color:var(--red);font-size:11px;white-space:nowrap;flex-shrink:0}
+.lout:active{background:rgba(239,68,68,.1)}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;padding:12px;-webkit-overflow-scrolling:touch}
+
+/* PANELS */
+.panel{display:none}
+.panel.on{display:block}
+
+/* BUTTONS */
+.btn{padding:8px 13px;border:none;border-radius:5px;font-size:13px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:.15s;white-space:nowrap;touch-action:manipulation}
+.btn-p{background:var(--teal);color:var(--bg)}
+.btn-p:active,.btn-p:hover{background:var(--tl2)}
+.btn-o{background:transparent;border:1px solid rgba(14,165,160,.3);color:var(--teal)}
+.btn-o:active,.btn-o:hover{background:rgba(14,165,160,.1)}
+.btn-d{background:var(--red);color:#fff}
+.btn-d:active,.btn-d:hover{background:#dc2626}
+.btn-a{background:var(--amb);color:var(--bg)}
+.btn-a:active{opacity:.85}
+.bsm{padding:5px 10px;border-radius:3px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid;touch-action:manipulation}
+.bsm-e{background:rgba(14,165,160,.08);border-color:rgba(14,165,160,.25);color:var(--teal)}
+.bsm-d{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25);color:var(--red)}
+
+/* CALENDAR HEADER */
+.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.calctrl{display:flex;align-items:center;gap:6px}
+.cnav{width:34px;height:34px;background:var(--mid);border:1px solid rgba(14,165,160,.2);border-radius:4px;color:var(--teal);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.clabel{font-size:15px;font-weight:800;min-width:160px;text-align:center}
+.vtog{display:flex;background:var(--mid);border:1px solid rgba(14,165,160,.2);border-radius:5px;overflow:hidden}
+.vbtn{padding:6px 11px;border:none;background:transparent;color:var(--g3);font-weight:700;font-size:11px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;touch-action:manipulation}
+.vbtn.on{background:var(--teal);color:var(--bg)}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.leg-i{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--g3)}
+.leg-d{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+
+/* FORM */
+.fg{display:flex;flex-direction:column;gap:4px}
+.frow{display:grid;gap:10px;margin-bottom:12px}
+
+/* HISTORY HIGHLIGHT */
+.hl{background:rgba(245,158,11,.25);border-radius:2px;padding:0 1px}
+
+/* MONTH CALENDAR */
+.mgrid{background:var(--mid);border:1px solid rgba(14,165,160,.1);border-radius:8px;overflow:hidden}
+.mwdh{display:grid;grid-template-columns:repeat(7,1fr);background:var(--lt)}
+.mwdc{padding:6px 2px;text-align:center;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--teal)}
+.mdays{display:grid;grid-template-columns:repeat(7,1fr)}
+.mday{min-height:70px;padding:4px;border-right:1px solid rgba(14,165,160,.07);border-bottom:1px solid rgba(14,165,160,.07);cursor:pointer;transition:.15s;overflow:hidden}
+.mday:active,.mday:hover{background:rgba(14,165,160,.05)}
+.mday.tod{background:rgba(14,165,160,.08)}
+.mday.oth{opacity:.25;cursor:default}
+.dnum{font-size:11px;font-weight:600;margin-bottom:3px}
+.mday.tod .dnum{background:var(--teal);color:var(--bg);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px}
+.bpill{font-size:9px;padding:2px 4px;border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;font-weight:600;cursor:pointer}
+.bmore{font-size:9px;color:var(--g5);padding:1px 3px}
+
+/* WEEK CALENDAR */
+.wgrid{background:var(--mid);border:1px solid rgba(14,165,160,.1);border-radius:8px;overflow:hidden}
+.whdr{display:flex;background:var(--lt);border-bottom:1px solid rgba(14,165,160,.15)}
+.wtcol{width:44px;flex-shrink:0}
+.wdhdr{flex:1;padding:6px 2px;text-align:center;border-left:1px solid rgba(14,165,160,.08)}
+.wdname{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--g5);font-weight:700}
+.wdnum{font-size:14px;font-weight:800;margin-top:1px}
+.wdnum.tod{color:var(--teal)}
+.wbody{display:flex;overflow-y:auto;max-height:calc(100svh - 220px)}
+.wtimes{width:44px;flex-shrink:0}
+.wt{height:60px;display:flex;align-items:flex-start;justify-content:flex-end;padding:3px 4px 0;font-size:9px;color:var(--g7);font-family:monospace}
+.wdcols{flex:1;display:flex;position:relative;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.wdcol{min-width:60px;flex:1;border-left:1px solid rgba(14,165,160,.07);position:relative;min-height:720px}
+.whr{height:60px;border-bottom:1px solid rgba(14,165,160,.05)}
+.wbk{position:absolute;left:2px;right:2px;border-radius:4px;padding:3px 4px;font-size:9px;font-weight:600;overflow:hidden;cursor:pointer;border-left:3px solid rgba(0,0,0,.2);z-index:5;color:#fff;line-height:1.3}
+
+/* DAY CALENDAR */
+.dtcol{width:44px;flex-shrink:0}
+.dotcol{min-width:130px;flex:1;border-left:1px solid rgba(14,165,160,.1)}
+.dothdr{padding:8px 4px;text-align:center;font-size:10px;font-weight:700;border-bottom:1px solid rgba(14,165,160,.1);background:var(--lt);position:sticky;top:0;z-index:5}
+.dotbody{position:relative;min-height:720px}
+.dhr{height:60px;border-bottom:1px solid rgba(14,165,160,.05)}
+.dbk{position:absolute;left:3px;right:3px;border-radius:4px;padding:4px 5px;font-size:10px;color:#fff;cursor:pointer;overflow:hidden;border-left:3px solid rgba(0,0,0,.2)}
+.dbk:active{opacity:.85}
+
+/* CARD */
+.card{background:var(--mid);border:1px solid rgba(14,165,160,.1);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.chdr{background:var(--lt);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;border-bottom:1px solid rgba(14,165,160,.1)}
+.ctit{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal)}
+
+/* TABLE — horizontally scrollable on mobile */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;min-width:500px}
+.tbl th{padding:8px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--g5);border-bottom:1px solid rgba(14,165,160,.1);white-space:nowrap}
+.tbl td{padding:9px 10px;font-size:12px;border-bottom:1px solid rgba(14,165,160,.06)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(14,165,160,.04)}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;border:1px solid}
+.b-ok{background:rgba(16,185,129,.12);color:var(--grn);border-color:rgba(16,185,129,.25)}
+.b-no{background:rgba(239,68,68,.12);color:var(--red);border-color:rgba(239,68,68,.25)}
+.b-am{background:rgba(245,158,11,.12);color:var(--amb);border-color:rgba(245,158,11,.25)}
+.b-pend{background:rgba(245,158,11,.12);color:var(--amb);border-color:rgba(245,158,11,.4)}
+.bpill-pend{opacity:.85;outline:2px dashed rgba(245,158,11,.7);outline-offset:-2px}
+
+/* MODAL — full screen on mobile, centered on tablet+ */
+.overlay{position:fixed;inset:0;background:rgba(11,25,41,.88);display:flex;align-items:flex-end;justify-content:center;z-index:900;backdrop-filter:blur(3px)}
+.modal{background:var(--mid);border:1px solid rgba(14,165,160,.3);border-radius:12px 12px 0 0;width:100%;max-height:92svh;overflow-y:auto;box-shadow:0 -4px 40px rgba(0,0,0,.5)}
+.modal.sm{width:100%}
+.mhdr{padding:14px 16px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(14,165,160,.15);position:sticky;top:0;background:var(--mid);z-index:10}
+.mtit{font-size:15px;font-weight:700}
+.mclose{background:none;border:none;color:var(--g3);font-size:24px;cursor:pointer;line-height:1;padding:0 4px;min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center}
+.mclose:active{color:var(--red)}
+.mbody{padding:16px}
+.mfoot{padding:12px 16px;border-top:1px solid rgba(14,165,160,.15);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;position:sticky;bottom:0;background:var(--mid);z-index:10}
+.mfoot .btn{flex:1;justify-content:center}
+.stit{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--teal);margin:16px 0 10px;padding-bottom:5px;border-bottom:1px solid rgba(14,165,160,.12)}
+.err{color:var(--red);font-size:12px;margin-top:8px;padding:8px 10px;background:rgba(239,68,68,.08);border-radius:5px}
+
+/* DETAIL GRID */
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.di label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--g5);font-weight:700}
+.di .val{font-size:13px;margin-top:2px;font-weight:500;word-break:break-word}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:11px 20px;border-radius:6px;font-size:13px;font-weight:600;color:#fff;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.4);pointer-events:none;animation:tfade .3s ease;white-space:nowrap;max-width:90vw;text-align:center}
+.tst-ok{background:rgba(16,185,129,.95)}
+.tst-er{background:rgba(239,68,68,.95)}
+.tst-in{background:rgba(14,165,160,.95)}
+@keyframes tfade{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* ── TABLET (≥600px) ───────────────────────────────────────── */
+@media(min-width:600px){
+  .modal{border-radius:10px;width:560px;max-width:96vw;align-self:center}
+  .modal.sm{width:440px}
+  .overlay{align-items:center}
+  .mfoot .btn{flex:0 0 auto}
+  .clabel{min-width:180px}
+  .mday{min-height:80px}
+  .mwdc{font-size:10px;padding:8px}
+  .dnum{font-size:12px}
+}
+
+/* ── DESKTOP (≥900px) ──────────────────────────────────────── */
+@media(min-width:900px){
+  .topbar{flex-wrap:nowrap;height:52px;padding:0 16px}
+  .content{padding:16px}
+  .modal{width:620px}
+  .clabel{min-width:210px;font-size:17px}
+  .mday{min-height:90px}
+  .wdnum{font-size:17px}
+  .wtcol,.dtcol{width:58px}
+  .wt{font-size:10px;padding:3px 6px 0}
+  .bpill,.bmore{font-size:10px}
+  .tbl th{padding:8px 13px}
+  .tbl td{padding:9px 13px}
+}
+
+/* FORM GRID RESPONSIVE — mobile: 1 col, tablet+: as specified by inline style */
+.frow-auto{grid-template-columns:1fr!important}
+@media(min-width:600px){
+  .frow-auto{grid-template-columns:unset!important}
+}
+
+/* PRINT */
+@media print{
+  #login,#app .topbar,.calhead .btn-o,.calhead .btn-p,.calhead .vtog{display:none!important}
+  #app{display:flex!important;height:auto!important;overflow:visible!important}
+  .content{overflow:visible!important}
+  .panel.on{display:block!important}
+  .mgrid,.wgrid{break-inside:avoid}
+  .bpill,.wbk,.dbk{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="lcard">
+    <div class="llogo">
+      <div class="lico">🏥</div>
+      <div class="lh1">OT BOOKING SYSTEM</div>
+      <div class="lsub">Ministry of Health Malaysia</div>
+    </div>
+    <label class="flabel">Email Address</label>
+    <input class="finput" type="email" id="lemail" value="admin@hospital.gov.my">
+    <label class="flabel">Password</label>
+    <input class="finput" type="password" id="lpass" value="admin123">
+    <div class="lerr" id="lerr"></div>
+    <button class="lbtn" onclick="doLogin()">Sign In →</button>
+    <div class="lhint">
+      <strong>Demo accounts:</strong><br>
+      Master: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adccc9c0c4c3edc5c2deddc4d9ccc183cac2db83c0d4">[email&#160;protected]</a> / admin123<br>
+      Doctor: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5c1cac6d1cad7e5cdcad6d5ccd1c4c98bc2cad38bc8dc">[email&#160;protected]</a> / doc123
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="tlogo">🏥 <span style="color:#F8FAFC">OT Booking</span></div>
+    <div class="tsep"></div>
+    <div class="tnav">
+      <button class="nbtn on" id="nb-cal" onclick="showTab('cal')">📅 Calendar</button>
+      <button class="nbtn" id="nb-my" onclick="showTab('my')">📋 My Bookings</button>
+      <button class="nbtn" id="nb-hist" onclick="showTab('hist')">🕐 History</button>
+      <button class="nbtn" id="nb-adm" onclick="showTab('adm')" style="display:none">⚙️ Admin</button>
+    </div>
+    <div class="ubadge">
+      <div class="uav" id="uav">?</div>
+      <div>
+        <div class="uname" id="uname"></div>
+        <div class="urole" id="urole"></div>
+      </div>
+      <span class="mbadge" id="mbadge" style="display:none">MASTER</span>
+    </div>
+    <button class="lout" onclick="doLogout()">Sign Out</button>
+  </div>
+  <div class="content">
+    <div class="panel on" id="p-cal">
+      <div class="calhead">
+        <div class="calctrl">
+          <button class="cnav" onclick="calNav(-1)">‹</button>
+          <div class="clabel" id="calLabel"></div>
+          <button class="cnav" onclick="calNav(1)">›</button>
+          <button class="btn btn-o" style="padding:4px 10px;font-size:11px" onclick="calToday()">Today</button>
+        </div>
+        <!-- Building toggle -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--g5)">Building</div>
+          <div class="vtog">
+            <button class="vbtn on" id="bb-main" onclick="setBldg('main')">🏢 Main</button>
+            <button class="vbtn" id="bb-wcc" onclick="setBldg('wcc')">👶 WCC</button>
+          </div>
+        </div>
+        <!-- Case type toggle -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+          <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--g5)">Case Type</div>
+          <div class="vtog">
+            <button class="vbtn on" id="ct-all" onclick="setCtype('all')">All</button>
+            <button class="vbtn" id="ct-elective" onclick="setCtype('elective')" style="color:#10B981">Elective</button>
+            <button class="vbtn" id="ct-emergency" onclick="setCtype('emergency')" style="color:#EF4444">Emergency</button>
+          </div>
+        </div>
+        <div class="vtog">
+          <button class="vbtn on" id="vb-m" onclick="setView('m')">Month</button>
+          <button class="vbtn" id="vb-w" onclick="setView('w')">Week</button>
+          <button class="vbtn" id="vb-d" onclick="setView('d')">Day</button>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-o" onclick="window.print()">🖨 Print</button>
+          <button class="btn btn-p" onclick="openBook()">+ New Booking</button>
+        </div>
+      </div>
+      <div class="legend" id="legend"></div>
+      <div id="calView"></div>
+    </div>
+    <div class="panel" id="p-my">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <h2 style="font-size:18px;font-weight:800">My Bookings</h2>
+        <button class="btn btn-p" onclick="openBook()">+ New Booking</button>
+      </div>
+      <div id="myList"></div>
+    </div>
+    <div class="panel" id="p-hist">
+      <div style="margin-bottom:14px">
+        <h2 style="font-size:18px;font-weight:800">Booking History</h2>
+        <p style="font-size:12px;color:var(--g5);margin-top:2px">Search and export all past and present OT bookings</p>
+      </div>
+
+      <!-- SEARCH & FILTER BAR -->
+      <div class="card" style="margin-bottom:14px">
+        <div style="padding:14px 16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">Search Patient / IC</label>
+              <div style="position:relative">
+                <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--g5);font-size:13px">🔍</span>
+                <input class="finput" type="text" id="hSearch" placeholder="Name or IC number..." oninput="renderHist()" style="padding-left:30px">
+              </div>
+            </div>
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">From Date</label>
+              <input class="finput" type="date" id="hFrom" onchange="renderHist()">
+            </div>
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">To Date</label>
+              <input class="finput" type="date" id="hTo" onchange="renderHist()">
+            </div>
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">OT Room</label>
+              <select class="finput" id="hOT" onchange="renderHist()"><option value="">All OTs</option></select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;align-items:flex-end">
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">Department</label>
+              <select class="finput" id="hDept" onchange="renderHist()"><option value="">All Departments</option></select>
+            </div>
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">Status</label>
+              <select class="finput" id="hStat" onchange="renderHist()">
+                <option value="">All Status</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">Case Type</label>
+              <select class="finput" id="hCT" onchange="renderHist()">
+                <option value="">All Types</option>
+                <option value="elective">🟢 Elective</option>
+                <option value="emergency">🔴 Emergency</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="flabel" style="margin-top:0">Quick Range</label>
+              <select class="finput" id="hQuick" onchange="applyQuickRange()">
+                <option value="">Custom</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="thisweek">This Week</option>
+                <option value="lastweek">Last Week</option>
+                <option value="thismonth">This Month</option>
+                <option value="lastmonth">Last Month</option>
+                <option value="last3m">Last 3 Months</option>
+                <option value="all">All Time</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:7px">
+              <button class="btn btn-o" onclick="clearHist()" style="flex:1">✕ Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS SUMMARY + EXPORT -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+        <div id="histSummary" style="font-size:13px;color:var(--g3)">Loading...</div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-o" onclick="exportCSV()" title="Export to Excel-compatible CSV">📊 Export Excel (CSV)</button>
+          <button class="btn btn-o" onclick="exportPDF()" title="Export to printable PDF">📄 Export PDF</button>
+        </div>
+      </div>
+
+      <!-- RESULTS TABLE -->
+      <div class="card">
+        <div style="overflow-x:auto">
+          <table class="tbl">
+            <thead><tr>
+              <th>Booking ID</th><th>Date</th><th>Time</th><th>Building / OT</th><th>Type</th>
+              <th>Patient Name</th><th>IC / Passport</th><th>Procedure</th>
+              <th>Diagnosis</th><th>Requesting Doctor</th><th>Dept</th>
+              <th>Consultant</th><th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="histTbl"><tr><td colspan="13" style="text-align:center;padding:30px;color:var(--g5)">Use filters above to search bookings</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+      <div style="margin-bottom:14px"><h2 style="font-size:18px;font-weight:800">Administration</h2><p style="font-size:12px;color:var(--g5);margin-top:2px">Manage OT rooms, users & bookings</p></div>
+      <!-- PENDING APPROVALS QUEUE -->
+      <div class="card" style="border-color:rgba(245,158,11,.35);margin-bottom:14px">
+        <div class="chdr" style="background:rgba(245,158,11,.08);border-bottom-color:rgba(245,158,11,.2)">
+          <span class="ctit" style="color:var(--amb)">⏳ Pending Approvals <span id="pendCount" style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--g5)"></span></span>
+        </div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>ID</th><th>Date Requested</th><th>Procedure Date</th><th>Time</th><th>Type</th><th>Patient</th><th>Dept</th><th>Procedure</th><th>Doctor</th><th>Contact</th><th>Actions</th></tr></thead><tbody id="pendTbl"></tbody></table></div>
+      </div>
+      <div class="card">
+        <div class="chdr"><span class="ctit">Operating Theatre Rooms</span><button class="btn btn-p" onclick="openOT()">+ Add OT</button></div>
+        <div class="tbl-wrap">
+        <table class="tbl"><thead><tr><th>ID</th><th>Name</th><th>Building</th><th>Description / Specialty</th><th>Status</th><th>Actions</th></tr></thead><tbody id="otTbl"></tbody></table>
+      </div>
+      <div class="card">
+        <div class="chdr"><span class="ctit">User Management</span><button class="btn btn-p" onclick="openUser()">+ Add User</button></div>
+        <div class="tbl-wrap">
+        <table class="tbl"><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Dept</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead><tbody id="uTbl"></tbody></table>
+      </div>
+      <div class="card">
+        <div class="chdr">
+          <span class="ctit">All Bookings <span id="admBkCount" style="font-size:10px;color:var(--g5);font-weight:400;text-transform:none;letter-spacing:0"></span></span>
+          <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:5px">
+              <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);white-space:nowrap">From</label>
+              <input class="finput" type="date" id="fFrom" onchange="renderAdmBk()" style="padding:4px 8px;width:auto;font-size:11px">
+            </div>
+            <div style="display:flex;align-items:center;gap:5px">
+              <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);white-space:nowrap">To</label>
+              <input class="finput" type="date" id="fTo" onchange="renderAdmBk()" style="padding:4px 8px;width:auto;font-size:11px">
+            </div>
+            <select class="finput" id="fSt" onchange="renderAdmBk()" style="padding:4px 8px;width:auto;font-size:11px"><option value="">All Status</option><option value="Pending">Pending</option><option value="Confirmed">Confirmed</option><option value="Cancelled">Cancelled</option></select>
+            <select class="finput" id="fOT" onchange="renderAdmBk()" style="padding:4px 8px;width:auto;font-size:11px"><option value="">All OTs</option></select>
+            <button class="btn btn-o" onclick="clearAdmFilters()" style="padding:4px 10px;font-size:11px">✕ Clear</button>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table class="tbl"><thead><tr><th>ID</th><th>Date</th><th>Time</th><th>OT</th><th>Type</th><th>Patient</th><th>IC No.</th><th>Procedure</th><th>Doctor</th><th>Dept</th><th>Status</th><th>Actions</th></tr></thead><tbody id="admBkTbl"></tbody></table></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="overlay" id="mBook" style="display:none" onclick="if(event.target===this)closeM('mBook')">
+  <div class="modal">
+    <div class="mhdr"><div class="mtit" id="mBookTit">New OT Booking</div><button class="mclose" onclick="closeM('mBook')">×</button></div>
+    <div class="mbody">
+      <div id="bCutoffNotice" style="display:none;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:6px;padding:9px 13px;font-size:11px;color:var(--amb);margin-bottom:12px"></div>
+      <div class="stit">Slot Details</div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="fg"><label class="flabel">Case Type *</label>
+          <select class="finput" id="bCT">
+            <option value="elective">🟢 Elective</option>
+            <option value="emergency">🔴 Emergency</option>
+          </select>
+        </div>
+        <div class="fg"><label class="flabel">Date *</label><input class="finput" type="date" id="bDate"></div>
+        <div class="fg"><label class="flabel">Start Time *</label><input class="finput" type="time" id="bSt"></div>
+      </div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr">
+        <div class="fg"><label class="flabel">End Time *</label><input class="finput" type="time" id="bEt"></div>
+        <div class="fg"><label class="flabel">Department *</label><select class="finput" id="bDept"></select></div>
+      </div>
+      <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:6px;padding:9px 13px;font-size:11px;color:var(--amb);margin-bottom:4px">
+        ℹ️ OT room will be assigned by the admin after your booking is reviewed and approved.
+      </div>
+
+      <div class="stit">Patient Demographics</div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr">
+        <div class="fg"><label class="flabel">Patient Full Name *</label><input class="finput" type="text" id="bPn" placeholder="As per IC / Passport"></div>
+        <div class="fg"><label class="flabel">IC / Passport No. *</label><input class="finput" type="text" id="bIc" placeholder="e.g. 901231-14-5678"></div>
+      </div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr 1fr 1fr">
+        <div class="fg">
+          <label class="flabel">Age *</label>
+          <input class="finput" type="number" id="bAge" min="0" max="120" placeholder="Years">
+        </div>
+        <div class="fg">
+          <label class="flabel">Gender *</label>
+          <select class="finput" id="bGender">
+            <option value="">— Select —</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="flabel">Race *</label>
+          <select class="finput" id="bRace">
+            <option value="">— Select —</option>
+            <option value="Malay">Malay</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Indian">Indian</option>
+            <option value="Kadazan">Kadazan</option>
+            <option value="Iban">Iban</option>
+            <option value="Bajau">Bajau</option>
+            <option value="Orang Asli">Orang Asli</option>
+            <option value="Other Bumiputera">Other Bumiputera</option>
+            <option value="Other">Other</option>
+            <option value="Non-Malaysian">Non-Malaysian</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="flabel">Last Meal — Date *</label>
+          <input class="finput" type="date" id="bMealDate">
+        </div>
+      </div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 3fr">
+        <div class="fg">
+          <label class="flabel">Last Meal — Time *</label>
+          <input class="finput" type="time" id="bMealTime">
+        </div>
+        <div class="fg">
+          <label class="flabel" style="color:var(--g5)">Fasting Duration</label>
+          <div id="bFastingDisplay" style="padding:9px 12px;background:var(--dark);border:1px solid rgba(14,165,160,.15);border-radius:5px;font-size:12px;color:var(--g3);min-height:38px;display:flex;align-items:center">
+            — Fill in last meal date &amp; time, then procedure date &amp; start time
+          </div>
+        </div>
+      </div>
+
+      <div class="stit">Procedure</div>
+      <div class="frow" style="grid-template-columns:1fr">
+        <div class="fg"><label class="flabel">Procedure / Operation *</label><input class="finput" type="text" id="bPr" placeholder="e.g. Laparoscopic Cholecystectomy"></div>
+      </div>
+      <div class="frow" style="grid-template-columns:1fr">
+        <div class="fg"><label class="flabel">Diagnosis *</label><input class="finput" type="text" id="bDx" placeholder="e.g. Cholelithiasis"></div>
+      </div>
+
+      <div class="stit">Medical Team</div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="fg"><label class="flabel">Requesting Doctor *</label><input class="finput" type="text" id="bDr"></div>
+        <div class="fg"><label class="flabel">Doctor Contact No. *</label><input class="finput" type="tel" id="bDrTel" placeholder="e.g. 012-3456789"></div>
+        <div class="fg"><label class="flabel">Consultant / Specialist *</label><input class="finput" type="text" id="bCo" placeholder="Full name with title"></div>
+      </div>
+      <div class="fg"><label class="flabel">Notes</label><textarea class="finput" id="bNo" rows="2" placeholder="Special equipment, patient allergies, etc."></textarea></div>
+      <div class="err" id="bErr" style="display:none"></div>
+    </div>
+    <div class="mfoot">
+      <button class="btn btn-o" onclick="closeM('mBook')">Cancel</button>
+      <button class="btn btn-p" id="bSave" onclick="saveBook()">✓ Confirm Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="overlay" id="mDet" style="display:none" onclick="if(event.target===this)closeM('mDet')">
+  <div class="modal">
+    <div class="mhdr"><div class="mtit">Booking Details</div><button class="mclose" onclick="closeM('mDet')">×</button></div>
+    <div class="mbody" id="mDetBody"></div>
+    <div class="mfoot" id="mDetFoot"></div>
+  </div>
+</div>
+
+<!-- OT MODAL -->
+<div class="overlay" id="mOT" style="display:none" onclick="if(event.target===this)closeM('mOT')">
+  <div class="modal sm">
+    <div class="mhdr"><div class="mtit" id="mOTTit">Add OT Room</div><button class="mclose" onclick="closeM('mOT')">×</button></div>
+    <div class="mbody">
+      <div class="fg" style="margin-bottom:12px"><label class="flabel">Room Name *</label><input class="finput" id="oName" placeholder="e.g. OT 4"></div>
+      <div class="fg" style="margin-bottom:12px"><label class="flabel">Description / Specialty</label><input class="finput" id="oDesc" placeholder="e.g. Urology / ENT"></div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr">
+        <div class="fg"><label class="flabel">Building *</label>
+          <select class="finput" id="oBldg">
+            <option value="main">Main Building</option>
+            <option value="wcc">Women &amp; Children's Centre</option>
+          </select>
+        </div>
+        <div class="fg" id="oStG"><label class="flabel">Status</label><select class="finput" id="oStat"><option value="1">Active</option><option value="0">Inactive</option></select></div>
+      </div>
+    </div>
+    <div class="mfoot"><button class="btn btn-o" onclick="closeM('mOT')">Cancel</button><button class="btn btn-p" onclick="saveOT()">Save OT Room</button></div>
+  </div>
+</div>
+
+<!-- USER MODAL -->
+<div class="overlay" id="mUser" style="display:none" onclick="if(event.target===this)closeM('mUser')">
+  <div class="modal sm" style="width:480px">
+    <div class="mhdr"><div class="mtit" id="mUserTit">Add User</div><button class="mclose" onclick="closeM('mUser')">×</button></div>
+    <div class="mbody">
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr">
+        <div class="fg"><label class="flabel">Full Name *</label><input class="finput" id="uName"></div>
+        <div class="fg"><label class="flabel">Email *</label><input class="finput" type="email" id="uEmail"></div>
+      </div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr">
+        <div class="fg"><label class="flabel">Department</label><select class="finput" id="uDept"></select></div>
+        <div class="fg"><label class="flabel">Role</label><select class="finput" id="uRole"><option value="user">Normal User</option><option value="master">Master Admin</option></select></div>
+      </div>
+      <div class="frow frow-auto" style="grid-template-columns:1fr 1fr">
+        <div class="fg"><label class="flabel">Password *</label><input class="finput" type="password" id="uPass" placeholder="Leave blank = keep current"></div>
+        <div class="fg" id="uStG"><label class="flabel">Status</label><select class="finput" id="uStat"><option value="1">Active</option><option value="0">Inactive</option></select></div>
+      </div>
+    </div>
+    <div class="mfoot"><button class="btn btn-o" onclick="closeM('mUser')">Cancel</button><button class="btn btn-p" onclick="saveUser()">Save User</button></div>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── DATA ──────────────────────────────────────────────────────
+var USERS=[
+  {id:'USR001',name:'Dr. Ahmad Razif',email:'admin@hospital.gov.my',dept:'Administration',role:'master',pass:'admin123',active:1},
+  {id:'USR002',name:'Dr. Nurul Huda',email:'doctor@hospital.gov.my',dept:'General Surgery',role:'user',pass:'doc123',active:1},
+  {id:'USR003',name:'Dr. Kumar Selvaraj',email:'kumar@hospital.gov.my',dept:'Orthopaedics',role:'user',pass:'doc123',active:1},
+  {id:'USR004',name:'Dr. Faizal Ismail',email:'faizal@hospital.gov.my',dept:'Cardiothoracic Surgery',role:'user',pass:'doc123',active:1},
+  {id:'USR005',name:'Dr. Hafiz Rahman',email:'hafiz@hospital.gov.my',dept:'Neurosurgery',role:'user',pass:'doc123',active:1},
+];
+// Case-type colours: green = elective, red = emergency
+var CT_COLOR={elective:'#10B981',emergency:'#EF4444'};
+var ROOMS=[
+  // ── Main Building (3 OTs) ─────────────────────────────────
+  {id:'M-OT1',name:'OT 1',desc:'General Surgery / Urology',building:'main',active:1},
+  {id:'M-OT2',name:'OT 2',desc:'Orthopaedics',building:'main',active:1},
+  {id:'M-OT3',name:'OT 3',desc:'Cardiothoracic / Neurosurgery',building:'main',active:1},
+  // ── Women & Children\'s Centre (6 OTs) ────────────────────
+  {id:'W-OT1',name:'OT 1',desc:'Obstetrics & Gynaecology',building:'wcc',active:1},
+  {id:'W-OT2',name:'OT 2',desc:'Obstetrics & Gynaecology',building:'wcc',active:1},
+  {id:'W-OT3',name:'OT 3',desc:'Gynaecology / Oncology',building:'wcc',active:1},
+  {id:'W-OT4',name:'OT 4',desc:'Paediatric Surgery',building:'wcc',active:1},
+  {id:'W-OT5',name:'OT 5',desc:'Paediatric Surgery',building:'wcc',active:1},
+  {id:'W-OT6',name:'OT 6',desc:'Neonatal / Emergency',building:'wcc',active:1},
+];
+var DEPTS=['General Surgery','Orthopaedics','Cardiothoracic Surgery','Neurosurgery','Urology','Obstetrics & Gynaecology','ENT','Ophthalmology','Plastic Surgery','Paediatric Surgery','Oncology','Administration'];
+var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var HOURS=Array.from({length:12},function(_,i){return i+7;});
+
+function dOff(n){var d=new Date();d.setDate(d.getDate()+n);return d.toISOString().split('T')[0];}
+var BOOKINGS=[
+  {id:'BK001',ot:'M-OT1',date:dOff(0),st:'08:00',et:'10:00',caseType:'elective',pn:'Ahmad bin Hassan',ic:'801231-14-5678',age:'44',gender:'Male',race:'Malay',mealDate:dOff(-1),mealTime:'22:00',proc:'Laparoscopic Cholecystectomy',dx:'Cholelithiasis',dr:'Dr. Nurul Huda',drTel:'012-3456789',dept:'General Surgery',co:'Prof. Dr. Razif',status:'Confirmed',by:'USR002',notes:''},
+  {id:'BK002',ot:'M-OT2',date:dOff(0),st:'09:00',et:'12:00',caseType:'elective',pn:'Siti binti Ali',ic:'750612-05-1234',age:'49',gender:'Female',race:'Malay',mealDate:dOff(-1),mealTime:'21:00',proc:'Total Knee Replacement',dx:'Osteoarthritis Knee',dr:'Dr. Kumar',drTel:'016-7654321',dept:'Orthopaedics',co:'Dr. Rajan',status:'Confirmed',by:'USR003',notes:'Blood on standby'},
+  {id:'BK003',ot:null,date:dOff(0),st:'13:00',et:'15:00',caseType:'emergency',pn:'Rizal bin Bakar',ic:'950203-10-1122',age:'30',gender:'Male',race:'Malay',mealDate:dOff(0),mealTime:'06:00',proc:'Emergency Laparotomy',dx:'Perforated Peptic Ulcer',dr:'Dr. Nurul Huda',drTel:'012-3456789',dept:'General Surgery',co:'Prof. Dr. Razif',status:'Pending',by:'USR002',notes:'Crash induction'},
+  {id:'BK004',ot:null,date:dOff(1),st:'10:00',et:'13:00',caseType:'elective',pn:'Muthu Krishnan',ic:'900505-07-9876',age:'34',gender:'Male',race:'Indian',mealDate:dOff(0),mealTime:'22:00',proc:'Appendicectomy',dx:'Acute Appendicitis',dr:'Dr. Nurul Huda',drTel:'012-3456789',dept:'General Surgery',co:'Prof. Dr. Razif',status:'Pending',by:'USR002',notes:''},
+  {id:'BK005',ot:'M-OT3',date:dOff(2),st:'07:00',et:'11:00',caseType:'elective',pn:'Wong Mei Ling',ic:'650823-14-2222',age:'60',gender:'Female',race:'Chinese',mealDate:dOff(1),mealTime:'22:00',proc:'CABG x3',dx:'Triple vessel disease',dr:'Dr. Faizal',drTel:'017-9988776',dept:'Cardiothoracic Surgery',co:'Dr. Tan Cheng Hoe',status:'Confirmed',by:'USR004',notes:'ICU bed reserved'},
+  {id:'BK006',ot:'M-OT2',date:dOff(1),st:'08:00',et:'10:30',caseType:'elective',pn:'Rajan a/l Murugan',ic:'721003-08-4321',age:'52',gender:'Male',race:'Indian',mealDate:dOff(0),mealTime:'21:00',proc:'Hip Arthroplasty',dx:'Avascular necrosis',dr:'Dr. Kumar',drTel:'016-7654321',dept:'Orthopaedics',co:'Dr. Rajan',status:'Confirmed',by:'USR003',notes:''},
+  {id:'BK007',ot:'W-OT1',date:dOff(0),st:'08:00',et:'10:00',caseType:'elective',pn:'Faridah binti Osman',ic:'831120-11-6789',age:'40',gender:'Female',race:'Malay',mealDate:dOff(-1),mealTime:'22:00',proc:'Elective LSCS',dx:'Placenta praevia',dr:'Dr. Nurul Huda',drTel:'012-3456789',dept:'Obstetrics & Gynaecology',co:'Dr. Siti Rahimah',status:'Confirmed',by:'USR002',notes:''},
+  {id:'BK008',ot:null,date:dOff(0),st:'11:00',et:'13:00',caseType:'emergency',pn:'Aminah binti Yusof',ic:'920714-06-5544',age:'32',gender:'Female',race:'Malay',mealDate:dOff(0),mealTime:'07:00',proc:'Emergency LSCS',dx:'Fetal distress',dr:'Dr. Nurul Huda',drTel:'012-3456789',dept:'Obstetrics & Gynaecology',co:'Dr. Siti Rahimah',status:'Pending',by:'USR002',notes:'Neonatal team standby'},
+  {id:'BK009',ot:'W-OT4',date:dOff(1),st:'09:00',et:'11:30',caseType:'elective',pn:'Muhammad Haziq',ic:'150602-05-3321',age:'10',gender:'Male',race:'Malay',mealDate:dOff(0),mealTime:'22:00',proc:'Orchidopexy',dx:'Undescended testis',dr:'Dr. Hafiz',drTel:'011-2233445',dept:'Paediatric Surgery',co:'Dr. Lim Boon Keat',status:'Confirmed',by:'USR005',notes:''},
+  {id:'BK010',ot:'M-OT3',date:dOff(-1),st:'08:00',et:'14:00',caseType:'elective',pn:'Zainab binti Malik',ic:'880301-02-3333',age:'37',gender:'Female',race:'Malay',mealDate:dOff(-2),mealTime:'22:00',proc:'Craniotomy for meningioma',dx:'Intracranial meningioma',dr:'Dr. Hafiz',drTel:'011-2233445',dept:'Neurosurgery',co:'Prof. Dr. Aziz',status:'Confirmed',by:'USR005',notes:'Neuro monitoring'},
+];
+
+// ── STATE ─────────────────────────────────────────────────────
+// BLDG: 'main'|'wcc'    CTYPE: 'all'|'elective'|'emergency'
+var CU=null, VIEW='m', CAL=new Date(), BLDG='main', CTYPE='all';
+var editBkId=null, editOTId=null, editUserId=null;
+
+// ── UTILS ─────────────────────────────────────────────────────
+function p2(n){return String(n).padStart(2,'0');}
+function ds(y,m,d){return y+'-'+p2(m+1)+'-'+p2(d);}
+function t2m(t){var p=t.split(':').map(Number);return p[0]*60+p[1];}
+function conflict(bk){
+  return BOOKINGS.filter(function(b){return b.id!==bk.id&&b.ot===bk.ot&&b.date===bk.date&&b.status!=='Cancelled';})
+    .some(function(b){return !(t2m(bk.et)<=t2m(b.st)||t2m(bk.st)>=t2m(b.et));});
+}
+function roomOf(id){return ROOMS.find(function(r){return r.id===id;})||{name:id,building:'main',active:1};}
+// colour for a booking pill — green=elective, red=emergency, amber=pending
+function bkColor(b){
+  if(b.status==='Pending') return '#F59E0B';
+  return CT_COLOR[b.caseType]||CT_COLOR.elective;
+}
+// display label for OT column: admin sees number, normal user sees dept
+function otLabel(room){
+  if(CU&&CU.role==='master') return room.name+' <span style="font-size:9px;opacity:.6">('+room.desc+')</span>';
+  return room.desc;
+}
+// rooms visible in current building
+function visibleRooms(){
+  return ROOMS.filter(function(r){return r.building===BLDG&&r.active;});
+}
+// filter bookings for calendar display
+function calBookings(bksIn){
+  var rooms=visibleRooms().map(function(r){return r.id;});
+  return bksIn.filter(function(b){
+    if(b.status==='Cancelled') return false;
+    // Pending bookings: admin sees all pending regardless of building (no OT yet); normal user sees own dept pending
+    if(b.status==='Pending'){
+      if(CU&&CU.role!=='master'&&b.dept!==CU.dept) return false;
+      if(CTYPE!=='all'&&b.caseType!==CTYPE) return false;
+      return true;
+    }
+    // Confirmed: must belong to current building's rooms
+    if(rooms.indexOf(b.ot)<0) return false;
+    if(CTYPE!=='all'&&b.caseType!==CTYPE) return false;
+    if(CU&&CU.role!=='master'&&b.dept!==CU.dept) return false;
+    return true;
+  });
+}
+function E(id){return document.getElementById(id);}
+function closeM(id){E(id).style.display='none';}
+function pad(n){return String(n).padStart(2,'0');}
+
+// ── LOGIN ─────────────────────────────────────────────────────
+var WCC_DEPTS=['Obstetrics & Gynaecology','Paediatric Surgery'];
+function doLogin(){
+  var em=E('lemail').value.trim(), pw=E('lpass').value;
+  var u=USERS.find(function(u){return u.email===em&&u.pass===pw&&u.active;});
+  if(!u){E('lerr').textContent='Invalid email or password. Check demo accounts below.';return;}
+  CU=u;
+  // Auto-select building for normal users based on department
+  if(u.role!=='master'){
+    BLDG=WCC_DEPTS.indexOf(u.dept)>=0?'wcc':'main';
+  } else {
+    BLDG='main';
+  }
+  CTYPE='all';
+  E('login').style.display='none';
+  E('app').style.display='flex';
+  E('uav').textContent=u.name[0];
+  E('uname').textContent=u.name;
+  E('urole').textContent=u.dept;
+  if(u.role==='master'){E('mbadge').style.display='inline';E('nb-adm').style.display='inline-flex';}
+  // Sync building toggle buttons
+  E('bb-main').classList.toggle('on',BLDG==='main');
+  E('bb-wcc').classList.toggle('on',BLDG==='wcc');
+  initForms();
+  renderCal();
+}
+document.addEventListener('keydown',function(e){if(e.key==='Enter'&&E('login').style.display!=='none')doLogin();});
+
+function doLogout(){
+  CU=null;
+  E('app').style.display='none';
+  E('login').style.display='flex';
+  E('nb-adm').style.display='none';
+  E('mbadge').style.display='none';
+  E('lerr').textContent='';
+}
+
+// ── TABS ──────────────────────────────────────────────────────
+function showTab(t){
+  ['cal','my','hist','adm'].forEach(function(x){
+    var p=E('p-'+x), n=E('nb-'+x);
+    if(p) p.classList.toggle('on',x===t);
+    if(n) n.classList.toggle('on',x===t);
+  });
+  if(t==='my') renderMy();
+  if(t==='hist') renderHist();
+  if(t==='adm'){renderPendingQueue();renderAdmOT();renderAdmUsers();renderAdmBk();}
+}
+
+// ── PENDING QUEUE ─────────────────────────────────────────────
+function renderPendingQueue(){
+  var pend=BOOKINGS.filter(function(b){return b.status==='Pending';})
+    .sort(function(a,b){return a.date.localeCompare(b.date)||a.st.localeCompare(b.st);});
+  var cnt=E('pendCount');
+  if(cnt) cnt.textContent='('+pend.length+' awaiting approval)';
+  if(!pend.length){
+    E('pendTbl').innerHTML='<tr><td colspan="11" style="text-align:center;padding:20px;color:var(--g5)">✓ No pending bookings</td></tr>';
+    return;
+  }
+  var h='';
+  pend.forEach(function(b){
+    var col=bkColor(b);
+    var ctDot='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+col+';margin-right:4px;vertical-align:middle"></span>'+(b.caseType==='emergency'?'Emergency':'Elective');
+    h+='<tr style="background:rgba(245,158,11,.04)">'
+      +'<td style="font-family:monospace;font-size:10px">'+b.id+'</td>'
+      +'<td style="font-size:11px;color:var(--g5)">—</td>'
+      +'<td style="font-family:monospace;font-size:11px">'+b.date+'</td>'
+      +'<td style="font-family:monospace;font-size:11px;white-space:nowrap">'+b.st+'–'+b.et+'</td>'
+      +'<td style="font-size:11px;white-space:nowrap">'+ctDot+'</td>'
+      +'<td style="font-weight:600">'+b.pn+'</td>'
+      +'<td style="font-size:11px">'+b.dept+'</td>'
+      +'<td style="font-size:11px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+b.proc+'">'+b.proc+'</td>'
+      +'<td style="font-size:11px">'+b.dr+'</td>'
+      +'<td style="font-family:monospace;font-size:11px">'+b.drTel+'</td>'
+      +'<td><div style="display:flex;gap:4px">'
+        +'<button class="btn btn-p" style="padding:3px 9px;font-size:11px" onclick="openApprove(\''+b.id+'\')">✓ Approve</button>'
+        +'<button class="bsm bsm-d" onclick="openCancel(\''+b.id+'\')">✕</button>'
+        +'<button class="bsm bsm-e" onclick="showDet(\''+b.id+'\')">View</button>'
+      +'</div></td>'
+      +'</tr>';
+  });
+  E('pendTbl').innerHTML=h;
+}
+
+// ── FORMS INIT ────────────────────────────────────────────────
+function initForms(){
+  // bOT no longer exists in booking form (OT assigned by admin), skip if absent
+  var otSel=E('bOT'); if(otSel){ otSel.innerHTML='';
+    ROOMS.filter(function(r){return r.building===BLDG&&r.active;}).forEach(function(r){
+      var o=document.createElement('option');
+      o.value=r.id; o.textContent=r.name+' — '+r.desc;
+      otSel.appendChild(o);
+    });
+  }
+  // Booking modal dept select
+  var dSel=E('bDept'); dSel.innerHTML='';
+  DEPTS.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;dSel.appendChild(o);});
+  // User modal dept
+  var udSel=E('uDept'); udSel.innerHTML='';
+  DEPTS.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;udSel.appendChild(o);});
+  // Admin bookings OT filter — all rooms with building prefix
+  var fot=E('fOT'); if(fot){fot.innerHTML='<option value="">All OTs</option>';
+    ROOMS.forEach(function(r){var o=document.createElement('option');o.value=r.id;
+      o.textContent=(r.building==='main'?'Main ':'WCC ')+r.name+' ('+r.desc+')';fot.appendChild(o);});}
+  // History OT filter
+  var hot=E('hOT'); if(hot){hot.innerHTML='<option value="">All OTs</option>';
+    ROOMS.forEach(function(r){var o=document.createElement('option');o.value=r.id;
+      o.textContent=(r.building==='main'?'Main ':'WCC ')+r.name+' ('+r.desc+')';hot.appendChild(o);});}
+  // History dept filter
+  var hd=E('hDept'); if(hd){hd.innerHTML='<option value="">All Departments</option>';
+    DEPTS.forEach(function(d){var o=document.createElement('option');o.value=d;o.textContent=d;hd.appendChild(o);});}
+}
+
+// ── CALENDAR ──────────────────────────────────────────────────
+function setView(v){
+  VIEW=v;
+  ['m','w','d'].forEach(function(x){E('vb-'+x).classList.toggle('on',x===v);});
+  renderCal();
+}
+function setBldg(b){
+  BLDG=b;
+  ['main','wcc'].forEach(function(x){E('bb-'+x).classList.toggle('on',x===b);});
+  initForms(); renderCal();
+}
+function setCtype(ct){
+  CTYPE=ct;
+  ['all','elective','emergency'].forEach(function(x){
+    var el=E('ct-'+x);
+    el.classList.toggle('on',x===ct);
+    // keep colour hints when not active
+    if(x==='elective') el.style.color=ct==='elective'?'var(--bg)':'#10B981';
+    if(x==='emergency') el.style.color=ct==='emergency'?'var(--bg)':'#EF4444';
+    if(x==='all') el.style.color='';
+  });
+  renderCal();
+}
+function calNav(d){
+  if(VIEW==='m') CAL.setMonth(CAL.getMonth()+d);
+  else if(VIEW==='w') CAL.setDate(CAL.getDate()+d*7);
+  else CAL.setDate(CAL.getDate()+d);
+  CAL=new Date(CAL);renderCal();
+}
+function calToday(){CAL=new Date();renderCal();}
+
+function renderCal(){
+  renderLegend();
+  if(VIEW==='m') renderMonth();
+  else if(VIEW==='w') renderWeek();
+  else renderDay();
+}
+
+function renderLegend(){
+  var bldgLabel=BLDG==='main'?'Main Building':"Women & Children's Centre";
+  var h='<div class="leg-i" style="background:rgba(14,165,160,.08);border:1px solid rgba(14,165,160,.2);border-radius:4px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--teal)">🏢 '+bldgLabel+'</div>';
+  h+='<div class="leg-i"><div class="leg-d" style="background:#10B981"></div>Elective</div>';
+  h+='<div class="leg-i"><div class="leg-d" style="background:#EF4444"></div>Emergency</div>';
+  if(CU&&CU.role==='master') h+='<div class="leg-i"><div class="leg-d" style="background:#F59E0B;outline:2px dashed rgba(245,158,11,.7);outline-offset:1px"></div>Pending Approval</div>';
+  if(CU&&CU.role!=='master') h+='<div class="leg-i" style="color:var(--amb)">👤 Showing: '+CU.dept+'</div>';
+  E('legend').innerHTML=h;
+}
+
+var todayStr=new Date().toISOString().split('T')[0];
+
+function renderMonth(){
+  var y=CAL.getFullYear(),m=CAL.getMonth();
+  E('calLabel').textContent=MONTHS[m]+' '+y;
+  var first=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
+  var cells=[];
+  for(var i=0;i<first;i++) cells.push({other:1});
+  for(var d=1;d<=days;d++) cells.push({d:d,s:ds(y,m,d)});
+  while(cells.length%7) cells.push({other:1});
+  var h='<div class="mgrid"><div class="mwdh">';
+  DAYS.forEach(function(d){h+='<div class="mwdc">'+d+'</div>';});
+  h+='</div><div class="mdays">';
+  cells.forEach(function(c){
+    if(c.other){h+='<div class="mday oth"></div>';return;}
+    var bks=calBookings(BOOKINGS.filter(function(b){return b.date===c.s;}));
+    var cls='mday'+(c.s===todayStr?' tod':'');
+    h+='<div class="'+cls+'" onclick="dayClick(\''+c.s+'\')">';
+    h+='<div class="dnum">'+c.d+'</div>';
+    bks.slice(0,3).forEach(function(b){
+      var col=bkColor(b);
+      var r=roomOf(b.ot);
+      var pend=b.status==='Pending';
+      var lbl=pend?'⏳ ':(CU&&CU.role==='master'&&b.ot?r.name+' ':'');
+      var pillCls='bpill'+(pend?' bpill-pend':'');
+      h+='<div class="'+pillCls+'" style="background:'+col+'" onclick="event.stopPropagation();showDet(\''+b.id+'\')" title="'+b.pn+' | '+b.proc+(pend?' [PENDING]':'')+'">'+lbl+b.st+' '+b.pn.split(' ')[0]+'</div>';
+    });
+    if(bks.length>3) h+='<div class="bmore">+'+(bks.length-3)+' more</div>';
+    h+='</div>';
+  });
+  h+='</div></div>';
+  E('calView').innerHTML=h;
+}
+
+function renderWeek(){
+  var dow=CAL.getDay(), ws=new Date(CAL); ws.setDate(CAL.getDate()-dow);
+  var days=Array.from({length:7},function(_,i){var d=new Date(ws);d.setDate(ws.getDate()+i);return d;});
+  var s=days[0], e=days[6];
+  E('calLabel').textContent=s.getDate()+' '+MONTHS[s.getMonth()].slice(0,3)+' – '+e.getDate()+' '+MONTHS[e.getMonth()].slice(0,3)+' '+e.getFullYear();
+  var h='<div class="wgrid"><div class="whdr"><div class="wtcol"></div>';
+  days.forEach(function(d){
+    var ds2=d.toISOString().split('T')[0];
+    h+='<div class="wdhdr"><div class="wdname">'+DAYS[d.getDay()]+'</div><div class="wdnum'+(ds2===todayStr?' tod':'')+'">'+d.getDate()+'</div></div>';
+  });
+  h+='</div><div class="wbody"><div class="wtimes">';
+  HOURS.forEach(function(h2){h+='<div class="wt">'+pad(h2)+':00</div>';});
+  h+='</div><div class="wdcols">';
+  days.forEach(function(d){
+    var ds2=d.toISOString().split('T')[0];
+    var bks=calBookings(BOOKINGS.filter(function(b){return b.date===ds2;}));
+    h+='<div class="wdcol" onclick="dayClick(\''+ds2+'\')">';
+    HOURS.forEach(function(){h+='<div class="whr"></div>';});
+    bks.forEach(function(b){
+      var col=bkColor(b);
+      var r=roomOf(b.ot);
+      var pend=b.status==='Pending';
+      var top=(t2m(b.st)-7*60), ht=Math.max(t2m(b.et)-t2m(b.st),24);
+      var lbl=pend?'<div style="font-size:9px;opacity:.8">⏳ Pending</div>'
+        :(CU&&CU.role==='master'&&b.ot?'<div style="font-size:9px;opacity:.8">'+r.name+'</div>':'');
+      var extra=pend?';outline:2px dashed rgba(245,158,11,.7);outline-offset:-2px':'';
+      h+='<div class="wbk" style="top:'+top+'px;height:'+ht+'px;background:'+col+extra+'" onclick="event.stopPropagation();showDet(\''+b.id+'\')">'
+        +lbl
+        +'<div style="font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+b.pn.split(' ')[0]+'</div>'
+        +'<div style="font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+b.proc+'</div>'
+        +'</div>';
+    });
+    h+='</div>';
+  });
+  h+='</div></div></div>';
+  E('calView').innerHTML=h;
+}
+
+function renderDay(){
+  var ds2=CAL.toISOString().split('T')[0];
+  E('calLabel').textContent=CAL.toLocaleDateString('en-MY',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var ar=visibleRooms();
+  var allDay=calBookings(BOOKINGS.filter(function(b){return b.date===ds2;}));
+  var pendDay=allDay.filter(function(b){return b.status==='Pending';});
+  var h='<div style="display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--mid);border:1px solid rgba(14,165,160,.1);border-radius:8px;overflow:hidden;max-height:calc(100svh - 220px)">';
+  h+='<div class="dtcol"><div style="height:44px;border-bottom:1px solid rgba(14,165,160,.1)"></div>';
+  HOURS.forEach(function(hr){h+='<div style="height:60px;display:flex;align-items:flex-start;justify-content:flex-end;padding:3px 6px 0;font-size:10px;color:var(--g7);font-family:monospace">'+pad(hr)+':00</div>';});
+  h+='</div>';
+  // Pending column (if any pending bookings on this day)
+  if(pendDay.length){
+    h+='<div class="dotcol" style="min-width:160px"><div class="dothdr" style="border-top:3px dashed #F59E0B;color:var(--amb)">⏳ Pending Approval</div><div class="dotbody">';
+    HOURS.forEach(function(){h+='<div class="dhr"></div>';});
+    pendDay.forEach(function(b){
+      var col=bkColor(b);
+      var top=t2m(b.st)-7*60, ht=Math.max(t2m(b.et)-t2m(b.st),40);
+      h+='<div class="dbk" style="top:'+top+'px;height:'+ht+'px;background:'+col+';outline:2px dashed rgba(245,158,11,.7);outline-offset:-2px" onclick="showDet(\''+b.id+'\')">'
+        +'<div style="font-size:10px;font-weight:700;opacity:.85">'+b.st+'–'+b.et+'</div>'
+        +'<div style="font-weight:700;font-size:12px;margin-top:1px">'+b.pn+'</div>'
+        +'<div style="font-size:10px;opacity:.85;margin-top:1px">'+b.proc+'</div>'
+        +'<div style="font-size:10px;opacity:.7;margin-top:1px">'+b.dept+'</div>'
+        +'</div>';
+    });
+    h+='</div></div>';
+  }
+  // OT columns (confirmed bookings)
+  ar.forEach(function(room){
+    var bks=allDay.filter(function(b){return b.ot===room.id&&b.status!=='Pending';});
+    var hdrTop=CU&&CU.role==='master'?room.name:room.desc;
+    var hdrSub=CU&&CU.role==='master'?'<div style="font-size:9px;opacity:.6;margin-top:1px">'+room.desc+'</div>':'';
+    h+='<div class="dotcol"><div class="dothdr" style="border-top:3px solid var(--teal)">'+hdrTop+hdrSub+'</div><div class="dotbody">';
+    HOURS.forEach(function(){h+='<div class="dhr"></div>';});
+    bks.forEach(function(b){
+      var col=bkColor(b);
+      var top=t2m(b.st)-7*60, ht=Math.max(t2m(b.et)-t2m(b.st),40);
+      h+='<div class="dbk" style="top:'+top+'px;height:'+ht+'px;background:'+col+'" onclick="showDet(\''+b.id+'\')">'
+        +'<div style="font-size:10px;font-weight:700;opacity:.85">'+b.st+'–'+b.et+'</div>'
+        +'<div style="font-weight:700;font-size:12px;margin-top:1px">'+b.pn+'</div>'
+        +'<div style="font-size:10px;opacity:.85;margin-top:1px">'+b.proc+'</div>'
+        +'<div style="font-size:10px;opacity:.7;margin-top:1px">'+b.dr+'</div>'
+        +'</div>';
+    });
+    h+='</div></div>';
+  });
+  h+='</div>';
+  E('calView').innerHTML=h;
+}
+
+function dayClick(s){CAL=new Date(s+'T00:00:00');setView('d');}
+
+// ── BOOKING MODAL ─────────────────────────────────────────────
+function calcFasting(){
+  var mDate=E('bMealDate').value, mTime=E('bMealTime').value;
+  var pDate=E('bDate').value, pTime=E('bSt').value;
+  var el=E('bFastingDisplay');
+  if(!el) return;
+  if(!mDate||!mTime||!pDate||!pTime){
+    el.textContent='— Fill in last meal date & time, then procedure date & start time';
+    el.style.color='var(--g3)'; return;
+  }
+  var mealDt=new Date(mDate+'T'+mTime);
+  var procDt=new Date(pDate+'T'+pTime);
+  var diffMs=procDt-mealDt;
+  if(diffMs<0){
+    el.textContent='⚠ Last meal time is after procedure start time — please check';
+    el.style.color='var(--red)'; return;
+  }
+  var hrs=Math.floor(diffMs/3600000);
+  var mins=Math.floor((diffMs%3600000)/60000);
+  var warn=hrs<6;
+  el.innerHTML='<strong style="color:'+(warn?'var(--red)':'var(--grn)')+'">'+hrs+'h '+mins+'m</strong>'
+    +(warn?' <span style="color:var(--red);font-size:11px">⚠ Less than 6 hours — confirm with anaesthetist</span>'
+           :' <span style="color:var(--grn);font-size:11px">✓ Adequate fasting</span>');
+  el.style.color='';
+}
+
+// wire fasting calc to date/time changes
+document.addEventListener('DOMContentLoaded',function(){
+  ['bMealDate','bMealTime','bDate','bSt'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('change',calcFasting);
+  });
+});
+
+// ── BOOKING CUTOFF ────────────────────────────────────────────
+// Cutoff: 12:00 noon the day before the procedure date.
+// Normal users cannot submit new bookings or edit to a date that is already past cutoff.
+// Admin is exempt.
+function cutoffPassed(procDateStr){
+  // Returns true if current time is past 12:00 noon of the day before procDateStr
+  if(CU&&CU.role==='master') return false; // admin always allowed
+  var now=new Date();
+  // Cutoff = procDate - 1 day, at 12:00
+  var procDate=new Date(procDateStr+'T00:00:00');
+  var cutoff=new Date(procDate);
+  cutoff.setDate(cutoff.getDate()-1);
+  cutoff.setHours(12,0,0,0);
+  return now>=cutoff;
+}
+// Earliest procedure date a normal user can book right now
+function earliestBookableDate(){
+  if(CU&&CU.role==='master') return new Date().toISOString().split('T')[0];
+  var now=new Date();
+  // If before 12:00 today, tomorrow is still bookable; if after 12:00 today, must be day-after-tomorrow or later
+  var cutoffToday=new Date(now.getFullYear(),now.getMonth(),now.getDate(),12,0,0,0);
+  var earliest=new Date(now);
+  earliest.setDate(now.getDate()+(now>=cutoffToday?2:1));
+  return earliest.toISOString().split('T')[0];
+}
+
+function openBook(preset){
+  editBkId=null;
+  var minDate=earliestBookableDate();
+  // For normal users, guard against opening the form when there are no bookable dates today
+  // (allow the form to open — date field will enforce min)
+  E('mBookTit').textContent='New OT Booking Request';
+  E('bSave').textContent='✓ Submit Booking Request';
+  E('bErr').style.display='none';
+  // Choose the default date: use preset if valid and not past cutoff, else minDate
+  var defaultDate=(preset&&preset>=minDate)?preset:minDate;
+  E('bCT').value=CTYPE!=='all'?CTYPE:'elective';
+  E('bDate').value=defaultDate;
+  E('bDate').min=minDate;
+  // Admin has no min restriction
+  if(CU&&CU.role==='master') E('bDate').removeAttribute('min');
+  E('bSt').value='08:00'; E('bEt').value='10:00';
+  E('bDept').value=CU.dept;
+  E('bPn').value=''; E('bIc').value='';
+  E('bAge').value=''; E('bGender').value=''; E('bRace').value='';
+  E('bMealDate').value=''; E('bMealTime').value='';
+  E('bPr').value=''; E('bDx').value='';
+  E('bDr').value=CU.name; E('bDrTel').value=''; E('bCo').value=''; E('bNo').value='';
+  calcFasting();
+  // Show cutoff notice for normal users
+  var notice=E('bCutoffNotice');
+  if(notice){
+    if(CU&&CU.role!=='master'){
+      var cutoffToday=new Date(); cutoffToday.setHours(12,0,0,0);
+      var now=new Date();
+      notice.style.display='block';
+      notice.innerHTML='⏰ Booking cutoff is <strong>12:00 noon the day before</strong> the procedure date. '
+        +(now>=cutoffToday?'Bookings for tomorrow are now <strong style="color:var(--red)">closed</strong>. Earliest date: <strong>'+minDate+'</strong>.':'Today\'s cutoff: <strong>12:00 noon</strong>. Earliest date: <strong>'+minDate+'</strong>.');
+    } else {
+      notice.style.display='block';
+      notice.innerHTML='🔓 <strong>Admin override:</strong> You may book for any date, including past cutoff.';
+      notice.style.background='rgba(14,165,160,.07)';
+      notice.style.borderColor='rgba(14,165,160,.3)';
+      notice.style.color='var(--teal)';
+    }
+  }
+  E('mBook').style.display='flex';
+}
+
+function loadBook(b){
+  editBkId=b.id;
+  E('mBookTit').textContent='Edit Booking Request';
+  E('bSave').textContent='✓ Update Booking';
+  E('bErr').style.display='none';
+  E('bCT').value=b.caseType||'elective';
+  E('bDate').value=b.date; E('bSt').value=b.st; E('bEt').value=b.et;
+  // Apply min date constraint for normal users editing pending bookings
+  var minDate=earliestBookableDate();
+  if(CU&&CU.role!=='master'){E('bDate').min=minDate;}
+  else{E('bDate').removeAttribute('min');}
+  E('bDept').value=b.dept;
+  E('bPn').value=b.pn; E('bIc').value=b.ic;
+  E('bAge').value=b.age||''; E('bGender').value=b.gender||''; E('bRace').value=b.race||'';
+  E('bMealDate').value=b.mealDate||''; E('bMealTime').value=b.mealTime||'';
+  E('bPr').value=b.proc; E('bDx').value=b.dx;
+  E('bDr').value=b.dr; E('bDrTel').value=b.drTel||''; E('bCo').value=b.co; E('bNo').value=b.notes||'';
+  // Show cutoff notice
+  var notice=E('bCutoffNotice');
+  if(notice){
+    if(CU&&CU.role!=='master'){
+      notice.style.display='block';
+      notice.style.background='';notice.style.borderColor='';notice.style.color='';
+      notice.innerHTML='⏰ Booking cutoff is <strong>12:00 noon the day before</strong> the procedure date.';
+    } else {
+      notice.style.display='block';
+      notice.style.background='rgba(14,165,160,.07)';notice.style.borderColor='rgba(14,165,160,.3)';notice.style.color='var(--teal)';
+      notice.innerHTML='🔓 <strong>Admin override:</strong> You may book for any date, including past cutoff.';
+    }
+  }
+  calcFasting();
+  E('mBook').style.display='flex';
+}
+
+function saveBook(){
+  var bk={
+    id:editBkId||('BK'+Date.now().toString().slice(-6)),
+    ot:editBkId?(BOOKINGS.find(function(b){return b.id===editBkId;})||{}).ot||null:null,
+    caseType:E('bCT').value,
+    date:E('bDate').value, st:E('bSt').value, et:E('bEt').value,
+    dept:E('bDept').value,
+    pn:E('bPn').value.trim(), ic:E('bIc').value.trim(),
+    age:E('bAge').value.trim(), gender:E('bGender').value, race:E('bRace').value,
+    mealDate:E('bMealDate').value, mealTime:E('bMealTime').value,
+    proc:E('bPr').value.trim(), dx:E('bDx').value.trim(),
+    dr:E('bDr').value.trim(), drTel:E('bDrTel').value.trim(),
+    co:E('bCo').value.trim(), notes:E('bNo').value.trim(),
+    status:'Pending', by:CU.id
+  };
+  // If admin edits an already-confirmed booking, preserve Confirmed status
+  if(editBkId){
+    var old=BOOKINGS.find(function(b){return b.id===editBkId;});
+    if(old&&old.status==='Confirmed') bk.status='Confirmed';
+  }
+  var req=['date','st','et','dept','pn','ic','age','gender','race','mealDate','mealTime','proc','dx','dr','drTel','co'];
+  for(var i=0;i<req.length;i++){if(!bk[req[i]]){showErr('Please fill in all required fields (marked *).');return;}}
+  if(t2m(bk.st)>=t2m(bk.et)){showErr('End time must be after start time.');return;}
+  // Cutoff check — normal users only
+  if(CU&&CU.role!=='master'&&cutoffPassed(bk.date)){
+    showErr('⏰ Booking cutoff has passed for '+bk.date+'. Submissions must be made before 12:00 noon the day before. Please contact the admin for urgent requests.');
+    return;
+  }
+  if(editBkId){BOOKINGS=BOOKINGS.map(function(b){return b.id===editBkId?bk:b;});}
+  else{BOOKINGS.push(bk);}
+  closeM('mBook');
+  renderCal();
+  toast(editBkId?'Booking updated!':'Booking request submitted — awaiting admin approval.','ok');
+}
+function showErr(msg){E('bErr').textContent=msg;E('bErr').style.display='block';}
+
+// ── DETAIL MODAL ──────────────────────────────────────────────
+function fastingStr(b){
+  if(!b.mealDate||!b.mealTime||!b.date||!b.st) return '—';
+  var mealDt=new Date(b.mealDate+'T'+b.mealTime);
+  var procDt=new Date(b.date+'T'+b.st);
+  var diffMs=procDt-mealDt;
+  if(diffMs<0) return '⚠ Last meal after procedure start';
+  var hrs=Math.floor(diffMs/3600000), mins=Math.floor((diffMs%3600000)/60000);
+  var warn=hrs<6;
+  return (warn?'⚠ ':'')+ hrs+'h '+mins+'m'+(warn?' (< 6h)':'');
+}
+
+function showDet(id){
+  var b=BOOKINGS.find(function(x){return x.id===id;});
+  if(!b) return;
+  var r=roomOf(b.ot);
+  var col=bkColor(b);
+  var sc=b.status==='Confirmed'?'b-ok':b.status==='Cancelled'?'b-no':'b-am';
+  var ctBadge=b.caseType==='emergency'
+    ?'<span style="background:rgba(239,68,68,.15);color:#EF4444;border:1px solid rgba(239,68,68,.3);border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🔴 Emergency</span>'
+    :'<span style="background:rgba(16,185,129,.15);color:#10B981;border:1px solid rgba(16,185,129,.3);border-radius:4px;padding:2px 8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">🟢 Elective</span>';
+  var bldgLabel=r.building==='wcc'?"Women & Children's Centre":'Main Building';
+  var otLine=b.ot?(bldgLabel+' · '+r.name+' ('+r.desc+')'):(bldgLabel+' · OT to be assigned');
+  var h='<div style="background:'+col+'18;border:1px solid '+col+'44;border-radius:6px;padding:10px 14px;margin-bottom:16px">'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+    +ctBadge+'<span class="badge '+(sc==='b-am'?'b-pend':sc)+'">'+b.status+'</span></div>'
+    +'<div style="font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:1px">'+otLine+'</div>'
+    +'<div style="font-size:17px;font-weight:800;margin-top:2px">'+b.date+' &nbsp;·&nbsp; '+b.st+' – '+b.et+'</div>'
+    +'</div>';
+
+  // Patient demographics
+  h+='<div class="stit">Patient Demographics</div>';
+  h+='<div class="dg" style="margin-bottom:16px">';
+  h+=di('Patient Name',b.pn)+di('IC / Passport No.',b.ic,1);
+  h+=di('Age',(b.age||'—')+' years')+di('Gender',b.gender||'—');
+  h+=di('Race',b.race||'—')+di('Department',b.dept);
+  h+='</div>';
+
+  // Last meal & fasting
+  var fs=fastingStr(b);
+  var fsWarn=fs.indexOf('⚠')>=0;
+  h+='<div class="stit">Last Meal & Fasting</div>';
+  h+='<div class="dg" style="margin-bottom:16px">';
+  h+=di('Last Meal Date',b.mealDate||'—')+di('Last Meal Time',b.mealTime||'—');
+  h+='<div class="di" style="grid-column:1/-1"><label>Fasting Duration</label>'
+    +'<div class="val" style="color:'+(fsWarn?'var(--red)':'var(--grn)')+'">'+fs+'</div></div>';
+  h+='</div>';
+
+  // Procedure
+  h+='<div class="stit">Procedure</div>';
+  h+='<div class="dg" style="margin-bottom:16px">';
+  h+='<div class="di" style="grid-column:1/-1">'+dil('Procedure / Operation')+'<div class="val">'+b.proc+'</div></div>';
+  h+='<div class="di" style="grid-column:1/-1">'+dil('Diagnosis')+'<div class="val">'+b.dx+'</div></div>';
+  h+='</div>';
+
+  // Medical team
+  h+='<div class="stit">Medical Team</div>';
+  h+='<div class="dg" style="margin-bottom:'+(b.notes?'16':'0')+'px">';
+  h+=di('Requesting Doctor',b.dr);
+  h+=di('Doctor Contact',b.drTel||'—');
+  h+='<div class="di" style="grid-column:1/-1">'+dil('Consultant / Specialist')+'<div class="val">'+b.co+'</div></div>';
+  h+='</div>';
+
+  if(b.notes) h+='<div class="stit">Notes</div><div style="background:var(--dark);border-radius:5px;padding:10px;font-size:13px;color:var(--g3)">'+b.notes+'</div>';
+  if(b.cancelReason) h+='<div class="stit" style="color:var(--red)">Cancellation Reason</div><div style="background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2);border-radius:5px;padding:10px;font-size:13px;color:var(--red)">'+b.cancelReason+'</div>';
+  h+='<div style="margin-top:12px;font-size:10px;color:var(--g7)">Booking ID: <span style="font-family:monospace">'+b.id+'</span></div>';
+  E('mDetBody').innerHTML=h;
+
+  var f='<button class="btn btn-o" onclick="closeM(\'mDet\')">Close</button>';
+  if(CU.role==='master'){
+    // Admin can edit any non-cancelled booking
+    if(b.status!=='Cancelled') f+='<button class="btn btn-a" onclick="editBk(\''+b.id+'\')">✏ Edit</button>';
+    // Admin can approve pending bookings
+    if(b.status==='Pending') f+='<button class="btn btn-p" onclick="openApprove(\''+b.id+'\')">✓ Approve &amp; Assign OT</button>';
+    // Admin can cancel confirmed or pending
+    if(b.status!=='Cancelled') f+='<button class="btn btn-d" onclick="openCancel(\''+b.id+'\')">✕ Cancel Booking</button>';
+  } else {
+    // Normal user can edit their own pending bookings only
+    if(b.status==='Pending'&&(b.by===CU.id)) f+='<button class="btn btn-a" onclick="editBk(\''+b.id+'\')">✏ Edit Request</button>';
+  }
+  E('mDetFoot').innerHTML=f;
+  E('mDet').style.display='flex';
+}
+function di(l,v,m){return '<div class="di">'+dil(l)+'<div class="val'+(m?' style="font-family:monospace"':'')+'">'+(m?'<span style="font-family:monospace">'+v+'</span>':v)+'</div></div>';}
+function dil(l){return '<label>'+l+'</label>';}
+function editBk(id){var b=BOOKINGS.find(function(x){return x.id===id;});closeM('mDet');loadBook(b);}
+
+// ── APPROVE & ASSIGN ──────────────────────────────────────────
+var approveId=null;
+function openApprove(id){
+  approveId=id;
+  var b=BOOKINGS.find(function(x){return x.id===id;});
+  // Pre-select building based on dept
+  var guessWCC=['Obstetrics & Gynaecology','Paediatric Surgery'];
+  E('aaBldg').value=guessWCC.indexOf(b.dept)>=0?'wcc':'main';
+  refreshAArooms();
+  E('aaConflictWarn').style.display='none';
+  closeM('mDet');
+  E('mApprove').style.display='flex';
+}
+function refreshAArooms(){
+  var bldg=E('aaBldg').value;
+  var sel=E('aaOT'); sel.innerHTML='<option value="">— Select OT Room —</option>';
+  ROOMS.filter(function(r){return r.building===bldg&&r.active;}).forEach(function(r){
+    var o=document.createElement('option');
+    o.value=r.id; o.textContent=r.name+' — '+r.desc;
+    sel.appendChild(o);
+  });
+  sel.onchange=function(){checkAAconflict();};
+}
+function checkAAconflict(){
+  var b=BOOKINGS.find(function(x){return x.id===approveId;});
+  var otId=E('aaOT').value;
+  if(!b||!otId){E('aaConflictWarn').style.display='none';return;}
+  var conflict=BOOKINGS.filter(function(x){
+    return x.id!==b.id&&x.ot===otId&&x.date===b.date&&x.status!=='Cancelled'&&x.status!=='Pending';
+  }).some(function(x){return !(t2m(b.et)<=t2m(x.st)||t2m(b.st)>=t2m(x.et));});
+  E('aaConflictWarn').style.display=conflict?'block':'none';
+  E('aaConflictWarn').textContent=conflict?'⚠ This OT has a conflicting booking at this time. Please choose another room or time.':'';
+}
+function doApprove(){
+  var otId=E('aaOT').value;
+  if(!otId){toast('Please select an OT room.','er');return;}
+  BOOKINGS=BOOKINGS.map(function(b){
+    return b.id===approveId?Object.assign({},b,{ot:otId,status:'Confirmed'}):b;
+  });
+  closeM('mApprove');
+  renderCal();
+  if(document.getElementById('p-adm').classList.contains('on')){renderPendingQueue();renderAdmOT();renderAdmUsers();renderAdmBk();}
+  toast('Booking approved and assigned to OT.','ok');
+  approveId=null;
+}
+
+// ── CANCEL MODAL ──────────────────────────────────────────────
+var cancelId=null;
+function openCancel(id){
+  cancelId=id;
+  E('cxReason').value='';
+  E('cxOther').value='';
+  E('cxOtherGrp').style.display='none';
+  E('cxErr').style.display='none';
+  closeM('mDet');
+  E('mCancel').style.display='flex';
+}
+function toggleCxOther(){
+  var v=E('cxReason').value;
+  E('cxOtherGrp').style.display=v==='other'?'block':'none';
+}
+function doCancel(){
+  var reason=E('cxReason').value;
+  if(!reason){E('cxErr').textContent='Please select a cancellation reason.';E('cxErr').style.display='block';return;}
+  var finalReason=reason==='other'?E('cxOther').value.trim():reason;
+  if(reason==='other'&&!finalReason){E('cxErr').textContent='Please describe the reason for cancellation.';E('cxErr').style.display='block';return;}
+  BOOKINGS=BOOKINGS.map(function(b){
+    return b.id===cancelId?Object.assign({},b,{status:'Cancelled',cancelReason:finalReason}):b;
+  });
+  closeM('mCancel');
+  renderCal();
+  if(document.getElementById('p-adm').classList.contains('on')){renderPendingQueue();renderAdmOT();renderAdmUsers();renderAdmBk();}
+  toast('Booking cancelled.','in');
+  cancelId=null;
+}
+
+// ── MY BOOKINGS ───────────────────────────────────────────────
+function renderMy(){
+  var mine=BOOKINGS.filter(function(b){return b.by===CU.id||b.dr===CU.name;}).sort(function(a,b){return b.date.localeCompare(a.date);});
+  if(!mine.length){E('myList').innerHTML='<div style="text-align:center;padding:60px;color:var(--g5)">No bookings yet.</div>';return;}
+  var h='<div class="card"><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Date</th><th>Time</th><th>Building / OT</th><th>Type</th><th>Patient</th><th>IC No.</th><th>Procedure</th><th>Consultant</th><th>Status</th><th></th></tr></thead><tbody>';
+  mine.forEach(function(b){
+    var r=roomOf(b.ot);
+    var sc=b.status==='Confirmed'?'b-ok':b.status==='Cancelled'?'b-no':'b-pend';
+    var col=bkColor(b);
+    var bldgShort=b.ot?(r.building==='main'?'Main':'WCC'):'—';
+    var ctDot='<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+col+';margin-right:4px;vertical-align:middle"></span>'+(b.caseType==='emergency'?'Emergency':'Elective');
+    var otDisp=b.ot?(CU.role==='master'?r.name:r.desc):'Pending assignment';
+    h+='<tr><td style="font-family:monospace;font-size:11px">'+b.date+'</td>'
+      +'<td style="font-family:monospace;font-size:11px;white-space:nowrap">'+b.st+'–'+b.et+'</td>'
+      +'<td style="font-size:11px"><span style="color:var(--teal);font-weight:600">'+bldgShort+'</span> · '+otDisp+'</td>'
+      +'<td style="font-size:11px;white-space:nowrap">'+ctDot+'</td>'
+      +'<td style="font-weight:600">'+b.pn+'</td>'
+      +'<td style="font-family:monospace;font-size:11px">'+b.ic+'</td>'
+      +'<td style="font-size:11px">'+b.proc+'</td>'
+      +'<td style="font-size:11px">'+b.co+'</td>'
+      +'<td><span class="badge '+sc+'">'+b.status+'</span></td>'
+      +'<td><button class="bsm bsm-e" onclick="showDet(\''+b.id+'\')">View</button></td></tr>';
+  });
+  h+='</tbody></table></div></div>';
+  E('myList').innerHTML=h;
+}
+
+// ── ADMIN OT ──────────────────────────────────────────────────
+function renderAdmOT(){
+  var h='';
+  ROOMS.forEach(function(r){
+    var ac=r.active?'b-ok':'b-no';
+    var bldgLabel=r.building==='main'?'Main Building':"WCC";
+    h+='<tr><td style="font-family:monospace;font-size:11px">'+r.id+'</td>'
+      +'<td style="font-weight:600">'+r.name+'</td>'
+      +'<td style="font-size:11px;color:var(--teal)">'+bldgLabel+'</td>'
+      +'<td style="font-size:11px;color:var(--g5)">'+r.desc+'</td>'
+      +'<td><span class="badge '+ac+'">'+(r.active?'Active':'Inactive')+'</span></td>'
+      +'<td><div style="display:flex;gap:5px"><button class="bsm bsm-e" onclick="openOT(\''+r.id+'\')">Edit</button><button class="bsm bsm-d" onclick="deactivOT(\''+r.id+'\')">Deactivate</button></div></td></tr>';
+  });
+  E('otTbl').innerHTML=h;
+}
+
+function openOT(id){
+  editOTId=id||null;
+  E('mOTTit').textContent=id?'Edit OT Room':'Add OT Room';
+  E('oStG').style.display=id?'flex':'none';
+  if(id){
+    var r=ROOMS.find(function(x){return x.id===id;});
+    if(r){E('oName').value=r.name;E('oDesc').value=r.desc;E('oBldg').value=r.building;E('oStat').value=r.active?'1':'0';}
+  } else {
+    E('oName').value='';E('oDesc').value='';E('oBldg').value='main';
+  }
+  E('mOT').style.display='flex';
+}
+
+function saveOT(){
+  var nm=E('oName').value.trim();
+  if(!nm){alert('Room name is required');return;}
+  var bldg=E('oBldg').value;
+  if(editOTId){
+    ROOMS=ROOMS.map(function(r){return r.id===editOTId?{id:r.id,name:nm,desc:E('oDesc').value.trim(),building:bldg,active:E('oStat').value==='1'}:r;});
+  } else {
+    var prefix=bldg==='main'?'M-OT':'W-OT';
+    var sameB=ROOMS.filter(function(r){return r.building===bldg;}).length;
+    var nid=prefix+(sameB+1);
+    ROOMS.push({id:nid,name:nm,desc:E('oDesc').value.trim(),building:bldg,active:1});
+  }
+  closeM('mOT');initForms();renderAdmOT();renderCal();toast('OT Room saved','ok');
+}
+
+function deactivOT(id){
+  if(!confirm('Deactivate '+id+'? Existing bookings are preserved.'))return;
+  ROOMS=ROOMS.map(function(r){return r.id===id?Object.assign({},r,{active:0}):r;});
+  initForms();renderAdmOT();toast('OT deactivated','info');
+}
+
+// ── ADMIN USERS ───────────────────────────────────────────────
+function renderAdmUsers(){
+  var h='';
+  USERS.forEach(function(u){
+    var rc=u.role==='master'?'b-ok':'b-am';
+    var ac=u.active?'b-ok':'b-no';
+    h+='<tr><td style="font-family:monospace;font-size:11px">'+u.id+'</td>'
+      +'<td style="font-weight:600">'+u.name+'</td>'
+      +'<td style="font-size:11px;color:var(--g5)">'+u.email+'</td>'
+      +'<td style="font-size:12px">'+u.dept+'</td>'
+      +'<td><span class="badge '+rc+'">'+u.role+'</span></td>'
+      +'<td><span class="badge '+ac+'">'+(u.active?'Active':'Inactive')+'</span></td>'
+      +'<td><button class="bsm bsm-e" onclick="openUser(\''+u.id+'\')">Edit</button></td></tr>';
+  });
+  E('uTbl').innerHTML=h;
+}
+
+function openUser(id){
+  editUserId=id||null;
+  E('mUserTit').textContent=id?'Edit User':'Add User';
+  E('uStG').style.display=id?'flex':'none';
+  if(id){var u=USERS.find(function(x){return x.id===id;});if(u){E('uName').value=u.name;E('uEmail').value=u.email;E('uDept').value=u.dept;E('uRole').value=u.role;E('uPass').value='';E('uStat').value=u.active?'1':'0';}}
+  else{E('uName').value='';E('uEmail').value='';E('uPass').value='';E('uRole').value='user';}
+  E('mUser').style.display='flex';
+}
+
+function saveUser(){
+  var nm=E('uName').value.trim(), em=E('uEmail').value.trim(), pw=E('uPass').value;
+  if(!nm||!em){alert('Name and email are required');return;}
+  if(!editUserId&&!pw){alert('Password is required for new users');return;}
+  if(editUserId){
+    USERS=USERS.map(function(u){return u.id===editUserId?Object.assign({},u,{name:nm,email:em,dept:E('uDept').value,role:E('uRole').value,active:E('uStat').value==='1',pass:pw||u.pass}):u;});
+  } else {
+    USERS.push({id:'USR'+(USERS.length+1),name:nm,email:em,dept:E('uDept').value,role:E('uRole').value,pass:pw,active:1});
+  }
+  closeM('mUser');renderAdmUsers();toast('User saved','ok');
+}
+
+// ── ADMIN BOOKINGS ────────────────────────────────────────────
+function clearAdmFilters(){
+  E('fFrom').value='';E('fTo').value='';E('fSt').value='';E('fOT').value='';
+  renderAdmBk();
+}
+function renderAdmBk(){
+  var fst=E('fSt')?E('fSt').value:'', fot=E('fOT')?E('fOT').value:'';
+  var ffrom=E('fFrom')?E('fFrom').value:'', fto=E('fTo')?E('fTo').value:'';
+  var list=BOOKINGS.filter(function(b){
+    return (fst?b.status===fst:1)&&(fot?b.ot===fot:1)
+      &&(ffrom?b.date>=ffrom:1)&&(fto?b.date<=fto:1);
+  }).sort(function(a,b){return b.date.localeCompare(a.date);});
+  var cnt=E('admBkCount');
+  if(cnt) cnt.textContent='('+list.length+' booking'+(list.length!==1?'s':'')+')';
+  var h='';
+  list.forEach(function(b){
+    var r=roomOf(b.ot);
+    var sc=b.status==='Confirmed'?'b-ok':b.status==='Cancelled'?'b-no':'b-pend';
+    var col=bkColor(b);
+    var otCell=b.ot?('<span style="color:var(--teal);font-weight:600">'+(r.building==='main'?'Main':'WCC')+'</span> · '+r.name):'<span style="color:var(--amb);font-style:italic">Pending</span>';
+    h+='<tr><td style="font-family:monospace;font-size:10px">'+b.id+'</td>'
+      +'<td style="font-family:monospace;font-size:11px">'+b.date+'</td>'
+      +'<td style="font-family:monospace;font-size:11px;white-space:nowrap">'+b.st+'–'+b.et+'</td>'
+      +'<td style="font-size:11px">'+otCell+'</td>'
+      +'<td><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+col+';margin-right:4px;vertical-align:middle"></span>'+(b.caseType==='emergency'?'Emergency':'Elective')+'</td>'
+      +'<td style="font-weight:600;white-space:nowrap">'+b.pn+'</td>'
+      +'<td style="font-family:monospace;font-size:10px">'+b.ic+'</td>'
+      +'<td style="font-size:11px;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+b.proc+'</td>'
+      +'<td style="font-size:11px">'+b.dr+'</td>'
+      +'<td style="font-size:11px">'+b.dept+'</td>'
+      +'<td><span class="badge '+sc+'">'+b.status+'</span></td>'
+      +'<td><div style="display:flex;gap:4px"><button class="bsm bsm-e" onclick="showDet(\''+b.id+'\')">View</button>'
+      +(b.status==='Pending'?'<button class="btn btn-p" style="padding:2px 7px;font-size:10px" onclick="openApprove(\''+b.id+'\')">Approve</button>':'')
+      +(b.status!=='Cancelled'?'<button class="bsm bsm-d" onclick="openCancel(\''+b.id+'\')">Cancel</button>':'')
+      +'</div></td></tr>';
+  });
+  E('admBkTbl').innerHTML=h||'<tr><td colspan="12" style="text-align:center;padding:20px;color:var(--g5)">No bookings found</td></tr>';
+}
+
+// ── HISTORY ───────────────────────────────────────────────────
+function getHistFilters(){
+  return {
+    q:(E('hSearch')?E('hSearch').value.trim().toLowerCase():''),
+    from:(E('hFrom')?E('hFrom').value:''),
+    to:(E('hTo')?E('hTo').value:''),
+    ot:(E('hOT')?E('hOT').value:''),
+    dept:(E('hDept')?E('hDept').value:''),
+    stat:(E('hStat')?E('hStat').value:''),
+    ct:(E('hCT')?E('hCT').value:'')
+  };
+}
+
+function filterBookings(f){
+  return BOOKINGS.filter(function(b){
+    var q=f.q;
+    var matchQ=!q||(b.pn.toLowerCase().indexOf(q)>=0)||(b.ic.toLowerCase().indexOf(q)>=0)||(b.proc.toLowerCase().indexOf(q)>=0);
+    return matchQ
+      &&(!f.from||b.date>=f.from)
+      &&(!f.to||b.date<=f.to)
+      &&(!f.ot||b.ot===f.ot)
+      &&(!f.dept||b.dept===f.dept)
+      &&(!f.stat||b.status===f.stat)
+      &&(!f.ct||b.caseType===f.ct);
+  }).sort(function(a,b){return b.date.localeCompare(a.date)||b.st.localeCompare(a.st);});
+}
+
+function hl(text, q){
+  if(!q) return text;
+  var re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return text.replace(re,'<span class="hl">$1</span>');
+}
+
+function renderHist(){
+  var f=getHistFilters(), q=f.q;
+  var list=filterBookings(f);
+  var confirmed=list.filter(function(b){return b.status==='Confirmed';}).length;
+  var cancelled=list.filter(function(b){return b.status==='Cancelled';}).length;
+  var sumEl=E('histSummary');
+  if(sumEl) sumEl.innerHTML='<strong style="color:var(--w)">'+list.length+'</strong> booking'+(list.length!==1?'s':'')+' found'
+    +(list.length?(' &nbsp;·&nbsp; <span style="color:var(--grn)">'+confirmed+' confirmed</span>'
+    +(cancelled?' &nbsp;·&nbsp; <span style="color:var(--red)">'+cancelled+' cancelled</span>':'')):'');
+  if(!list.length){
+    E('histTbl').innerHTML='<tr><td colspan="14" style="text-align:center;padding:40px;color:var(--g5)">'
+      +(f.q||f.from||f.to||f.ot||f.dept||f.stat?'No bookings match your search criteria.':'Use the filters above to search booking history.')
+      +'</td></tr>';
+    return;
+  }
+  var h='';
+  list.forEach(function(b){
+    var r=roomOf(b.ot);
+    var sc=b.status==='Confirmed'?'b-ok':'b-no';
+    var col=bkColor(b);
+    var bldgShort=r.building==='main'?'Main':'WCC';
+    h+='<tr>'
+      +'<td style="font-family:monospace;font-size:10px">'+b.id+'</td>'
+      +'<td style="font-family:monospace;font-size:11px;white-space:nowrap">'+b.date+'</td>'
+      +'<td style="font-family:monospace;font-size:11px;white-space:nowrap">'+b.st+'–'+b.et+'</td>'
+      +'<td style="font-size:11px;white-space:nowrap"><span style="color:var(--teal);font-weight:600">'+bldgShort+'</span> · '+r.name+'</td>'
+      +'<td style="font-size:11px;white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+col+';margin-right:4px;vertical-align:middle"></span>'+(b.caseType==='emergency'?'Emergency':'Elective')+'</td>'
+      +'<td style="font-weight:600;white-space:nowrap">'+hl(b.pn,q)+'</td>'
+      +'<td style="font-family:monospace;font-size:11px">'+hl(b.ic,q)+'</td>'
+      +'<td style="font-size:11px;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+b.proc+'">'+hl(b.proc,q)+'</td>'
+      +'<td style="font-size:11px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+b.dx+'">'+b.dx+'</td>'
+      +'<td style="font-size:11px;white-space:nowrap">'+b.dr+'</td>'
+      +'<td style="font-size:11px">'+b.dept+'</td>'
+      +'<td style="font-size:11px;white-space:nowrap">'+b.co+'</td>'
+      +'<td><span class="badge '+sc+'">'+b.status+'</span></td>'
+      +'<td><button class="bsm bsm-e" onclick="showDet(\''+b.id+'\')">View</button></td>'
+      +'</tr>';
+  });
+  E('histTbl').innerHTML=h;
+}
+
+function clearHist(){
+  ['hSearch','hFrom','hTo'].forEach(function(id){if(E(id))E(id).value='';});
+  ['hOT','hDept','hStat','hCT','hQuick'].forEach(function(id){if(E(id))E(id).selectedIndex=0;});
+  renderHist();
+}
+
+function applyQuickRange(){
+  var v=E('hQuick').value;
+  if(!v){return;}
+  var now=new Date(), y=now.getFullYear(), m=now.getMonth(), d=now.getDate();
+  var from='', to='';
+  function fmt2(dt){return dt.toISOString().split('T')[0];}
+  if(v==='today'){from=fmt2(now);to=fmt2(now);}
+  else if(v==='yesterday'){var y2=new Date(now);y2.setDate(d-1);from=fmt2(y2);to=fmt2(y2);}
+  else if(v==='thisweek'){var ws=new Date(now);ws.setDate(d-now.getDay());var we=new Date(ws);we.setDate(ws.getDate()+6);from=fmt2(ws);to=fmt2(we);}
+  else if(v==='lastweek'){var lws=new Date(now);lws.setDate(d-now.getDay()-7);var lwe=new Date(lws);lwe.setDate(lws.getDate()+6);from=fmt2(lws);to=fmt2(lwe);}
+  else if(v==='thismonth'){from=fmt2(new Date(y,m,1));to=fmt2(new Date(y,m+1,0));}
+  else if(v==='lastmonth'){from=fmt2(new Date(y,m-1,1));to=fmt2(new Date(y,m,0));}
+  else if(v==='last3m'){var t3=new Date(now);t3.setMonth(m-3);from=fmt2(t3);to=fmt2(now);}
+  else if(v==='all'){from='';to='';}
+  if(E('hFrom'))E('hFrom').value=from;
+  if(E('hTo'))E('hTo').value=to;
+  renderHist();
+}
+
+// ── EXPORT CSV (Excel-compatible) ────────────────────────────
+function exportCSV(){
+  var f=getHistFilters(), list=filterBookings(f);
+  if(!list.length){toast('No bookings to export','er');return;}
+  var cols=['Booking ID','Date','Start Time','End Time','OT Room','Case Type','Patient Name','IC / Passport','Age','Gender','Race','Last Meal Date','Last Meal Time','Procedure','Diagnosis','Requesting Doctor','Doctor Contact','Department','Consultant / Specialist','Status','Notes'];
+  var rows=[cols];
+  list.forEach(function(b){
+    var r=roomOf(b.ot);
+    rows.push([b.id,b.date,b.st,b.et,r.name,b.caseType||'',b.pn,b.ic,b.age||'',b.gender||'',b.race||'',b.mealDate||'',b.mealTime||'',b.proc,b.dx,b.dr,b.drTel||'',b.dept,b.co,b.status,b.notes||'']);
+  });
+  var csv=rows.map(function(row){
+    return row.map(function(cell){
+      var s=String(cell).replace(/"/g,'""');
+      return (s.indexOf(',')>=0||s.indexOf('"')>=0||s.indexOf('\n')>=0)?'"'+s+'"':s;
+    }).join(',');
+  }).join('\r\n');
+  var BOM='\uFEFF'; // UTF-8 BOM for Excel
+  var blob=new Blob([BOM+csv],{type:'text/csv;charset=utf-8;'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url; a.download='OT_Bookings_'+new Date().toISOString().split('T')[0]+'.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('Exported '+list.length+' bookings to CSV','ok');
+}
+
+// ── EXPORT PDF ────────────────────────────────────────────────
+function exportPDF(){
+  var f=getHistFilters(), list=filterBookings(f);
+  if(!list.length){toast('No bookings to export','er');return;}
+  var fromLbl=f.from||'All time';
+  var toLbl=f.to||'Present';
+  var searchLbl=f.q?(' | Search: "'+f.q+'"'):'';
+  var otLbl=f.ot?(' | OT: '+f.ot):'';
+  var deptLbl=f.dept?(' | Dept: '+f.dept):'';
+  var statLbl=f.stat?(' | Status: '+f.stat):'';
+
+  var rows=list.map(function(b){
+    var r=roomOf(b.ot);
+    var sc=b.status==='Confirmed'?'#059669':'#DC2626';
+    var bldgShort=r.building==='main'?'Main':'WCC';
+    var fs=fastingStr(b);
+    var fsWarn=fs.indexOf('⚠')>=0;
+    return '<tr>'
+      +'<td>'+b.date+'</td>'
+      +'<td>'+b.st+'–'+b.et+'</td>'
+      +'<td>'+bldgShort+' '+r.name+'</td>'
+      +'<td><span style="color:'+(b.caseType==='emergency'?'#DC2626':'#059669')+';font-weight:700">'+b.caseType+'</span></td>'
+      +'<td><strong>'+b.pn+'</strong></td>'
+      +'<td style="font-family:monospace;font-size:10px">'+b.ic+'</td>'
+      +'<td>'+(b.age||'—')+'</td>'
+      +'<td>'+(b.gender||'—')+'</td>'
+      +'<td>'+(b.race||'—')+'</td>'
+      +'<td style="color:'+(fsWarn?'#DC2626':'#059669')+'">'+fs+'</td>'
+      +'<td>'+b.proc+'</td>'
+      +'<td>'+b.dx+'</td>'
+      +'<td>'+b.dr+'<br><span style="font-family:monospace;font-size:9px;color:#666">'+(b.drTel||'—')+'</span></td>'
+      +'<td>'+b.dept+'</td>'
+      +'<td>'+b.co+'</td>'
+      +'<td><span style="color:'+sc+';font-weight:700;font-size:10px">'+b.status+'</span></td>'
+      +'</tr>';
+  }).join('');
+
+  var confirmed=list.filter(function(b){return b.status==='Confirmed';}).length;
+  var cancelled=list.filter(function(b){return b.status==='Cancelled';}).length;
+
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8">'
+    +'<title>OT Booking History Report</title>'
+    +'<style>'
+    +'*{margin:0;padding:0;box-sizing:border-box}'
+    +'body{font-family:Arial,sans-serif;font-size:11px;color:#111;padding:20px}'
+    +'.hdr{border-bottom:3px solid #0B4F6C;padding-bottom:12px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-end}'
+    +'.hdr h1{font-size:18px;color:#0B4F6C;font-weight:800}'
+    +'.hdr p{font-size:11px;color:#555;margin-top:3px}'
+    +'.hdr .logo{font-size:22px}'
+    +'.meta{background:#f0f7ff;border:1px solid #c0d8e8;border-radius:4px;padding:10px 14px;margin-bottom:14px;display:flex;gap:24px;flex-wrap:wrap}'
+    +'.meta-item label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;font-weight:700;display:block}'
+    +'.meta-item span{font-size:12px;font-weight:600;color:#0B4F6C}'
+    +'.stats{display:flex;gap:14px;margin-bottom:14px}'
+    +'.stat{flex:1;border:1px solid #ddd;border-radius:4px;padding:8px 12px;text-align:center}'
+    +'.stat .n{font-size:22px;font-weight:800}'
+    +'.stat .l{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.5px}'
+    +'table{width:100%;border-collapse:collapse;margin-bottom:16px}'
+    +'th{background:#0B4F6C;color:#fff;padding:6px 8px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.5px}'
+    +'td{padding:5px 8px;border-bottom:1px solid #e8e8e8;vertical-align:top}'
+    +'tr:nth-child(even) td{background:#f9f9f9}'
+    +'.footer{border-top:1px solid #ddd;padding-top:8px;font-size:10px;color:#888;display:flex;justify-content:space-between}'
+    +'@media print{body{padding:10px}}'
+    +'</style></head><body>'
+    +'<div class="hdr"><div><div class="logo">🏥</div><h1>OT Booking History Report</h1>'
+    +'<p>Ministry of Health Malaysia &nbsp;·&nbsp; Generated: '+new Date().toLocaleString('en-MY')+'</p></div>'
+    +'<div style="text-align:right;font-size:11px;color:#555">'+(f.from||f.to?'Period: '+fromLbl+' to '+toLbl:'All dates')+(searchLbl||otLbl||deptLbl||statLbl)+'</div></div>'
+    +'<div class="stats">'
+    +'<div class="stat"><div class="n" style="color:#0B4F6C">'+list.length+'</div><div class="l">Total Bookings</div></div>'
+    +'<div class="stat"><div class="n" style="color:#059669">'+confirmed+'</div><div class="l">Confirmed</div></div>'
+    +'<div class="stat"><div class="n" style="color:#DC2626">'+cancelled+'</div><div class="l">Cancelled</div></div>'
+    +'</div>'
+    +'<table><thead><tr>'
+    +'<th>Date</th><th>Time</th><th>OT</th><th>Type</th><th>Patient Name</th><th>IC</th>'
+    +'<th>Age</th><th>Gender</th><th>Race</th><th>Fasting</th>'
+    +'<th>Procedure</th><th>Diagnosis</th><th>Doctor</th><th>Department</th><th>Consultant</th><th>Status</th>'
+    +'</tr></thead><tbody>'+rows+'</tbody></table>'
+    +'<div class="footer"><span>OT Booking System — MOH Malaysia</span><span>Total: '+list.length+' record'+(list.length!==1?'s':'')+'</span></div>'
+    +'</body></html>';
+
+  var w=window.open('','_blank','width=1100,height=700');
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){w.print();},400);
+  toast('PDF report opened — use Print > Save as PDF','ok');
+}
+
+
+function toast(msg,t){
+  var d=document.createElement('div');
+  d.className='toast tst-'+(t==='ok'?'ok':t==='er'?'er':'in');
+  d.textContent=msg;
+  document.body.appendChild(d);
+  setTimeout(function(){d.style.animation='tfade .3s ease reverse';setTimeout(function(){d.remove();},300);},3200);
+}
+</script>
+<!-- APPROVE / ASSIGN MODAL (admin only) -->
+<div class="overlay" id="mApprove" style="display:none" onclick="if(event.target===this)closeM('mApprove')">
+  <div class="modal sm">
+    <div class="mhdr"><div class="mtit">Approve &amp; Assign OT</div><button class="mclose" onclick="closeM('mApprove')">×</button></div>
+    <div class="mbody">
+      <div style="font-size:12px;color:var(--g3);margin-bottom:14px">
+        Assign an OT room to confirm this booking. Only active rooms in the correct building are shown.
+      </div>
+      <div class="fg" style="margin-bottom:14px">
+        <label class="flabel">Building</label>
+        <select class="finput" id="aaBldg" onchange="refreshAArooms()">
+          <option value="main">Main Building</option>
+          <option value="wcc">Women &amp; Children's Centre</option>
+        </select>
+      </div>
+      <div class="fg" style="margin-bottom:6px">
+        <label class="flabel">Assign OT Room *</label>
+        <select class="finput" id="aaOT"></select>
+      </div>
+      <div id="aaConflictWarn" style="display:none;margin-top:8px;padding:8px 10px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:5px;font-size:11px;color:var(--red)"></div>
+    </div>
+    <div class="mfoot">
+      <button class="btn btn-o" onclick="closeM('mApprove')">Cancel</button>
+      <button class="btn btn-p" onclick="doApprove()">✓ Confirm &amp; Assign</button>
+    </div>
+  </div>
+</div>
+
+<!-- CANCEL MODAL (admin only) -->
+<div class="overlay" id="mCancel" style="display:none" onclick="if(event.target===this)closeM('mCancel')">
+  <div class="modal sm">
+    <div class="mhdr"><div class="mtit">Cancel Booking</div><button class="mclose" onclick="closeM('mCancel')">×</button></div>
+    <div class="mbody">
+      <div style="font-size:12px;color:var(--g3);margin-bottom:14px">
+        Select a reason for cancellation. This will be recorded and visible in the booking history.
+      </div>
+      <div class="fg" style="margin-bottom:12px">
+        <label class="flabel">Reason *</label>
+        <select class="finput" id="cxReason" onchange="toggleCxOther()">
+          <option value="">— Select reason —</option>
+          <option value="Patient not fit for surgery">Patient not fit for surgery</option>
+          <option value="Patient requested cancellation">Patient requested cancellation</option>
+          <option value="OT not available / scheduling conflict">OT not available / scheduling conflict</option>
+          <option value="Incomplete pre-operative workup">Incomplete pre-operative workup</option>
+          <option value="Emergency case took priority">Emergency case took priority</option>
+          <option value="other">Other (specify below)</option>
+        </select>
+      </div>
+      <div class="fg" id="cxOtherGrp" style="display:none;margin-bottom:4px">
+        <label class="flabel">Specify Reason *</label>
+        <textarea class="finput" id="cxOther" rows="2" placeholder="Describe the reason for cancellation..."></textarea>
+      </div>
+      <div class="err" id="cxErr" style="display:none"></div>
+    </div>
+    <div class="mfoot">
+      <button class="btn btn-o" onclick="closeM('mCancel')">Back</button>
+      <button class="btn btn-d" onclick="doCancel()">Cancel Booking</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

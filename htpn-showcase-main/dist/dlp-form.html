@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Laporan Kerosakan JKR</title>
+    
+    <!-- Memuatkan Tailwind CSS untuk reka bentuk -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Memuatkan React dan ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Memuatkan Babel untuk memproses kod React di dalam browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- PENTING: Memuatkan SheetJS untuk membaca fail Excel (.xlsx, .csv) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        /* Tetapan untuk Cetakan PDF */
+        @media print {
+            body { background-color: white; }
+            .print\:hidden { display: none !important; }
+            .print-container { border: none !important; margin: 0; padding: 0; }
+            @page { size: A4 portrait; margin: 10mm; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Ruang utama aplikasi -->
+    <div id="root"></div>
+
+    <!-- Kod Aplikasi React -->
+    <script type="text/babel">
+        const { useState, useRef, useEffect } = React;
+
+        // --- Komponen Ikon (Menggantikan Lucide-React untuk versi HTML) ---
+        const IconPlusCircle = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>;
+        const IconList = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>;
+        const IconPrinter = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>;
+        const IconDownload = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
+        const IconUpload = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>;
+        const IconSave = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>;
+        const IconCamera = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>;
+        const IconLoader2 = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>;
+        const IconLink = ({ className }) => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>;
+
+        function App() {
+            const [activeTab, setActiveTab] = useState('form');
+            const [reports, setReports] = useState([]);
+            const [selectedReport, setSelectedReport] = useState(null);
+            const [isScanning, setIsScanning] = useState(false);
+            const [isSubmitting, setIsSubmitting] = useState(false);
+            const [isImporting, setIsImporting] = useState(false); 
+            const fileInputRef = useRef(null);
+            const importInputRef = useRef(null); 
+
+            // URL Google Apps Script
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxoIlhxiAKqsEPKLKdz_ze7SBxgtIQ9JxL9mK7CzdnTFpQJQbtZU0vHZk6-a5q_B5JTyw/exec';
+
+            // Default Form State
+            const initialFormState = {
+                projek: 'NAIKTARAF HOSPITAL KAJANG, SELANGOR (REKA & BINA)',
+                noKontrak: 'JKR/IP/CKUB/80/2018',
+                noAduan: '',
+                jenisKerosakan: '',
+                laporan: '',
+                lokasi: '',
+                tarikh: new Date().toISOString().split('T')[0],
+                namaPelapor: '',
+                jabatanUnit: '',
+                noTelefon: '',
+                bidang: [],
+                kategoriKecacatan: '',
+                tindakanJKR: '',
+                sebabTolak: '',
+                tarikhArahanKeluar: '',
+                tarikhTerimaArahan: '',
+                tarikhSiapSetuju: ''
+            };
+
+            const [formData, setFormData] = useState(initialFormState);
+
+            const handleInputChange = (e) => {
+                const { name, value, type, checked } = e.target;
+                
+                if (type === 'checkbox') {
+                    if (name === 'bidang') {
+                        let newBidang = [...formData.bidang];
+                        if (checked) newBidang.push(value);
+                        else newBidang = newBidang.filter(item => item !== value);
+                        setFormData({ ...formData, bidang: newBidang });
+                    } else {
+                        setFormData({ ...formData, [name]: checked });
+                    }
+                } else {
+                    setFormData({ ...formData, [name]: value });
+                }
+            };
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
+                
+                const newReport = { ...formData, id: Date.now() };
+
+                try {
+                    if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'LETAK_URL_APPS_SCRIPT_ANDA_DI_SINI') {
+                        await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(newReport)
+                        });
+                    }
+
+                    setReports([newReport, ...reports]);
+                    setFormData(initialFormState);
+                    alert('Laporan berjaya disimpan!');
+                    setActiveTab('list');
+                } catch (error) {
+                    console.error("Ralat menyimpan:", error);
+                    alert("Terdapat ralat ketika menyimpan ke database.");
+                } finally {
+                    setIsSubmitting(false);
+                }
+            };
+
+            // --- FUNGSI PROSES DATA IMPORT KESELURUHAN ---
+            // Fungsi ini digunakan oleh kedua-dua import (Excel & URL)
+            const processImportedData = async (jsonData) => {
+                const importedReports = jsonData.map((row, index) => {
+                    return {
+                        id: Date.now() + index,
+                        projek: row['Nama Projek'] || row['Projek'] || 'NAIKTARAF HOSPITAL KAJANG, SELANGOR (REKA & BINA)',
+                        noKontrak: row['No Kontrak'] || 'JKR/IP/CKUB/80/2018',
+                        noAduan: row['No Aduan'] || row['Aduan'] || row['No_Aduan'] || `IMP-${index+1}`,
+                        jenisKerosakan: row['Jenis Kerosakan'] || row['Kerosakan'] || row['Jenis_Kerosakan'] || '',
+                        laporan: row['Laporan'] || row['Keterangan'] || row['Butiran'] || '',
+                        lokasi: row['Lokasi'] || row['Tempat'] || '',
+                        tarikh: row['Tarikh'] || row['Tarikh Laporan'] || new Date().toISOString().split('T')[0],
+                        namaPelapor: row['Nama Pelapor'] || row['Pelapor'] || row['Nama'] || '',
+                        jabatanUnit: row['Jabatan/Unit'] || row['Jabatan'] || row['Unit'] || '',
+                        noTelefon: row['No Telefon'] || row['Telefon'] || row['No Tel'] || '',
+                        bidang: [],
+                        kategoriKecacatan: row['Kategori'] || row['Kategori Kecacatan'] || '0 (Tidak Kritikal)',
+                        tindakanJKR: '',
+                        sebabTolak: '',
+                        tarikhArahanKeluar: '',
+                        tarikhTerimaArahan: '',
+                        tarikhSiapSetuju: ''
+                    };
+                }).filter(r => r.laporan || r.jenisKerosakan); // tapis baris yang kosong
+
+                if (importedReports.length === 0) {
+                    alert("Tiada rekod sah yang dijumpai. Pastikan fail Excel/Sheet mempunyai kolum seperti 'No Aduan', 'Jenis Kerosakan', 'Laporan' dll.");
+                    return;
+                }
+
+                // Kemaskini state tempatan supaya boleh digenerate PDF
+                setReports(prev => [...importedReports, ...prev]);
+
+                // Hantar data ke Google Sheets satu persatu
+                if (GOOGLE_SCRIPT_URL) {
+                    for (const report of importedReports) {
+                        try {
+                            await fetch(GOOGLE_SCRIPT_URL, {
+                                method: 'POST',
+                                mode: 'no-cors',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(report)
+                            });
+                        } catch (err) {
+                            console.error("Ralat sinkronisasi data import:", err);
+                        }
+                    }
+                }
+
+                alert(`Berjaya! ${importedReports.length} laporan telah diimport dan direkodkan ke pangkalan data utama Google Sheets.`);
+            };
+
+            // FUNGSI 1: IMPORT FAIL EXCEL/CSV
+            const handleImportExcel = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                setIsImporting(true);
+                try {
+                    const data = await file.arrayBuffer();
+                    const workbook = XLSX.read(data);
+                    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { raw: false });
+                    
+                    await processImportedData(jsonData);
+                } catch (error) {
+                    console.error(error);
+                    alert("Ralat semasa membaca fail: " + error.message);
+                } finally {
+                    setIsImporting(false);
+                    e.target.value = ''; // Reset input
+                }
+            };
+
+            // FUNGSI 2: IMPORT DARI URL GOOGLE SHEET ORANG LAIN
+            const handleImportGoogleSheetURL = async () => {
+                const url = window.prompt(
+                    "SILA BACA SYARAT INI DULU:\n" +
+                    "Pastikan Google Sheet tersebut telah diubah Share setting kepada 'Anyone with the link can view'.\n\n" +
+                    "Sila letakkan/tampal (Paste) pautan (URL) Google Sheet di bawah:"
+                );
+                
+                if (!url) return;
+
+                // Ekstrak ID Sheet dari URL
+                const matchId = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
+                if (!matchId) {
+                    alert("Pautan tidak sah. Sila pastikan anda menyalin (copy) URL penuh dari browser.");
+                    return;
+                }
+                const sheetId = matchId[1];
+                
+                // Cuba dapatkan ID tab (gid) jika ada dalam URL
+                const matchGid = url.match(/gid=([0-9]+)/);
+                const gid = matchGid ? matchGid[1] : '0';
+
+                setIsImporting(true);
+                
+                try {
+                    // Format Eksport CSV Rasmi
+                    const exportUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
+                    let csvText = "";
+
+                    try {
+                        // Percubaan 1: Panggilan terus
+                        const response = await fetch(exportUrl);
+                        if (!response.ok) throw new Error("CORS Blocked");
+                        csvText = await response.text();
+                    } catch (err) {
+                        // Percubaan 2: Jika "Failed to fetch" (CORS), guna pelayan proksi AllOrigins
+                        console.warn("Sekatan CORS dikesan, cuba memintas menggunakan pelayan proksi...");
+                        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(exportUrl)}`;
+                        const proxyResponse = await fetch(proxyUrl);
+                        
+                        if (!proxyResponse.ok) throw new Error("Pautan tidak wujud atau tidak dibenarkan diakses.");
+                        csvText = await proxyResponse.text();
+                    }
+                    
+                    // Semak jika Google memulangkan halaman Login HTML dan bukannya data (Sekatan Workspace KKM)
+                    if (csvText.trim().toLowerCase().startsWith('<!doctype html>') || csvText.includes('<html')) {
+                        throw new Error("Sekatan Keselamatan: Akaun Google Workspace anda (MOH) menghalang data disedut secara automatik. Sila muat turun fail Google Sheet itu ke 'Excel (.xlsx)' secara manual dan guna butang 'Fail Excel' di sebelah.");
+                    }
+                    
+                    // Gunakan SheetJS untuk menukar CSV string ke JSON
+                    const workbook = XLSX.read(csvText, { type: 'string' });
+                    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { raw: false });
+                    
+                    await processImportedData(jsonData);
+                    
+                } catch (error) {
+                    console.error(error);
+                    alert("Ralat Akses: \n\n" + error.message);
+                } finally {
+                    setIsImporting(false);
+                }
+            };
+
+            const fileToBase64 = (file) => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = error => reject(error);
+            });
+
+            const handleImageUpload = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                setIsScanning(true);
+                try {
+                    const base64Data = await fileToBase64(file);
+                    const apiKey = ""; 
+
+                    const prompt = `Anda adalah sistem pengekstrakan data untuk Borang Laporan Kecacatan / Kerosakan JKR.
+                    Sila baca tulisan tangan dalam gambar borang ini dan ekstrak maklumat berikut.
+                    PENTING: Tukar 'tarikh' kepada format YYYY-MM-DD (cth: 31.3.2025 menjadi 2025-03-31).
+                    Kembalikan maklumat dalam format JSON SAHAJA seperti struktur berikut:
+                    {
+                        "noAduan": "",
+                        "jenisKerosakan": "",
+                        "laporan": "",
+                        "lokasi": "",
+                        "tarikh": "",
+                        "namaPelapor": "",
+                        "jabatanUnit": "",
+                        "noTelefon": ""
+                    }`;
+
+                    const payload = {
+                        contents: [{
+                            role: "user",
+                            parts: [
+                                { text: prompt },
+                                { inlineData: { mimeType: file.type, data: base64Data } }
+                            ]
+                        }],
+                        generationConfig: {
+                            responseMimeType: "application/json"
+                        }
+                    };
+
+                    const fetchWithRetry = async (url, options, retries = 5) => {
+                        const delays = [1000, 2000, 4000, 8000, 16000];
+                        for (let i = 0; i < retries; i++) {
+                            try {
+                                const res = await fetch(url, options);
+                                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                                return await res.json();
+                            } catch (err) {
+                                if (i === retries - 1) throw err;
+                                await new Promise(resolve => setTimeout(resolve, delays[i]));
+                            }
+                        }
+                    };
+
+                    const result = await fetchWithRetry(
+                        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        }
+                    );
+
+                    const textResult = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (textResult) {
+                        const extractedData = JSON.parse(textResult);
+                        
+                        setFormData(prev => ({
+                            ...prev,
+                            noAduan: extractedData.noAduan || prev.noAduan,
+                            jenisKerosakan: extractedData.jenisKerosakan || prev.jenisKerosakan,
+                            laporan: extractedData.laporan || prev.laporan,
+                            lokasi: extractedData.lokasi || prev.lokasi,
+                            tarikh: extractedData.tarikh || prev.tarikh,
+                            namaPelapor: extractedData.namaPelapor || prev.namaPelapor,
+                            jabatanUnit: extractedData.jabatanUnit || prev.jabatanUnit,
+                            noTelefon: extractedData.noTelefon || prev.noTelefon
+                        }));
+                        
+                        alert('Maklumat berjaya diekstrak dari gambar!');
+                    } else {
+                        throw new Error("Gagal mengekstrak teks dari gambar.");
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                    alert('Maklumat: Fungsi imbasan AI ini memerlukan API Key. Sila taip secara manual buat masa ini atau masukkan API Key yang sah di dalam kod.');
+                } finally {
+                    setIsScanning(false);
+                    e.target.value = ''; 
+                }
+            };
+
+            const viewPrintFormat = (report) => {
+                setSelectedReport(report);
+                setActiveTab('print');
+            };
+
+            const exportToCSV = () => {
+                if (reports.length === 0) {
+                    alert("Tiada data untuk dieksport.");
+                    return;
+                }
+                const headers = ['No Aduan', 'Tarikh', 'Jenis Kerosakan', 'Laporan', 'Lokasi', 'Pelapor', 'Jabatan', 'No Telefon', 'Kategori'];
+                const csvData = reports.map(r => [
+                    r.noAduan, r.tarikh, r.jenisKerosakan, `"${r.laporan}"`, r.lokasi, r.namaPelapor, r.jabatanUnit, r.noTelefon, r.kategoriKecacatan
+                ]);
+                
+                let csvContent = "data:text/csv;charset=utf-8," 
+                    + headers.join(",") + "\n" 
+                    + csvData.map(e => e.join(",")).join("\n");
+                    
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "laporan_kerosakan.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+
+            const renderFormView = () => (
+                <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md print:hidden">
+                    <div className="flex justify-between items-center mb-6 border-b pb-4">
+                        <h2 className="text-2xl font-bold text-gray-800">Borang Laporan Kecacatan / Kerosakan</h2>
+                        
+                        <div>
+                            <input 
+                                type="file" 
+                                accept="image/*" 
+                                capture="environment"
+                                ref={fileInputRef}
+                                onChange={handleImageUpload}
+                                className="hidden" 
+                            />
+                            <button 
+                                type="button"
+                                onClick={() => fileInputRef.current.click()}
+                                disabled={isScanning}
+                                className={`flex items-center px-4 py-2 rounded-md text-white font-medium transition ${
+                                    isScanning ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700 shadow-sm'
+                                }`}
+                            >
+                                {isScanning ? (
+                                    <><IconLoader2 className="w-5 h-5 mr-2 animate-spin" /> Sedang Membaca...</>
+                                ) : (
+                                    <><IconCamera className="w-5 h-5 mr-2" /> Imbas Borang (Auto-Isi)</>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="bg-gray-50 p-4 rounded border">
+                            <h3 className="font-semibold text-gray-700 mb-3">Maklumat Projek</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Nama Projek</label>
+                                    <input type="text" name="projek" value={formData.projek} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">No Kontrak</label>
+                                    <input type="text" name="noKontrak" value={formData.noKontrak} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">No Aduan</label>
+                                    <input type="text" name="noAduan" value={formData.noAduan} onChange={handleInputChange} required placeholder="Contoh: L1 ED 0142" className="w-full border-gray-300 rounded-md shadow-sm p-2 border bg-blue-50 focus:ring-blue-500 focus:border-blue-500" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded border">
+                            <h3 className="font-semibold text-gray-700 mb-3">Butiran Laporan</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Jenis Kecacatan/Kerosakan</label>
+                                    <input type="text" name="jenisKerosakan" value={formData.jenisKerosakan} onChange={handleInputChange} required className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                                <div className="md:col-span-2">
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Laporan (Keterangan)</label>
+                                    <textarea name="laporan" value={formData.laporan} onChange={handleInputChange} rows="3" required className="w-full border-gray-300 rounded-md shadow-sm p-2 border"></textarea>
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Lokasi</label>
+                                    <input type="text" name="lokasi" value={formData.lokasi} onChange={handleInputChange} required className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Tarikh Laporan</label>
+                                    <input type="date" name="tarikh" value={formData.tarikh} onChange={handleInputChange} required className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-gray-50 p-4 rounded border">
+                            <h3 className="font-semibold text-gray-700 mb-3">Butiran Pelapor</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Nama Pelapor</label>
+                                    <input type="text" name="namaPelapor" value={formData.namaPelapor} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Jabatan / Unit</label>
+                                    <input type="text" name="jabatanUnit" value={formData.jabatanUnit} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">No Telefon</label>
+                                    <input type="text" name="noTelefon" value={formData.noTelefon} onChange={handleInputChange} className="w-full border-gray-300 rounded-md shadow-sm p-2 border" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-blue-50 p-4 rounded border border-blue-200">
+                            <h3 className="font-semibold text-blue-800 mb-3">Kegunaan Pejabat</h3>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Kategori Kecacatan</label>
+                                <div className="flex space-x-6">
+                                    {['0 (Tidak Kritikal)', '1 (Kritikal-Kefungsian)', '2 (Kritikal-Keselamatan)'].map(kat => (
+                                        <label key={kat} className="inline-flex items-center">
+                                            <input type="radio" name="kategoriKecacatan" value={kat} checked={formData.kategoriKecacatan === kat} onChange={handleInputChange} className="form-radio text-blue-600" />
+                                            <span className="ml-2 text-sm">{kat}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-end gap-3 mt-8">
+                            <button type="button" onClick={() => setFormData(initialFormState)} className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition" disabled={isSubmitting}>Reset</button>
+                            <button type="submit" disabled={isSubmitting} className={`px-6 py-2 text-white rounded-md transition flex items-center ${isSubmitting ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}>
+                                {isSubmitting ? <IconLoader2 className="w-4 h-4 mr-2 animate-spin" /> : <IconSave className="w-4 h-4 mr-2" />}
+                                {isSubmitting ? 'Menyimpan...' : 'Simpan Laporan'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            );
+
+            const renderListView = () => (
+                <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md print:hidden">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b pb-4 gap-4">
+                        <h2 className="text-2xl font-bold text-gray-800">Senarai Laporan Direkodkan</h2>
+                        <div className="flex flex-wrap gap-2">
+                            {/* Butang Export CSV Sedia Ada */}
+                            <button onClick={exportToCSV} className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition flex items-center text-sm">
+                                <IconDownload className="w-4 h-4 mr-1" /> Eksport CSV
+                            </button>
+                            
+                            {/* Butang Import Excel Sedia Ada */}
+                            <input 
+                                type="file" 
+                                accept=".xlsx, .xls, .csv" 
+                                ref={importInputRef}
+                                onChange={handleImportExcel}
+                                className="hidden" 
+                            />
+                            <button 
+                                onClick={() => importInputRef.current.click()} 
+                                disabled={isImporting}
+                                className={`px-4 py-2 text-white rounded-md transition flex items-center text-sm ${isImporting ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                            >
+                                {isImporting ? <IconLoader2 className="w-4 h-4 mr-1 animate-spin" /> : <IconUpload className="w-4 h-4 mr-1" />}
+                                Fail Excel
+                            </button>
+
+                            {/* Butang Import URL Google Sheet BARU */}
+                            <button 
+                                onClick={handleImportGoogleSheetURL} 
+                                disabled={isImporting}
+                                className={`px-4 py-2 text-white rounded-md transition flex items-center text-sm ${isImporting ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                            >
+                                {isImporting ? <IconLoader2 className="w-4 h-4 mr-1 animate-spin" /> : <IconLink className="w-4 h-4 mr-1" />}
+                                URL Google Sheet
+                            </button>
+                        </div>
+                    </div>
+                    
+                    {reports.length === 0 ? (
+                        <div className="text-center py-10 text-gray-500">Tiada laporan direkodkan setakat ini.</div>
+                    ) : (
+                        <div className="overflow-x-auto">
+                            <table className="min-w-full divide-y divide-gray-200">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No Aduan</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarikh</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lokasi</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kerosakan</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {reports.map((report) => (
+                                        <tr key={report.id} className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{report.noAduan}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{report.tarikh}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{report.lokasi}</td>
+                                            <td className="px-6 py-4 text-sm text-gray-500 max-w-xs truncate">{report.jenisKerosakan}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <button onClick={() => viewPrintFormat(report)} className="text-blue-600 hover:text-blue-900 flex items-center">
+                                                    <IconPrinter className="w-4 h-4 mr-1" /> PDF / Cetak
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            );
+
+            const renderPrintView = () => {
+                if (!selectedReport) return null;
+                const r = selectedReport;
+
+                return (
+                    <div className="max-w-4xl mx-auto bg-white mb-10">
+                        <div className="print:hidden mb-4 flex justify-between items-center p-4 bg-gray-100 rounded">
+                            <button onClick={() => setActiveTab('list')} className="px-4 py-2 border rounded hover:bg-gray-200">Kembali</button>
+                            <button onClick={() => window.print()} className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 flex items-center">
+                                <IconPrinter className="w-4 h-4 mr-2" /> Cetak ke PDF
+                            </button>
+                        </div>
+
+                        <div className="print-container border-2 border-black p-4 text-sm font-sans" style={{ minHeight: '297mm', backgroundColor: 'white' }}>
+                            <div className="text-right font-bold mb-2">LAMPIRAN 4</div>
+                            <table className="w-full border-collapse border-2 border-black mb-6">
+                                <tbody>
+                                    <tr>
+                                        <td className="border-2 border-black p-2 w-1/4 text-center align-middle">
+                                            <div className="font-bold text-lg border-b border-black inline-block mb-1 px-4">JKR</div>
+                                            <div className="font-bold text-xs mt-2">JKR MALAYSIA</div>
+                                        </td>
+                                        <td className="border-2 border-black p-2 w-2/4 text-center align-middle font-bold text-base">
+                                            PROSEDUR<br/>PENYERAHAN DAN POS<br/>PENYERAHAN
+                                        </td>
+                                        <td className="border-2 border-black p-2 w-1/4 text-xs align-top">
+                                            <div className="grid grid-cols-2 gap-1">
+                                                <div>No. Ruj. Dokumen</div><div>: JKR.PK(O).05-4</div>
+                                                <div>No. Keluaran</div><div>: 08</div>
+                                                <div>No. Pindaan</div><div>: 00</div>
+                                                <div>Tarikh</div><div>: 3 Januari 2025</div>
+                                                <div>Muka Surat</div><div>: 1 / 2</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h1 className="text-center font-bold text-lg mb-4 underline">BORANG LAPORAN KECACATAN/ KEROSAKAN</h1>
+
+                            <div className="border border-black mb-4">
+                                <div className="p-2 border-b border-black font-bold uppercase">
+                                    PROJEK :<br/><span className="font-normal pl-2">{r.projek}</span>
+                                </div>
+                                <div className="flex">
+                                    <div className="w-1/2 p-2 border-r border-black font-bold">
+                                        No Kontrak : <span className="font-normal">{r.noKontrak}</span>
+                                    </div>
+                                    <div className="w-1/2 p-2 font-bold flex justify-between items-center">
+                                        <span>No Aduan :</span>
+                                        <span className="font-mono tracking-[0.3em] uppercase border border-black px-2 py-1 bg-gray-50">{r.noAduan}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="border border-black mb-4 p-2 relative h-40">
+                                <div className="font-bold mb-2 uppercase text-xs">Butiran Laporan:</div>
+                                <div className="mb-2 leading-relaxed">
+                                    <span className="font-bold">Jenis Kecacatan/Kerosakan:</span> <span className="underline decoration-dotted underline-offset-4">{r.jenisKerosakan}</span>
+                                </div>
+                                <div className="mb-4 leading-relaxed flex items-start">
+                                    <span className="font-bold mr-2">Laporan :</span> 
+                                    <span className="underline decoration-dotted underline-offset-4 flex-1 inline-block min-h-[3rem]">{r.laporan}</span>
+                                </div>
+                                <div className="absolute bottom-2 left-2 right-2 flex justify-between">
+                                    <div className="w-1/2"><span className="font-bold">Lokasi :</span> <span className="underline decoration-dotted underline-offset-4">{r.lokasi}</span></div>
+                                    <div className="w-1/2"><span className="font-bold">Tarikh :</span> <span className="underline decoration-dotted underline-offset-4">{r.tarikh}</span></div>
+                                </div>
+                            </div>
+
+                            <div className="flex border border-black mb-4 h-32">
+                                <div className="w-3/5 border-r border-black p-2 relative">
+                                    <div className="font-bold uppercase text-xs mb-2">Butiran Pelapor:</div>
+                                    <div className="mb-2"><span className="inline-block w-24">Nama Pelapor</span>: <span className="underline decoration-dotted underline-offset-4">{r.namaPelapor || ' '}</span></div>
+                                    <div className="mb-2"><span className="inline-block w-24">Jabatan / Unit</span>: <span className="underline decoration-dotted underline-offset-4">{r.jabatanUnit || ' '}</span></div>
+                                    <div className="mb-2"><span className="inline-block w-24">No Telefon</span>: <span className="underline decoration-dotted underline-offset-4">{r.noTelefon || ' '}</span></div>
+                                </div>
+                                <div className="w-2/5 p-2 relative text-center text-xs flex flex-col justify-end pb-4">
+                                    <div className="border-b border-dotted border-black w-3/4 mx-auto mb-1 h-12"></div>
+                                    <div>Tandatangan & Cap Rasmi:</div>
+                                </div>
+                            </div>
+
+                            <div className="border border-black mb-4">
+                                <div className="p-2 border-b border-black text-xs font-bold bg-gray-50">
+                                    PEMERIKSAAN DAN PENGESAHAN ADUAN : (Diisi oleh pihak JKR)<br/>
+                                    <span className="font-normal italic">Tandakan (√) pada Bidang (Berdasarkan JKR.PK(O).04-8):</span>
+                                </div>
+                                <div className="p-4 grid grid-cols-3 gap-2 text-xs">
+                                    <div>
+                                        {['Am', 'Asas', 'Struktur', 'Jalan', 'Jambatan'].map(item => (
+                                            <div key={item} className="flex items-center mb-1"><div className="w-4 h-4 border border-black mr-2 bg-white"></div> {item}</div>
+                                        ))}
+                                    </div>
+                                    <div>
+                                        {['Maritim', 'Lapangan Terbang', 'Air', 'Pembetungan', 'Kerja Luar Bangunan'].map(item => (
+                                            <div key={item} className="flex items-center mb-1"><div className="w-4 h-4 border border-black mr-2 bg-white"></div> {item}</div>
+                                        ))}
+                                    </div>
+                                    <div>
+                                        {['Seni Bina', 'Mekanikal', 'Elektrikal'].map(item => (
+                                            <div key={item} className="flex items-center mb-1"><div className="w-4 h-4 border border-black mr-2 bg-white"></div> {item}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="px-2 pb-4 text-xs italic">
+                                    Tajuk berdasarkan bidang yang ditanda (√) (Rujuk- JKR.PK(O).04-8):<br/>
+                                    <div className="border-b border-dotted border-black mt-4 w-full"></div>
+                                </div>
+                                <div className="border-t border-black border-dashed p-2 text-xs flex items-center justify-between">
+                                    <div className="font-bold">Kategori Kecacatan :</div>
+                                    <div className="flex space-x-4">
+                                        <div className="flex items-center"><div className={`w-5 h-5 border border-black mr-2 flex items-center justify-center ${r.kategoriKecacatan.startsWith('0') ? 'font-bold' : ''}`}>{r.kategoriKecacatan.startsWith('0') ? '✓' : ''}</div> 0 (Tidak Kritikal)</div>
+                                        <div className="flex items-center"><div className={`w-5 h-5 border border-black mr-2 flex items-center justify-center ${r.kategoriKecacatan.startsWith('1') ? 'font-bold' : ''}`}>{r.kategoriKecacatan.startsWith('1') ? '✓' : ''}</div> 1 (Kritikal-Kefungsian)</div>
+                                        <div className="flex items-center"><div className={`w-5 h-5 border border-black mr-2 flex items-center justify-center ${r.kategoriKecacatan.startsWith('2') ? 'font-bold' : ''}`}>{r.kategoriKecacatan.startsWith('2') ? '✓' : ''}</div> 2 (Kritikal-Keselamatan)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex border border-black mb-4">
+                                <div className="w-1/2 border-r border-black p-2 text-xs">
+                                    <div className="font-bold mb-3 uppercase">Tindakan / Arahan JKR :</div>
+                                    <div className="flex items-center mb-2"><div className="w-4 h-4 border border-black mr-2"></div> Diterima dan pembaikan oleh kontraktor</div>
+                                    <div className="flex items-center mb-4"><div className="w-4 h-4 border border-black mr-2"></div> Ditolak atas sebab ...........................................................</div>
+                                    <div>Tarikh Arahan Dikeluarkan : ...............................................</div>
+                                    <div className="mt-16 text-center text-gray-500 italic border-t border-dotted border-black pt-2 w-4/5 mx-auto">
+                                        Tandatangan / Nama & Jawatan / Cap Rasmi:
+                                    </div>
+                                </div>
+                                <div className="w-1/2 p-2 text-xs">
+                                    <div className="font-bold mb-3 uppercase">Tindakan Kontraktor :</div>
+                                    <div className="mb-2">Tarikh Terima Arahan : ...........................................................</div>
+                                    <div className="mb-4">Tarikh Siap Dipersetujui : ...........................................................</div>
+                                    <div className="mt-16 text-center text-gray-500 italic border-t border-dotted border-black pt-2 w-4/5 mx-auto">
+                                        Tandatangan / Nama & Jawatan / Cap Rasmi:
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            };
+
+            return (
+                <div className="min-h-screen font-sans">
+                    <nav className="bg-blue-800 text-white shadow-md print:hidden">
+                        <div className="max-w-6xl mx-auto px-4">
+                            <div className="flex justify-between h-16">
+                                <div className="flex items-center font-bold text-xl tracking-wide">
+                                    Sistem Laporan JKR
+                                </div>
+                                <div className="flex space-x-4 items-center">
+                                    <button 
+                                        onClick={() => setActiveTab('form')} 
+                                        className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${activeTab === 'form' ? 'bg-blue-900 text-white' : 'text-blue-100 hover:bg-blue-700'}`}
+                                    >
+                                        <IconPlusCircle className="w-4 h-4 mr-2" /> Isi Laporan
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveTab('list')} 
+                                        className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${activeTab === 'list' ? 'bg-blue-900 text-white' : 'text-blue-100 hover:bg-blue-700'}`}
+                                    >
+                                        <IconList className="w-4 h-4 mr-2" /> Senarai Rekod
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <main className="p-6">
+                        {activeTab === 'form' && renderFormView()}
+                        {activeTab === 'list' && renderListView()}
+                        {activeTab === 'print' && renderPrintView()}
+                    </main>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

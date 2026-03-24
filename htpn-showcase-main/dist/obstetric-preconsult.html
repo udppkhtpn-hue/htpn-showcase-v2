@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Antenatal Health Form / Borang Kesihatan Antenatal</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:#e8547a; --rose-d:#c73060; --rose-pale:#fdeef3;
+  --purple:#7c5cbf; --purple-pale:#f0ecfb;
+  --teal:#1a9e8f; --teal-pale:#e6f7f5;
+  --green:#27a65c; --green-pale:#e8f8ef;
+  --gray50:#f9fafb; --gray100:#f2f4f6; --gray200:#e4e8ed;
+  --gray400:#9faab5; --gray600:#5c6a78; --gray800:#25303d;
+  --font:'Nunito',sans-serif; --r:18px; --rsm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{font-family:var(--font);background:#f5f0fb;color:var(--gray800);min-height:100vh}
+
+/* LANGUAGE PICKER */
+.lang-screen{
+  min-height:100vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:32px 24px; background:linear-gradient(160deg,#f5f0fb 0%,#fdeef3 100%);
+  text-align:center;
+}
+.lang-logo{font-size:52px;margin-bottom:16px}
+.lang-title{font-size:26px;font-weight:900;color:var(--purple);letter-spacing:-0.5px;line-height:1.2}
+.lang-sub{font-size:14px;color:var(--gray400);font-weight:600;margin-top:6px;margin-bottom:36px}
+.lang-btns{display:flex;flex-direction:column;gap:14px;width:100%;max-width:380px}
+.lang-btn{
+  padding:22px 20px; border-radius:var(--r); border:2.5px solid var(--gray200);
+  background:white; font-family:var(--font); cursor:pointer;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:0 4px 20px rgba(124,92,191,0.08);
+  transition:all 0.2s;
+}
+.lang-btn:hover,.lang-btn:active{border-color:var(--purple);background:var(--purple-pale);transform:scale(0.99)}
+.lang-flag{font-size:36px;flex-shrink:0}
+.lang-name{text-align:left}
+.lang-name strong{display:block;font-size:19px;font-weight:900;color:var(--gray800)}
+.lang-name span{font-size:13px;color:var(--gray400);font-weight:600}
+
+/* MAIN APP */
+.app{display:none}
+.app.show{display:block}
+
+.header{
+  background:linear-gradient(135deg,#7c5cbf 0%,#e8547a 100%);
+  padding:18px 20px 22px; color:white; position:relative; overflow:hidden;
+}
+.header::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,0.08);border-radius:50%}
+.header-inner{position:relative;z-index:1}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.header h1{font-size:20px;font-weight:900}
+.header p{font-size:12px;opacity:0.8;margin-top:2px;font-weight:600}
+.lang-switch-btn{
+  background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.3);
+  border-radius:20px;padding:5px 12px;font-family:var(--font);font-size:12px;
+  font-weight:800;color:white;cursor:pointer;letter-spacing:0.3px;
+}
+.progress-track{background:rgba(255,255,255,0.25);border-radius:6px;height:5px;overflow:hidden}
+.progress-fill{height:100%;background:white;border-radius:6px;transition:width 0.5s cubic-bezier(.4,0,.2,1)}
+.progress-info{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-weight:700;opacity:0.85}
+
+.steps-wrap{padding:20px 16px 120px;max-width:560px;margin:0 auto}
+
+.step{display:none;animation:stepIn 0.35s cubic-bezier(.4,0,.2,1)}
+.step.active{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateY(14px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.step-card{background:white;border-radius:var(--r);padding:24px 20px 20px;box-shadow:0 4px 24px rgba(124,92,191,0.10);border:1.5px solid rgba(124,92,191,0.07)}
+
+.step-emoji{font-size:34px;margin-bottom:10px;display:block}
+.sec-badge{display:inline-flex;align-items:center;background:var(--purple-pale);color:var(--purple);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:12px}
+.q-text{font-size:20px;font-weight:900;color:var(--gray800);line-height:1.3;margin-bottom:5px}
+.q-sub{font-size:13px;color:var(--gray400);margin-bottom:18px;font-weight:600}
+
+.big-opt{
+  padding:15px 18px;border:2px solid var(--gray200);border-radius:var(--rsm);
+  background:var(--gray50);font-family:var(--font);font-size:15px;font-weight:700;
+  color:var(--gray800);cursor:pointer;text-align:left;display:flex;align-items:center;
+  gap:12px;transition:all 0.15s;width:100%;margin-bottom:9px;
+}
+.big-opt:last-child{margin-bottom:0}
+.big-opt:active{transform:scale(0.98)}
+.big-opt .oi{font-size:20px;flex-shrink:0}
+.big-opt .os{font-size:11px;color:var(--gray400);font-weight:600;display:block;margin-top:1px}
+.big-opt.sel{background:var(--purple-pale);border-color:var(--purple);color:var(--purple)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:0}
+.grid2 .big-opt{margin-bottom:0}
+
+.big-input{
+  width:100%;padding:15px 18px;border:2px solid var(--gray200);border-radius:var(--rsm);
+  font-family:var(--font);font-size:17px;font-weight:700;color:var(--gray800);
+  background:var(--gray50);transition:all 0.2s;appearance:none;-webkit-appearance:none;
+}
+.big-input:focus{outline:none;border-color:var(--purple);background:white;box-shadow:0 0 0 4px rgba(124,92,191,0.1)}
+.big-input::placeholder{color:var(--gray400);font-weight:600}
+.big-textarea{min-height:80px;resize:vertical}
+
+.num-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.num-group .nl{font-size:12px;font-weight:800;color:var(--gray600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:block}
+
+.result-box{background:linear-gradient(135deg,var(--teal-pale),#e0f2fe);border:2px solid var(--teal);border-radius:var(--rsm);padding:14px 16px;margin-top:12px;display:none}
+.result-box.show{display:block}
+.rl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--teal)}
+.rv{font-size:20px;font-weight:900;color:var(--teal);margin-top:2px}
+.rs{font-size:12px;color:var(--teal);font-weight:700;opacity:0.8;margin-top:2px}
+
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ci{padding:12px 12px;border:2px solid var(--gray200);border-radius:var(--rsm);cursor:pointer;display:flex;align-items:center;gap:9px;font-weight:700;font-size:13px;color:var(--gray800);background:var(--gray50);transition:all 0.15s;user-select:none}
+.ci.checked{background:var(--purple-pale);border-color:var(--purple);color:var(--purple)}
+.cd{width:20px;height:20px;border-radius:5px;border:2px solid var(--gray200);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all 0.15s}
+.ci.checked .cd{background:var(--purple);border-color:var(--purple);color:white}
+
+.reveal{display:none;margin-top:12px;animation:fadeIn 0.2s ease}
+.reveal.show{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.mini-lbl{font-size:12px;font-weight:800;color:var(--gray600);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;display:block;margin-top:2px}
+.divider{height:1px;background:var(--gray100);margin:14px 0}
+
+.birth-row{background:var(--gray50);border:1.5px solid var(--gray200);border-radius:var(--rsm);padding:14px;margin-bottom:10px}
+.brt{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--purple);margin-bottom:10px}
+.birth-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mf label{font-size:11px;font-weight:800;color:var(--gray600);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px;display:block}
+.mf input,.mf select{width:100%;padding:9px 10px;border:1.5px solid var(--gray200);border-radius:8px;font-family:var(--font);font-size:13px;font-weight:700;color:var(--gray800);background:white;appearance:none}
+.mf.full{grid-column:1/-1}
+
+.add-birth-btn{width:100%;padding:12px;border:2px dashed var(--purple);border-radius:var(--rsm);background:none;font-family:var(--font);font-size:13px;font-weight:800;color:var(--purple);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
+.add-birth-btn:hover{background:var(--purple-pale);border-style:solid}
+
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:white;border-top:1.5px solid var(--gray200);padding:12px 16px;display:flex;gap:10px;z-index:100;box-shadow:0 -4px 20px rgba(124,92,191,0.08)}
+.btn-back{padding:14px 18px;border-radius:var(--rsm);border:2px solid var(--gray200);background:none;font-family:var(--font);font-size:14px;font-weight:800;color:var(--gray400);cursor:pointer;flex-shrink:0}
+.btn-next{flex:1;padding:14px;border-radius:var(--rsm);border:none;background:linear-gradient(135deg,var(--purple) 0%,var(--rose) 100%);font-family:var(--font);font-size:16px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 16px rgba(124,92,191,0.35)}
+.btn-next:active{transform:scale(0.98)}
+
+.sum-hero{text-align:center;padding:20px 0 16px}
+.sum-hero .he{font-size:52px}
+.sum-hero h2{font-size:24px;font-weight:900;margin-top:8px}
+.sum-hero p{font-size:14px;color:var(--gray400);font-weight:600;margin-top:4px}
+.s-card{background:white;border-radius:var(--r);border:1.5px solid var(--gray200);margin-bottom:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+.s-head{background:var(--purple-pale);padding:10px 16px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:var(--purple)}
+.s-row{display:flex;padding:10px 16px;border-bottom:1px solid var(--gray100);gap:10px}
+.s-row:last-child{border-bottom:none}
+.sk{font-size:12px;color:var(--gray400);font-weight:700;min-width:130px;flex-shrink:0}
+.sv{font-size:13px;font-weight:800;color:var(--gray800);flex:1}
+.sv.hl{color:var(--teal)}
+.act-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.act-btn{padding:13px 10px;border-radius:var(--rsm);border:2px solid var(--purple);background:white;font-family:var(--font);font-size:13px;font-weight:800;color:var(--purple);cursor:pointer;text-align:center;transition:all 0.2s}
+.act-btn.p{background:linear-gradient(135deg,var(--purple),var(--rose));color:white;border-color:transparent;box-shadow:0 3px 12px rgba(124,92,191,0.3)}
+.export-lang-bar{background:var(--gray100);border-radius:var(--rsm);padding:12px 14px;margin-bottom:14px;border:1.5px solid var(--gray200)}
+.export-lang-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;color:var(--gray600);margin-bottom:9px;display:block}
+.export-lang-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.elang-btn{padding:11px 8px;border-radius:var(--rsm);border:2px solid var(--gray200);background:white;font-family:var(--font);font-size:13px;font-weight:800;color:var(--gray600);cursor:pointer;text-align:center;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:7px}
+.elang-btn.active{background:var(--teal-pale);border-color:var(--teal);color:var(--teal)}
+.elang-note{font-size:11px;color:var(--gray400);font-weight:600;margin-top:8px;text-align:center}
+
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--gray800);color:white;padding:11px 22px;border-radius:24px;font-size:13px;font-weight:800;opacity:0;transition:all 0.3s;z-index:999;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:380px){.grid2,.check-grid,.birth-fields{grid-template-columns:1fr}}
+@media print{.lang-screen,.header,.bottom-bar,.act-btns{display:none!important}.step{display:block!important}body{background:white}}
+</style>
+</head>
+<body>
+
+<!-- ===== LANGUAGE SELECTION ===== -->
+<div class="lang-screen" id="langScreen">
+  <div class="lang-logo">🌸</div>
+  <div class="lang-title">Welcome / Selamat Datang</div>
+  <div class="lang-sub">Antenatal Clinic — New Patient Form<br>Klinik Antenatal — Borang Pesakit Baru</div>
+  <div class="lang-btns">
+    <button class="lang-btn" onclick="chooseLang('en')">
+      <div class="lang-flag">🇬🇧</div>
+      <div class="lang-name"><strong>English</strong><span>Continue in English</span></div>
+    </button>
+    <button class="lang-btn" onclick="chooseLang('ms')">
+      <div class="lang-flag">🇲🇾</div>
+      <div class="lang-name"><strong>Bahasa Melayu</strong><span>Teruskan dalam Bahasa Melayu</span></div>
+    </button>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div class="app" id="appWrap">
+  <div class="header">
+    <div class="header-inner">
+      <div class="header-top">
+        <div>
+          <h1 id="hTitle">👋 Welcome!</h1>
+          <p id="hSub">Antenatal Clinic — Health Form</p>
+        </div>
+        <button class="lang-switch-btn" onclick="switchLang()" id="langToggle">🇲🇾 BM</button>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="pFill" style="width:2%"></div></div>
+      <div class="progress-info"><span id="pLabel">…</span><span id="pPct">0%</span></div>
+    </div>
+  </div>
+
+  <div class="steps-wrap" id="stepsWrap"></div>
+</div>
+
+<div class="bottom-bar" id="bottomBar" style="display:none">
+  <button class="btn-back" id="btnBack" onclick="prev()">←</button>
+  <button class="btn-next" id="btnNext" onclick="nextBtn()">…</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────
+// TRANSLATIONS
+// ─────────────────────────────────────────
+const T = {
+  en: {
+    hTitle:"👋 Welcome!", hSub:"Antenatal Clinic — Health Form",
+    langToggle:"🇲🇾 BM", btnNext:"Next →", btnStart:"Let's start →", btnBack:"← Back",
+    pLabels:["Welcome","Name","IC Number","Age","Race","Religion","Clinic","Measurements","Last Period (LMP)","Scan Date","Blood Group","Rhesus","HIV","Hepatitis B","VDRL / Syphilis","GBS","Food Allergies","Medicine Allergies","Medical Conditions","Mental Health","Medicines","Aspirin / Calcium","Surgery","Family Health","Pregnancy Number","Birth History","Period History","Birth Control","Your Work","Partner's Work","Household Income","Lifestyle","Summary"],
+    // Sections
+    sAbout:"👤 About You", sClinic:"🏥 Clinic", sMeasure:"📏 Measurements",
+    sPreg:"📅 Your Pregnancy", sBlood:"🩸 Blood", sTests:"🧫 Health Tests",
+    sAllergy:"⚠️ Allergies", sHealth:"🏥 Your Health", sMental:"🧠 Mental Health",
+    sMeds:"💊 Medicines", sSurg:"🏥 Surgery", sFamily:"👨‍👩‍👧 Family Health",
+    sObstet:"🤰 Pregnancy History", sBirth:"👶 Previous Births",
+    sPeriod:"🔄 Period History", sContra:"🔄 Birth Control",
+    sWork:"💼 Your Life", sHousehold:"💰 Household", sLife:"🌿 Lifestyle",
+    // Step 0
+    s0q:"Hello! Let's fill in your health details.",
+    s0h:"This takes about 5–8 minutes. Your answers help the doctor care for you and your baby 💕",
+    s0btn:"I'm ready to start", s0btns:"Tap here to begin",
+    // Step 1
+    s1q:"What is your full name?", s1h:"As written on your IC or passport",
+    s1p:"e.g. Siti Aminah binti Ahmad",
+    // Step 2
+    s2q:"What is your IC number?", s2h:"Malaysian IC or passport number",
+    s2p:"e.g. 850101-14-5678",
+    // Step 3
+    s3q:"How old are you?", s3h:"Tap your age",
+    ageUnit:" years",
+    // Step 4
+    s4q:"What is your race?",
+    races:["Malay","Chinese","Indian","Iban","Kadazan","Others"],
+    // Step 5
+    s5q:"What is your religion?",
+    religions:["Islam","Christianity","Buddhism","Hinduism","Sikhism","Others"],
+    // Step 6
+    s6q:"Which clinic do you normally go to?",
+    s6h:"Your KK or private clinic name",
+    s6p:"e.g. KK Cheras, Klinik Dr. Ali",
+    // Step 7
+    s7q:"What is your height and weight?",
+    s7h:"Your best guess is fine 😊",
+    s7hgt:"Height (cm)", s7wgt:"Weight (kg)",
+    s7hgtP:"158", s7wgtP:"65",
+    bmiLabel:"Your BMI",
+    bmiCats:["⚠️ Underweight","✅ Healthy weight","⚠️ Overweight","🔴 Obese"],
+    // Step 8
+    s8q:"When did your last period start?",
+    s8h:"Pick the date. Tap Next to skip if unsure.",
+    eddLabel:"📅 Your Expected Due Date",
+    gaPrefix:"📅 You are now: ",
+    // Step 9
+    s9q:"Do you have a due date from an ultrasound scan?",
+    s9yes:"Yes — I have a scan due date", s9no:"No / Not sure — skip",
+    s9scanLbl:"SCAN DUE DATE",
+    // Step 10
+    s10q:"What is your blood group?",
+    bgOpts:["🅰️|Type A|A","🅱️|Type B|B","🆎|Type AB|AB","🅾️|Type O|O","❓|I don't know|Unknown"],
+    // Step 11
+    s11q:"Are you Rhesus positive or negative?",
+    s11h:"The + or − after your blood type, e.g. A+ or B−",
+    s11pos:"Positive (+)", s11pos2:"Most common",
+    s11neg:"Negative (−)", s11neg2:"Less common",
+    s11unk:"I don't know",
+    // Step 12
+    s12q:"Do you know your HIV status?",
+    s12h:"This is asked of all pregnant women — it is routine and confidential.",
+    s12pos:"Yes — Positive", s12neg:"Negative", s12unk:"Not sure / Never tested",
+    // Step 13
+    s13q:"Do you have Hepatitis B?",
+    s13pos:"Yes — I have Hepatitis B", s13neg:"No — I don't", s13unk:"Not sure",
+    // Step 14
+    s14q:"Have you ever been diagnosed with syphilis (VDRL)?",
+    s14pos:"Yes — Reactive / Positive", s14neg:"No — Negative", s14unk:"Not sure",
+    // Step 15
+    s15q:"Were you ever told you have GBS (Group B Strep)?",
+    s15h:"A type of bacteria sometimes found during pregnancy",
+    s15pos:"Yes — I was told I had GBS", s15neg:"No", s15unk:"Not sure",
+    s15yr:"WHICH YEAR?",
+    // Step 16
+    s16q:"Do you have any food allergies?",
+    s16yes:"Yes, I have food allergies", s16no:"No food allergies",
+    s16lbl:"WHAT ARE YOU ALLERGIC TO?", s16p:"e.g. Seafood, Peanuts, Eggs",
+    // Step 17
+    s17q:"Are you allergic to any medicine?",
+    s17yes:"Yes, I have medicine allergies", s17no:"No medicine allergies",
+    s17lbl:"WHICH MEDICINE?", s17p:"e.g. Penicillin, Aspirin",
+    // Step 18
+    s18q:"Do you have any of these health conditions?",
+    s18h:"Tick all that apply",
+    pmi:["High Blood Pressure","Diabetes","Asthma","Thyroid Problem","Heart Disease","Cancer"],
+    s18other:"Other condition (optional)", s18none:"None of the above",
+    // Step 19
+    s19q:"Have you ever been treated for a mental health condition?",
+    s19yes:"Yes", s19no:"No",
+    s19lbl:"WHAT CONDITION?", s19p:"e.g. Depression, Anxiety, Bipolar",
+    // Step 20
+    s20q:"Are you currently taking any medicines?",
+    s20yes:"Yes", s20no:"No",
+    s20lbl:"LIST YOUR MEDICINES",
+    s20p:"e.g. Metformin 500mg, Folic acid, Vitamin D",
+    // Step 21
+    s21q:"Are you taking Aspirin or Calcium tablets?",
+    s21yes:"Yes", s21no:"No",
+    // Step 22
+    s22q:"Have you ever had an operation?",
+    s22yes:"Yes, I've had surgery", s22no:"No",
+    s22yrLbl:"YEAR OF SURGERY", s22typeLbl:"TYPE OF OPERATION (tick all)",
+    surgTypes:["Appendix Removal","Hernia Repair","Wound Debridement","Ovarian Cyst Removal","Fibroid Removal","Caesarean (LSCS)"],
+    s22other:"Other operation (optional)",
+    // Step 23
+    s23q:"Do any close family members have these conditions?",
+    s23h:"Parents, brothers/sisters, grandparents. Tick all that apply.",
+    fhx:["High Blood Pressure","Diabetes","Cancer","Heart Disease","Thyroid Disease","Mental Illness"],
+    s23cp:"If cancer — what type? (e.g. Breast, Colon)",
+    s23none:"None of the above",
+    // Step 24
+    s24q:"Including this pregnancy, how many times have you been pregnant?",
+    gravidaLbls:["1st (first pregnancy)","2nd","3rd","4th","5th","6th","7th","8 or more"],
+    // Step 25
+    s25q:"Tell us about your previous deliveries",
+    s25h:"Fill what you remember — blank fields are okay",
+    babyLabel:"Baby",
+    bYr:"Year of birth", bTerm:"Full term or early?",
+    bBW:"Birth weight (grams)", bBWp:"e.g. 3100",
+    bStatus:"Baby's outcome",
+    bTermOpts:["Term (37–42 wks)","Preterm (<37 wks)","Post-term (>42 wks)"],
+    bStatusOpts:["Alive and well","Alive with illness","Stillbirth","Neonatal death"],
+    bComp:"Any problems during delivery?",
+    bCompP:"e.g. Heavy bleeding, blood transfusion, baby stuck",
+    addBirth:"➕ Add another delivery",
+    abortLbl:"Previous miscarriages / abortions",
+    abortAdd:"➕ Add miscarriage / abortion",
+    abortYr:"Year", abortGA:"Gestation (weeks)", abortGAp:"e.g. 8",
+    abortType:"Type", abortTypeOpts:["Miscarriage (spontaneous)","Incomplete abortion","Blighted ovum","Molar pregnancy","Termination of pregnancy (TOP)"],
+    abortProc:"Any procedure done?", abortProcOpts:["None","Evacuation of Retained Products (ERPOC)","Manual Vacuum Aspiration (MVA)","Dilatation & Curettage (D&C)","Medical management only","Others"],
+    abortProcOther:"Specify procedure",
+    ectopicLbl:"Previous ectopic pregnancy",
+    ectopicAdd:"➕ Add ectopic pregnancy",
+    ectopicYr:"Year", ectopicSide:"Which side?", ectopicSideOpts:["Left tube","Right tube","Unknown"],
+    ectopicProc:"Management", ectopicProcOpts:["Methotrexate (medical)","Laparoscopic salpingectomy","Laparoscopic salpingostomy","Open surgery","Expectant management"],
+    noneOpt:"None",
+    // Step 26
+    s26q:"Before this pregnancy, were your periods regular?",
+    s26reg:"Yes, regular", s26regs:"Same time every month",
+    s26irr:"No, irregular", s26irrs:"Different timing every month",
+    // Step 27
+    s27q:"Were you using any birth control before this pregnancy?",
+    s27yes:"Yes", s27no:"No",
+    contraLbl:"WHICH TYPE? (tick all)",
+    contra:["Pill (OCP)","IUCD (Coil)","IM Depo Injection","Implanon (Implant)","Condom","Others"],
+    // Step 28
+    s28q:"What is your occupation?",
+    s28hw:"Housewife / Full-time parent", s28wk:"Working", s28st:"Student",
+    s28lbl:"YOUR JOB TITLE", s28p:"e.g. Nurse, Teacher, Clerk",
+    // Step 29
+    s29q:"What does your husband / partner do for work?",
+    s29p:"e.g. Driver, Engineer, Business owner",
+    // Step 30
+    s30q:"What is your total household income per month?",
+    income:["Less than RM1,500","RM1,500 – RM3,000","RM3,001 – RM5,000","RM5,001 – RM10,000","More than RM10,000","Prefer not to say"],
+    incomeIcons:["💵","💵","💵","💵","💵","🙈"],
+    // Step 31
+    s31q:"A few quick lifestyle questions",
+    s31h:"There is no judgment here — your honest answers help the doctor care for you.",
+    smokeQ:"Do you smoke?",
+    smokeNo:"No", smokeYes:"Yes", smokeEx:"Ex-smoker",
+    alcoholQ:"Do you drink alcohol?",
+    alcoholNo:"No", alcoholYes:"Yes",
+    drugsQ:"Do you use recreational drugs?",
+    drugsNo:"No", drugsYes:"Yes",
+    // Summary
+    sumTitle:"All done! Thank you 💕",
+    sumSub:"Please show this to the nurse or doctor.",
+    sumPrint:"🖨️ Print", sumCopy:"📋 Copy for Doctor",
+    sumSave:"⬇️ Save File", sumRestart:"🔄 Start Over",
+    sumHero:"🎉",
+    sumSecs:["👤 Patient Details","📏 Measurements","📅 Pregnancy Dates","🩸 Blood & Screening","⚠️ Allergies","🏥 Medical & Surgery","👶 Obstetric History","💼 Social History"],
+    sumKeys:[
+      ["Full Name","IC / Passport","Age","Race","Religion","Clinic"],
+      ["Height","Weight","BMI"],
+      ["LMP","EDD (by LMP)","GA Today","Scan EDD","Periods Regular","Contraception"],
+      ["Blood Group","Rhesus","HIV","Hepatitis B","VDRL","GBS"],
+      ["Food Allergy","Medicine Allergy"],
+      ["Medical Illness","Other illness","Psychiatric Hx","Current Medications","Aspirin/Calcium","Surgery","Family History"],
+      ["Gravida","Previous Births","Miscarriages / Abortions (year, GA, type, procedure)","Ectopic Pregnancy (year, side, management)"],
+      ["Occupation","Husband/Partner Work","Household Income","Smoker","Alcohol","Recreational Drugs"]
+    ],
+    copied:"✓ Copied! Paste into Google Docs",
+    saved:"📥 File saved!",
+    exportLangLabel:"Export language for doctor:",
+    exportEN:"🇬🇧 English",
+    exportBM:"🇲🇾 Bahasa Melayu",
+    exportNote:"Doctor copy will use the selected language",
+  },
+
+  ms: {
+    hTitle:"👋 Selamat Datang!", hSub:"Klinik Antenatal — Borang Kesihatan",
+    langToggle:"🇬🇧 EN", btnNext:"Seterusnya →", btnStart:"Mari mulakan →", btnBack:"← Kembali",
+    pLabels:["Selamat Datang","Nama","No. IC","Umur","Bangsa","Agama","Klinik","Ukuran","Haid Terakhir","Tarikh Imbasan","Kumpulan Darah","Rhesus","HIV","Hepatitis B","VDRL / Sifilis","GBS","Alahan Makanan","Alahan Ubat","Penyakit","Kesihatan Mental","Ubat-Ubatan","Aspirin / Kalsium","Pembedahan","Sejarah Keluarga","Kehamilan Ke-","Sejarah Bersalin","Haid","Perancang Keluarga","Pekerjaan","Pekerjaan Suami","Pendapatan","Gaya Hidup","Ringkasan"],
+    sAbout:"👤 Tentang Anda", sClinic:"🏥 Klinik", sMeasure:"📏 Ukuran",
+    sPreg:"📅 Kehamilan Anda", sBlood:"🩸 Darah", sTests:"🧫 Ujian Kesihatan",
+    sAllergy:"⚠️ Alahan", sHealth:"🏥 Kesihatan Anda", sMental:"🧠 Kesihatan Mental",
+    sMeds:"💊 Ubat-Ubatan", sSurg:"🏥 Pembedahan", sFamily:"👨‍👩‍👧 Kesihatan Keluarga",
+    sObstet:"🤰 Sejarah Kehamilan", sBirth:"👶 Kelahiran Lepas",
+    sPeriod:"🔄 Sejarah Haid", sContra:"🔄 Perancang Keluarga",
+    sWork:"💼 Kehidupan Anda", sHousehold:"💰 Isi Rumah", sLife:"🌿 Gaya Hidup",
+    s0q:"Helo! Mari isi butiran kesihatan anda.",
+    s0h:"Ini mengambil masa 5–8 minit. Jawapan anda membantu doktor menjaga anda dan bayi 💕",
+    s0btn:"Saya bersedia untuk mulakan", s0btns:"Ketik di sini untuk bermula",
+    s1q:"Apakah nama penuh anda?", s1h:"Seperti yang tertulis pada IC atau pasport anda",
+    s1p:"cth. Siti Aminah binti Ahmad",
+    s2q:"Apakah nombor IC anda?", s2h:"Nombor IC Malaysia atau pasport",
+    s2p:"cth. 850101-14-5678",
+    s3q:"Berapakah umur anda?", s3h:"Ketik umur anda",
+    ageUnit:" tahun",
+    s4q:"Apakah bangsa anda?",
+    races:["Melayu","Cina","India","Iban","Kadazan","Lain-lain"],
+    s5q:"Apakah agama anda?",
+    religions:["Islam","Kristian","Buddha","Hindu","Sikh","Lain-lain"],
+    s6q:"Di klinik mana anda mendapat rawatan susulan?",
+    s6h:"Nama KK atau klinik swasta anda",
+    s6p:"cth. KK Cheras, Klinik Dr. Ali",
+    s7q:"Berapakah tinggi dan berat badan anda?",
+    s7h:"Anggaran pun tidak apa-apa 😊",
+    s7hgt:"Tinggi (cm)", s7wgt:"Berat (kg)",
+    s7hgtP:"158", s7wgtP:"65",
+    bmiLabel:"BMI Anda",
+    bmiCats:["⚠️ Berat badan rendah","✅ Berat badan normal","⚠️ Berat badan berlebihan","🔴 Obes"],
+    s8q:"Bilakah tarikh pertama haid terakhir anda?",
+    s8h:"Pilih tarikh. Ketik Seterusnya jika tidak pasti.",
+    eddLabel:"📅 Tarikh Jangkaan Bersalin (EDD)",
+    gaPrefix:"📅 Anda sekarang: ",
+    s9q:"Adakah anda mempunyai tarikh EDD daripada imbasan ultrasound?",
+    s9yes:"Ya — Saya ada tarikh imbasan", s9no:"Tidak / Tidak pasti — langkau",
+    s9scanLbl:"TARIKH IMBASAN EDD",
+    s10q:"Apakah kumpulan darah anda?",
+    bgOpts:["🅰️|Kumpulan A|A","🅱️|Kumpulan B|B","🆎|Kumpulan AB|AB","🅾️|Kumpulan O|O","❓|Saya tidak tahu|Unknown"],
+    s11q:"Adakah Rhesus anda positif atau negatif?",
+    s11h:"Simbol + atau − selepas kumpulan darah anda, cth. A+ atau B−",
+    s11pos:"Positif (+)", s11pos2:"Paling biasa",
+    s11neg:"Negatif (−)", s11neg2:"Kurang biasa",
+    s11unk:"Saya tidak tahu",
+    s12q:"Adakah anda tahu status HIV anda?",
+    s12h:"Soalan ini ditanya kepada semua ibu hamil — ia adalah rutin dan sulit.",
+    s12pos:"Ya — Positif", s12neg:"Negatif", s12unk:"Tidak pasti / Belum diuji",
+    s13q:"Adakah anda menghidap Hepatitis B?",
+    s13pos:"Ya — Saya ada Hepatitis B", s13neg:"Tidak", s13unk:"Tidak pasti",
+    s14q:"Pernahkah anda didiagnosis dengan sifilis (VDRL)?",
+    s14pos:"Ya — Reaktif / Positif", s14neg:"Tidak — Negatif", s14unk:"Tidak pasti",
+    s15q:"Pernahkah anda diberitahu anda ada GBS (Kuman Kumpulan B)?",
+    s15h:"Sejenis bakteria yang kadangkala ditemui semasa kehamilan",
+    s15pos:"Ya — Saya diberitahu ada GBS", s15neg:"Tidak", s15unk:"Tidak pasti",
+    s15yr:"TAHUN BERAPA?",
+    s16q:"Adakah anda ada alahan makanan?",
+    s16yes:"Ya, saya ada alahan makanan", s16no:"Tiada alahan makanan",
+    s16lbl:"APA YANG ANDA ALAH?", s16p:"cth. Makanan laut, Kacang, Telur",
+    s17q:"Adakah anda alah kepada sebarang ubat?",
+    s17yes:"Ya, saya ada alahan ubat", s17no:"Tiada alahan ubat",
+    s17lbl:"UBAT APA?", s17p:"cth. Penicillin, Aspirin",
+    s18q:"Adakah anda menghidap mana-mana penyakit berikut?",
+    s18h:"Tandakan semua yang berkaitan",
+    pmi:["Darah Tinggi","Kencing Manis","Asma","Masalah Tiroid","Penyakit Jantung","Kanser"],
+    s18other:"Penyakit lain (jika ada)", s18none:"Tiada daripada yang di atas",
+    s19q:"Pernahkah anda mendapat rawatan untuk masalah kesihatan mental?",
+    s19yes:"Ya", s19no:"Tidak",
+    s19lbl:"PENYAKIT APA?", s19p:"cth. Kemurungan, Kebimbangan, Bipolar",
+    s20q:"Adakah anda sedang mengambil sebarang ubat?",
+    s20yes:"Ya", s20no:"Tidak",
+    s20lbl:"SENARAIKAN UBAT-UBAT ANDA",
+    s20p:"cth. Metformin 500mg, Asid Folik, Vitamin D",
+    s21q:"Adakah anda mengambil tablet Aspirin atau Kalsium?",
+    s21yes:"Ya", s21no:"Tidak",
+    s22q:"Pernahkah anda menjalani pembedahan?",
+    s22yes:"Ya, saya pernah dibedah", s22no:"Tidak",
+    s22yrLbl:"TAHUN PEMBEDAHAN", s22typeLbl:"JENIS PEMBEDAHAN (tandakan semua)",
+    surgTypes:["Buang Apendiks","Pembaikan Hernia","Pembersihan Luka","Buang Sista Ovari","Buang Fibroid","Pembedahan Caesarean (LSCS)"],
+    s22other:"Pembedahan lain (jika ada)",
+    s23q:"Adakah ahli keluarga terdekat anda menghidap penyakit berikut?",
+    s23h:"Ibu bapa, adik-beradik, datuk/nenek. Tandakan semua yang berkaitan.",
+    fhx:["Darah Tinggi","Kencing Manis","Kanser","Penyakit Jantung","Penyakit Tiroid","Penyakit Mental"],
+    s23cp:"Jika kanser — jenis apa? (cth. Payudara, Kolon)",
+    s23none:"Tiada daripada yang di atas",
+    s24q:"Termasuk kehamilan ini, berapa kali anda pernah hamil?",
+    gravidaLbls:["Pertama (kehamilan pertama)","Kedua","Ketiga","Keempat","Kelima","Keenam","Ketujuh","Kelapan atau lebih"],
+    s25q:"Ceritakan tentang kelahiran terdahulu anda",
+    s25h:"Isi apa yang anda ingat — ruangan kosong tidak mengapa",
+    babyLabel:"Bayi",
+    bYr:"Tahun lahir", bTerm:"Cukup bulan atau tidak?",
+    bBW:"Berat lahir (gram)", bBWp:"cth. 3100",
+    bStatus:"Keadaan bayi",
+    bTermOpts:["Cukup bulan (37–42 mgu)","Pramatang (<37 mgu)","Selepas tempoh (>42 mgu)"],
+    bStatusOpts:["Hidup dan sihat","Hidup dengan penyakit","Lahir mati","Kematian bayi baru lahir"],
+    bComp:"Ada masalah semasa bersalin?",
+    bCompP:"cth. Pendarahan teruk, transfusi darah, bayi tersangkut",
+    addBirth:"➕ Tambah kelahiran lain",
+    abortLbl:"Keguguran / pengguguran kandungan terdahulu",
+    abortAdd:"➕ Tambah keguguran / pengguguran",
+    abortYr:"Tahun", abortGA:"Usia kandungan (minggu)", abortGAp:"cth. 8",
+    abortType:"Jenis", abortTypeOpts:["Keguguran spontan","Pengguguran tidak lengkap","Blighted ovum","Kehamilan molar","Penamatan kehamilan (TOP)"],
+    abortProc:"Ada prosedur dilakukan?", abortProcOpts:["Tiada","Evakuasi produk tertahan (ERPOC)","Aspirasi vakum manual (MVA)","Dilasi & Kuretaj (D&C)","Rawatan ubat sahaja","Lain-lain"],
+    abortProcOther:"Nyatakan prosedur",
+    ectopicLbl:"Kehamilan ektopik terdahulu",
+    ectopicAdd:"➕ Tambah kehamilan ektopik",
+    ectopicYr:"Tahun", ectopicSide:"Sebelah mana?", ectopicSideOpts:["Tiub kiri","Tiub kanan","Tidak diketahui"],
+    ectopicProc:"Rawatan", ectopicProcOpts:["Methotrexate (ubat)","Salpingektomi laparoskopik","Salpingostomi laparoskopik","Pembedahan terbuka","Pemantauan"],
+    noneOpt:"Tiada",
+    s26q:"Sebelum kehamilan ini, adakah haid anda teratur?",
+    s26reg:"Ya, teratur", s26regs:"Sama masa setiap bulan",
+    s26irr:"Tidak, tidak teratur", s26irrs:"Masa berbeza setiap bulan",
+    s27q:"Adakah anda menggunakan sebarang perancang keluarga sebelum kehamilan ini?",
+    s27yes:"Ya", s27no:"Tidak",
+    contraLbl:"JENIS APA? (tandakan semua)",
+    contra:["Pil (OCP)","IUCD (Gegelung)","Suntikan IM Depo","Implanon (Implan)","Kondom","Lain-lain"],
+    s28q:"Apakah pekerjaan anda?",
+    s28hw:"Surirumah / Penjaga penuh masa", s28wk:"Bekerja", s28st:"Pelajar",
+    s28lbl:"JAWATAN / PEKERJAAN ANDA", s28p:"cth. Jururawat, Guru, Kerani",
+    s29q:"Apakah pekerjaan suami / pasangan anda?",
+    s29p:"cth. Pemandu, Jurutera, Perniagaan",
+    s30q:"Berapakah jumlah pendapatan isi rumah anda sebulan?",
+    income:["Kurang daripada RM1,500","RM1,500 – RM3,000","RM3,001 – RM5,000","RM5,001 – RM10,000","Lebih daripada RM10,000","Tidak mahu menjawab"],
+    incomeIcons:["💵","💵","💵","💵","💵","🙈"],
+    s31q:"Beberapa soalan ringkas tentang gaya hidup",
+    s31h:"Tiada penghakiman di sini — jawapan jujur anda membantu doktor menjaga anda.",
+    smokeQ:"Adakah anda merokok?",
+    smokeNo:"Tidak", smokeYes:"Ya", smokeEx:"Bekas perokok",
+    alcoholQ:"Adakah anda meminum alkohol?",
+    alcoholNo:"Tidak", alcoholYes:"Ya",
+    drugsQ:"Adakah anda menggunakan dadah rekreasi?",
+    drugsNo:"Tidak", drugsYes:"Ya",
+    sumTitle:"Selesai! Terima kasih 💕",
+    sumSub:"Sila tunjukkan ini kepada jururawat atau doktor.",
+    sumPrint:"🖨️ Cetak", sumCopy:"📋 Salin untuk Doktor",
+    sumSave:"⬇️ Simpan Fail", sumRestart:"🔄 Mulakan Semula",
+    sumHero:"🎉",
+    sumSecs:["👤 Maklumat Pesakit","📏 Ukuran","📅 Tarikh Kehamilan","🩸 Darah & Saringan","⚠️ Alahan","🏥 Perubatan & Pembedahan","👶 Sejarah Obstetrik","💼 Sejarah Sosial"],
+    sumKeys:[
+      ["Nama Penuh","No. IC / Pasport","Umur","Bangsa","Agama","Klinik"],
+      ["Tinggi","Berat","BMI"],
+      ["Haid Terakhir (LMP)","EDD (mengikut LMP)","Usia Kehamilan Hari Ini","EDD (mengikut Imbasan)","Haid Teratur","Perancang Keluarga"],
+      ["Kumpulan Darah","Rhesus","HIV","Hepatitis B","VDRL","GBS"],
+      ["Alahan Makanan","Alahan Ubat"],
+      ["Penyakit Lepas","Penyakit Lain","Sejarah Psikiatri","Ubat Semasa","Aspirin/Kalsium","Pembedahan","Sejarah Keluarga"],
+      ["Gravida","Kelahiran Terdahulu","Keguguran / Pengguguran (tahun, usia, jenis, prosedur)","Kehamilan Ektopik (tahun, sebelah, rawatan)"],
+      ["Pekerjaan","Pekerjaan Suami/Pasangan","Pendapatan Isi Rumah","Perokok","Alkohol","Dadah Rekreasi"]
+    ],
+    copied:"✓ Disalin! Tampal ke Google Docs",
+    saved:"📥 Fail disimpan!",
+    exportLangLabel:"Bahasa eksport untuk doktor:",
+    exportEN:"🇬🇧 English",
+    exportBM:"🇲🇾 Bahasa Melayu",
+    exportNote:"Salinan doktor akan menggunakan bahasa yang dipilih",
+  }
+};
+
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+let lang = 'en';
+let exportLang = 'en';  // language used for doctor exports
+let cur = 0;
+const TOTAL = 33;
+
+const D = {
+  name:'',ic:'',age:'',race:'',religion:'',clinic:'',
+  height:'',weight:'',bmi:'',
+  lmp:'',edd:'',ga:'',scanDate:'',
+  bloodGroup:'',rhesus:'',
+  hiv:'',hepB:'',vdrl:'',gbs:'',gbsYear:'',
+  foodAllergyYN:'',foodAllergy:'',
+  medAllergyYN:'',medAllergy:'',
+  pmi:[],pmiOthers:'',
+  psychYN:'',psychDx:'',
+  medsYN:'',medications:'',
+  aspirinCa:'',
+  surgYN:'',surgYear:'',surg:[],surgOthers:'',
+  fhx:[],fhxCancerType:'',
+  gravida:'1',abortions:'0',ectopic:'0',
+  miscarriageHistory:[],  // array of {year, ga, type, proc, procOther}
+  ectopicHistory:[],      // array of {year, side, proc}
+  birthHistory:[],
+  menses:'',contraYN:'',contra:[],
+  empStatus:'',patientOccupation:'',husbandOccupation:'',income:'',
+  smoker:'',alcohol:'',drugs:''
+};
+
+// ─────────────────────────────────────────
+// LANGUAGE
+// ─────────────────────────────────────────
+function chooseLang(l) {
+  lang = l;
+  document.getElementById('langScreen').style.display = 'none';
+  document.getElementById('appWrap').classList.add('show');
+  document.getElementById('bottomBar').style.display = 'flex';
+  buildAllSteps();
+  updateUI();
+}
+
+function switchLang() {
+  lang = lang === 'en' ? 'ms' : 'en';
+  collectInputs();
+  buildAllSteps();
+  updateUI();
+  // re-show current step
+  document.getElementById('s'+cur).classList.add('active');
+  restoreInputs();
+}
+
+function t(key) { return T[lang][key] || T['en'][key] || key; }
+
+// ─────────────────────────────────────────
+// BUILD ALL STEPS
+// ─────────────────────────────────────────
+function buildAllSteps() {
+  const L = T[lang];
+  const wrap = document.getElementById('stepsWrap');
+  wrap.innerHTML = '';
+
+  const steps = [
+    buildS0, buildS1, buildS2, buildS3, buildS4, buildS5, buildS6,
+    buildS7, buildS8, buildS9, buildS10, buildS11, buildS12, buildS13,
+    buildS14, buildS15, buildS16, buildS17, buildS18, buildS19, buildS20,
+    buildS21, buildS22, buildS23, buildS24, buildS25, buildS26, buildS27,
+    buildS28, buildS29, buildS30, buildS31, buildS32
+  ];
+
+  steps.forEach((fn, i) => {
+    const div = document.createElement('div');
+    div.className = 'step';
+    div.id = 's' + i;
+    div.innerHTML = fn(L);
+    wrap.appendChild(div);
+  });
+
+  document.getElementById('hTitle').textContent = L.hTitle;
+  document.getElementById('hSub').textContent = L.hSub;
+  document.getElementById('langToggle').textContent = L.langToggle;
+  document.getElementById('btnNext').textContent = cur === 0 ? L.btnStart : L.btnNext;
+  document.getElementById('btnBack').textContent = L.btnBack;
+}
+
+function card(badge, emoji, q, sub, body) {
+  return `<div class="step-card"><div class="sec-badge">${badge}</div><span class="step-emoji">${emoji}</span><div class="q-text">${q}</div>${sub?`<div class="q-sub">${sub}</div>`:''}<div class="q-body">${body}</div></div>`;
+}
+
+function bigOpt(icon, label, sub, extra='') {
+  return `<button class="big-opt" ${extra}><span class="oi">${icon}</span><div><span>${label}</span>${sub?`<span class="os">${sub}</span>`:''}</div></button>`;
+}
+
+function buildS0(L) {
+  return card(L.sAbout,'🌸',L.s0q,L.s0h,
+    bigOpt('✅',L.s0btn,L.s0btns,'onclick="next()"'));
+}
+function buildS1(L) {
+  return card(L.sAbout,'📋',L.s1q,L.s1h,
+    `<input class="big-input" type="text" id="name" placeholder="${L.s1p}" autocomplete="name" oninput="D.name=this.value">`);
+}
+function buildS2(L) {
+  return card(L.sAbout,'🪪',L.s2q,L.s2h,
+    `<input class="big-input" type="text" id="ic" placeholder="${L.s2p}" oninput="D.ic=this.value">`);
+}
+function buildS3(L) {
+  let opts = '<div class="grid2" style="max-height:280px;overflow-y:auto;gap:8px">';
+  for (let i=12;i<=55;i++) opts += `<button class="big-opt" onclick="pick('age','${i}${L.ageUnit}',this);next()">${i}${L.ageUnit}</button>`;
+  opts += '</div>';
+  return card(L.sAbout,'🎂',L.s3q,L.s3h,opts);
+}
+function buildS4(L) {
+  const icons=['🇲🇾','🏮','🪔','🏝️','🏔️','🌍'];
+  return card(L.sAbout,'🌏',L.s4q,'',
+    L.races.map((r,i)=>bigOpt(icons[i],r,'',`onclick="pick('race','${r}',this);next()"`)).join(''));
+}
+function buildS5(L) {
+  const icons=['☪️','✝️','☸️','🕉️','🪯','🙏'];
+  return card(L.sAbout,'🕌',L.s5q,'',
+    `<div class="grid2">${L.religions.map((r,i)=>bigOpt(icons[i],r,'',`onclick="pick('religion','${r}',this);next()"`)).join('')}</div>`);
+}
+function buildS6(L) {
+  return card(L.sClinic,'🏥',L.s6q,L.s6h,
+    `<input class="big-input" type="text" id="clinic" placeholder="${L.s6p}" oninput="D.clinic=this.value">`);
+}
+function buildS7(L) {
+  return card(L.sMeasure,'⚖️',L.s7q,L.s7h,`
+    <div class="num-row">
+      <div class="num-group"><span class="nl">${L.s7hgt}</span><input class="big-input" type="number" id="height" placeholder="${L.s7hgtP}" min="100" max="220" oninput="calcBMI()"></div>
+      <div class="num-group"><span class="nl">${L.s7wgt}</span><input class="big-input" type="number" id="weight" placeholder="${L.s7wgtP}" min="20" max="250" step="0.1" oninput="calcBMI()"></div>
+    </div>
+    <div class="result-box" id="bmiBox"><div class="rl">${L.bmiLabel}</div><div class="rv" id="bmiVal">—</div><div class="rs" id="bmiCat"></div></div>`);
+}
+function buildS8(L) {
+  return card(L.sPreg,'🗓️',L.s8q,L.s8h,`
+    <input class="big-input" type="date" id="lmp" onchange="calcEDD()">
+    <div class="result-box" id="eddBox"><div class="rl">${L.eddLabel}</div><div class="rv" id="eddVal">—</div><div class="rs" id="gaVal"></div></div>`);
+}
+function buildS9(L) {
+  return card(L.sPreg,'🔬',L.s9q,'',`
+    ${bigOpt('✅',L.s9yes,'',`onclick="pick('scanYN','Yes',this);document.getElementById('scanRev').classList.add('show')"` )}
+    ${bigOpt('➡️',L.s9no,'',`onclick="pick('scanYN','No',this);D.scanDate='';next()"`)}
+    <div class="reveal" id="scanRev">
+      <span class="mini-lbl">${L.s9scanLbl}</span>
+      <input class="big-input" type="date" id="scanDate" onchange="D.scanDate=this.value">
+    </div>`);
+}
+function buildS10(L) {
+  return card(L.sBlood,'🩸',L.s10q,'',
+    `<div class="grid2">${L.bgOpts.map(o=>{const[ic,lbl,val]=o.split('|');return bigOpt(ic,lbl,'',`onclick="pick('bloodGroup','${val}',this);next()"`);}).join('')}</div>`);
+}
+function buildS11(L) {
+  return card(L.sBlood,'➕',L.s11q,L.s11h,`
+    ${bigOpt('➕',L.s11pos,L.s11pos2,`onclick="pick('rhesus','Positive (+ve)',this);next()"`)}
+    ${bigOpt('➖',L.s11neg,L.s11neg2,`onclick="pick('rhesus','Negative (-ve)',this);next()"`)}
+    ${bigOpt('❓',L.s11unk,'',`onclick="pick('rhesus','Unknown',this);next()"`)} `);
+}
+function buildS12(L) {
+  return card(L.sTests,'🔴',L.s12q,L.s12h,`
+    ${bigOpt('⚠️',L.s12pos,'',`onclick="pick('hiv','Positive',this);next()"`)}
+    ${bigOpt('✅',L.s12neg,'',`onclick="pick('hiv','Negative',this);next()"`)}
+    ${bigOpt('❓',L.s12unk,'',`onclick="pick('hiv','Unknown',this);next()"`)} `);
+}
+function buildS13(L) {
+  return card(L.sTests,'🟡',L.s13q,'',`
+    ${bigOpt('⚠️',L.s13pos,'',`onclick="pick('hepB','Positive',this);next()"`)}
+    ${bigOpt('✅',L.s13neg,'',`onclick="pick('hepB','Negative',this);next()"`)}
+    ${bigOpt('❓',L.s13unk,'',`onclick="pick('hepB','Unknown',this);next()"`)} `);
+}
+function buildS14(L) {
+  return card(L.sTests,'🧪',L.s14q,'',`
+    ${bigOpt('⚠️',L.s14pos,'',`onclick="pick('vdrl','Reactive / Positive',this);next()"`)}
+    ${bigOpt('✅',L.s14neg,'',`onclick="pick('vdrl','Non-reactive / Negative',this);next()"`)}
+    ${bigOpt('❓',L.s14unk,'',`onclick="pick('vdrl','Unknown',this);next()"`)} `);
+}
+function buildS15(L) {
+  return card(L.sTests,'🦠',L.s15q,L.s15h,`
+    ${bigOpt('⚠️',L.s15pos,'',`onclick="pick('gbs','Positive',this);document.getElementById('gbsRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s15neg,'',`onclick="pick('gbs','Negative',this);document.getElementById('gbsRev').classList.remove('show');next()"`)}
+    ${bigOpt('❓',L.s15unk,'',`onclick="pick('gbs','Unknown',this);document.getElementById('gbsRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="gbsRev">
+      <span class="mini-lbl">${L.s15yr}</span>
+      <select class="big-input" id="gbsYear" onchange="D.gbsYear=this.value">
+        <option value=""></option>
+        ${yr(2000)}
+      </select>
+    </div>`);
+}
+function buildS16(L) {
+  return card(L.sAllergy,'🥜',L.s16q,'',`
+    ${bigOpt('⚠️',L.s16yes,'',`onclick="pick('foodAllergyYN','Yes',this);document.getElementById('foodRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s16no,'',`onclick="pick('foodAllergyYN','None',this);document.getElementById('foodRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="foodRev">
+      <span class="mini-lbl">${L.s16lbl}</span>
+      <input class="big-input" type="text" id="foodAllergy" placeholder="${L.s16p}" oninput="D.foodAllergy=this.value">
+    </div>`);
+}
+function buildS17(L) {
+  return card(L.sAllergy,'💊',L.s17q,'',`
+    ${bigOpt('⚠️',L.s17yes,'',`onclick="pick('medAllergyYN','Yes',this);document.getElementById('medRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s17no,'',`onclick="pick('medAllergyYN','None',this);document.getElementById('medRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="medRev">
+      <span class="mini-lbl">${L.s17lbl}</span>
+      <input class="big-input" type="text" id="medAllergy" placeholder="${L.s17p}" oninput="D.medAllergy=this.value">
+    </div>`);
+}
+function buildS18(L) {
+  return card(L.sHealth,'📝',L.s18q,L.s18h,`
+    <div class="check-grid">${L.pmi.map(p=>`<div class="ci" onclick="toggleCheck(this,'pmi','${p}')"><div class="cd"></div>${p}</div>`).join('')}</div>
+    <input class="big-input" type="text" id="pmiOthers" placeholder="${L.s18other}" style="margin-top:10px" oninput="D.pmiOthers=this.value">
+    <button class="big-opt" style="margin-top:10px" onclick="clearChecks('pmi');next()"><span class="oi">✅</span>${L.s18none}</button>`);
+}
+function buildS19(L) {
+  return card(L.sMental,'🧠',L.s19q,'',`
+    ${bigOpt('✅',L.s19yes,'',`onclick="pick('psychYN','Yes',this);document.getElementById('psychRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s19no,'',`onclick="pick('psychYN','No',this);document.getElementById('psychRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="psychRev">
+      <span class="mini-lbl">${L.s19lbl}</span>
+      <input class="big-input" type="text" id="psychDx" placeholder="${L.s19p}" oninput="D.psychDx=this.value">
+    </div>`);
+}
+function buildS20(L) {
+  return card(L.sMeds,'💊',L.s20q,'',`
+    ${bigOpt('✅',L.s20yes,'',`onclick="pick('medsYN','Yes',this);document.getElementById('medsRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s20no,'',`onclick="pick('medsYN','No',this);document.getElementById('medsRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="medsRev">
+      <span class="mini-lbl">${L.s20lbl}</span>
+      <textarea class="big-input big-textarea" id="medications" placeholder="${L.s20p}" oninput="D.medications=this.value"></textarea>
+    </div>`);
+}
+function buildS21(L) {
+  return card(L.sMeds,'🔵',L.s21q,'',`
+    ${bigOpt('✅',L.s21yes,'',`onclick="pick('aspirinCa','Yes',this);next()"`)}
+    ${bigOpt('✅',L.s21no,'',`onclick="pick('aspirinCa','No',this);next()"`)} `);
+}
+function buildS22(L) {
+  return card(L.sSurg,'🔪',L.s22q,'',`
+    ${bigOpt('✅',L.s22yes,'',`onclick="pick('surgYN','Yes',this);document.getElementById('surgRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s22no,'',`onclick="pick('surgYN','No',this);document.getElementById('surgRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="surgRev">
+      <span class="mini-lbl">${L.s22yrLbl}</span>
+      <select class="big-input" id="surgYear" style="margin-bottom:12px" onchange="D.surgYear=this.value"><option value=""></option>${yr(1970)}</select>
+      <span class="mini-lbl">${L.s22typeLbl}</span>
+      <div class="check-grid">${L.surgTypes.map(s=>`<div class="ci" onclick="toggleCheck(this,'surg','${s}')"><div class="cd"></div>${s}</div>`).join('')}</div>
+      <input class="big-input" type="text" id="surgOthers" placeholder="${L.s22other}" style="margin-top:10px" oninput="D.surgOthers=this.value">
+    </div>`);
+}
+function buildS23(L) {
+  return card(L.sFamily,'👨‍👩‍👧',L.s23q,L.s23h,`
+    <div class="check-grid">${L.fhx.map(f=>`<div class="ci" onclick="toggleCheck(this,'fhx','${f}')"><div class="cd"></div>${f}</div>`).join('')}</div>
+    <input class="big-input" type="text" id="fhxCancerType" placeholder="${L.s23cp}" style="margin-top:10px" oninput="D.fhxCancerType=this.value">
+    <button class="big-opt" style="margin-top:10px" onclick="clearChecks('fhx');next()"><span class="oi">✅</span>${L.s23none}</button>`);
+}
+function buildS24(L) {
+  const icons=['🌟','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣'];
+  return card(L.sObstet,'🤰',L.s24q,'',
+    `<div class="grid2">${L.gravidaLbls.map((lbl,i)=>bigOpt(icons[i],lbl,'',`onclick="pick('gravida','${i+1}',this);D.gravida='${i+1}';prepBirthRows(${i+1});next()"`)).join('')}</div>`);
+}
+function buildS25(L) {
+  return card(L.sBirth,'👶',L.s25q,L.s25h,`
+    <div id="birthRowsContainer"></div>
+    <button class="add-birth-btn" onclick="addBirthRow()">${L.addBirth}</button>
+    <div class="divider"></div>
+    <span class="mini-lbl" style="font-size:13px;font-weight:900;color:var(--rose);text-transform:none;letter-spacing:0">${L.abortLbl}</span>
+    <div id="abortRowsContainer" style="margin-top:8px"></div>
+    <button class="add-birth-btn" style="border-color:var(--rose);color:var(--rose);margin-top:6px" onclick="addAbortRow()">${L.abortAdd}</button>
+    <div class="divider"></div>
+    <span class="mini-lbl" style="font-size:13px;font-weight:900;color:var(--rose);text-transform:none;letter-spacing:0">${L.ectopicLbl}</span>
+    <div id="ectopicRowsContainer" style="margin-top:8px"></div>
+    <button class="add-birth-btn" style="border-color:var(--rose);color:var(--rose);margin-top:6px" onclick="addEctopicRow()">${L.ectopicAdd}</button>`);
+}
+function buildS26(L) {
+  return card(L.sPeriod,'🔄',L.s26q,'',`
+    ${bigOpt('✅',L.s26reg,L.s26regs,`onclick="pick('menses','Regular',this);next()"`)}
+    ${bigOpt('✅',L.s26irr,L.s26irrs,`onclick="pick('menses','Irregular',this);next()"`)} `);
+}
+function buildS27(L) {
+  return card(L.sContra,'💉',L.s27q,'',`
+    ${bigOpt('✅',L.s27yes,'',`onclick="pick('contraYN','Yes',this);document.getElementById('contraRev').classList.add('show')"`)}
+    ${bigOpt('✅',L.s27no,'',`onclick="pick('contraYN','No',this);document.getElementById('contraRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="contraRev">
+      <span class="mini-lbl">${L.contraLbl}</span>
+      <div class="check-grid">${L.contra.map(c=>`<div class="ci" onclick="toggleCheck(this,'contra','${c}')"><div class="cd"></div>${c}</div>`).join('')}</div>
+    </div>`);
+}
+function buildS28(L) {
+  return card(L.sWork,'💼',L.s28q,'',`
+    ${bigOpt('🏠',L.s28hw,'',`onclick="pick('empStatus','${L.s28hw}',this);D.patientOccupation='${L.s28hw}';document.getElementById('empRev').classList.remove('show');next()"`)}
+    ${bigOpt('💼',L.s28wk,'',`onclick="pick('empStatus','${L.s28wk}',this);document.getElementById('empRev').classList.add('show')"`)}
+    ${bigOpt('📚',L.s28st,'',`onclick="pick('empStatus','${L.s28st}',this);document.getElementById('empRev').classList.remove('show');next()"`)}
+    <div class="reveal" id="empRev">
+      <span class="mini-lbl">${L.s28lbl}</span>
+      <input class="big-input" type="text" id="patientOcc" placeholder="${L.s28p}" oninput="D.patientOccupation=this.value">
+    </div>`);
+}
+function buildS29(L) {
+  return card(L.sWork,'👨‍💼',L.s29q,'',
+    `<input class="big-input" type="text" id="husbOcc" placeholder="${L.s29p}" oninput="D.husbandOccupation=this.value">`);
+}
+function buildS30(L) {
+  return card(L.sHousehold,'💰',L.s30q,'',
+    L.income.map((inc,i)=>bigOpt(L.incomeIcons[i],inc,'',`onclick="pick('income','${inc}',this);next()"`)).join(''));
+}
+function buildS31(L) {
+  return card(L.sLife,'🌿',L.s31q,L.s31h,`
+    <div style="font-size:15px;font-weight:800;color:var(--gray800);margin-bottom:8px">${L.smokeQ}</div>
+    <div class="grid2" style="margin-bottom:14px">
+      ${bigOpt('✅',L.smokeNo,'',`onclick="pick('smoker','${L.smokeNo}',this)"`)}
+      ${bigOpt('🚬',L.smokeYes,'',`onclick="pick('smoker','${L.smokeYes}',this)"`)}
+      ${bigOpt('⛔',L.smokeEx,'',`onclick="pick('smoker','${L.smokeEx}',this)"`)}
+    </div>
+    <div class="divider"></div>
+    <div style="font-size:15px;font-weight:800;color:var(--gray800);margin-bottom:8px">${L.alcoholQ}</div>
+    <div class="grid2" style="margin-bottom:14px">
+      ${bigOpt('✅',L.alcoholNo,'',`onclick="pick('alcohol','${L.alcoholNo}',this)"`)}
+      ${bigOpt('🍺',L.alcoholYes,'',`onclick="pick('alcohol','${L.alcoholYes}',this)"`)}
+    </div>
+    <div class="divider"></div>
+    <div style="font-size:15px;font-weight:800;color:var(--gray800);margin-bottom:8px">${L.drugsQ}</div>
+    <div class="grid2">
+      ${bigOpt('✅',L.drugsNo,'',`onclick="pick('drugs','${L.drugsNo}',this)"`)}
+      ${bigOpt('⚠️',L.drugsYes,'',`onclick="pick('drugs','${L.drugsYes}',this)"`)}
+    </div>`);
+}
+function buildS32(L) {
+  // Set exportLang to match current lang when building this screen
+  exportLang = lang;
+  return `<div class="sum-hero"><div class="he">${L.sumHero}</div><h2>${L.sumTitle}</h2><p>${L.sumSub}</p></div>
+  <div class="export-lang-bar">
+    <span class="export-lang-label">${L.exportLangLabel}</span>
+    <div class="export-lang-toggle">
+      <button class="elang-btn ${lang==='en'?'active':''}" id="elangEN" onclick="setExportLang('en')">🇬🇧 English</button>
+      <button class="elang-btn ${lang==='ms'?'active':''}" id="elangBM" onclick="setExportLang('ms')">🇲🇾 Bahasa Melayu</button>
+    </div>
+    <div class="elang-note" id="elangNote">${L.exportNote}</div>
+  </div>
+  <div class="act-btns">
+    <button class="act-btn p" onclick="printSummary()">${L.sumPrint}</button>
+    <button class="act-btn" onclick="copyText()">${L.sumCopy}</button>
+    <button class="act-btn" onclick="downloadFile()">${L.sumSave}</button>
+    <button class="act-btn" onclick="location.reload()">${L.sumRestart}</button>
+  </div>
+  <div id="summaryOut"></div>`;
+}
+
+function yr(from) {
+  let s=''; for(let y=new Date().getFullYear();y>=from;y--) s+=`<option>${y}</option>`; return s;
+}
+
+// ─────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────
+function next() {
+  if (cur >= TOTAL-1) return;
+  collectInputs();
+  document.getElementById('s'+cur).classList.remove('active');
+  cur++;
+  document.getElementById('s'+cur).classList.add('active');
+  updateUI();
+  if (cur === TOTAL-1) buildSummary();
+  window.scrollTo(0,0);
+}
+function prev() {
+  if (cur <= 0) return;
+  collectInputs();
+  document.getElementById('s'+cur).classList.remove('active');
+  cur--;
+  document.getElementById('s'+cur).classList.add('active');
+  updateUI();
+  window.scrollTo(0,0);
+}
+function nextBtn() { collectInputs(); next(); }
+
+function updateUI() {
+  const L = T[lang];
+  const pct = Math.round((cur/(TOTAL-1))*100);
+  document.getElementById('pFill').style.width = pct+'%';
+  document.getElementById('pPct').textContent = pct+'%';
+  document.getElementById('pLabel').textContent = L.pLabels[cur]||'';
+  document.getElementById('btnNext').textContent = cur===0 ? L.btnStart : L.btnNext;
+  document.getElementById('btnBack').textContent = L.btnBack;
+  document.getElementById('btnBack').style.display = cur===0 ? 'none' : '';
+  document.getElementById('btnNext').style.display = cur===TOTAL-1 ? 'none' : '';
+}
+
+// ─────────────────────────────────────────
+// INTERACTIONS
+// ─────────────────────────────────────────
+function pick(key, val, btn) {
+  D[key] = val;
+  if (btn) {
+    const grp = btn.closest('.big-opt')?.parentElement;
+    if (grp) grp.querySelectorAll('.big-opt').forEach(b=>b.classList.remove('sel'));
+    btn.classList.add('sel');
+  }
+}
+
+function toggleCheck(el, key, val) {
+  el.classList.toggle('checked');
+  el.querySelector('.cd').textContent = el.classList.contains('checked') ? '✓' : '';
+  if (!Array.isArray(D[key])) D[key] = [];
+  el.classList.contains('checked') ? (!D[key].includes(val) && D[key].push(val)) : (D[key] = D[key].filter(v=>v!==val));
+}
+function clearChecks(key) {
+  document.querySelectorAll('.ci').forEach(el => {
+    if (el.getAttribute('onclick')?.includes(`,'${key}'`)) {
+      el.classList.remove('checked');
+      el.querySelector('.cd').textContent = '';
+    }
+  });
+  D[key] = [];
+}
+
+function collectInputs() {
+  [['name','name'],['ic','ic'],['clinic','clinic'],['foodAllergy','foodAllergy'],
+   ['medAllergy','medAllergy'],['pmiOthers','pmiOthers'],['psychDx','psychDx'],
+   ['medications','medications'],['surgOthers','surgOthers'],
+   ['fhxCancerType','fhxCancerType'],['patientOcc','patientOccupation'],
+   ['husbOcc','husbandOccupation']].forEach(([id,key])=>{
+    const el = document.getElementById(id);
+    if (el) D[key] = el.value;
+  });
+  const lmpEl = document.getElementById('lmp');
+  if (lmpEl?.value) D.lmp = lmpEl.value;
+  const scanEl = document.getElementById('scanDate');
+  if (scanEl?.value) D.scanDate = scanEl.value;
+  const hEl = document.getElementById('height'), wEl = document.getElementById('weight');
+  if (hEl?.value) D.height = hEl.value;
+  if (wEl?.value) D.weight = wEl.value;
+}
+
+function restoreInputs() {
+  const map = {name:D.name,ic:D.ic,clinic:D.clinic,foodAllergy:D.foodAllergy,
+    medAllergy:D.medAllergy,pmiOthers:D.pmiOthers,psychDx:D.psychDx,
+    medications:D.medications,surgOthers:D.surgOthers,fhxCancerType:D.fhxCancerType,
+    patientOcc:D.patientOccupation,husbOcc:D.husbandOccupation,
+    height:D.height,weight:D.weight,lmp:D.lmp,scanDate:D.scanDate};
+  Object.entries(map).forEach(([id,val])=>{
+    const el = document.getElementById(id);
+    if (el && val) el.value = val;
+  });
+  if (D.height && D.weight) calcBMI();
+  if (D.lmp) calcEDD();
+}
+
+// ─────────────────────────────────────────
+// CALCULATIONS
+// ─────────────────────────────────────────
+function calcBMI() {
+  const h = parseFloat(document.getElementById('height')?.value);
+  const w = parseFloat(document.getElementById('weight')?.value);
+  if (!h||!w||h<50) return;
+  const bmi = (w/((h/100)**2)).toFixed(1);
+  D.bmi = bmi;
+  const L = T[lang];
+  const el = document.getElementById('bmiVal'), ce = document.getElementById('bmiCat'), bx = document.getElementById('bmiBox');
+  if (!el) return;
+  el.textContent = bmi+' kg/m²';
+  const idx = bmi<18.5?0:bmi<25?1:bmi<30?2:3;
+  ce.textContent = L.bmiCats[idx];
+  bx.classList.add('show');
+}
+
+function calcEDD() {
+  const lmp = document.getElementById('lmp')?.value;
+  if (!lmp) return;
+  D.lmp = lmp;
+  const edd = new Date(new Date(lmp).getTime()+280*86400000);
+  D.edd = fmt(edd);
+  const days = Math.floor((new Date()-new Date(lmp))/86400000);
+  const w=Math.floor(days/7),d=days%7;
+  D.ga = days>=0 ? `${w} wks ${d} days` : `EDD in ${Math.floor(Math.abs(days)/7)}w ${Math.abs(days)%7}d`;
+  const L = T[lang];
+  const ev = document.getElementById('eddVal'), gv = document.getElementById('gaVal'), bx = document.getElementById('eddBox');
+  if (!ev) return;
+  ev.textContent = D.edd;
+  gv.textContent = L.gaPrefix + D.ga;
+  bx.classList.add('show');
+}
+
+function fmt(d) { return d.toLocaleDateString('en-MY',{day:'2-digit',month:'long',year:'numeric'}); }
+
+// ─────────────────────────────────────────
+// BIRTH ROWS
+// ─────────────────────────────────────────
+function prepBirthRows(g) {
+  D.birthHistory = [];
+  const container = document.getElementById('birthRowsContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i=0;i<Math.max(0,g-1);i++) { D.birthHistory.push({}); renderBirthRow(i); }
+}
+function addBirthRow() {
+  const i = D.birthHistory.length;
+  D.birthHistory.push({});
+  renderBirthRow(i);
+}
+function renderBirthRow(i) {
+  const L = T[lang];
+  let yOpts = `<option value=""></option>`; for(let y=new Date().getFullYear();y>=1990;y--) yOpts+=`<option>${y}</option>`;
+  const div = document.createElement('div');
+  div.className = 'birth-row';
+  div.innerHTML = `<div class="brt">${L.babyLabel} ${i+1}</div>
+  <div class="birth-fields">
+    <div class="mf"><label>${L.bYr}</label><select onchange="D.birthHistory[${i}].year=this.value">${yOpts}</select></div>
+    <div class="mf"><label>${L.bTerm}</label>
+      <select onchange="D.birthHistory[${i}].term=this.value">
+        <option value=""></option>${L.bTermOpts.map(o=>`<option>${o}</option>`).join('')}
+      </select></div>
+    <div class="mf"><label>${L.bBW}</label><input type="number" placeholder="${L.bBWp}" min="200" max="6000" oninput="D.birthHistory[${i}].bw=this.value"></div>
+    <div class="mf"><label>${L.bStatus}</label>
+      <select onchange="D.birthHistory[${i}].status=this.value">
+        <option value=""></option>${L.bStatusOpts.map(o=>`<option>${o}</option>`).join('')}
+      </select></div>
+    <div class="mf full"><label>${L.bComp}</label>
+      <input type="text" placeholder="${L.bCompP}" oninput="D.birthHistory[${i}].complications=this.value"></div>
+  </div>`;
+  document.getElementById('birthRowsContainer').appendChild(div);
+}
+
+// ── Miscarriage rows ──
+function addAbortRow() {
+  var i = D.miscarriageHistory.length;
+  D.miscarriageHistory.push({year:'', ga:'', type:'', proc:'', procOther:''});
+  renderAbortRow(i);
+}
+function renderAbortRow(i) {
+  var L = T[lang];
+  var yOpts = '<option value=""></option>';
+  for (var y = new Date().getFullYear(); y >= 1970; y--) yOpts += '<option>' + y + '</option>';
+  var typeOpts = '<option value=""></option>' + L.abortTypeOpts.map(function(o){ return '<option>' + o + '</option>'; }).join('');
+  var procOpts = '<option value=""></option>' + L.abortProcOpts.map(function(o){ return '<option>' + o + '</option>'; }).join('');
+
+  var div = document.createElement('div');
+  div.className = 'birth-row';
+  div.style.borderColor = 'var(--rose-mid, #f5c2d0)';
+  div.id = 'abortRow_' + i;
+  div.innerHTML =
+    '<div class="brt" style="color:var(--rose)">' + (i+1) + '. ' + L.abortLbl.split('/')[0].trim() + '</div>' +
+    '<div class="birth-fields">' +
+      '<div class="mf"><label>' + L.abortYr + '</label>' +
+        '<select onchange="D.miscarriageHistory['+i+'].year=this.value">' + yOpts + '</select></div>' +
+      '<div class="mf"><label>' + L.abortGA + '</label>' +
+        '<input type="number" placeholder="' + L.abortGAp + '" min="4" max="24" oninput="D.miscarriageHistory['+i+'].ga=this.value"></div>' +
+      '<div class="mf full"><label>' + L.abortType + '</label>' +
+        '<select onchange="D.miscarriageHistory['+i+'].type=this.value;renderAbortProcOther('+i+')">' + typeOpts + '</select></div>' +
+      '<div class="mf full"><label>' + L.abortProc + '</label>' +
+        '<select id="abortProc_'+i+'" onchange="D.miscarriageHistory['+i+'].proc=this.value;renderAbortProcOther('+i+')">' + procOpts + '</select></div>' +
+      '<div class="mf full" id="abortProcOtherDiv_'+i+'" style="display:none"><label>' + L.abortProcOther + '</label>' +
+        '<input type="text" placeholder="..." oninput="D.miscarriageHistory['+i+'].procOther=this.value"></div>' +
+    '</div>';
+  document.getElementById('abortRowsContainer').appendChild(div);
+}
+function renderAbortProcOther(i) {
+  var sel = document.getElementById('abortProc_' + i);
+  var othDiv = document.getElementById('abortProcOtherDiv_' + i);
+  if (sel && othDiv) {
+    othDiv.style.display = (sel.value === T[lang].abortProcOpts[5] || sel.value === 'Others' || sel.value === 'Lain-lain') ? 'block' : 'none';
+  }
+}
+
+// ── Ectopic rows ──
+function addEctopicRow() {
+  var i = D.ectopicHistory.length;
+  D.ectopicHistory.push({year:'', side:'', proc:''});
+  renderEctopicRow(i);
+}
+function renderEctopicRow(i) {
+  var L = T[lang];
+  var yOpts = '<option value=""></option>';
+  for (var y = new Date().getFullYear(); y >= 1970; y--) yOpts += '<option>' + y + '</option>';
+  var sideOpts = '<option value=""></option>' + L.ectopicSideOpts.map(function(o){ return '<option>' + o + '</option>'; }).join('');
+  var procOpts = '<option value=""></option>' + L.ectopicProcOpts.map(function(o){ return '<option>' + o + '</option>'; }).join('');
+
+  var div = document.createElement('div');
+  div.className = 'birth-row';
+  div.style.borderColor = 'var(--rose-mid, #f5c2d0)';
+  div.innerHTML =
+    '<div class="brt" style="color:var(--rose)">' + (i+1) + '. ' + L.ectopicLbl + '</div>' +
+    '<div class="birth-fields">' +
+      '<div class="mf"><label>' + L.ectopicYr + '</label>' +
+        '<select onchange="D.ectopicHistory['+i+'].year=this.value">' + yOpts + '</select></div>' +
+      '<div class="mf"><label>' + L.ectopicSide + '</label>' +
+        '<select onchange="D.ectopicHistory['+i+'].side=this.value">' + sideOpts + '</select></div>' +
+      '<div class="mf full"><label>' + L.ectopicProc + '</label>' +
+        '<select onchange="D.ectopicHistory['+i+'].proc=this.value">' + procOpts + '</select></div>' +
+    '</div>';
+  document.getElementById('ectopicRowsContainer').appendChild(div);
+}
+
+// ─────────────────────────────────────────
+// SUMMARY
+// ─────────────────────────────────────────
+function buildSummary() {
+  collectInputs();
+  var L = T[exportLang];
+
+  function joinArr(a) { return (Array.isArray(a) && a.length) ? a.join(', ') : '—'; }
+  function ynDetail(yn, detail) { return yn === 'Yes' ? (detail || 'Yes') : (yn || '—'); }
+
+  var births = D.birthHistory.filter(function(b){return b.year||b.bw;}).map(function(b,i){
+    return L.babyLabel+' '+(i+1)+': '+(b.year||'?')+', '+txVal(b.term||'?')+', '+(b.bw||'?')+'g, '+txVal(b.status||'?')+(b.complications?', '+b.complications:'');
+  }).join('\n') || '—';
+
+  var miscarriages = '—';
+  if (D.miscarriageHistory && D.miscarriageHistory.length > 0) {
+    miscarriages = D.miscarriageHistory.map(function(m, i) {
+      var s = (i+1) + '. ';
+      if (m.year) s += m.year;
+      if (m.ga) s += ', ' + m.ga + ' wks';
+      if (m.type) s += ', ' + txVal(m.type);
+      var proc = txVal(m.proc);
+      if (proc && proc !== 'None' && proc !== 'Tiada') {
+        s += ' → ' + proc;
+        if (m.procOther) s += ' (' + m.procOther + ')';
+      }
+      return s;
+    }).join('\n');
+  }
+
+  var ectopics = '—';
+  if (D.ectopicHistory && D.ectopicHistory.length > 0) {
+    ectopics = D.ectopicHistory.map(function(e, i) {
+      var s = (i+1) + '. ';
+      if (e.year) s += e.year;
+      if (e.side) s += ', ' + txVal(e.side);
+      if (e.proc) s += ' → ' + txVal(e.proc);
+      return s;
+    }).join('\n');
+  }
+
+  // Use txArr to translate individual array items when exportLang==='en'
+  var pmiStr    = joinArr(txArr(D.pmi));
+  var surgJoin  = joinArr(txArr(D.surg));
+  var surgStr   = D.surgYN === 'Yes' ? (surgJoin !== '—' ? surgJoin : 'Yes') + (D.surgYear ? ' (' + D.surgYear + ')' : '') : 'No';
+  var fhxJoin   = joinArr(txArr(D.fhx));
+  var fhxStr    = fhxJoin !== '—' ? fhxJoin + (D.fhxCancerType ? ' — ' + D.fhxCancerType : '') : '—';
+  var contraJoin= joinArr(txArr(D.contra));
+  var contraStr = D.contraYN === 'Yes' ? (contraJoin !== '—' ? contraJoin : 'Yes') : (txVal(D.contraYN) || '—');
+  var gbsStr    = D.gbs ? txVal(D.gbs) + (D.gbsYear ? ' (' + D.gbsYear + ')' : '') : '—';
+  var occStr    = txVal(D.empStatus||'') + (D.patientOccupation && D.patientOccupation !== 'Housewife' && D.patientOccupation !== 'Surirumah / Penjaga penuh masa' ? ' — ' + D.patientOccupation : '');
+
+  // Wrap all patient-supplied values through txVal so BM→EN when exportLang==='en'
+  var vals = [
+    [D.name||'—', D.ic||'—', D.age||'—', txVal(D.race)||'—', txVal(D.religion)||'—', D.clinic||'—'],
+    [D.height ? D.height+' cm' : '—', D.weight ? D.weight+' kg' : '—', D.bmi ? D.bmi+' kg/m²' : '—'],
+    [D.lmp ? fmt(new Date(D.lmp)) : '—', D.edd||'—', D.ga||'—', D.scanDate ? fmt(new Date(D.scanDate)) : '—', txVal(D.menses)||'—', txVal(contraStr)||'—'],
+    [txVal(D.bloodGroup)||'—', txVal(D.rhesus)||'—', txVal(D.hiv)||'—', txVal(D.hepB)||'—', txVal(D.vdrl)||'—', txVal(gbsStr)||'—'],
+    [txVal(ynDetail(D.foodAllergyYN, D.foodAllergy)), txVal(ynDetail(D.medAllergyYN, D.medAllergy))],
+    [txVal(pmiStr), txVal(D.pmiOthers)||'—', txVal(ynDetail(D.psychYN, D.psychDx)), txVal(ynDetail(D.medsYN, D.medications)), txVal(D.aspirinCa)||'—', txVal(surgStr), txVal(fhxStr)],
+    ['G'+D.gravida, txVal(births), txVal(miscarriages), txVal(ectopics)],
+    [txVal(occStr)||'—', D.husbandOccupation||'—', txVal(D.income)||'—', txVal(D.smoker)||'—', txVal(D.alcohol)||'—', txVal(D.drugs)||'—']
+  ];
+
+  var html = '';
+  L.sumSecs.forEach(function(secTitle, si) {
+    html += '<div class="s-card"><div class="s-head">' + secTitle + '</div>';
+    L.sumKeys[si].forEach(function(key, ki) {
+      var isHl = (si === 2 && ki >= 1 && ki <= 3);
+      var val = (vals[si] && vals[si][ki] !== undefined) ? vals[si][ki] : '—';
+      var valHtml = val.replace(/\n/g, '<br>');
+      html += '<div class="s-row"><div class="sk">' + key + '</div><div class="sv' + (isHl ? ' hl' : '') + '">' + valHtml + '</div></div>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('summaryOut').innerHTML = html;
+}
+
+// ── BM → EN translation map for patient responses ──
+// Every value that may be stored in D when patient uses BM is mapped to its EN equivalent.
+// Keys are BM strings, values are EN strings.
+var BM_TO_EN = {
+  // Races
+  'Melayu':'Malay','Cina':'Chinese','India':'Indian','Lain-lain':'Others',
+  // Religions
+  'Kristian':'Christianity','Buddha':'Buddhism','Hindu':'Hinduism','Sikh':'Sikhism',
+  // Rhesus
+  'Positif (+)':'Positive (+)','Negatif (−)':'Negative (−)',
+  // HIV / HepB / VDRL / GBS
+  'Ya — Positif':'Yes — Positive',
+  'Ya — Saya ada Hepatitis B':'Yes — I have Hepatitis B',
+  'Ya — Reaktif / Positif':'Yes — Reactive / Positive',
+  'Ya — Saya diberitahu ada GBS':'Yes — I was told I had GBS',
+  'Negatif':'Negative','Tidak — Negatif':'No — Negative',
+  'Tidak pasti / Belum diuji':'Not sure / Never tested',
+  'Tidak pasti':'Not sure','Tidak':'No','Ya':'Yes','Tiada':'None',
+  // Birth history - term
+  'Cukup bulan (37–42 mgu)':'Term (37–42 wks)',
+  'Pramatang (<37 mgu)':'Preterm (<37 wks)',
+  'Selepas tempoh (>42 mgu)':'Post-term (>42 wks)',
+  // Birth history - status
+  'Hidup dan sihat':'Alive and well',
+  'Hidup dengan penyakit':'Alive with illness',
+  'Lahir mati':'Stillbirth',
+  'Kematian bayi baru lahir':'Neonatal death',
+  // Miscarriage types
+  'Keguguran spontan':'Miscarriage (spontaneous)',
+  'Pengguguran tidak lengkap':'Incomplete abortion',
+  'Kehamilan molar':'Molar pregnancy',
+  'Penamatan kehamilan (TOP)':'Termination of pregnancy (TOP)',
+  // Miscarriage procedures
+  'Evakuasi produk tertahan (ERPOC)':'Evacuation of Retained Products (ERPOC)',
+  'Aspirasi vakum manual (MVA)':'Manual Vacuum Aspiration (MVA)',
+  'Dilasi & Kuretaj (D&C)':'Dilatation & Curettage (D&C)',
+  'Rawatan ubat sahaja':'Medical management only',
+  // Ectopic sides
+  'Tiub kiri':'Left tube','Tiub kanan':'Right tube',
+  'Tidak diketahui':'Unknown',
+  // Ectopic management
+  'Methotrexate (ubat)':'Methotrexate (medical)',
+  'Salpingektomi laparoskopik':'Laparoscopic salpingectomy',
+  'Salpingostomi laparoskopik':'Laparoscopic salpingostomy',
+  'Pembedahan terbuka':'Open surgery',
+  'Pemantauan':'Expectant management',
+  // Periods
+  'Ya, teratur':'Yes, regular','Tidak, tidak teratur':'No, irregular',
+  'Teratur':'Regular','Tidak teratur':'Irregular',
+  // Contraception
+  'IUCD (Gegelung)':'IUCD (Coil)',
+  'Suntikan IM Depo':'IM Depo Injection',
+  'Implanon (Implan)':'Implanon (Implant)',
+  // Employment
+  'Surirumah / Penjaga penuh masa':'Housewife / Full-time parent',
+  'Bekerja':'Working','Pelajar':'Student',
+  // Income
+  'Kurang daripada RM1,500':'Less than RM1,500',
+  'Lebih daripada RM10,000':'More than RM10,000',
+  'Tidak mahu menjawab':'Prefer not to say',
+  // Lifestyle
+  'Bekas perokok':'Ex-smoker',
+  // Medical conditions
+  'Darah Tinggi':'High Blood Pressure',
+  'Kencing Manis':'Diabetes','Asma':'Asthma',
+  'Masalah Tiroid':'Thyroid Problem',
+  'Penyakit Jantung':'Heart Disease','Kanser':'Cancer',
+  // Psychiatric
+  'Kemurungan':'Depression','Kebimbangan':'Anxiety',
+  // Family history
+  'Penyakit Tiroid':'Thyroid Disease',
+  'Penyakit Mental':'Mental Illness',
+  'Penyakit Jantung':'Heart Disease',
+  // Surgery types
+  'Buang Apendiks':'Appendix Removal',
+  'Pembaikan Hernia':'Hernia Repair',
+  'Pembersihan Luka':'Wound Debridement',
+  'Buang Sista Ovari':'Ovarian Cyst Removal',
+  'Buang Fibroid':'Fibroid Removal',
+  'Pembedahan Caesarean (LSCS)':'Caesarean (LSCS)',
+  // Aspirin/Ca
+  'Aspirin':'Aspirin',
+  // Allergy / generic
+  'Tiada alahan makanan':'No food allergies',
+  'Tiada alahan ubat':'No medicine allergies',
+};
+
+// Translate a single string value: if exportLang is 'en', map BM→EN; else return as-is
+function txVal(val) {
+  if (exportLang !== 'en' || !val || typeof val !== 'string') return val;
+  // Check direct match first
+  if (BM_TO_EN[val]) return BM_TO_EN[val];
+  // Try to translate a comma-separated list (e.g. D.pmi, D.contra)
+  if (val.indexOf(',') !== -1) {
+    return val.split(',').map(function(v) {
+      var t = v.trim();
+      return BM_TO_EN[t] || t;
+    }).join(', ');
+  }
+  // Try to translate newline-separated list (birth/miscarriage rows)
+  if (val.indexOf('\n') !== -1) {
+    return val.split('\n').map(function(line) {
+      return translateLine(line);
+    }).join('\n');
+  }
+  return translateLine(val);
+}
+
+// Translate individual words/phrases within a line
+function translateLine(line) {
+  if (exportLang !== 'en' || !line) return line;
+  // Replace each known BM phrase in the line
+  var result = line;
+  Object.keys(BM_TO_EN).forEach(function(bm) {
+    if (result.indexOf(bm) !== -1) {
+      result = result.split(bm).join(BM_TO_EN[bm]);
+    }
+  });
+  return result;
+}
+
+// Translate an array of strings
+function txArr(arr) {
+  if (!Array.isArray(arr)) return arr;
+  return arr.map(function(v) { return txVal(v) || v; });
+}
+
+// ── Export language toggle ──
+function setExportLang(l) {
+  exportLang = l;
+  // Update toggle button styles
+  var enBtn = document.getElementById('elangEN');
+  var bmBtn = document.getElementById('elangBM');
+  if (enBtn) enBtn.classList.toggle('active', l === 'en');
+  if (bmBtn) bmBtn.classList.toggle('active', l === 'ms');
+  // Rebuild the summary in the new language
+  buildSummary();
+  // Update the note text
+  var note = document.getElementById('elangNote');
+  if (note) note.textContent = T[lang].exportNote;
+}
+
+// ── Build structured data for export (does NOT depend on DOM) ──
+function getSummaryData() {
+  collectInputs();
+  var L = T[exportLang];
+
+  function joinArr(a) { return (Array.isArray(a) && a.length) ? a.join(', ') : '—'; }
+  function ynDetail(yn, detail) { return yn === 'Yes' ? (detail || 'Yes') : (yn || '—'); }
+
+  var births = D.birthHistory.filter(function(b){return b.year||b.bw;}).map(function(b,i){
+    return L.babyLabel+' '+(i+1)+': '+(b.year||'?')+', '+txVal(b.term||'?')+', '+(b.bw||'?')+'g, '+txVal(b.status||'?')+(b.complications?', '+b.complications:'');
+  }).join('\n') || '—';
+
+  var miscarriages = '—';
+  if (D.miscarriageHistory && D.miscarriageHistory.length > 0) {
+    miscarriages = D.miscarriageHistory.map(function(m, i) {
+      var s = (i+1) + '. ';
+      if (m.year) s += m.year;
+      if (m.ga) s += ', ' + m.ga + ' wks';
+      if (m.type) s += ', ' + txVal(m.type);
+      var proc = txVal(m.proc);
+      if (proc && proc !== 'None' && proc !== 'Tiada') {
+        s += ' -> ' + proc;
+        if (m.procOther) s += ' (' + m.procOther + ')';
+      }
+      return s;
+    }).join('\n');
+  }
+
+  var ectopics = '—';
+  if (D.ectopicHistory && D.ectopicHistory.length > 0) {
+    ectopics = D.ectopicHistory.map(function(e, i) {
+      var s = (i+1) + '. ';
+      if (e.year) s += e.year;
+      if (e.side) s += ', ' + txVal(e.side);
+      if (e.proc) s += ' -> ' + txVal(e.proc);
+      return s;
+    }).join('\n');
+  }
+
+  // Use txArr to translate individual array items when exportLang==='en'
+  var pmiStr    = joinArr(txArr(D.pmi));
+  var surgJoin  = joinArr(txArr(D.surg));
+  var surgStr   = D.surgYN === 'Yes' ? (surgJoin !== '—' ? surgJoin : 'Yes') + (D.surgYear ? ' (' + D.surgYear + ')' : '') : 'No';
+  var fhxJoin   = joinArr(txArr(D.fhx));
+  var fhxStr    = fhxJoin !== '—' ? fhxJoin + (D.fhxCancerType ? ' — ' + D.fhxCancerType : '') : '—';
+  var contraJoin= joinArr(txArr(D.contra));
+  var contraStr = D.contraYN === 'Yes' ? (contraJoin !== '—' ? contraJoin : 'Yes') : (txVal(D.contraYN) || '—');
+  var gbsStr    = D.gbs ? txVal(D.gbs) + (D.gbsYear ? ' (' + D.gbsYear + ')' : '') : '—';
+  var occStr    = txVal(D.empStatus||'') + (D.patientOccupation && D.patientOccupation !== 'Housewife' && D.patientOccupation !== 'Surirumah / Penjaga penuh masa' ? ' — ' + D.patientOccupation : '');
+
+  // Wrap all patient-supplied values through txVal so BM→EN when exportLang==='en'
+  var vals = [
+    [D.name||'—', D.ic||'—', D.age||'—', txVal(D.race)||'—', txVal(D.religion)||'—', D.clinic||'—'],
+    [D.height ? D.height+' cm' : '—', D.weight ? D.weight+' kg' : '—', D.bmi ? D.bmi+' kg/m²' : '—'],
+    [D.lmp ? fmt(new Date(D.lmp)) : '—', D.edd||'—', D.ga||'—', D.scanDate ? fmt(new Date(D.scanDate)) : '—', txVal(D.menses)||'—', txVal(contraStr)||'—'],
+    [txVal(D.bloodGroup)||'—', txVal(D.rhesus)||'—', txVal(D.hiv)||'—', txVal(D.hepB)||'—', txVal(D.vdrl)||'—', txVal(gbsStr)||'—'],
+    [txVal(ynDetail(D.foodAllergyYN, D.foodAllergy)), txVal(ynDetail(D.medAllergyYN, D.medAllergy))],
+    [txVal(pmiStr), txVal(D.pmiOthers)||'—', txVal(ynDetail(D.psychYN, D.psychDx)), txVal(ynDetail(D.medsYN, D.medications)), txVal(D.aspirinCa)||'—', txVal(surgStr), txVal(fhxStr)],
+    ['G'+D.gravida, txVal(births), txVal(miscarriages), txVal(ectopics)],
+    [txVal(occStr)||'—', D.husbandOccupation||'—', txVal(D.income)||'—', txVal(D.smoker)||'—', txVal(D.alcohol)||'—', txVal(D.drugs)||'—']
+  ];
+  return { L: L, vals: vals };
+}
+
+function printSummary() {
+  buildSummary();
+  // Small delay to let DOM render before print dialog
+  setTimeout(function(){ window.print(); }, 300);
+}
+
+function copyText() {
+  var sd = getSummaryData();
+  var L = sd.L;
+  var date = new Date().toLocaleDateString('en-MY');
+  var txt = 'ANTENATAL CLERKING — ' + (D.name||'Patient') + ' (' + (D.ic||'—') + ')\n';
+  txt += 'Date: ' + date + '\n';
+  txt += '================================================\n\n';
+  L.sumSecs.forEach(function(secTitle, si) {
+    txt += '[ ' + secTitle.replace(/[^\w\s\u00C0-\u024F]/gu, '').trim() + ' ]\n';
+    L.sumKeys[si].forEach(function(key, ki) {
+      var val = (sd.vals[si] && sd.vals[si][ki]) ? sd.vals[si][ki] : '—';
+      var pad = key.length < 24 ? key + Array(24-key.length).join(' ') : key;
+      txt += '  ' + pad + ': ' + val + '\n';
+    });
+    txt += '\n';
+  });
+
+  // Try clipboard API first, fall back to textarea method
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt)
+      .then(function(){ showToast(L.copied); })
+      .catch(function(){ fallbackCopy(txt, L); });
+  } else {
+    fallbackCopy(txt, L);
+  }
+}
+
+function fallbackCopy(txt, L) {
+  var ta = document.createElement('textarea');
+  ta.value = txt;
+  ta.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;opacity:0.95;z-index:9999;font-size:12px;font-family:monospace;padding:16px;background:#1a1a2e;color:#e0e0e0;border:none;resize:none;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); showToast(L.copied); }
+  catch(e) { showToast(lang==='ms' ? 'Sila pilih semua teks dan salin' : 'Please select all text and copy'); }
+  // Add a close button
+  var closeBtn = document.createElement('button');
+  closeBtn.textContent = lang==='ms' ? '✕ Tutup' : '✕ Close';
+  closeBtn.style.cssText = 'position:fixed;top:12px;right:12px;z-index:10000;padding:10px 18px;background:#7c5cbf;color:white;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;';
+  closeBtn.onclick = function(){ document.body.removeChild(ta); document.body.removeChild(closeBtn); };
+  document.body.appendChild(closeBtn);
+}
+
+function downloadFile() {
+  var sd = getSummaryData();
+  var L = sd.L;
+  var name = D.name || 'Patient';
+  var date = new Date().toLocaleDateString('en-MY');
+  var title = lang === 'ms' ? 'Rekod Clerking Antenatal' : 'Antenatal Clerking Record';
+
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + name + '</title>';
+  html += '<style>body{font-family:Arial,sans-serif;max-width:780px;margin:40px auto;color:#333;font-size:14px}';
+  html += 'h1{color:#7c5cbf;margin-bottom:4px}p.sub{color:#999;font-size:12px;margin-bottom:16px}';
+  html += 'h2{color:#7c5cbf;font-size:13px;border-bottom:2px solid #e4e8ed;padding:6px 0 4px;margin:20px 0 6px}';
+  html += 'table{width:100%;border-collapse:collapse;margin-bottom:8px}';
+  html += 'tr:nth-child(even){background:#f9fafb}';
+  html += 'td{padding:8px 12px;border-bottom:1px solid #f0f0f0;font-size:13px}';
+  html += 'td:first-child{width:180px;color:#888;font-weight:700}';
+  html += '.hl{color:#1a9e8f;font-weight:800}</style></head><body>';
+  html += '<h1>🌸 ' + title + '</h1>';
+  html += '<p class="sub">Patient: ' + name + ' &nbsp;|&nbsp; IC: ' + (D.ic||'—') + ' &nbsp;|&nbsp; Date: ' + date + '</p>';
+
+  L.sumSecs.forEach(function(secTitle, si) {
+    html += '<h2>' + secTitle + '</h2><table>';
+    L.sumKeys[si].forEach(function(key, ki) {
+      var val = (sd.vals[si] && sd.vals[si][ki]) ? sd.vals[si][ki] : '—';
+      var isHl = (si === 2 && ki >= 1 && ki <= 3);
+      html += '<tr><td>' + key + '</td><td' + (isHl ? ' class="hl"' : '') + '>' + val.replace(/\n/g,'<br>') + '</td></tr>';
+    });
+    html += '</table>';
+  });
+  html += '</body></html>';
+
+  // Try download link first, fall back to new tab
+  try {
+    var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Clerking_' + name.replace(/\s+/g,'_') + '.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    showToast(L.saved);
+  } catch(e) {
+    // Fallback: open in new tab
+    var w = window.open('', '_blank');
+    if (w) { w.document.write(html); w.document.close(); showToast(L.saved); }
+    else { showToast(lang==='ms' ? 'Sila benarkan pop-up' : 'Please allow pop-ups'); }
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>
