@@ -1,0 +1,30 @@
+export const pipelineItems = [
+  {
+    icon: '🤖',
+    title: 'AMR — Autonomous Mobile Robot',
+    desc: 'A Proof of Concept for deploying an autonomous mobile robot at Hospital Kajang to transport laboratory specimens from the Emergency Department to the Pathology Lab — cutting turnaround time, reducing staff movement, and minimising human exposure risk.',
+    tags: ['Robotics', 'Emergency Dept', 'Pathology Lab', 'Automation'],
+    detailPath: '/pipeline/amr',
+  },
+  {
+    icon: '🚁',
+    title: 'Drone Specimen Transfer',
+    desc: 'Drone-based transfer of specimens and medications between the Main Building and the Women & Child Centre — enabling rapid, autonomous logistics across the HTPN campus without road congestion or vehicle dependency.',
+    tags: ['Drone', 'Logistics', 'WCC', 'Automation'],
+    detailPath: '/pipeline/drone-specimen',
+  },
+  {
+    icon: '⚖️',
+    title: 'Prison Virtual Clinic',
+    desc: 'Secure specialist teleconsultation platform enabling HTPN doctors to conduct virtual clinics with prisoners at Kajang Prison — improving access to specialist care while eliminating escort logistics, security risks, and transport costs.',
+    tags: ['Telemedicine', 'Prison Health', 'Access to Care'],
+    detailPath: '/pipeline/prison-virtual-clinic',
+  },
+  {
+    icon: '📱',
+    title: 'Facial AI — Vital Signs & HbA1c',
+    desc: 'A 35–50 second smartphone face scan that reads vital signs using facial photoplethysmography — no needles, no reagents, no skilled staff required. Clinically validated at HTPN\'s own Emergency Department across a 400-patient, 3-phase study.',
+    tags: ['AI Vision', 'Roketz.AI', 'Non-Invasive', 'Clinically Validated'],
+    detailPath: '/pipeline/facial-scan-ai',
+  },
+];
