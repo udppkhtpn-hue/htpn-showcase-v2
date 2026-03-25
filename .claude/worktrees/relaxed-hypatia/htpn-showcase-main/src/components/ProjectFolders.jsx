@@ -61,7 +61,10 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
     return () => window.removeEventListener('scroll', dismiss)
   }, [])
 
+  const isMobile = () => window.matchMedia('(hover: none)').matches || window.innerWidth <= 600
+
   const onEnter = () => {
+    if (isMobile()) return
     const cardRect = ref.current.getBoundingClientRect()
     const row = ref.current.closest('.folders-row')
     const rowRect = row?.getBoundingClientRect()
@@ -69,20 +72,34 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
       top: cardRect.top,
       left: rowRect?.left ?? cardRect.left,
       width: rowRect?.width ?? cardRect.width,
+      mobile: false,
     })
   }
   const onLeave = () => {
     gsap.to(ref.current, { y: 0, scale: 1, duration: 0.35, ease: 'power2.inOut' })
     setPopover(null)
   }
+  const onTap = (e) => {
+    if (!isMobile()) { navigate(project.detailPath); return }
+    if (popover) return
+    e.stopPropagation()
+    setPopover({ mobile: true })
+  }
 
   const popoverEl = popover && createPortal(
-    <div
-      className="card-popover"
-      style={{ top: popover.top, left: popover.left, width: popover.width, '--accent': accent }}
-      onMouseEnter={() => setPopover(popover)}
-      onMouseLeave={onLeave}
-    >
+    <>
+      {popover.mobile && (
+        <div className="card-popover__backdrop" onClick={() => setPopover(null)} />
+      )}
+      <div
+        className={`card-popover${popover.mobile ? ' card-popover--mobile' : ''}`}
+        style={popover.mobile
+          ? { '--accent': accent }
+          : { top: popover.top, left: popover.left, width: popover.width, '--accent': accent }
+        }
+        onMouseEnter={() => !popover.mobile && setPopover(popover)}
+        onMouseLeave={() => !popover.mobile && onLeave()}
+      >
       <div className="card-popover__left">
         <div className="card-popover__icon">
           {project.iconType === 'image' && project.icon
@@ -119,7 +136,8 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
           VIEW PROJECT →
         </button>
       </div>
-    </div>,
+    </div>
+    </>,
     document.body
   )
 
@@ -129,7 +147,7 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
         ref={ref}
         className="folder-card"
         style={{ '--accent': accent }}
-        onClick={() => navigate(project.detailPath)}
+        onClick={onTap}
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
       >

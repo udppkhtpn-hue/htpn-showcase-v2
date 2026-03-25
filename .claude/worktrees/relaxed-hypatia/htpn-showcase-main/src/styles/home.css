@@ -760,6 +760,32 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+.card-popover--mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100% !important;
+  top: auto !important;
+  border-radius: 16px 16px 0 0;
+  flex-direction: column;
+  max-height: 70vh;
+  overflow-y: auto;
+  animation: popoverUp 0.22s ease forwards;
+  z-index: 1000;
+}
+
+.card-popover__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+@keyframes popoverUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
 .card-popover__left {
   display: flex;
   flex-direction: column;
@@ -1751,5 +1777,5 @@
   .site-nav__grid { grid-template-columns: 1fr; }
   .folder-card { cursor: default; }
   .folder-card:hover { background: rgba(245, 245, 240, 0.04); border-color: var(--border); }
-  .card-popover { display: none !important; }
+  .card-popover:not(.card-popover--mobile) { display: none !important; }
 }
