@@ -32,13 +32,14 @@ export default function ScrollRevealText({ text, className = '', cursor = false,
         {
           opacity: 1,
           y: 0,
-          ease: 'none',
-          stagger: { each: 0.4, from: 'start' },
+          ease: 'power2.out',
+          duration: 0.5,
+          stagger: { each: 0.06, from: 'start' },
           scrollTrigger: {
             trigger: el,
             start,
-            end,
-            scrub: 1.5,
+            toggleActions: 'play none none none',
+            once: true,
           },
         }
       )
