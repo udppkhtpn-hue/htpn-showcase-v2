@@ -745,62 +745,20 @@
   border: 1px solid rgba(245,245,240,0.12);
   border-top: 2px solid var(--accent, var(--teal));
   border-radius: 8px;
-  padding: 20px 28px;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 24px;
+  flex-direction: column;
+  gap: 12px;
   pointer-events: auto;
-  animation: popoverIn 0.15s ease forwards;
+  animation: popoverIn 0.18s ease forwards;
   box-shadow: 0 24px 60px rgba(0,0,0,0.8);
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
 @keyframes popoverIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-.card-popover--mobile {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100% !important;
-  top: auto !important;
-  border-radius: 16px 16px 0 0;
-  flex-direction: column;
-  max-height: 70vh;
-  overflow-y: auto;
-  animation: popoverUp 0.22s ease forwards;
-  z-index: 1000;
-}
-
-.card-popover__backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 999;
-}
-
-@keyframes popoverUp {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
-}
-
-.card-popover__left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  width: 100px;
-}
-
-.card-popover__right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
 }
 
 .card-popover__header {
@@ -843,10 +801,10 @@
 
 .card-popover__icon img,
 .card-popover__icon span {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
-  font-size: 56px;
+  font-size: 72px;
   line-height: 1;
 }
 
@@ -1775,7 +1733,4 @@
   .stats-row { grid-template-columns: 1fr 1fr; }
   .footer { grid-template-columns: 1fr; gap: 32px; }
   .site-nav__grid { grid-template-columns: 1fr; }
-  .folder-card { cursor: default; }
-  .folder-card:hover { background: rgba(245, 245, 240, 0.04); border-color: var(--border); }
-  .card-popover:not(.card-popover--mobile) { display: none !important; }
 }
