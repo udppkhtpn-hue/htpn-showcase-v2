@@ -186,8 +186,29 @@
 
 /* ── Content Blocks ───────────────────────────────────── */
 .detail-block {
-  padding: 40px 0;
-  border-top: 1px solid var(--border);
+  padding: 40px 40px;
+  margin: 0 -40px;
+  border-top: none;
+  border-bottom: 1px solid var(--border);
+  border-left: 3px solid transparent;
+}
+
+/* Cycle through 4 distinct shades — neutral, teal, slate, amber */
+.detail-block:nth-child(4n+1) {
+  background: rgba(245, 245, 240, 0.03);
+  border-left-color: rgba(245, 245, 240, 0.12);
+}
+.detail-block:nth-child(4n+2) {
+  background: rgba(0, 201, 167, 0.05);
+  border-left-color: rgba(0, 201, 167, 0.3);
+}
+.detail-block:nth-child(4n+3) {
+  background: rgba(100, 140, 220, 0.04);
+  border-left-color: rgba(100, 140, 220, 0.25);
+}
+.detail-block:nth-child(4n+4) {
+  background: rgba(200, 160, 80, 0.04);
+  border-left-color: rgba(200, 160, 80, 0.25);
 }
 
 .detail-block__title {
@@ -332,6 +353,7 @@
 
 @media (max-width: 768px) {
   .detail-container { padding: 100px 24px 60px; }
+  .detail-block { padding: 32px 24px; margin: 0 -24px; }
   .spec-cards { grid-template-columns: 1fr 1fr; }
 }
 
