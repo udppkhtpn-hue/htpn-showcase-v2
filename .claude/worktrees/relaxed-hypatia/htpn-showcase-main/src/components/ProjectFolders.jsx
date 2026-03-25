@@ -56,11 +56,20 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
         delay: idx * 0.06,
       }
     )
+    const dismiss = () => setPopover(null)
+    window.addEventListener('scroll', dismiss, { passive: true })
+    return () => window.removeEventListener('scroll', dismiss)
   }, [])
 
   const onEnter = () => {
-    const rect = ref.current.getBoundingClientRect()
-    setPopover({ top: rect.top, left: rect.left, width: rect.width, height: rect.height })
+    const cardRect = ref.current.getBoundingClientRect()
+    const row = ref.current.closest('.folders-row')
+    const rowRect = row?.getBoundingClientRect()
+    setPopover({
+      top: cardRect.top,
+      left: rowRect?.left ?? cardRect.left,
+      width: rowRect?.width ?? cardRect.width,
+    })
   }
   const onLeave = () => {
     gsap.to(ref.current, { y: 0, scale: 1, duration: 0.35, ease: 'power2.inOut' })
@@ -74,38 +83,42 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
       onMouseEnter={() => setPopover(popover)}
       onMouseLeave={onLeave}
     >
-      <div className="card-popover__header">
-        <span className="card-popover__num">{project.num}</span>
-        {project.status === 'live' && <span className="card-popover__live">LIVE</span>}
-      </div>
-      <span className="card-popover__cat" style={{ color: accent, borderColor: accent + '55' }}>
-        {categoryLabel}
-      </span>
-      <div className="card-popover__icon">
-        {project.iconType === 'image' && project.icon
-          ? <img src={project.icon} alt="" />
-          : <span>{project.icon}</span>
-        }
-      </div>
-      <h3 className="card-popover__title">{project.title}</h3>
-      <p className="card-popover__desc">{project.desc}</p>
-      {project.credit && (
-        <p className="card-popover__credit">
-          Co-developed by <strong>{project.credit.by}</strong>{' '}
-          <em>({project.credit.dept})</em>
-        </p>
-      )}
-      {project.tags?.length > 0 && (
-        <div className="card-popover__tags">
-          {project.tags.map(t => <span key={t} className="card-popover__tag">{t}</span>)}
+      <div className="card-popover__left">
+        <div className="card-popover__icon">
+          {project.iconType === 'image' && project.icon
+            ? <img src={project.icon} alt="" />
+            : <span>{project.icon}</span>
+          }
         </div>
-      )}
-      <button
-        className="card-popover__btn"
-        onClick={() => navigate(project.detailPath)}
-      >
-        VIEW PROJECT →
-      </button>
+        <div className="card-popover__header">
+          <span className="card-popover__num">{project.num}</span>
+          {project.status === 'live' && <span className="card-popover__live">LIVE</span>}
+        </div>
+      </div>
+      <div className="card-popover__right">
+        <span className="card-popover__cat" style={{ color: accent, borderColor: accent + '55' }}>
+          {categoryLabel}
+        </span>
+        <h3 className="card-popover__title">{project.title}</h3>
+        <p className="card-popover__desc">{project.desc}</p>
+        {project.credit && (
+          <p className="card-popover__credit">
+            Co-developed by <strong>{project.credit.by}</strong>{' '}
+            <em>({project.credit.dept})</em>
+          </p>
+        )}
+        {project.tags?.length > 0 && (
+          <div className="card-popover__tags">
+            {project.tags.map(t => <span key={t} className="card-popover__tag">{t}</span>)}
+          </div>
+        )}
+        <button
+          className="card-popover__btn"
+          onClick={() => navigate(project.detailPath)}
+        >
+          VIEW PROJECT →
+        </button>
+      </div>
     </div>,
     document.body
   )
