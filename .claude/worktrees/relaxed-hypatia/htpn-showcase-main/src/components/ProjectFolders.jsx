@@ -46,16 +46,18 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    gsap.fromTo(el,
-      { opacity: 0, y: 32 },
-      {
-        opacity: 1, y: 0,
-        duration: 0.65,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-        delay: idx * 0.06,
-      }
-    )
+    gsap.set(el, { opacity: 0, y: 80 })
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      delay: idx * 0.12,
+      scrollTrigger: { trigger: el, start: 'top 95%', once: true },
+    })
+    return () => ScrollTrigger.getAll().forEach(t => {
+      if (t.vars?.trigger === el) t.kill()
+    })
   }, [])
 
   const onEnter = () => {
