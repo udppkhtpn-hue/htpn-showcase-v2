@@ -111,6 +111,7 @@ function StoryBlock() {
         text="Homegrown digital solutions built by clinicians, for clinicians. Empowering HTPN with AI-assisted tools, real-time dashboards, and workflow automation — transforming a 135-year-old institution into a model of modern, frontline-led digital healthcare."
         className="story-block__text"
         cursor={false}
+        start="top 40%"
       />
     </section>
   )
