@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
  * Reveals text word-by-word as the user scrolls through the element.
  * Mirrors the untold.site scroll-driven text animation.
  */
-export default function ScrollRevealText({ text, className = '', cursor = false }) {
+export default function ScrollRevealText({ text, className = '', cursor = false, start = 'top 78%', end = 'bottom 30%' }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export default function ScrollRevealText({ text, className = '', cursor = false 
           stagger: { each: 0.4, from: 'start' },
           scrollTrigger: {
             trigger: el,
-            start: 'top 78%',
-            end: 'bottom 30%',
+            start,
+            end,
             scrub: 1.5,
           },
         }
@@ -45,7 +45,7 @@ export default function ScrollRevealText({ text, className = '', cursor = false 
     }, ref)
 
     return () => ctx.revert()
-  }, [text, cursor])
+  }, [text, cursor, start, end])
 
   return <p ref={ref} className={`srv ${className}`} />
 }

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Diary Generator</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React and ReactDOM CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX transpiling in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: white !important; padding: 0 !important; }
+            .print-container { 
+                box-shadow: none !important; 
+                border: none !important; 
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+            }
+            @page { margin: 1cm; }
+        }
+        /* Custom scrollbar for better look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const MEDICATION_DATA = [
+            {
+                id: 'aqueous-bath',
+                item: 'Aqueous Cream For Bath',
+                frequency: '(Setiap Kali Mandi)',
+                area: 'Seluruh Badan',
+                instructions: [
+                    'Gunakan Aqueous Cream sebagai sabun.',
+                    'Basahkan badan dengan air, kemudian sapu krim ke seluruh badan sebagai sabun.',
+                    'Bilas badan dengan air dan keringkan.'
+                ]
+            },
+            {
+                id: 'cetrimide',
+                item: 'Cetrimide 1% Shampoo',
+                frequency: '1 kali sehari',
+                area: 'Kulit Kepala',
+                instructions: [
+                    'Gunakan sebagai syampu di kulit kepala.',
+                    'Campurkan Cetrimide dengan air di tapak tangan dan gosok sehingga menjadi buih.',
+                    'Sapu buih di kulit kepala.',
+                    'Bersihkan dengan air dan lap kering.'
+                ]
+            },
+            {
+                id: 'aqueous-glycerine',
+                item: 'Aqueous Cream + 25% Glycerine (Pelembab)',
+                frequency: '3 kali sehari atau bila perlu',
+                area: 'Seluruh Badan (Muka, Badan dan Tengkuk)',
+                instructions: [
+                    'Sebagai Pelembab.',
+                    'Sapu krim pelembab di seluruh badan selepas mandi semasa kulit sedikit lembab.',
+                    'Sapu pelembab sekurang-kurangnya 2-4 kali sehari.'
+                ]
+            },
+            {
+                id: 'vaseline',
+                item: 'White Soft Parafine (Vaseline)',
+                frequency: '3 kali sehari atau bila perlu',
+                area: 'Kulit Kepala',
+                instructions: [
+                    'Sebagai Pelembab.',
+                    'Sapu vaseline pelembab di seluruh kulit kepala selepas mandi.',
+                    'Sapu pelembab sekurang-kurangnya 2-4 kali sehari.'
+                ]
+            },
+            {
+                id: 'fusidic',
+                item: 'Fusidic Acid Cream (Antibacterial)',
+                frequency: '2 kali sehari',
+                area: 'Kawasan Jangkitan Merah',
+                instructions: [
+                    'Sapu di kawasan merah yang mempunyai jangkitan sebagai krim antibiotik.'
+                ]
+            },
+            {
+                id: 'bvc',
+                item: 'BVC 1:4 (Steroid Cream)',
+                frequency: '2 kali sehari',
+                area: 'Badan (Trunk & Limbs)',
+                instructions: [
+                    'Sapu selepas mandi selepas sapuan pelembab.',
+                    'Sapu nipis di kawasan kulit yang kemerah-merahan.',
+                    'Gunakan teknik Fingertip Unit (FTU) untuk sukatan.'
+                ],
+                showFTU: true
+            },
+            {
+                id: 'hydrocortisone',
+                item: 'Hydrocortisone 1% Cream (Steroid)',
+                frequency: '2 kali sehari',
+                area: 'Kepala, Muka & Tengkuk',
+                instructions: [
+                    'Sapu selepas mandi selepas sapuan pelembab.',
+                    'Sapu nipis di kawasan kulit yang kemerah-merahan.',
+                    'Gunakan teknik Fingertip Unit (FTU) untuk sukatan.'
+                ],
+                showFTU: true
+            },
+            {
+                id: 'zinc',
+                item: 'Zinc Oxide Cream',
+                frequency: 'Bila perlu',
+                area: 'Kawasan Ruam Lampin (Diaper Area)',
+                instructions: [
+                    'Sapu di kawasan punggung yang merah-merah setiap kali tukar lampin.'
+                ]
+            }
+        ];
+
+        const BodyDiagram = () => (
+            <svg viewBox="0 0 400 300" className="w-full h-auto max-w-md mx-auto my-4">
+                <rect width="400" height="300" fill="transparent" />
+                <g transform="translate(80, 50)" fill="none" stroke="#3b82f6" strokeWidth="2">
+                    <circle cx="40" cy="30" r="15" /> 
+                    <path d="M40 45 L40 110" /> 
+                    <path d="M20 60 Q40 50 60 60 L80 100" />
+                    <path d="M20 60 L0 100" />
+                    <path d="M25 110 L25 180" />
+                    <path d="M55 110 L55 180" />
+                    <rect x="25" y="55" width="30" height="55" rx="5" />
+                    <text x="40" y="210" textAnchor="middle" fill="#3b82f6" stroke="none" fontSize="12" fontWeight="bold">FRONT (DEPAN)</text>
+                </g>
+                <g transform="translate(240, 50)" fill="none" stroke="#64748b" strokeWidth="2">
+                    <circle cx="40" cy="30" r="15" />
+                    <path d="M40 45 L40 110" />
+                    <path d="M20 60 Q40 50 60 60 L80 100" />
+                    <path d="M20 60 L0 100" />
+                    <path d="M25 110 L25 180" />
+                    <path d="M55 110 L55 180" />
+                    <rect x="25" y="55" width="30" height="55" rx="5" />
+                    <text x="40" y="210" textAnchor="middle" fill="#64748b" stroke="none" fontSize="12" fontWeight="bold">BACK (BELAKANG)</text>
+                </g>
+                <g fontSize="10" fill="#1e293b" fontWeight="bold">
+                    <text x="10" y="70">MUKA</text>
+                    <text x="10" y="110">BADAN</text>
+                    <text x="10" y="180">KAKI</text>
+                    <text x="320" y="110">BELAKANG</text>
+                    <text x="320" y="160">PUNGGUNG</text>
+                </g>
+            </svg>
+        );
+
+        const FTUDiagram = () => (
+            <div className="border-2 border-dashed border-blue-200 p-4 rounded-lg bg-blue-50 my-4">
+                <h4 className="font-bold text-blue-800 mb-2 flex items-center gap-2">
+                    <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">i</span> 
+                    1 Fingertip Unit (FTU)
+                </h4>
+                <div className="flex flex-col md:flex-row gap-4 items-center">
+                    <svg width="100" height="60" viewBox="0 0 100 60">
+                        <path d="M10 50 Q10 10 30 10 L70 10 Q90 10 90 50" fill="#fde6d2" stroke="#d97706" strokeWidth="2" />
+                        <path d="M30 10 L30 30" stroke="#d97706" strokeWidth="1" strokeDasharray="2" />
+                        <text x="50" y="45" textAnchor="middle" fontSize="8" fill="#92400e">Sukatan dari hujung</text>
+                        <text x="50" y="55" textAnchor="middle" fontSize="8" fill="#92400e">jari ke garisan pertama</text>
+                    </svg>
+                    <div className="text-sm text-slate-700">
+                        <p>• <strong>1 FTU</strong> adalah jumlah yang cukup untuk menutupi dua tapak tangan orang dewasa.</p>
+                        <p>• Untuk krim/salep: <strong>1 FTU ≈ 0.5g</strong></p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        function App() {
+            const [patientName, setPatientName] = useState('');
+            const [mrn, setMrn] = useState('');
+            const [selectedMeds, setSelectedMeds] = useState([]);
+
+            const toggleMed = (id) => {
+                setSelectedMeds(prev => 
+                    prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
+                );
+            };
+
+            const handlePrint = () => {
+                window.print();
+            };
+
+            const selectedData = MEDICATION_DATA.filter(med => selectedMeds.includes(med.id));
+            const hasSteroid = selectedData.some(m => m.showFTU);
+
+            return (
+                <div className="min-h-screen p-4 md:p-8">
+                    {/* UI CONTROL PANEL */}
+                    <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden mb-8 no-print">
+                        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
+                            <h1 className="text-2xl font-bold">Skin Diary Generator</h1>
+                            <p className="text-blue-100 text-sm">Sediakan tatacara penggunaan ubat pesakit secara profesional</p>
+                        </div>
+
+                        <div className="p-6 space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-slate-500 uppercase">Nama Pesakit</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full p-3 border border-slate-200 rounded-xl focus:border-blue-500 outline-none transition-all"
+                                        placeholder="cth: Ahmad Bin Ali"
+                                        value={patientName}
+                                        onChange={(e) => setPatientName(e.target.value)}
+                                    />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-slate-500 uppercase">No. MRN</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full p-3 border border-slate-200 rounded-xl focus:border-blue-500 outline-none transition-all"
+                                        placeholder="cth: 12345/24"
+                                        value={mrn}
+                                        onChange={(e) => setMrn(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <label className="text-xs font-bold text-slate-500 uppercase">Pilih Ubat Yang Diberi</label>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {MEDICATION_DATA.map(med => (
+                                        <div 
+                                            key={med.id}
+                                            onClick={() => toggleMed(med.id)}
+                                            className={`cursor-pointer p-3 rounded-xl border-2 transition-all flex items-center gap-3 ${
+                                                selectedMeds.includes(med.id) 
+                                                ? 'border-blue-500 bg-blue-50' 
+                                                : 'border-slate-100 hover:border-slate-200'
+                                            }`}
+                                        >
+                                            <div className={`w-5 h-5 rounded border flex items-center justify-center ${selectedMeds.includes(med.id) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-300'}`}>
+                                                {selectedMeds.includes(med.id) && <span className="text-white text-[10px]">✓</span>}
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="text-sm font-bold text-slate-800">{med.item}</div>
+                                                <div className="text-[10px] text-slate-500 uppercase">{med.area}</div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button 
+                                onClick={handlePrint}
+                                disabled={selectedMeds.length === 0}
+                                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+                            >
+                                <span>CETAK / SIMPAN PDF</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* PRINT PREVIEW AREA */}
+                    <div className="max-w-4xl mx-auto bg-white p-4 md:p-10 shadow-lg print-container">
+                        <div className="border-[6px] border-blue-50 p-6 md:p-10 rounded-[40px]">
+                            <header className="text-center mb-8">
+                                <h1 className="text-5xl font-black text-blue-500 tracking-tighter mb-4">SKIN DIARY</h1>
+                                <div className="flex flex-col sm:flex-row justify-between gap-4 border-y-2 border-slate-100 py-4 text-sm font-bold">
+                                    <div className="flex gap-2">NAME: <span className="border-b border-black min-w-[200px] inline-block text-left uppercase">{patientName || '...................................................'}</span></div>
+                                    <div className="flex gap-2">MRN: <span className="border-b border-black min-w-[120px] inline-block text-left uppercase">{mrn || '...................'}</span></div>
+                                </div>
+                            </header>
+
+                            <section className="mb-10">
+                                <h2 className="text-center text-xl font-black text-blue-400 mb-2 uppercase tracking-widest">PANDUAN BAHAGIAN BADAN</h2>
+                                <BodyDiagram />
+                            </section>
+
+                            <section>
+                                <h2 className="bg-slate-800 text-white px-4 py-1 text-lg font-black inline-block mb-4 rounded-md uppercase tracking-wider">SENARAI UBAT SAPU</h2>
+                                
+                                <div className="overflow-x-auto">
+                                    <table className="w-full border-collapse">
+                                        <thead>
+                                            <tr className="bg-slate-100 text-[10px] font-black uppercase text-slate-500">
+                                                <th className="p-3 border border-slate-200 text-left w-1/3">ITEM & KEKERAPAN</th>
+                                                <th className="p-3 border border-slate-200 text-left w-1/4">KAWASAN (AREA)</th>
+                                                <th className="p-3 border border-slate-200 text-left">CARA PENGGUNAAN</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="text-sm text-slate-700">
+                                            {selectedData.length > 0 ? (
+                                                selectedData.map(med => (
+                                                    <tr key={med.id}>
+                                                        <td className="p-3 border border-slate-200 align-top">
+                                                            <div className="font-bold text-blue-800 leading-tight mb-1">{med.item}</div>
+                                                            <div className="text-[10px] font-bold italic text-slate-400">{med.frequency}</div>
+                                                        </td>
+                                                        <td className="p-3 border border-slate-200 align-top font-medium uppercase text-xs">{med.area}</td>
+                                                        <td className="p-3 border border-slate-200 align-top">
+                                                            <ul className="list-disc pl-4 space-y-1 text-xs">
+                                                                {med.instructions.map((ins, i) => <li key={i}>{ins}</li>)}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                ))
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan="3" className="p-10 text-center text-slate-300 italic no-print">Pilih ubat di atas untuk melihat preview...</td>
+                                                </tr>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                {hasSteroid && <FTUDiagram />}
+                            </section>
+
+                            <footer className="mt-12 pt-4 border-t border-slate-100 flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                <span>Skin Diary Generator (Hanim)</span>
+                                <span>Tarikh: {new Date().toLocaleDateString('ms-MY')}</span>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

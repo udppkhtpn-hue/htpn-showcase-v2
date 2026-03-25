@@ -5,6 +5,8 @@ const SECTIONS = [
   { id: 'pipeline', label: 'Pipeline' },
   { id: 'in-development', label: 'In Development' },
   { id: 'about', label: 'About' },
+  { id: 'journey', label: 'Our Journey' },
+  { id: 'training', label: 'Training' },
   { id: 'contact', label: 'Contact' },
 ]
 

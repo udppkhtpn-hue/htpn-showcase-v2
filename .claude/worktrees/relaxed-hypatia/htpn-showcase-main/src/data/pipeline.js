@@ -5,6 +5,9 @@ export const pipelineItems = [
     desc: 'A Proof of Concept for deploying an autonomous mobile robot at Hospital Kajang to transport laboratory specimens from the Emergency Department to the Pathology Lab — cutting turnaround time, reducing staff movement, and minimising human exposure risk.',
     tags: ['Robotics', 'Emergency Dept', 'Pathology Lab', 'Automation'],
     detailPath: '/pipeline/amr',
+    cardImage: '/amr-card-dark.jpeg',
+    video: '/amr.mp4',
+    conceptImages: ['/amr-detail-dark-1.jpeg', '/amr-detail-dark-2.jpeg'],
   },
   {
     icon: '🚁',
@@ -12,6 +15,9 @@ export const pipelineItems = [
     desc: 'Drone-based transfer of specimens and medications between the Main Building and the Women & Child Centre — enabling rapid, autonomous logistics across the HTPN campus without road congestion or vehicle dependency.',
     tags: ['Drone', 'Logistics', 'WCC', 'Automation'],
     detailPath: '/pipeline/drone-specimen',
+    cardImage: '/drone-card-dark.png',
+    video: '/drone.mp4',
+    conceptImages: ['/drone-detail-dark-1.png'],
   },
   {
     icon: '⚖️',

@@ -1,0 +1,446 @@
+/* ── Facial AI Detail Page ────────────────────────────── */
+.fai-container { max-width: 1040px; }
+
+.fai-badge--validated {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 2px;
+  background: rgba(0, 201, 167, 0.1);
+  border: 1px solid rgba(0, 201, 167, 0.35);
+  color: var(--teal);
+}
+
+.fai-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.fai-tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+/* ── Explainer Image ──────────────────────────────────── */
+.fai-explainer-wrap {
+  margin: 20px 0 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  line-height: 0;
+}
+
+.fai-explainer-img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+/* ── Scan in Action ───────────────────────────────────── */
+.fai-scan-intro {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.fai-scan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.fai-scan-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fai-scan-img-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fai-scan-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fai-scan-caption {
+  font-size: 11px;
+  color: rgba(245,245,240,0.45);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Clinical Study ───────────────────────────────────── */
+.fai-study-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  line-height: 1.5;
+  margin-bottom: 8px;
+  max-width: 72ch;
+}
+
+.fai-authors {
+  font-size: 12px;
+  color: rgba(245,245,240,0.4);
+  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+
+.fai-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.fai-metric-card {
+  background: var(--bg);
+  padding: 20px 16px;
+}
+
+.fai-metric-value {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 800;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.fai-metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+
+.fai-metric-sub {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ── Phases ───────────────────────────────────────────── */
+.fai-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.fai-phase {
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  background: rgba(245,245,240,0.02);
+  border-radius: 2px;
+}
+
+.fai-phase--final {
+  border-color: rgba(0, 201, 167, 0.4);
+  background: rgba(0, 201, 167, 0.03);
+}
+
+.fai-phase__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.fai-phase__num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.fai-phase__n {
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.fai-phase__star {
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 0.06em;
+  margin-left: auto;
+}
+
+.fai-phase__label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.fai-phase__results {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.fai-phase__results li {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.fai-phase__key {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.fai-phase__note {
+  font-size: 11px;
+  color: rgba(245,245,240,0.35);
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin: 0;
+}
+
+/* ── Table ────────────────────────────────────────────── */
+.fai-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.fai-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.fai-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  background: rgba(245,245,240,0.02);
+  white-space: nowrap;
+}
+
+.fai-table td {
+  padding: 12px 16px;
+  color: var(--muted);
+  border-bottom: 1px solid rgba(245,245,240,0.04);
+  vertical-align: top;
+}
+
+.fai-table tr:last-child td { border-bottom: none; }
+
+.fai-table__status {
+  color: var(--teal) !important;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.fai-table__highlight {
+  color: var(--fg) !important;
+  font-weight: 600;
+}
+
+/* ── Problem / Solution ───────────────────────────────── */
+.fai-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fai-block-inner {
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  border-radius: 2px;
+}
+
+.fai-block-inner--solution {
+  border-color: rgba(5, 150, 105, 0.3);
+  background: rgba(5, 150, 105, 0.03);
+}
+
+.fai-block-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.fai-block-title--problem { color: #f5a623; }
+.fai-block-title--solution { color: #059669; }
+
+/* ── How It Works ─────────────────────────────────────── */
+.fai-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.fai-step {
+  background: var(--bg);
+  padding: 24px 20px;
+}
+
+.fai-step__num {
+  font-size: 28px;
+  font-weight: 800;
+  color: rgba(245,245,240,0.08);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.fai-step__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 10px;
+}
+
+.fai-step__desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Benefits ─────────────────────────────────────────── */
+.fai-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.fai-benefit {
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  border-radius: 2px;
+  background: rgba(245,245,240,0.02);
+}
+
+.fai-benefit__icon { font-size: 28px; margin-bottom: 12px; }
+
+.fai-benefit__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+
+.fai-benefit__desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Deployment Sites ─────────────────────────────────── */
+.fai-sites {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fai-site {
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  border-radius: 2px;
+  background: rgba(245,245,240,0.02);
+}
+
+.fai-site__icon { font-size: 28px; margin-bottom: 12px; }
+
+.fai-site__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.fai-site__desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Technology Partner ───────────────────────────────── */
+.fai-partner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  border-radius: 2px;
+}
+
+.fai-partner__icon { font-size: 32px; flex-shrink: 0; }
+
+.fai-partner__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+
+/* ── Governance ───────────────────────────────────────── */
+.fai-governance {
+  background: rgba(245,245,240,0.02);
+  border-left: 3px solid var(--muted);
+  padding: 24px 28px;
+  border-radius: 2px;
+}
+
+.fai-governance__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .fai-metrics-grid { grid-template-columns: repeat(3, 1fr); }
+  .fai-steps { grid-template-columns: repeat(2, 1fr); }
+  .fai-benefits { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .fai-phases { grid-template-columns: 1fr; }
+  .fai-two-col { grid-template-columns: 1fr; }
+  .fai-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .fai-steps { grid-template-columns: 1fr; }
+  .fai-benefits { grid-template-columns: 1fr; }
+  .fai-sites { grid-template-columns: 1fr; }
+  .fai-scan-grid { grid-template-columns: 1fr; }
+}

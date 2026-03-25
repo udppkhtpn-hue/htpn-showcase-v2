@@ -18,16 +18,50 @@
 }
 
 .nav__logo {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: var(--fg);
   position: relative;
   z-index: 102;
 }
 
-.nav__logo span { color: var(--teal); }
+.nav__logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  mix-blend-mode: multiply;
+}
+
+.nav__logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.nav__logo-name {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.nav__logo-ai { color: var(--teal); }
+
+.nav__logo-sub {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(245, 245, 240, 0.9);
+  text-transform: none;
+  line-height: 1;
+  white-space: nowrap;
+}
 
 .nav__toggle {
   position: relative;

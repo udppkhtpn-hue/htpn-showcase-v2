@@ -7,6 +7,8 @@ const NAV_LINKS = [
   { label: 'Pipeline', id: 'pipeline' },
   { label: 'In Development', id: 'in-development' },
   { label: 'About', id: 'about' },
+  { label: 'Our Journey', id: 'journey' },
+  { label: 'Training', id: 'training' },
   { label: 'Contact', id: 'contact' },
 ]
 
@@ -47,7 +49,11 @@ export default function Navbar() {
     <>
       <nav className={`nav${scrolled ? ' nav--scrolled' : ''}${open ? ' nav--open' : ''}`}>
         <button className="nav__logo" onClick={() => handleLink('hero')}>
-          HTPN <span>AI</span>
+          <img src="/img_1.jpg" alt="HTPN Logo" className="nav__logo-img" />
+          <div className="nav__logo-text">
+            <span className="nav__logo-name">HTPN <span className="nav__logo-ai">AI</span></span>
+            <span className="nav__logo-sub">Hospital Tengku Permaisuri Norashikin</span>
+          </div>
         </button>
 
         <button

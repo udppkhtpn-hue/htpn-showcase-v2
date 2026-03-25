@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>GynaeClerk — Borang Pesakit Sakit Puan</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink: #F06292;
+  --pink-dark: #C2185B;
+  --pink-soft: #FCE4EC;
+  --pink-pale: #FFF5F8;
+  --pink-mid: #F48FB1;
+  --mint: #26A69A;
+  --mint-soft: #E0F2F1;
+  --mint-pale: #F0FAFA;
+  --mint-mid: #80CBC4;
+  --peach: #FF8A65;
+  --peach-soft: #FBE9E7;
+  --lavender: #CE93D8;
+  --lav-soft: #F3E5F5;
+  --yellow: #FFD54F;
+  --yellow-soft: #FFFDE7;
+  --bg: #FFF8FB;
+  --surface: #FFFFFF;
+  --border: #FADADD;
+  --border-mint: #B2DFDB;
+  --text: #3D1C2E;
+  --text-mid: #7B4F62;
+  --text-light: #B899A5;
+  --shadow-xs: 0 2px 8px rgba(240,98,146,0.10);
+  --shadow-sm: 0 4px 16px rgba(240,98,146,0.13);
+  --shadow: 0 6px 28px rgba(240,98,146,0.18);
+  --r-xl: 26px;
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 10px;
+  --r-full: 999px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(240,98,146,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(38,166,154,0.05) 0%, transparent 50%);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-size: 15px;
+}
+
+/* ── LANG BAR ── */
+.lang-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: linear-gradient(90deg, var(--pink-dark), #E91E8C);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 16px;
+}
+.lang-bar-label { color: rgba(255,255,255,0.6); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 800; font-family: 'Quicksand', sans-serif; }
+.lang-switcher { display: flex; gap: 3px; background: rgba(255,255,255,0.18); border-radius: var(--r-full); padding: 3px; }
+.lang-btn { padding: 5px 14px; border-radius: var(--r-full); border: none; font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.25s; font-family: 'Nunito', sans-serif; background: transparent; color: rgba(255,255,255,0.55); }
+.lang-btn.active { background: white; color: var(--pink-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+
+/* ── HEADER ── */
+.app-header {
+  background: linear-gradient(150deg, #F8BBD0 0%, #FCE4EC 40%, #E1F5FE 100%);
+  padding: 52px 18px 22px;
+  position: relative; overflow: hidden;
+  border-bottom: 2px solid rgba(240,98,146,0.12);
+}
+/* Floating deco circles */
+.app-header::before {
+  content: '🌸'; position: absolute; top: 8px; right: 18px;
+  font-size: 52px; opacity: 0.22; line-height: 1;
+  animation: floaty 4s ease-in-out infinite;
+}
+.app-header::after {
+  content: '✨'; position: absolute; bottom: 10px; left: 16px;
+  font-size: 28px; opacity: 0.3; line-height: 1;
+  animation: floaty 3s ease-in-out infinite reverse;
+}
+@keyframes floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+.hdr-top { display: flex; align-items: center; gap: 13px; position: relative; z-index: 1; }
+.hdr-icon {
+  width: 52px; height: 52px;
+  background: white;
+  border: 3px solid var(--pink-mid);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 14px rgba(240,98,146,0.25);
+}
+.hdr-h1 { font-family: 'Quicksand', sans-serif; font-size: 22px; font-weight: 700; color: var(--pink-dark); letter-spacing: -0.3px; }
+.hdr-p { font-size: 11.5px; color: var(--text-mid); margin-top: 2px; font-weight: 600; }
+
+/* Progress */
+.prog-wrap { margin-top: 16px; position: relative; z-index: 1; }
+.prog-info { display: flex; justify-content: space-between; margin-bottom: 7px; align-items: center; }
+.prog-info span { font-size: 11px; color: var(--text-mid); font-weight: 700; }
+.prog-pct-badge {
+  background: var(--pink-dark); color: white; font-size: 11px; font-weight: 800;
+  padding: 2px 10px; border-radius: var(--r-full);
+}
+.prog-track {
+  height: 10px; background: rgba(240,98,146,0.15); border-radius: var(--r-full); overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink-mid), var(--pink-dark), #E91E8C);
+  border-radius: var(--r-full);
+  transition: width 0.55s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+  box-shadow: 0 2px 6px rgba(194,24,91,0.3);
+}
+.step-dots { display: flex; gap: 5px; margin-top: 9px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(240,98,146,0.2); transition: all 0.3s; flex-shrink: 0; }
+.dot.done { background: var(--pink-mid); }
+.dot.active { background: var(--pink-dark); width: 20px; border-radius: 4px; }
+
+/* ── NAV TABS ── */
+.sec-tabs-bar {
+  background: white; border-bottom: 2px solid var(--border);
+  position: sticky; top: 34px; z-index: 150;
+  box-shadow: 0 3px 12px rgba(240,98,146,0.08);
+}
+.sec-tabs { display: flex; overflow-x: auto; padding: 6px 8px 0; scrollbar-width: none; gap: 4px; }
+.sec-tabs::-webkit-scrollbar { display: none; }
+.sec-tab {
+  flex-shrink: 0; padding: 7px 13px 10px; border: none; background: none;
+  font-size: 11.5px; font-weight: 700; color: var(--text-light); cursor: pointer;
+  border-bottom: 3px solid transparent; transition: all 0.22s; white-space: nowrap;
+  font-family: 'Nunito', sans-serif; border-radius: var(--r-sm) var(--r-sm) 0 0;
+}
+.sec-tab:hover { background: var(--pink-pale); color: var(--pink); }
+.sec-tab.active { color: var(--pink-dark); border-bottom-color: var(--pink-dark); background: var(--pink-pale); }
+.sec-tab.done { color: var(--mint); border-bottom-color: var(--mint-mid); }
+
+/* ── MAIN ── */
+main { padding: 16px 13px 130px; max-width: 700px; margin: 0 auto; }
+
+/* ── CARDS ── */
+.card {
+  background: white;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-xs);
+  border: 2px solid var(--border);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: box-shadow 0.25s, transform 0.25s;
+  animation: slideUp 0.4s ease both;
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+.card:focus-within { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+
+.card-hdr {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px;
+  background: linear-gradient(110deg, var(--pink-pale) 0%, white 70%);
+  border-bottom: 2px solid var(--border);
+  cursor: pointer; user-select: none;
+}
+.card-hdr.t {
+  background: linear-gradient(110deg, var(--mint-pale) 0%, white 70%);
+  border-bottom-color: var(--border-mint);
+}
+.cicon {
+  width: 40px; height: 40px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--pink-soft), var(--pink-mid));
+  border: 2px solid rgba(240,98,146,0.2);
+  box-shadow: 0 3px 10px rgba(240,98,146,0.2);
+}
+.cicon.t {
+  background: linear-gradient(135deg, var(--mint-soft), var(--mint-mid));
+  border-color: rgba(38,166,154,0.2);
+  box-shadow: 0 3px 10px rgba(38,166,154,0.2);
+}
+.ctitle { flex: 1; }
+.ctitle h3 { font-family: 'Quicksand', sans-serif; font-size: 15.5px; font-weight: 700; color: var(--text); }
+.ctitle p { font-size: 11px; color: var(--text-light); margin-top: 2px; font-weight: 600; }
+.ctog { font-size: 18px; color: var(--text-light); transition: transform 0.3s; line-height: 1; }
+.ctog.open { transform: rotate(180deg); }
+.card-body { padding: 17px; }
+.card-body.collapsed { display: none; }
+
+/* ── FIELDS ── */
+.field { margin-bottom: 17px; }
+.field:last-child { margin-bottom: 0; }
+.flabel {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12.5px; font-weight: 800; color: var(--text-mid);
+  margin-bottom: 8px; font-family: 'Quicksand', sans-serif;
+}
+.req { color: var(--pink); font-size: 16px; line-height: 1; }
+
+input[type="text"], input[type="number"], input[type="date"], select, textarea {
+  width: 100%; padding: 11px 14px;
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  font-family: 'Nunito', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--text); background: white; outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  -webkit-appearance: none; appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 4px rgba(240,98,146,0.12);
+  transform: translateY(-1px);
+}
+input::placeholder, textarea::placeholder { color: var(--text-light); font-weight: 500; }
+textarea { resize: vertical; min-height: 80px; line-height: 1.65; }
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23F06292' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; padding-right: 38px; cursor: pointer;
+}
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+
+/* ── PILLS ── */
+.pill-group { display: flex; gap: 7px; flex-wrap: wrap; }
+.pill {
+  padding: 8px 16px; border-radius: var(--r-full);
+  font-size: 12.5px; font-weight: 700;
+  border: 2px solid var(--border); background: white; color: var(--text-mid);
+  cursor: pointer; transition: all 0.2s; flex-shrink: 0; user-select: none;
+  font-family: 'Nunito', sans-serif;
+}
+.pill:hover { border-color: var(--pink-mid); color: var(--pink); transform: translateY(-1px); }
+.pill:active { transform: scale(0.95); }
+.pill.sel {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  border-color: var(--pink); color: white;
+  box-shadow: 0 3px 10px rgba(240,98,146,0.35);
+  transform: translateY(-1px);
+}
+.pill.sel.tl {
+  background: linear-gradient(135deg, var(--mint-mid), var(--mint));
+  border-color: var(--mint);
+  box-shadow: 0 3px 10px rgba(38,166,154,0.3);
+}
+
+/* ── CHECK CARDS ── */
+.check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cc {
+  display: flex; align-items: center; gap: 9px;
+  padding: 10px 12px; border: 2px solid var(--border);
+  border-radius: var(--r-md); cursor: pointer; transition: all 0.2s;
+  background: white; user-select: none;
+}
+.cc:hover { border-color: var(--pink-mid); background: var(--pink-pale); transform: translateY(-1px); }
+.cc:active { transform: scale(0.97); }
+.cc.on { border-color: var(--pink); background: var(--pink-soft); box-shadow: 0 2px 8px rgba(240,98,146,0.15); }
+.cc.on .cbox { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); border-color: var(--pink); }
+.cc.on .cbox::after { opacity: 1; }
+.cc.on.tl { border-color: var(--mint); background: var(--mint-soft); box-shadow: 0 2px 8px rgba(38,166,154,0.12); }
+.cc.on.tl .cbox { background: linear-gradient(135deg, var(--mint-mid), var(--mint)); border-color: var(--mint); }
+.cbox {
+  width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 7px;
+  flex-shrink: 0; position: relative; transition: all 0.2s; background: white;
+}
+.cbox::after {
+  content: '✓'; position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; color: white; font-size: 12px; font-weight: 900; opacity: 0; transition: opacity 0.2s;
+}
+.clabel { font-size: 12.5px; font-weight: 700; line-height: 1.3; }
+
+/* ── STEPPER ── */
+.stepper {
+  display: inline-flex; align-items: center;
+  border: 2px solid var(--border); border-radius: var(--r-md); overflow: hidden; height: 46px;
+  background: white;
+}
+.sbtn {
+  width: 46px; height: 46px;
+  background: var(--pink-soft); border: none;
+  font-size: 22px; color: var(--pink-dark); cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-weight: 900;
+  transition: all 0.15s; flex-shrink: 0; font-family: 'Nunito', sans-serif;
+  line-height: 1;
+}
+.sbtn:hover { background: var(--pink-mid); color: white; }
+.sbtn:active { background: var(--pink-dark); color: white; transform: scale(0.95); }
+.sval {
+  width: 54px; text-align: center; font-size: 18px; font-weight: 800;
+  border: none; outline: none; background: white; height: 44px;
+  border-left: 2px solid var(--border); border-right: 2px solid var(--border);
+  color: var(--text); font-family: 'Nunito', sans-serif;
+}
+
+/* ── BMI BOX ── */
+.bmi-box {
+  margin-top: 12px; padding: 14px 16px;
+  border-radius: var(--r-md); display: none; align-items: center; gap: 14px;
+  border: 2px solid var(--border);
+  background: linear-gradient(135deg, var(--pink-pale), white);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.bmi-num { font-family: 'Quicksand', sans-serif; font-size: 30px; font-weight: 700; color: var(--pink-dark); }
+.bmi-badge { padding: 4px 12px; border-radius: var(--r-full); font-size: 11.5px; font-weight: 800; letter-spacing: 0.3px; }
+
+/* ── CONDITIONAL ── */
+.cond {
+  margin-top: 10px; padding: 14px;
+  background: var(--pink-pale); border-radius: var(--r-md);
+  border: 2px dashed var(--pink-mid);
+  animation: fadeIn 0.25s ease;
+}
+.cond.mint { background: var(--mint-pale); border-color: var(--mint-mid); }
+
+/* ── DIVIDER ── */
+.divider { height: 2px; background: var(--border); border-radius: 2px; margin: 16px 0; }
+
+/* ── UNIT FIELD ── */
+.uf { position: relative; }
+.uf input { padding-right: 46px; }
+.unit {
+  position: absolute; right: 13px; top: 50%; transform: translateY(-50%);
+  font-size: 12px; font-weight: 800; color: var(--pink); pointer-events: none;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* ── HINT ── */
+.hint { font-size: 11.5px; color: var(--text-light); margin-top: 5px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.hint::before { content: '💡'; font-size: 11px; }
+
+/* ── ALERT BADGE ── */
+.alert-b {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px; background: var(--yellow-soft);
+  border: 2px solid var(--yellow); border-radius: var(--r-full);
+  font-size: 12px; font-weight: 800; color: #B45309; margin-bottom: 12px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* ── FOOTER ── */
+.footer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  background: white; border-top: 2px solid var(--border);
+  padding: 11px 13px;
+  box-shadow: 0 -6px 24px rgba(240,98,146,0.1);
+}
+.btn-main {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; max-width: 700px; margin: 0 auto;
+  padding: 15px; border-radius: var(--r-full); border: none;
+  background: linear-gradient(135deg, var(--pink-dark) 0%, var(--pink) 50%, #FF80AB 100%);
+  color: white; font-size: 16px; font-weight: 800; cursor: pointer;
+  font-family: 'Quicksand', sans-serif; transition: all 0.25s;
+  box-shadow: 0 5px 20px rgba(240,98,146,0.45);
+  letter-spacing: 0.3px;
+}
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(240,98,146,0.5); }
+.btn-main:active { transform: scale(0.98); }
+
+/* ── MODAL ── */
+.overlay {
+  position: fixed; inset: 0; background: rgba(61,28,46,0.45);
+  z-index: 250; display: flex; align-items: flex-end;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  backdrop-filter: blur(4px);
+}
+.overlay.open { opacity: 1; pointer-events: all; }
+.sheet {
+  background: white; border-radius: 28px 28px 0 0;
+  width: 100%; max-height: 92vh; overflow-y: auto;
+  padding: 18px 18px 50px;
+  transform: translateY(100%); transition: transform 0.38s cubic-bezier(.32,0,.2,1);
+  border-top: 3px solid var(--border);
+}
+.overlay.open .sheet { transform: translateY(0); }
+.sheet-handle {
+  width: 44px; height: 5px;
+  background: linear-gradient(90deg, var(--pink-mid), var(--pink));
+  border-radius: 4px; margin: 0 auto 18px;
+}
+.sheet-title { font-family: 'Quicksand', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 18px; color: var(--pink-dark); }
+
+/* ── PREVIEW ── */
+.ps { margin-bottom: 16px; }
+.ps-ttl {
+  font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--pink-dark); padding-bottom: 6px;
+  border-bottom: 2px solid var(--pink-soft); margin-bottom: 9px;
+  font-family: 'Quicksand', sans-serif;
+}
+.ps-row { display: flex; gap: 8px; margin-bottom: 7px; font-size: 13.5px; }
+.ps-k { color: var(--text-light); font-weight: 700; min-width: 125px; flex-shrink: 0; font-size: 12px; }
+.ps-v { color: var(--text); font-weight: 800; }
+.sheet-acts { display: flex; gap: 9px; margin-top: 20px; }
+.sbt {
+  flex: 1; padding: 14px; border-radius: var(--r-full); border: none;
+  font-size: 14px; font-weight: 800; cursor: pointer;
+  font-family: 'Quicksand', sans-serif; transition: all 0.2s;
+}
+.sbt.ghost { background: var(--pink-soft); color: var(--pink-dark); border: 2px solid var(--pink-mid); }
+.sbt.ghost:hover { background: var(--pink-mid); color: white; }
+.sbt.solid { background: linear-gradient(135deg, var(--mint-mid), var(--mint)); color: white; box-shadow: 0 4px 14px rgba(38,166,154,0.3); }
+.sbt.solid:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(38,166,154,0.35); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; top: 58px; left: 50%;
+  transform: translateX(-50%) translateY(-80px);
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
+  color: white; padding: 10px 20px; border-radius: var(--r-full);
+  font-size: 13px; font-weight: 800; z-index: 400; white-space: nowrap;
+  box-shadow: var(--shadow-sm); transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  font-family: 'Quicksand', sans-serif;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── SUCCESS SCREEN ── */
+.success-screen {
+  display: none; position: fixed; inset: 0;
+  background: linear-gradient(160deg, #FFF0F5 0%, #FFF8E1 50%, #E0F7FA 100%);
+  z-index: 500; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px; text-align: center;
+}
+.success-screen.show { display: flex; }
+.s-icon { font-size: 80px; animation: pop 0.55s cubic-bezier(.36,.07,.19,.97); margin-bottom: 16px; }
+@keyframes pop { 0%{transform:scale(0) rotate(-15deg)} 65%{transform:scale(1.18) rotate(5deg)} 100%{transform:scale(1) rotate(0)} }
+.s-h { font-family: 'Quicksand', sans-serif; font-size: 26px; font-weight: 700; color: var(--mint); margin-bottom: 8px; }
+.s-p { color: var(--text-mid); font-size: 14px; line-height: 1.7; max-width: 320px; margin-bottom: 24px; font-weight: 600; }
+.s-confetti { font-size: 28px; margin-bottom: 4px; animation: floaty 2s ease-in-out infinite; }
+.s-btns { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 310px; }
+.s-btn { padding: 14px; border-radius: var(--r-full); border: none; font-size: 15px; font-weight: 800; cursor: pointer; font-family: 'Quicksand', sans-serif; transition: all 0.2s; }
+.s-btn.p { background: linear-gradient(135deg, var(--mint-mid), var(--mint)); color: white; box-shadow: 0 4px 16px rgba(38,166,154,0.3); }
+.s-btn.p:hover { transform: translateY(-2px); }
+.s-btn.s { background: white; color: var(--pink-dark); border: 2px solid var(--pink-mid); }
+.s-btn.s:hover { background: var(--pink-soft); }
+.gdoc-tip {
+  margin-top: 16px; padding: 14px 16px;
+  background: white; border: 2px solid var(--mint-mid);
+  border-radius: var(--r-lg); max-width: 330px; width: 100%;
+  font-size: 12.5px; color: #1B5E20; text-align: left; line-height: 1.75;
+  font-weight: 600; box-shadow: 0 2px 10px rgba(38,166,154,0.1);
+}
+
+@media(max-width:380px) { .row2,.row3{grid-template-columns:1fr} .check-grid{grid-template-columns:1fr} }
+@media(max-width:420px) { .row3{grid-template-columns:1fr 1fr} }
+
+/* ── STEP FLOW ── */
+.sec-locked { display: none !important; }
+.sec-reveal { animation: slideReveal 0.55s cubic-bezier(.22,.68,0,1.2) both; }
+@keyframes slideReveal { from{opacity:0;transform:translateY(28px) scale(0.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+.next-wrap {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding-top: 18px; border-top: 2px solid var(--border); margin-top: 18px;
+  flex-wrap: wrap;
+}
+.btn-next {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 30px; border-radius: var(--r-full); border: none;
+  background: linear-gradient(135deg, var(--pink-dark), var(--pink));
+  color: white; font-size: 15px; font-weight: 800; cursor: pointer;
+  font-family: 'Quicksand', sans-serif; transition: all 0.25s;
+  box-shadow: 0 4px 18px rgba(240,98,146,0.38); letter-spacing: 0.3px;
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 7px 24px rgba(240,98,146,0.48); }
+.btn-next:active { transform: scale(0.97); }
+.btn-next.tl {
+  background: linear-gradient(135deg, var(--mint), var(--mint-mid));
+  box-shadow: 0 4px 18px rgba(38,166,154,0.35);
+}
+.btn-next.tl:hover { box-shadow: 0 7px 24px rgba(38,166,154,0.45); }
+.btn-skip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 13px 22px; border-radius: var(--r-full);
+  border: 2px solid var(--border); background: white;
+  color: var(--text-light); font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: 'Quicksand', sans-serif; transition: all 0.22s;
+}
+.btn-skip:hover { border-color: var(--pink-mid); color: var(--pink); transform: translateY(-1px); }
+.btn-skip:active { transform: scale(0.97); }
+.sec-tab.locked { opacity: 0.38; cursor: not-allowed; }
+.sec-tab.locked:hover { background: none !important; color: var(--text-light) !important; }
+/* Completed section */
+.sec-done .card-hdr { background: linear-gradient(110deg,#F0FFF4 0%,white 70%) !important; border-bottom-color:#86EFAC !important; }
+.sec-done .card-hdr .cicon { background: linear-gradient(135deg,#BBF7D0,#4ADE80) !important; border-color:rgba(74,222,128,0.3) !important; box-shadow:0 3px 10px rgba(74,222,128,0.2) !important; }
+.done-badge { font-size:11px; font-weight:800; color:#16A34A; background:#DCFCE7; border:1.5px solid #86EFAC; padding:3px 10px; border-radius:999px; font-family:'Quicksand',sans-serif; white-space:nowrap; flex-shrink:0; }
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <span class="lang-bar-label">Language / Bahasa</span>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">🇬🇧 English</button>
+    <button class="lang-btn" id="btn-ms" onclick="setLang('ms')">🇲🇾 Melayu</button>
+  </div>
+</div>
+
+<header class="app-header">
+  <div class="hdr-top">
+    <div class="hdr-icon">🩺</div>
+    <div>
+      <div class="hdr-h1">GynaeClerk</div>
+      <div class="hdr-p" id="hdr-sub">Gynaecology Patient Intake System</div>
+    </div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-info"><span id="prog-lbl">Form Completion</span><span id="prog-pct">0%</span></div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    <div class="step-dots" id="stepDots"></div>
+  </div>
+</header>
+
+<div class="sec-tabs-bar"><div class="sec-tabs" id="secTabs"></div></div>
+<main id="mainForm"></main>
+
+<div class="footer">
+  <button class="btn-main" onclick="openPreview()">
+    <span>🌸</span><span id="btn-sub-txt">Preview &amp; Generate Record</span><span>✨</span>
+  </button>
+</div>
+
+<div class="overlay" id="previewOverlay">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="prev-title">Clinical Record Preview</div>
+    <div id="prevContent"></div>
+    <div class="sheet-acts">
+      <button class="sbt ghost" onclick="closePreview()" id="btn-edit-txt">← Edit</button>
+      <button class="sbt solid" onclick="generateDoc()" id="btn-gen-txt">📤 Generate Document</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="success-screen" id="successScr">
+  <div class="s-confetti">🎉</div>
+  <div class="s-icon">🌸</div>
+  <div class="s-h" id="s-h">Record Generated!</div>
+  <div class="s-p" id="s-p">Your patient clerking record has been prepared successfully.</div>
+  <div class="s-btns">
+    <button class="s-btn p" onclick="copyDoc()" id="btn-copy-txt">📋 Copy Full Document</button>
+    <button class="s-btn s" onclick="newRecord()" id="btn-new-txt">➕ New Patient</button>
+  </div>
+  <div class="gdoc-tip" id="gdoc-tip-txt">
+    <strong>💡 To save to Google Docs:</strong><br>
+    Click "Copy Full Document" above, open Google Docs, create a new document, and paste (Ctrl+V / Cmd+V). Title it with the patient's name and save.
+  </div>
+</div>
+
+<script>
+// ═══════════ TRANSLATIONS ═══════════
+const TL = {
+en:{
+  hdrSub:'Gynaecology Patient Intake System', progLbl:'Form Completion',
+  btnSub:'Preview & Generate Record', prevTitle:'Clinical Record Preview',
+  btnEdit:'← Edit', btnGen:'📤 Generate Document', btnCopy:'📋 Copy Full Document', btnNew:'➕ New Patient',
+  sH:'Record Generated!', sP:'Your patient clerking record has been prepared. Copy and paste into Google Docs to save.',
+  gdocTip:'<strong>💡 To save to Google Docs:</strong><br>Click "Copy Full Document" above, open Google Docs, create a new document, and paste (Ctrl+V / Cmd+V). Title it with the patient\'s name and save.',
+  tabs:['Demographics','Presenting','Menstrual','Gynae Hx','Obstetric','Medical','Allergy','Social/Family'],
+  tabSubs:['Patient info','Complaint & LMP','Period history','Pap smear & Hx','Deliveries','Conditions','Drug allergy','Lifestyle'],
+  s1:'Patient Demographics',s2:'Presenting Complaint',s3:'Menstrual History',s4:'Gynaecological History',s5:'Obstetric History',s6:'Medical History',s7:'Allergy History',s8:'Social & Family History',
+  fName:'Full Name',fIC:'IC Number',fAge:'Age (years)',fRace:'Race',fRel:'Religion',fHt:'Height',fWt:'Weight',fBMI:'BMI',
+  fComp:'Gynaecological Problem / Presenting Complaint',fLMP:'Last Menstrual Period (LMP)',
+  fCycleLen:'Cycle Length',fDur:'Period Duration',fReg:'Cycle Regularity',fIMB:'Intermenstrual Bleeding (IMB)',
+  fHMB:'Heavy Menstrual Bleeding (HMB)',fPads:'Pads / tampons per day',fClots:'Clots passed',fDysm:'Dysmenorrhoea (painful periods)',fPCB:'Postcoital Bleeding (PCB)',fMensNotes:'Additional Menstrual Notes',
+  fPap:'Pap Smear Status',fPapDate:'Date taken',fPapRes:'Result',fGynDx:'Past Gynaecological Diagnoses',fSxHx:'Past Surgical History',fSxOther:'Other surgical history',fGDOther:'Other gynae diagnosis',
+  fG:'Gravida (G) — Total pregnancies',fP:'Para (P) — Deliveries ≥24 wks',fSVD:'SVD / NVD',fLSCS:'Caesarean section (LSCS)',fMisc:'Miscarriage / TOP',fContra:'Contraception',fObsNotes:'Obstetric complications',
+  fMedHx:'Medical Conditions',fMedOther:'Other conditions',fMeds:'Current Medications',
+  fAlgy:'Allergy Status',fAlgyDesc:'Allergen / Reaction details',
+  fMarital:'Marital Status',fPartners:'No. of partners',fOccup:'Occupation',fEdu:'Education level',fSmoke:'Smoking',fAlco:'Alcohol',fFamHx:'Family History',fFamOther:'Other family history',fSocNotes:'Additional social notes',
+  plAge:'Select age',plRace:'Select race',plRel:'Select religion',plSel:'Select',plPapRes:'Select result',plMarital:'Select',plPartners:'Select',plEdu:'Select',
+  races:['Malay','Chinese','Indian','Kadazan','Iban','Bidayuh','Orang Asli','Other Bumiputera','Others'],
+  rels:['Islam','Christianity','Buddhism','Hinduism','Sikhism','Taoism','None','Others'],
+  cycleLens:['21 days','24 days','28 days','30 days','32 days','35 days','Irregular','Amenorrhoea'],
+  durs:['1-2 days','3-4 days','5-7 days','7-10 days','>10 days'],
+  pads:['1-2 pads','3-4 pads','5-6 pads','≥7 pads (flooding)','Passing large clots'],
+  papOpts:['Done','Never done','Overdue','Not applicable'],
+  papRes:['Normal (NILM)','Unsatisfactory','ASCUS','LSIL','HSIL','AGC','Malignancy','Awaiting result'],
+  contra:['None','OCP (mini-pill)','COCP','IUCD (copper)','Mirena (hormonal IUD)','Implanon','Depo-Provera','Condom','Natural / NFP','Sterilised'],
+  marital:['Single','Married','Divorced','Widowed','Separated'],
+  partners:['None','1','2-3','>3','Prefer not to say'],
+  edu:['No formal education','Primary','Secondary / SPM','Diploma','Degree','Postgraduate'],
+  tYes:'Yes',tNo:'No',tNA:'N/A',tReg:'Regular',tIrreg:'Irregular',tNone:'None',tMild:'Mild',tMod:'Moderate',tSev:'Severe',
+  tNKDA:'NKDA',tKnownA:'Known allergy',tNonSmk:'Non-smoker',tExSmk:'Ex-smoker',tSmk:'Smoker',tOcc:'Occasionally',tRegly:'Regularly',
+  medConds:['Diabetes Mellitus (DM)','Hypertension','Dyslipidaemia','Heart Disease','Anaemia','Asthma / Respiratory','Thyroid Disease','Renal Disease','Malignancy','Mental Health'],
+  medIds:['dm','htn','dyslipid','heart','anemia','asthma','thyroid','renal','cancer','mental'],
+  gynaeDx:['Fibroid uterus','Endometriosis','PCOS','Ovarian cyst','PID','Pelvic organ prolapse','STI / STD','Gynae cancer'],
+  gynIds:['fibroid','endo','pcos','cyst','pid','prolapse','std','gca'],
+  surgHx:['Hysterectomy','Myomectomy','Laparoscopy','Colposcopy / LLETZ','Tubal ligation','D&C / D&E'],
+  sxIds:['hysterectomy','myomectomy','lap','colpo','tubal','dnc'],
+  algs:['Penicillin','NSAIDs / Aspirin','Latex','IV Contrast / Iodine'],
+  alIds:['al_pen','al_nsaid','al_latex','al_contrast'],
+  famHx:['Ovarian cancer','Endometrial cancer','Breast cancer','Cervical cancer','Diabetes','Hypertension'],
+  famIds:['fov','fend','fbr','fcer','fdm','fhtn'],
+  complaints:['Abnormal uterine bleeding','Pelvic pain','Vaginal discharge','Pelvic mass / lump','Infertility','Prolapse symptoms','Menopausal symptoms','Urinary symptoms'],
+  lmpHint:(d,w)=>`${d} days ago (${w} weeks)`,
+  bmiCats:{U:'Underweight',N:'Normal weight',OW:'Overweight',OB:'Obese'},
+  alertLbl:'Check all that apply',
+  dSec1:'PATIENT DEMOGRAPHICS',dSec2:'PRESENTING COMPLAINT',dSec3:'MENSTRUAL HISTORY',dSec4:'GYNAECOLOGICAL HISTORY',dSec5:'OBSTETRIC HISTORY',dSec6:'MEDICAL HISTORY',dSec7:'ALLERGY HISTORY',dSec8:'SOCIAL & FAMILY HISTORY',dSec9:'EXAMINATION & PLAN',
+  dTitle:'GYNAECOLOGY OUTPATIENT CLERKING RECORD',dDate:'Date of Clerking',dClerked:'Clerked by',dDesig:'Designation',dSig:'Signature',
+  examFs:['General examination:','Abdominal examination:','Pelvic examination:','Investigations requested:'],
+  dImpress:'IMPRESSION / DIAGNOSIS',dPlan:'PLAN',
+  nil:'Nil known',nilS:'Nil significant',notStated:'Not stated',
+  gynaeHxLbl:'Past gynaecological diagnoses',sxHxLbl:'Past surgical history',
+  condLbl:'Conditions',famLbl:'Family history',knownAlgy:'Known allergies',nkda:'No known drug allergy (NKDA)',
+},
+ms:{
+  hdrSub:'Sistem Pendaftaran Pesakit Sakit Puan', progLbl:'Penyelesaian Borang',
+  btnSub:'Pratonton & Jana Rekod', prevTitle:'Pratonton Rekod Klinikal',
+  btnEdit:'← Sunting', btnGen:'📤 Jana Dokumen', btnCopy:'📋 Salin Dokumen Penuh', btnNew:'➕ Pesakit Baru',
+  sH:'Rekod Dijana!', sP:'Rekod pemeriksaan pesakit telah berjaya disediakan. Salin dan tampal ke Google Docs untuk simpan.',
+  gdocTip:'<strong>💡 Cara simpan ke Google Docs:</strong><br>Klik "Salin Dokumen Penuh" di atas, buka Google Docs, cipta dokumen baru, dan tampal (Ctrl+V / Cmd+V). Namakan dengan nama pesakit dan simpan.',
+  tabs:['Demografi','Aduan','Haid','Gynae Hx','Obstetrik','Perubatan','Alahan','Sosial/Keluarga'],
+  tabSubs:['Maklumat pesakit','Aduan & LMP','Sejarah haid','Pap smear & Hx','Bersalin','Penyakit','Alahan ubat','Gaya hidup'],
+  s1:'Demografi Pesakit',s2:'Aduan Utama',s3:'Sejarah Haid',s4:'Sejarah Sakit Puan',s5:'Sejarah Obstetrik',s6:'Sejarah Perubatan',s7:'Sejarah Alahan',s8:'Sejarah Sosial & Keluarga',
+  fName:'Nama Penuh',fIC:'No. Kad Pengenalan',fAge:'Umur (tahun)',fRace:'Bangsa',fRel:'Agama',fHt:'Ketinggian',fWt:'Berat Badan',fBMI:'BMI',
+  fComp:'Masalah Sakit Puan / Aduan Utama',fLMP:'Haid Terakhir (LMP)',
+  fCycleLen:'Panjang Kitaran',fDur:'Tempoh Haid',fReg:'Keteraturan Kitaran',fIMB:'Pendarahan Antara Haid (IMB)',
+  fHMB:'Pendarahan Haid Berat (HMB)',fPads:'Tuala wanita / hari',fClots:'Keluarkan ketulan darah',fDysm:'Dismenore (sakit semasa haid)',fPCB:'Pendarahan Selepas Hubungan (PCB)',fMensNotes:'Nota Tambahan Haid',
+  fPap:'Status Pap Smear',fPapDate:'Tarikh diambil',fPapRes:'Keputusan',fGynDx:'Diagnosis Sakit Puan Lepas',fSxHx:'Sejarah Pembedahan Lepas',fSxOther:'Sejarah pembedahan lain',fGDOther:'Diagnosis gynae lain',
+  fG:'Gravida (G) — Jumlah kehamilan',fP:'Para (P) — Bersalin ≥24 minggu',fSVD:'SVD / Bersalin Normal',fLSCS:'Pembedahan Caesar (LSCS)',fMisc:'Keguguran / TOP',fContra:'Perancang Keluarga',fObsNotes:'Komplikasi obstetrik',
+  fMedHx:'Penyakit Sedia Ada',fMedOther:'Penyakit lain',fMeds:'Ubatan Semasa',
+  fAlgy:'Status Alahan',fAlgyDesc:'Bahan alahan / Tindak balas',
+  fMarital:'Status Perkahwinan',fPartners:'Bilangan pasangan',fOccup:'Pekerjaan',fEdu:'Tahap Pendidikan',fSmoke:'Merokok',fAlco:'Alkohol',fFamHx:'Sejarah Keluarga',fFamOther:'Sejarah keluarga lain',fSocNotes:'Nota sosial tambahan',
+  plAge:'Pilih umur',plRace:'Pilih bangsa',plRel:'Pilih agama',plSel:'Pilih',plPapRes:'Pilih keputusan',plMarital:'Pilih',plPartners:'Pilih',plEdu:'Pilih',
+  races:['Melayu','Cina','India','Kadazan','Iban','Bidayuh','Orang Asli','Bumiputera Lain','Lain-lain'],
+  rels:['Islam','Kristian','Buddha','Hindu','Sikh','Tao','Tiada','Lain-lain'],
+  cycleLens:['21 hari','24 hari','28 hari','30 hari','32 hari','35 hari','Tidak teratur','Amenorea'],
+  durs:['1-2 hari','3-4 hari','5-7 hari','7-10 hari','>10 hari'],
+  pads:['1-2 tuala','3-4 tuala','5-6 tuala','≥7 tuala (banjir)','Ketulan besar'],
+  papOpts:['Telah dibuat','Belum pernah','Tertunggak','Tidak berkaitan'],
+  papRes:['Normal (NILM)','Tidak memuaskan','ASCUS','LSIL','HSIL','AGC','Malignan','Menunggu keputusan'],
+  contra:['Tiada','Pil kontraseptif (OCP)','COCP','IUCD (kuprum)','Mirena (IUD hormon)','Implanon','Depo-Provera','Kondom','Semula jadi / NFP','Ligasi tiub'],
+  marital:['Bujang','Berkahwin','Bercerai','Balu / Duda','Berpisah'],
+  partners:['Tiada','1','2-3','>3','Tidak mahu nyatakan'],
+  edu:['Tiada pendidikan formal','Rendah','Menengah / SPM','Diploma','Ijazah','Pascasiswazah'],
+  tYes:'Ya',tNo:'Tidak',tNA:'T/B',tReg:'Teratur',tIrreg:'Tidak teratur',tNone:'Tiada',tMild:'Ringan',tMod:'Sederhana',tSev:'Teruk',
+  tNKDA:'NKDA',tKnownA:'Ada alahan',tNonSmk:'Tidak merokok',tExSmk:'Bekas perokok',tSmk:'Perokok semasa',tOcc:'Kadang-kadang',tRegly:'Kerap',
+  medConds:['Kencing Manis (DM)','Tekanan Darah Tinggi','Dyslipidemia','Penyakit Jantung','Anemia','Asma / Pernafasan','Penyakit Tiroid','Penyakit Buah Pinggang','Keganasan','Kesihatan Mental'],
+  medIds:['dm','htn','dyslipid','heart','anemia','asthma','thyroid','renal','cancer','mental'],
+  gynaeDx:['Fibroid rahim','Endometriosis','PCOS','Sista ovari','PID','Prolaps organ pelvik','STI / STD','Kanser sakit puan'],
+  gynIds:['fibroid','endo','pcos','cyst','pid','prolapse','std','gca'],
+  surgHx:['Histerektomi','Miomektomi','Laparoskopi','Kolposkopi / LLETZ','Ligasi tiub','D&C / D&E'],
+  sxIds:['hysterectomy','myomectomy','lap','colpo','tubal','dnc'],
+  algs:['Penisilin','NSAID / Aspirin','Lateks','Kontras IV / Iodin'],
+  alIds:['al_pen','al_nsaid','al_latex','al_contrast'],
+  famHx:['Kanser ovari','Kanser endometrium','Kanser payu dara','Kanser serviks','Kencing manis','Tekanan darah tinggi'],
+  famIds:['fov','fend','fbr','fcer','fdm','fhtn'],
+  complaints:['Pendarahan rahim tidak normal','Sakit pelvik','Lelehan faraj','Jisim / ketumbuhan pelvik','Masalah kesuburan','Simptom prolaps','Simptom menopaus','Simptom kencing'],
+  lmpHint:(d,w)=>`${d} hari lepas (${w} minggu)`,
+  bmiCats:{U:'Berat badan kurang',N:'Berat badan normal',OW:'Lebihan berat badan',OB:'Obes'},
+  alertLbl:'Tandakan semua yang berkaitan',
+  dSec1:'DEMOGRAFI PESAKIT',dSec2:'ADUAN UTAMA',dSec3:'SEJARAH HAID',dSec4:'SEJARAH SAKIT PUAN',dSec5:'SEJARAH OBSTETRIK',dSec6:'SEJARAH PERUBATAN',dSec7:'SEJARAH ALAHAN',dSec8:'SEJARAH SOSIAL & KELUARGA',dSec9:'PEMERIKSAAN & RANCANGAN',
+  dTitle:'REKOD PEMERIKSAAN PESAKIT LUAR SAKIT PUAN',dDate:'Tarikh Pemeriksaan',dClerked:'Diperiksa oleh',dDesig:'Jawatan',dSig:'Tandatangan',
+  examFs:['Pemeriksaan am:','Pemeriksaan abdomen:','Pemeriksaan pelvik:','Siasatan diminta:'],
+  dImpress:'KESAN / DIAGNOSIS',dPlan:'RANCANGAN',
+  nil:'Tiada diketahui',nilS:'Tiada bermakna',notStated:'Tidak dinyatakan',
+  gynaeHxLbl:'Diagnosis gynae lepas',sxHxLbl:'Sejarah pembedahan',
+  condLbl:'Penyakit',famLbl:'Sejarah keluarga',knownAlgy:'Alahan diketahui',nkda:'Tiada alahan ubatan diketahui (NKDA)',
+}};
+
+let lang='en', t=TL.en;
+const D={};
+let generatedDoc='';
+const SECS=['demographics','presenting','menstrual','gynae','obstetric','medical','allergy','social'];
+let unlockedSecs=['demographics']; // Only first section visible at start
+
+// ═══════════ LANGUAGE ═══════════
+function setLang(l){
+  lang=l; t=TL[l];
+  document.getElementById('btn-en').classList.toggle('active',l==='en');
+  document.getElementById('btn-ms').classList.toggle('active',l==='ms');
+  rebuildUI();
+}
+
+function rebuildUI(){
+  document.getElementById('hdr-sub').textContent=t.hdrSub;
+  document.getElementById('prog-lbl').textContent=t.progLbl;
+  document.getElementById('btn-sub-txt').textContent=t.btnSub;
+  document.getElementById('prev-title').textContent=t.prevTitle;
+  document.getElementById('btn-edit-txt').textContent=t.btnEdit;
+  document.getElementById('btn-gen-txt').textContent=t.btnGen;
+  document.getElementById('btn-copy-txt').textContent=t.btnCopy;
+  document.getElementById('btn-new-txt').textContent=t.btnNew;
+  document.getElementById('s-h').textContent=t.sH;
+  document.getElementById('s-p').textContent=t.sP;
+  document.getElementById('gdoc-tip-txt').innerHTML=t.gdocTip;
+  buildTabs(); buildForm(); updateProgress(); // unlockedSecs is preserved across rebuilds
+}
+
+// ═══════════ TABS ═══════════
+function buildTabs(){
+  document.getElementById('secTabs').innerHTML = SECS.map((s,i)=>{
+    const locked = !unlockedSecs.includes(s);
+    return `<button class="sec-tab${locked?' locked':''}" id="tab-${s}" onclick="goSec('${s}')">${locked?'🔒 ':''}${t.tabs[i]}</button>`;
+  }).join('');
+  document.getElementById('stepDots').innerHTML = SECS.map(s=>`<div class="dot" id="dot-${s}"></div>`).join('');
+}
+
+function goSec(id){
+  if(!unlockedSecs.includes(id)){
+    showToast('🔒 '+(lang==='ms'?'Sila lengkapkan bahagian sebelumnya dahulu':'Please complete the previous section first'));
+    return;
+  }
+  const body=document.getElementById('body-'+id);
+  if(body){body.classList.remove('collapsed');document.getElementById('tog-'+id).classList.add('open');}
+  setTimeout(()=>document.getElementById('sec-'+id)?.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+function toggleSec(id){
+  const b=document.getElementById('body-'+id), tg=document.getElementById('tog-'+id);
+  const open=!b.classList.contains('collapsed');
+  b.classList.toggle('collapsed',open);
+  tg.classList.toggle('open',!open);
+}
+
+// ═══════════ FORM BUILDER ═══════════
+function buildForm(){
+  // Each section function checks unlockedSecs and passes locked state into card()
+  // so display:none is baked into the markup — no flash of hidden content
+  document.getElementById('mainForm').innerHTML=[s1,s2,s3,s4,s5,s6,s7,s8].map((fn,i)=>fn(i*0.05+'s')).join('');
+  attachObs(); restoreVals();
+}
+
+function card(id,icon,isTeal,title,sub,body,delay,locked=false){
+  // locked sections get display:none baked into the markup to prevent flash-of-content
+  const hiddenStyle = locked ? 'display:none;' : '';
+  return `<div class="card${locked?' sec-locked':''}" id="sec-${id}" style="animation-delay:${delay};${hiddenStyle}">
+    <div class="card-hdr${isTeal?' t':''}" onclick="toggleSec('${id}')">
+      <div class="cicon${isTeal?' t':''}">${icon}</div>
+      <div class="ctitle"><h3>${title}</h3><p>${sub}</p></div>
+      <div class="ctog open" id="tog-${id}">⌄</div>
+    </div>
+    <div class="card-body" id="body-${id}">${body}</div>
+  </div>`;
+}
+
+// ── BUTTON HELPERS ──
+function nextBtn(currentSec, isTeal=false){
+  const idx = SECS.indexOf(currentSec);
+  if(idx >= SECS.length-1) return ''; // No buttons for last section
+  const contLbl = lang==='ms' ? 'Seterusnya' : 'Continue';
+  const skipLbl = lang==='ms' ? 'Langkau' : 'Skip';
+  return `<div class="next-wrap">
+    <button class="btn-skip" onclick="skipSection('${currentSec}')">
+      ${skipLbl}
+    </button>
+    <button class="btn-next${isTeal?' tl':''}" onclick="unlockNext('${currentSec}')">
+      ${contLbl} &nbsp;→
+    </button>
+  </div>`;
+}
+
+// ── REVEAL NEXT SECTION (shared by both Continue and Skip) ──
+function _revealNext(currentSec){
+  const idx = SECS.indexOf(currentSec);
+  if(idx < 0 || idx >= SECS.length-1) return;
+
+  // 1. Collapse & mark current section as done
+  const currEl   = document.getElementById('sec-'+currentSec);
+  const currBody = document.getElementById('body-'+currentSec);
+  const currTog  = document.getElementById('tog-'+currentSec);
+  if(currBody) currBody.classList.add('collapsed');
+  if(currTog)  currTog.classList.remove('open');
+  if(currEl){
+    currEl.classList.add('sec-done');
+    // Inject ✓ Done badge into header if not already there
+    const hdr = currEl.querySelector('.card-hdr');
+    if(hdr && !hdr.querySelector('.done-badge')){
+      const badge = document.createElement('span');
+      badge.className = 'done-badge';
+      badge.textContent = lang==='ms' ? '✓ Selesai' : '✓ Done';
+      hdr.appendChild(badge);
+    }
+  }
+
+  // 2. Unlock & reveal next section
+  const nextSec = SECS[idx+1];
+  if(!unlockedSecs.includes(nextSec)) unlockedSecs.push(nextSec);
+  const nextEl = document.getElementById('sec-'+nextSec);
+  if(nextEl){
+    nextEl.style.display = '';
+    nextEl.classList.remove('sec-locked');
+    nextEl.classList.add('sec-reveal');
+    const body = document.getElementById('body-'+nextSec);
+    const tog  = document.getElementById('tog-'+nextSec);
+    if(body) body.classList.remove('collapsed');
+    if(tog)  tog.classList.add('open');
+    setTimeout(()=>nextEl.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  }
+
+  buildTabs();
+  attachObs();
+}
+
+// Continue — shows a hint for demographics if name is missing, but never blocks
+function unlockNext(currentSec){
+  if(currentSec==='demographics' && !document.getElementById('pt_name')?.value.trim()){
+    showToast('💡 '+(lang==='ms'?'Tips: masukkan nama pesakit untuk rekod lengkap':'Tip: enter patient name for a complete record'));
+  }
+  _revealNext(currentSec);
+}
+
+// Skip — no validation, always moves to next section
+function skipSection(currentSec){
+  _revealNext(currentSec);
+}
+function fl(label,req,content,hint=''){
+  return `<div class="field"><div class="flabel">${label}${req?'<span class="req">*</span>':''}</div>${content}${hint?`<div class="hint">${hint}</div>`:''}</div>`;
+}
+function selEl(id,ph,opts,onch=''){
+  return `<select id="${id}" onchange="${onch}saveD('${id}');prog()"><option value="">${ph}</option>${opts.map(o=>`<option>${o}</option>`).join('')}</select>`;
+}
+function pillGroup(id,opts){
+  return `<div class="pill-group" id="grp-${id}">${opts.map(o=>`<div class="pill" data-val="${o}" onclick="pillCk(this,'${id}')">${o}</div>`).join('')}</div><input type="hidden" id="${id}">`;
+}
+function checkGrid(labels,ids,teal=false){
+  return `<div class="check-grid">${labels.map((l,i)=>`<div class="cc${teal?' tl':''}" id="cc-${ids[i]}" onclick="ccTog(this,'${ids[i]}')"><div class="cbox"></div><div class="clabel">${l}</div><input type="hidden" id="${ids[i]}" value="No"></div>`).join('')}</div>`;
+}
+function stepEl(id){
+  return `<div class="stepper"><button class="sbtn" onclick="stepV('${id}',-1)">−</button><input class="sval" type="number" id="${id}" value="0" min="0" max="30" oninput="saveD('${id}');prog()"><button class="sbtn" onclick="stepV('${id}',1)">+</button></div>`;
+}
+
+function s1(delay){return card('demographics','👤',false,t.s1,t.tabSubs[0],`
+  ${fl(t.fName,true,`<input type="text" id="pt_name" placeholder="${lang==='ms'?'cth. Siti Aisyah binti Ahmad':'e.g. Siti Aisyah binti Ahmad'}" oninput="saveD('pt_name');prog()">`)}
+  <div class="row2">
+    ${fl(t.fIC,true,`<input type="text" id="pt_ic" placeholder="e.g. 900101-14-1234" maxlength="14" oninput="fmtIC(this)">`)}
+    ${fl(t.fAge,false,selEl('pt_age',t.plAge,Array.from({length:79},(_,i)=>String(i+12))))}
+  </div>
+  <div class="row2">
+    ${fl(t.fRace,false,selEl('pt_race',t.plRace,t.races))}
+    ${fl(t.fRel,false,selEl('pt_rel',t.plRel,t.rels))}
+  </div>
+  <div class="divider"></div>
+  <div class="row3">
+    ${fl(t.fHt,false,`<div class="uf"><input type="number" id="pt_ht" placeholder="160" min="100" max="220" oninput="calcBMI();saveD('pt_ht')"><span class="unit">cm</span></div>`)}
+    ${fl(t.fWt,false,`<div class="uf"><input type="number" id="pt_wt" placeholder="60" min="20" max="250" oninput="calcBMI();saveD('pt_wt')"><span class="unit">kg</span></div>`)}
+    ${fl(t.fBMI,false,`<div class="uf"><input type="number" id="pt_bmi" placeholder="—" readonly style="background:#f8f4f6;"><span class="unit">kg/m²</span></div>`)}
+  </div>
+  <div class="bmi-box" id="bmiBox">
+    <div><div class="bmi-num" id="bmiNum">—</div><div style="font-size:11px;color:var(--text-light);margin-top:2px">kg/m²</div></div>
+    <div><div class="bmi-badge" id="bmiCat"></div><div style="font-size:11px;color:var(--text-mid);margin-top:4px" id="bmiNote"></div></div>
+  </div>
+  ${nextBtn('demographics',false)}
+`,delay,!unlockedSecs.includes('demographics'));}
+
+function s2(delay){return card('presenting','📋',false,t.s2,t.tabSubs[1],`
+  ${fl(t.fComp,true,`
+    <div class="pill-group" id="comp-pills" style="margin-bottom:9px">${t.complaints.map(c=>`<div class="pill" onclick="addComp(this,'${c.replace(/'/g,"&#39;")}')">${c}</div>`).join('')}</div>
+    <textarea id="pt_comp" rows="3" placeholder="${lang==='ms'?'Nyatakan aduan dan tempoh...':'Describe complaint and duration...'}" oninput="saveD('pt_comp');prog()"></textarea>
+  `)}
+  ${nextBtn('presenting',false)}
+`,delay,!unlockedSecs.includes('presenting'));}
+
+function s3(delay){return card('menstrual','🌙',true,t.s3,t.tabSubs[2],`
+  ${fl(t.fLMP,false,`<input type="date" id="pt_lmp" onchange="calcLMP();saveD('pt_lmp');prog()">`,`<span id="lmpHint"></span>`)}
+  <div class="divider"></div>
+  <div class="row2">
+    ${fl(t.fCycleLen,false,selEl('pt_cycle_len',t.plSel,t.cycleLens))}
+    ${fl(t.fDur,false,selEl('pt_dur',t.plSel,t.durs))}
+  </div>
+  ${fl(t.fReg,false,pillGroup('pt_reg',[t.tReg,t.tIrreg]))}
+  ${fl(t.fIMB,false,pillGroup('pt_imb',[t.tYes,t.tNo]))}
+  ${fl(t.fHMB,false,`
+    <div class="pill-group" id="grp-pt_hmb">
+      <div class="pill" data-val="${t.tYes}" onclick="pillCk(this,'pt_hmb');cond('hmb_cond',true)">${t.tYes}</div>
+      <div class="pill" data-val="${t.tNo}" onclick="pillCk(this,'pt_hmb');cond('hmb_cond',false)">${t.tNo}</div>
+    </div><input type="hidden" id="pt_hmb">
+    <div class="cond" id="hmb_cond" style="display:none">
+      ${fl(t.fPads,false,selEl('pt_pads',t.plSel,t.pads))}
+      ${fl(t.fClots,false,pillGroup('pt_clots',[t.tYes,t.tNo]))}
+    </div>
+  `)}
+  ${fl(t.fDysm,false,pillGroup('pt_dysm',[t.tNone,t.tMild,t.tMod,t.tSev]))}
+  ${fl(t.fPCB,false,pillGroup('pt_pcb',[t.tYes,t.tNo]))}
+  ${fl(t.fMensNotes,false,`<textarea id="pt_mens_notes" rows="2" oninput="saveD('pt_mens_notes')"></textarea>`)}
+  ${nextBtn('menstrual',true)}
+`,delay,!unlockedSecs.includes('menstrual'));}
+
+function s4(delay){return card('gynae','🔬',false,t.s4,t.tabSubs[3],`
+  ${fl(t.fPap,false,`
+    <div class="pill-group" id="grp-pt_pap">
+      ${t.papOpts.map((o,i)=>`<div class="pill" data-val="${o}" onclick="pillCk(this,'pt_pap');cond('pap_cond',${i===0})">${o}</div>`).join('')}
+    </div><input type="hidden" id="pt_pap">
+    <div class="cond" id="pap_cond" style="display:none">
+      <div class="row2">
+        ${fl(t.fPapDate,false,`<input type="date" id="pt_pap_date" onchange="saveD('pt_pap_date')">`)}
+        ${fl(t.fPapRes,false,selEl('pt_pap_res',t.plPapRes,t.papRes))}
+      </div>
+    </div>
+  `)}
+  <div class="divider"></div>
+  ${fl(t.fGynDx,false,checkGrid(t.gynaeDx,t.gynIds.map(i=>'gd_'+i)))}
+  ${fl(t.fGDOther,false,`<input type="text" id="pt_gd_other" oninput="saveD('pt_gd_other')">`)}
+  <div class="divider"></div>
+  ${fl(t.fSxHx,false,checkGrid(t.surgHx,t.sxIds.map(i=>'sx_'+i)))}
+  ${fl(t.fSxOther,false,`<textarea id="pt_sx_other" rows="2" oninput="saveD('pt_sx_other')"></textarea>`)}
+  ${nextBtn('gynae',false)}
+`,delay,!unlockedSecs.includes('gynae'));}
+
+function s5(delay){return card('obstetric','👶',true,t.s5,t.tabSubs[4],`
+  <div class="row2">
+    ${fl(t.fG,false,stepEl('pt_g'))}
+    ${fl(t.fP,false,stepEl('pt_p'))}
+  </div>
+  <div class="row3">
+    ${fl(t.fSVD,false,stepEl('pt_svd'))}
+    ${fl(t.fLSCS,false,stepEl('pt_lscs'))}
+    ${fl(t.fMisc,false,stepEl('pt_misc'))}
+  </div>
+  <div class="divider"></div>
+  ${fl(t.fContra,false,`
+    <div class="pill-group" id="grp-pt_contra">${t.contra.map(o=>`<div class="pill" data-val="${o}" onclick="pillCk(this,'pt_contra')">${o}</div>`).join('')}</div>
+    <input type="hidden" id="pt_contra">
+  `)}
+  ${fl(t.fObsNotes,false,`<textarea id="pt_obs_notes" rows="2" oninput="saveD('pt_obs_notes')"></textarea>`)}
+  ${nextBtn('obstetric',true)}
+`,delay,!unlockedSecs.includes('obstetric'));}
+
+function s6(delay){return card('medical','🏥',false,t.s6,t.tabSubs[5],`
+  <div class="alert-b">⚠️ ${t.alertLbl}</div>
+  ${checkGrid(t.medConds,t.medIds.map(i=>'med_'+i))}
+  ${fl(t.fMedOther,false,`<input type="text" id="pt_med_other" oninput="saveD('pt_med_other')">`)}
+  <div class="divider"></div>
+  ${fl(t.fMeds,false,`<textarea id="pt_meds" rows="2" oninput="saveD('pt_meds')"></textarea>`)}
+  ${nextBtn('medical',false)}
+`,delay,!unlockedSecs.includes('medical'));}
+
+function s7(delay){return card('allergy','⚠️',false,t.s7,t.tabSubs[6],`
+  ${fl(t.fAlgy,false,`
+    <div class="pill-group" id="grp-pt_algy_yn">
+      <div class="pill" data-val="NKDA" onclick="pillCk(this,'pt_algy_yn');cond('algy_cond',false)">${t.tNKDA}</div>
+      <div class="pill" data-val="known" onclick="pillCk(this,'pt_algy_yn');cond('algy_cond',true)">${t.tKnownA}</div>
+    </div><input type="hidden" id="pt_algy_yn">
+    <div class="cond" id="algy_cond" style="display:none">
+      ${checkGrid(t.algs,t.alIds)}
+      <div style="margin-top:11px">${fl(t.fAlgyDesc,false,`<textarea id="pt_algy_desc" rows="2" oninput="saveD('pt_algy_desc')"></textarea>`)}</div>
+    </div>
+  `)}
+  ${nextBtn('allergy',false)}
+`,delay,!unlockedSecs.includes('allergy'));}
+
+function s8(delay){return card('social','👨‍👩‍👧',true,t.s8,t.tabSubs[7],`
+  <div class="row2">
+    ${fl(t.fMarital,false,selEl('pt_marital',t.plMarital,t.marital))}
+    ${fl(t.fPartners,false,selEl('pt_partners',t.plPartners,t.partners))}
+  </div>
+  <div class="row2">
+    ${fl(t.fOccup,false,`<input type="text" id="pt_occup" oninput="saveD('pt_occup')">`)}
+    ${fl(t.fEdu,false,selEl('pt_edu',t.plEdu,t.edu))}
+  </div>
+  ${fl(t.fSmoke,false,pillGroup('pt_smoke',[t.tNonSmk,t.tExSmk,t.tSmk]))}
+  ${fl(t.fAlco,false,pillGroup('pt_alco',[t.tNo,t.tOcc,t.tRegly]))}
+  <div class="divider"></div>
+  ${fl(t.fFamHx,false,checkGrid(t.famHx,t.famIds.map(i=>'fam_'+i),true))}
+  ${fl(t.fFamOther,false,`<input type="text" id="pt_fam_other" oninput="saveD('pt_fam_other')">`)}
+  ${fl(t.fSocNotes,false,`<textarea id="pt_soc_notes" rows="2" oninput="saveD('pt_soc_notes')"></textarea>`)}
+`,delay,!unlockedSecs.includes('social'));}
+
+// ═══════════ INTERACTIONS ═══════════
+function pillCk(el,id){
+  document.querySelectorAll(`#grp-${id} .pill`).forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+  const h=document.getElementById(id); if(h) h.value=el.dataset.val;
+  D[id]=el.dataset.val; prog();
+}
+function ccTog(card2,id){
+  card2.classList.toggle('on');
+  const h=document.getElementById(id); if(h) h.value=card2.classList.contains('on')?'Yes':'No';
+  D[id]=h?h.value:'No';
+}
+function stepV(id,d){
+  const el=document.getElementById(id); if(!el)return;
+  el.value=Math.max(0,(parseInt(el.value)||0)+d); D[id]=el.value; prog();
+}
+function cond(id,show){const el=document.getElementById(id); if(el) el.style.display=show?'block':'none';}
+function saveD(id){const el=document.getElementById(id); if(el) D[id]=el.value;}
+function addComp(el,val){
+  el.classList.toggle('sel');
+  const ta=document.getElementById('pt_comp');
+  if(el.classList.contains('sel')) ta.value=(ta.value?ta.value+'; ':'')+val;
+  else ta.value=ta.value.replace('; '+val,'').replace(val+'; ','').replace(val,'').trim().replace(/^;|;$/g,'').trim();
+  D['pt_comp']=ta.value; prog();
+}
+function fmtIC(inp){
+  let v=inp.value.replace(/\D/g,'');
+  if(v.length>6) v=v.slice(0,6)+'-'+v.slice(6);
+  if(v.length>9) v=v.slice(0,9)+'-'+v.slice(9);
+  inp.value=v.slice(0,14); D['pt_ic']=inp.value;
+  const c=v.replace(/-/g,'');
+  if(c.length>=6){
+    const yr=parseInt(c.slice(0,2)), fy=yr>30?1900+yr:2000+yr;
+    const age=new Date().getFullYear()-fy;
+    if(age>=12&&age<=90){const s=document.getElementById('pt_age'); if(s) s.value=age; D['pt_age']=String(age);}
+  }
+  prog();
+}
+function calcBMI(){
+  const h=parseFloat(document.getElementById('pt_ht')?.value);
+  const w=parseFloat(document.getElementById('pt_wt')?.value);
+  if(h>0&&w>0){
+    const bmi=(w/((h/100)**2)).toFixed(1);
+    const bEl=document.getElementById('pt_bmi'); if(bEl) bEl.value=bmi;
+    const box=document.getElementById('bmiBox');
+    if(box){
+      document.getElementById('bmiNum').textContent=bmi;
+      const b=parseFloat(bmi);
+      let cat,color,note;
+      if(b<18.5){cat=t.bmiCats.U;color='#3B82F6';note='BMI < 18.5';}
+      else if(b<23){cat=t.bmiCats.N;color='#22C55E';note='BMI 18.5–22.9';}
+      else if(b<27.5){cat=t.bmiCats.OW;color='#F59E0B';note='BMI 23–27.4 (Asian)';}
+      else{cat=t.bmiCats.OB;color='#EF4444';note='BMI ≥ 27.5 (Asian)';}
+      const c=document.getElementById('bmiCat');
+      c.textContent=cat; c.style.background=color+'20'; c.style.color=color;
+      document.getElementById('bmiNote').textContent=note;
+      box.style.display='flex';
+    }
+    D['pt_bmi']=bmi;
+  }
+}
+function calcLMP(){
+  const lmp=new Date(document.getElementById('pt_lmp')?.value);
+  if(!isNaN(lmp)){
+    const days=Math.floor((new Date()-lmp)/86400000), weeks=Math.floor(days/7);
+    const el=document.getElementById('lmpHint'); if(el) el.textContent=t.lmpHint(days,weeks);
+  }
+}
+
+// ═══════════ PROGRESS ═══════════
+const progFields=['pt_name','pt_ic','pt_age','pt_race','pt_comp','pt_lmp','pt_reg','pt_pap','pt_algy_yn','pt_marital'];
+function prog(){
+  let done=0;
+  progFields.forEach(id=>{const el=document.getElementById(id); if(el&&el.value&&el.value.trim()) done++;});
+  const pct=Math.round(done/progFields.length*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+}
+function updateProgress(){prog();}
+
+// ═══════════ RESTORE ═══════════
+function restoreVals(){
+  Object.entries(D).forEach(([id,val])=>{
+    const el=document.getElementById(id); if(el) el.value=val;
+    const grp=document.getElementById('grp-'+id);
+    if(grp) grp.querySelectorAll('.pill').forEach(p=>{if(p.dataset.val===val) p.classList.add('sel');});
+  });
+  if(D['pt_ht']&&D['pt_wt']) calcBMI();
+  if(D['pt_lmp']) calcLMP();
+  // Restore check cards
+  Object.entries(D).forEach(([id,val])=>{
+    if(val==='Yes'){
+      const cc=document.getElementById('cc-'+id); if(cc) cc.classList.add('on');
+    }
+  });
+}
+
+// ═══════════ OBSERVER ═══════════
+function attachObs(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const id=e.target.id.replace('sec-','');
+      if(e.isIntersecting){
+        document.querySelectorAll('.sec-tab').forEach(tb=>tb.classList.remove('active'));
+        const tab=document.getElementById('tab-'+id); if(tab) tab.classList.add('active');
+        SECS.forEach((s,i)=>{
+          const dot=document.getElementById('dot-'+s); if(!dot)return;
+          dot.classList.toggle('active',s===id);
+          dot.classList.toggle('done',SECS.indexOf(id)>i);
+        });
+      }
+    });
+  },{threshold:0.3});
+  SECS.forEach(s=>{const el=document.getElementById('sec-'+s); if(el) obs.observe(el);});
+}
+
+// ═══════════ PREVIEW ═══════════
+function g(id){const el=document.getElementById(id); return el?el.value:'';}
+
+function openPreview(){
+  if(!g('pt_name').trim()){showToast('⚠️ '+(lang==='ms'?'Sila masukkan nama pesakit':'Please enter patient name'));return;}
+  document.getElementById('prevContent').innerHTML=buildPreview();
+  document.getElementById('previewOverlay').classList.add('open');
+}
+function closePreview(){document.getElementById('previewOverlay').classList.remove('open');}
+
+function psRow(k,v){return v?`<div class="ps-row"><div class="ps-k">${k}</div><div class="ps-v">${v}</div></div>`:''}
+
+function buildPreview(){
+  const medList=t.medConds.filter((_,i)=>g('med_'+t.medIds[i])==='Yes');
+  const gynList=t.gynaeDx.filter((_,i)=>g('gd_'+t.gynIds[i])==='Yes');
+  const sxList=t.surgHx.filter((_,i)=>g('sx_'+t.sxIds[i])==='Yes');
+  const famList=t.famHx.filter((_,i)=>g('fam_'+t.famIds[i])==='Yes');
+  const alList=t.algs.filter((_,i)=>g(t.alIds[i])==='Yes');
+  return `
+    <div class="ps"><div class="ps-ttl">${t.dSec1}</div>
+      ${psRow(t.fName,g('pt_name'))}${psRow(t.fIC,g('pt_ic'))}
+      ${psRow(t.fAge,g('pt_age')?(g('pt_age')+(lang==='ms'?' tahun':' years')):'')}
+      ${psRow(t.fRace,g('pt_race'))}${psRow(t.fRel,g('pt_rel'))}
+      ${psRow(t.fHt+' / '+t.fWt,[g('pt_ht')?g('pt_ht')+'cm':'',g('pt_wt')?g('pt_wt')+'kg':''].filter(Boolean).join(' / '))}
+      ${psRow('BMI',g('pt_bmi')?g('pt_bmi')+' kg/m²':'')}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec2}</div>
+      ${psRow(t.fComp,g('pt_comp'))}${psRow(t.fLMP,g('pt_lmp'))}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec3}</div>
+      ${psRow(t.fCycleLen,g('pt_cycle_len'))}${psRow(t.fDur,g('pt_dur'))}
+      ${psRow(t.fReg,g('pt_reg'))}${psRow(t.fIMB,g('pt_imb'))}
+      ${psRow(t.fHMB,g('pt_hmb'))}${psRow(t.fDysm,g('pt_dysm'))}${psRow(t.fPCB,g('pt_pcb'))}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec4}</div>
+      ${psRow(t.fPap,g('pt_pap'))}
+      ${g('pt_pap_date')?psRow(t.fPapDate+' / '+t.fPapRes,g('pt_pap_date')+' | '+g('pt_pap_res')):''}
+      ${psRow(t.fGynDx,gynList.join(', ')||t.nil)}${psRow(t.fSxHx,sxList.join(', ')||t.nil)}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec5}</div>
+      ${psRow('G / P','G'+(g('pt_g')||0)+' P'+(g('pt_p')||0))}
+      ${psRow('SVD / LSCS / Misc',(g('pt_svd')||0)+' / '+(g('pt_lscs')||0)+' / '+(g('pt_misc')||0))}
+      ${psRow(t.fContra,g('pt_contra'))}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec6}</div>
+      ${psRow(t.fMedHx,medList.join(', ')||t.nil)}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec7}</div>
+      ${psRow(t.fAlgy,g('pt_algy_yn')==='NKDA'?t.nkda:g('pt_algy_yn')==='known'?(alList.join(', ')||t.fAlgyDesc):t.notStated)}
+    </div>
+    <div class="ps"><div class="ps-ttl">${t.dSec8}</div>
+      ${psRow(t.fMarital,g('pt_marital'))}${psRow(t.fSmoke,g('pt_smoke'))}${psRow(t.fAlco,g('pt_alco'))}
+      ${psRow(t.fFamHx,famList.join(', ')||t.nilS)}
+    </div>`;
+}
+
+// ═══════════ GENERATE DOC ═══════════
+function generateDoc(){
+  generatedDoc=buildFullDoc();
+  closePreview();
+  document.getElementById('s-p').textContent=t.sP;
+  document.getElementById('successScr').classList.add('show');
+}
+
+function buildFullDoc(){
+  const now=new Date().toLocaleDateString(lang==='ms'?'ms-MY':'en-MY',{day:'2-digit',month:'long',year:'numeric'});
+  const medList=t.medConds.filter((_,i)=>g('med_'+t.medIds[i])==='Yes');
+  const gynList=t.gynaeDx.filter((_,i)=>g('gd_'+t.gynIds[i])==='Yes');
+  const sxList=t.surgHx.filter((_,i)=>g('sx_'+t.sxIds[i])==='Yes');
+  const famList=t.famHx.filter((_,i)=>g('fam_'+t.famIds[i])==='Yes');
+  const alList=t.algs.filter((_,i)=>g(t.alIds[i])==='Yes');
+  const r=(k,v,p=20)=>v?`${(k+'  ').padEnd(p,'.').slice(0,p)} : ${v}\n`:'';
+  return `${t.dTitle}
+${'═'.repeat(72)}
+${t.dDate}: ${now}
+${'═'.repeat(72)}
+
+${t.dSec1}
+${'─'.repeat(40)}
+${r(t.fName,g('pt_name'))}${r(t.fIC,g('pt_ic'))}${r(t.fAge,g('pt_age')?(g('pt_age')+(lang==='ms'?' tahun':' years')):'')}${r(t.fRace,g('pt_race'))}${r(t.fRel,g('pt_rel'))}${r(t.fHt,g('pt_ht')?g('pt_ht')+' cm':'')}${r(t.fWt,g('pt_wt')?g('pt_wt')+' kg':'')}${r('BMI',g('pt_bmi')?g('pt_bmi')+' kg/m²':'')}
+${'═'.repeat(72)}
+
+${t.dSec2}
+${'─'.repeat(40)}
+${g('pt_comp')||t.notStated}
+
+${t.fLMP}: ${g('pt_lmp')||'—'}
+
+${'═'.repeat(72)}
+
+${t.dSec3}
+${'─'.repeat(40)}
+${r(t.fCycleLen,g('pt_cycle_len'))}${r(t.fDur,g('pt_dur'))}${r(t.fReg,g('pt_reg'))}${r(t.fIMB,g('pt_imb'))}${r(t.fHMB,g('pt_hmb'))}${g('pt_hmb')===t.tYes?r(t.fPads,g('pt_pads'))+r(t.fClots,g('pt_clots')):''}${r(t.fDysm,g('pt_dysm'))}${r(t.fPCB,g('pt_pcb'))}${g('pt_mens_notes')?t.fMensNotes+': '+g('pt_mens_notes')+'\n':''}
+${'═'.repeat(72)}
+
+${t.dSec4}
+${'─'.repeat(40)}
+${r(t.fPap,g('pt_pap'))}${g('pt_pap')===t.papOpts[0]?r(t.fPapDate,g('pt_pap_date'))+r(t.fPapRes,g('pt_pap_res')):''}
+${t.gynaeHxLbl}:
+${gynList.length?gynList.map(x=>'  • '+x).join('\n'):'  '+t.nil}${g('pt_gd_other')?'\n  • '+g('pt_gd_other'):''}
+
+${t.sxHxLbl}:
+${sxList.length?sxList.map(x=>'  • '+x).join('\n'):'  '+t.nil}${g('pt_sx_other')?'\n  '+g('pt_sx_other'):''}
+
+${'═'.repeat(72)}
+
+${t.dSec5}
+${'─'.repeat(40)}
+G${g('pt_g')||0} P${g('pt_p')||0}
+  ${t.fSVD.padEnd(22)}: ${g('pt_svd')||0}
+  ${t.fLSCS.padEnd(22)}: ${g('pt_lscs')||0}
+  ${t.fMisc.padEnd(22)}: ${g('pt_misc')||0}
+${r(t.fContra,g('pt_contra'))}${g('pt_obs_notes')?t.fObsNotes+': '+g('pt_obs_notes')+'\n':''}
+${'═'.repeat(72)}
+
+${t.dSec6}
+${'─'.repeat(40)}
+${t.condLbl}:
+${medList.length?medList.map(x=>'  • '+x).join('\n'):'  '+t.nil}${g('pt_med_other')?'\n  • '+g('pt_med_other'):''}
+
+${t.fMeds}:
+  ${g('pt_meds')||(lang==='ms'?'Tiada / Tidak dinyatakan':'Nil / Not stated')}
+
+${'═'.repeat(72)}
+
+${t.dSec7}
+${'─'.repeat(40)}
+${g('pt_algy_yn')==='NKDA'?t.nkda:g('pt_algy_yn')==='known'?t.knownAlgy+':\n'+(alList.length?alList.map(x=>'  • '+x).join('\n'):'')+(g('pt_algy_desc')?'\n  '+t.fAlgyDesc+': '+g('pt_algy_desc'):''): t.notStated}
+
+${'═'.repeat(72)}
+
+${t.dSec8}
+${'─'.repeat(40)}
+${r(t.fMarital,g('pt_marital'))}${r(t.fPartners,g('pt_partners'))}${r(t.fOccup,g('pt_occup'))}${r(t.fEdu,g('pt_edu'))}${r(t.fSmoke,g('pt_smoke'))}${r(t.fAlco,g('pt_alco'))}
+${t.famLbl}:
+${famList.length?famList.map(x=>'  • '+x).join('\n'):'  '+t.nilS}${g('pt_fam_other')?'\n  • '+g('pt_fam_other'):''}
+${g('pt_soc_notes')?'\n'+t.fSocNotes+': '+g('pt_soc_notes'):''}
+${'═'.repeat(72)}
+
+${t.dSec9}
+${'─'.repeat(40)}
+${t.examFs.map(f=>f+'\n\n').join('')}
+${'─'.repeat(40)}
+${t.dImpress}
+${'─'.repeat(40)}
+1.
+2.
+3.
+
+${'─'.repeat(40)}
+${t.dPlan}
+${'─'.repeat(40)}
+1.
+2.
+3.
+
+${'═'.repeat(72)}
+${t.dClerked}: ${'_'.repeat(22)}    ${t.dDate}: ${now}
+${t.dDesig}  : ${'_'.repeat(22)}    ${t.dSig}  : ${'_'.repeat(14)}
+${'═'.repeat(72)}
+`;}
+
+function copyDoc(){
+  if(!generatedDoc)return;
+  navigator.clipboard.writeText(generatedDoc).then(()=>{
+    showToast('✅ '+(lang==='ms'?'Disalin ke papan klip!':'Copied to clipboard!'));
+  }).catch(()=>{
+    const ta=document.createElement('textarea'); ta.value=generatedDoc;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('✅ '+(lang==='ms'?'Disalin!':'Copied!'));
+  });
+}
+
+function newRecord(){
+  const msg=lang==='ms'?'Mulakan rekod pesakit baru? Data semasa akan dipadam.':'Start new patient record? Current data will be cleared.';
+  if(confirm(msg)) location.reload();
+}
+
+// ═══════════ TOAST ═══════════
+function showToast(msg){
+  const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+// Close overlay on bg tap
+document.getElementById('previewOverlay').addEventListener('click',function(e){if(e.target===this) closePreview();});
+
+// INIT
+rebuildUI();
+</script>
+</body>
+</html>

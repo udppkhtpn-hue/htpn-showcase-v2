@@ -59,24 +59,23 @@ function HeroSection() {
 
         {/* Line 1 */}
         <div className="hero__line hero__line--1">
-          <span className="hero__word">We</span>
-          {/* Floating card — like untold's embedded photo */}
-          <div className="hero__float-card">
-            <div className="hero__float-card__num">16+</div>
-            <div className="hero__float-card__label">Live Tools<br />Deployed</div>
-          </div>
-          <span className="hero__word">Build</span>
+          <span className="hero__word">Redefining</span>
         </div>
 
         {/* Line 2 */}
         <div className="hero__line hero__line--2">
           <span className="hero__accent-star">✦</span>
-          <span className="hero__word hero__word--teal">Clinical</span>
+          <span className="hero__word hero__word--teal">Healthcare</span>
         </div>
 
         {/* Line 3 */}
         <div className="hero__line hero__line--3">
-          <span className="hero__word">Tools.</span>
+          <span className="hero__word hero__word--dim">Through</span>
+        </div>
+
+        {/* Line 4 */}
+        <div className="hero__line hero__line--4">
+          <span className="hero__word">Applied AI.</span>
         </div>
 
       </div>
@@ -137,22 +136,41 @@ function PipelineSection() {
         <span className="section__count reveal">{pipelineItems.length} concepts</span>
       </div>
 
+      <ScrollRevealText
+        text="Beyond the screen. Beyond the hospital. These are the projects where robots move, drones fly, and governments listen. This is where we build the future of Malaysian healthcare."
+        className="pipeline__explainer"
+        cursor={false}
+      />
+
       <div className="card-grid">
         {pipelineItems.map((item) => {
           const slug = item.detailPath.replace('/pipeline/', '')
           return (
             <div
               key={item.detailPath}
-              className="card reveal"
+              className={`card reveal${item.cardImage ? ' card--with-image' : ''}`}
               onClick={() => navigate(item.detailPath)}
             >
-              <div className="card__icon">{item.icon}</div>
-              <h3 className="card__title">{item.title}</h3>
-              <p className="card__desc">{item.desc}</p>
-              <div className="card__tags">
-                {item.tags?.map(t => <span key={t} className="card__tag">{t}</span>)}
+              <div className="card__body">
+                {item.cardImage ? (
+                  <div className="card__meta">
+                    <span className="card__category">( Pipeline )</span>
+                    <span className="card__status-badge">POC in Progress</span>
+                  </div>
+                ) : null}
+                <div className="card__icon">{item.icon}</div>
+                <h3 className="card__title">{item.title}</h3>
+                <p className="card__desc">{item.desc}</p>
+                <div className="card__tags">
+                  {item.tags?.map(t => <span key={t} className="card__tag">{t}</span>)}
+                </div>
+                <span className="card__view-btn">View Project →</span>
               </div>
-              <span className="card__arrow">→ View</span>
+              {item.cardImage && (
+                <div className="card__img-wrap">
+                  <img src={item.cardImage} alt={item.title} className="card__img" />
+                </div>
+              )}
             </div>
           )
         })}
@@ -204,6 +222,42 @@ function AboutSection() {
         </div>
       </div>
 
+      {/* Director Card */}
+      <div className="about-director reveal">
+        <img src="/director.png" alt="Dr Hj Muhd Siv Azhar Merican bin Abdullah" className="about-director__photo" />
+        <div>
+          <p className="about-director__label">Pengarah Hospital</p>
+          <h3 className="about-director__name">Dr Hj Muhd Siv Azhar Merican bin Abdullah</h3>
+          <p className="about-director__desc">
+            Under the leadership and mentorship of our hospital director, the AI Team at HTPN Kajang has been empowered to innovate from within — translating frontline ideas into real, deployable digital solutions that serve patients and staff alike.
+          </p>
+          <p className="about-director__desc">
+            The AI Team at HTPN Kajang is an internal innovation unit dedicated to building practical digital solutions that address real frontline problems — designed and deployed by the people who use them daily.
+          </p>
+          <p className="about-director__desc">
+            Our approach is deeply collaborative. The innovation unit works directly with clinicians and hospital departments across HTPN — it is the frontline personnel who identify the problems and drive the solutions, while the AI Team contributes the technical know-how in vibe coding, automation, and AI-assisted development.
+          </p>
+          <p className="about-director__desc">
+            Operating within Malaysia's MOH infrastructure and leveraging Google Workspace, our tools are PDPA-compliant, mobile-first, and built to serve both clinical and administrative needs — without waiting for top-down procurement.
+          </p>
+          <p className="about-director__desc">
+            From a 135-year-old government hospital, we're proving that meaningful digital transformation starts at the ward level.
+          </p>
+        </div>
+      </div>
+
+      {/* Team Photo */}
+      <img src="/team.jpg" alt="AI Team HTPN Kajang" className="about-team-photo reveal" />
+      <p className="about-team-caption reveal">AI Team HTPN Kajang</p>
+      <div className="about-team-members reveal">
+        <p className="about-team-members__label">AI Team Members</p>
+        <div className="about-team-members__names">
+          <span>Dr Ferwahn Fairis bin Ab Karim</span>
+          <span>Dr Naim bin Abdul Malek</span>
+          <span>Dr Muhammad Syafiz bin Ruzain</span>
+        </div>
+      </div>
+
       <div className="stats-row">
         {[
           { num: '16+', label: 'Live Deployments' },
@@ -221,15 +275,133 @@ function AboutSection() {
   )
 }
 
+/* ── Journey Beyond HTPN ─────────────────────────────── */
+const partnerships = [
+  { org: 'Monash University', desc: 'Completed the 6-week Digital Health Micro-Credential programme.' },
+  { org: 'MPC & Roketz Sdn Bhd', desc: 'Organised four AI workshop series in collaboration, upskilling clinical and administrative staff.' },
+  { org: 'London School of Economics', desc: 'Participated and presented an AI project at the Data Science & AI Course.' },
+  { org: 'Future Healthcare Asia Conference 2025', desc: 'Invited Speaker on AI ethics and data security.' },
+  { org: 'AI Workshop, Cluster Hospitals Penang', desc: "Invited Speaker, sharing HTPN's digitalisation journey." },
+  { org: 'MIH Megatrend 2025', desc: "Presented a poster showcasing HTPN's AI-driven digital transformation." },
+  { org: 'Hospital Sultanah Aminah, Johor Bahru', desc: "Conducted a full AI workshop for the hospital's clinical and administrative team." },
+]
+
+const upcomingInvitations = [
+  { icon: '🏥', org: 'Hospital Pulau Pinang', desc: 'AI Workshop — Invitation Accepted' },
+  { icon: '🌿', org: 'Jabatan Kesihatan Negeri Sarawak', desc: 'AI Workshop — Invitation Accepted' },
+]
+
+function JourneySection() {
+  const sectionRef = useScrollReveal('.reveal')
+  return (
+    <section id="journey" className="section" ref={sectionRef}>
+      <div className="section__header">
+        <div>
+          <p className="section__label reveal">05 — Our Journey</p>
+          <h2 className="section__title reveal">Beyond HTPN</h2>
+        </div>
+      </div>
+      <p className="journey__subtitle reveal">
+        From our own wards to hospital networks across Malaysia — the AI Team HTPN has grown into a recognised voice in clinical AI adoption and digital health education.
+      </p>
+
+      <div className="journey__timeline">
+        {partnerships.map((p, i) => (
+          <div key={i} className="journey__item reveal">
+            <div className="journey__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div className="journey__item-body">
+              <div className="journey__item-org">{p.org}</div>
+              <p className="journey__item-desc">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="journey__stats reveal">
+        <div className="journey__stat">
+          <span className="journey__stat-icon">🎓</span>
+          <div className="journey__stat-num">7+</div>
+          <div className="journey__stat-label">Workshops Conducted</div>
+          <div className="journey__stat-sub">Across Malaysia</div>
+        </div>
+        <div className="journey__stat">
+          <span className="journey__stat-icon">🏛️</span>
+          <div className="journey__stat-num">4+</div>
+          <div className="journey__stat-label">Conferences & Presentations</div>
+          <div className="journey__stat-sub">National & International</div>
+        </div>
+      </div>
+
+      <div className="journey__upcoming reveal">
+        <p className="journey__upcoming-label">Upcoming Invitations</p>
+        <div className="journey__upcoming-grid">
+          {upcomingInvitations.map((inv, i) => (
+            <div key={i} className="journey__upcoming-card">
+              <span className="journey__upcoming-icon">{inv.icon}</span>
+              <div className="journey__upcoming-org">{inv.org}</div>
+              <p className="journey__upcoming-desc">{inv.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── Internal Training ────────────────────────────────── */
+const trainingCourses = [
+  { title: 'Kursus Perancangan Penggunaan AI Dalam Tugasan Harian — Bahagian Pengurusan', date: '10–11 July 2025' },
+  { title: 'Kursus Perancangan Penggunaan AI Dalam Tugasan Harian — Unit Kejururawatan', date: '22–23 October 2025' },
+  { title: 'Supercharge Obstetrics With AI — Obstetrics & Gynaecology Dept', date: '9 December 2025' },
+  { title: 'AI for Daily Tasks in Clinical Setting — Medical Dept, Part 1', date: '15 January 2026' },
+  { title: 'Penggunaan AI dalam Kerja Seharian — KPPK', date: '27 January 2026' },
+  { title: 'AI for Daily Tasks in Clinical Setting — Medical Dept, Part 2', date: '11 February 2026' },
+  { title: 'AI for Daily Tasks in Clinical Setting — Medical Dept, Part 3', date: '27 February 2026' },
+  { title: 'Supercharge Obstetrics With AI — Obstetrics & Gynaecology Dept, Part 2', date: '3 March 2026' },
+  { title: 'Coding Camp — Obstetrics Department', date: '10 March 2026', recent: true },
+]
+
+function TrainingSection() {
+  const sectionRef = useScrollReveal('.reveal')
+  return (
+    <section id="training" className="section" ref={sectionRef}>
+      <div className="section__header">
+        <div>
+          <p className="section__label reveal">05B — Internal Training</p>
+          <h2 className="section__title reveal">Building Capacity Within</h2>
+        </div>
+      </div>
+      <p className="journey__subtitle reveal">
+        Beyond deploying tools, the AI Team runs a structured internal training programme — bringing AI literacy directly to clinical and administrative staff at HTPN.
+      </p>
+
+      <div className="training__list">
+        {trainingCourses.map((c, i) => (
+          <div key={i} className={`training__item reveal${c.recent ? ' training__item--recent' : ''}`}>
+            <div className="training__item-num">{String(i + 1).padStart(2, '0')}</div>
+            <div className="training__item-body">
+              <div className="training__item-title">{c.title}</div>
+              <div className="training__item-date">{c.date}</div>
+            </div>
+            {c.recent && <span className="training__item-badge">Most Recent</span>}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 /* ── Belief ───────────────────────────────────────────── */
 function BeliefSection() {
   return (
     <section className="belief">
       <span className="section__label" style={{ marginBottom: '40px', display: 'inline-flex' }}>Our Philosophy</span>
       <ScrollRevealText
-        text="Technology built by clinicians for clinicians — solves problems that procurement never reaches."
+        text="Technology built by clinicians for clinicians — solves real problems in real time."
         className="belief__text"
         cursor={true}
+        start="top 85%"
+        end="bottom 20%"
       />
     </section>
   )
@@ -287,9 +459,28 @@ function ContactSection() {
     <section id="contact" className="section" ref={sectionRef}>
       <div className="section__header">
         <div>
-          <p className="section__label reveal">Get in Touch</p>
-          <h2 className="section__title reveal">Get in Touch</h2>
+          <p className="section__label reveal">06 — Contact</p>
+          <h2 className="section__title reveal">Get In Touch</h2>
         </div>
+      </div>
+
+      <p className="journey__subtitle reveal">
+        Interested in our work, want to collaborate, or looking to bring an AI workshop to your hospital? Reach out to the team.
+      </p>
+
+      <div className="contact__cards reveal">
+        <a href="mailto:udppkhtpn@moh.gov.my" className="contact__card">
+          <span className="contact__card-icon">✉️</span>
+          <span className="contact__card-label">Email</span>
+          <span className="contact__card-value">udppkhtpn@moh.gov.my</span>
+          <span className="contact__card-sub">AI Team HTPN Kajang</span>
+        </a>
+        <a href="tel:0388133333" className="contact__card">
+          <span className="contact__card-icon">📞</span>
+          <span className="contact__card-label">Phone</span>
+          <span className="contact__card-value">03-8813 3333</span>
+          <span className="contact__card-sub">Hospital Tengku Permaisuri Norashikin</span>
+        </a>
       </div>
 
       <div className="contact__form">
@@ -350,6 +541,8 @@ export default function Home() {
       <PipelineSection />
       <BeliefSection />
       <AboutSection />
+      <JourneySection />
+      <TrainingSection />
       <InDevelopmentSection />
       <ContactSection />
       <SiteNavigator />

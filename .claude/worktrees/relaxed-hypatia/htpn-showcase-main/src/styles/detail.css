@@ -2,9 +2,27 @@
 .detail-page {
   min-height: 100vh;
   background: var(--bg);
+  background-image: url('/hospital1.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  --muted: rgba(245, 245, 240, 0.85);
+}
+
+.detail-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.88);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .detail-container {
+  position: relative;
+  z-index: 1;
   max-width: 960px;
   margin: 0 auto;
   padding: 120px 40px 80px;
@@ -187,6 +205,22 @@
   max-width: 64ch;
 }
 
+.detail-video-wrap {
+  margin-bottom: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  line-height: 0;
+}
+
+.detail-video {
+  width: 100%;
+  display: block;
+  max-height: 560px;
+  object-fit: contain;
+  background: #000;
+}
+
 .detail-features {
   list-style: none;
   display: flex;
@@ -270,6 +304,30 @@
   text-transform: uppercase;
   color: rgba(245,245,240,0.1);
   border-right: 1px solid var(--border);
+}
+
+.gallery-strip__track--images {
+  justify-content: center;
+  align-items: stretch;
+}
+
+.gallery-strip__slot--img {
+  background: #000;
+  overflow: hidden;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 360px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-strip__slot--img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 @media (max-width: 768px) {

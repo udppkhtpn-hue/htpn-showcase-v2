@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -12,7 +13,7 @@ const CATEGORIES = [
     tagline: 'Tools in the hands of patients — before they even see a doctor.',
     slogan: 'Patients arrive prepared, not blank.',
     prose: "From first registration to discharge, we've rebuilt the patient experience from the ground up. Our tools guide patients through appointment prep, medication reminders, and health literacy — so every consultation begins with context, not confusion.",
-    banner: '/banner-patient.png',
+    banner: '/banner-patient1.png',
     bannerGradient: 'linear-gradient(135deg, rgba(240,98,146,0.18) 0%, rgba(240,98,146,0.04) 100%)',
   },
   {
@@ -22,7 +23,7 @@ const CATEGORIES = [
     tagline: 'Clinical tools that give clinicians their time back.',
     slogan: 'Less admin. More medicine.',
     prose: "Ward rounds shouldn't mean paperwork marathons. We've built AI-assisted tools that handle the documentation, surface the right information at the right time, and automate the repetitive — so clinicians can focus entirely on the patient in front of them.",
-    banner: '/banner-doctor.png',
+    banner: '/banner-doctor1.png',
     bannerGradient: 'linear-gradient(135deg, rgba(14,165,160,0.18) 0%, rgba(14,165,160,0.04) 100%)',
   },
   {
@@ -32,14 +33,15 @@ const CATEGORIES = [
     tagline: 'Dashboards and automation for hospital operations at scale.',
     slogan: 'Real data. Real time. Real decisions.',
     prose: "Hospital management shouldn't run on spreadsheets and gut instinct. We've created live dashboards, automated reporting pipelines, and census tools that give leadership the visibility to act fast — and the data to back every decision.",
-    banner: '/banner-management.png',
+    banner: '/banner-management1.png',
     bannerGradient: 'linear-gradient(135deg, rgba(0,201,167,0.18) 0%, rgba(0,201,167,0.04) 100%)',
   },
 ]
 
-function FolderCard({ project, idx, accent }) {
+function FolderCard({ project, idx, accent, categoryLabel }) {
   const ref = useRef(null)
   const navigate = useNavigate()
+  const [popover, setPopover] = useState(null)
 
   useEffect(() => {
     const el = ref.current
@@ -56,30 +58,80 @@ function FolderCard({ project, idx, accent }) {
     )
   }, [])
 
-  const onEnter = () => gsap.to(ref.current, { y: -6, scale: 1.02, duration: 0.25, ease: 'power2.out' })
-  const onLeave = () => gsap.to(ref.current, { y: 0, scale: 1, duration: 0.35, ease: 'power2.inOut' })
+  const onEnter = () => {
+    const rect = ref.current.getBoundingClientRect()
+    setPopover({ top: rect.top, left: rect.left, width: rect.width, height: rect.height })
+  }
+  const onLeave = () => {
+    gsap.to(ref.current, { y: 0, scale: 1, duration: 0.35, ease: 'power2.inOut' })
+    setPopover(null)
+  }
 
-  return (
+  const popoverEl = popover && createPortal(
     <div
-      ref={ref}
-      className="folder-card"
-      style={{ '--accent': accent }}
-      onClick={() => navigate(project.detailPath)}
-      onMouseEnter={onEnter}
+      className="card-popover"
+      style={{ top: popover.top, left: popover.left, width: popover.width, '--accent': accent }}
+      onMouseEnter={() => setPopover(popover)}
       onMouseLeave={onLeave}
     >
-      <div className="folder-card__top">
+      <div className="card-popover__header">
+        <span className="card-popover__num">{project.num}</span>
+        {project.status === 'live' && <span className="card-popover__live">LIVE</span>}
+      </div>
+      <span className="card-popover__cat" style={{ color: accent, borderColor: accent + '55' }}>
+        {categoryLabel}
+      </span>
+      <div className="card-popover__icon">
         {project.iconType === 'image' && project.icon
-          ? <img src={project.icon} alt="" className="folder-card__img" />
-          : <span className="folder-card__emoji">{project.icon}</span>
+          ? <img src={project.icon} alt="" />
+          : <span>{project.icon}</span>
         }
       </div>
+      <h3 className="card-popover__title">{project.title}</h3>
+      <p className="card-popover__desc">{project.desc}</p>
+      {project.credit && (
+        <p className="card-popover__credit">
+          Co-developed by <strong>{project.credit.by}</strong>{' '}
+          <em>({project.credit.dept})</em>
+        </p>
+      )}
+      {project.tags?.length > 0 && (
+        <div className="card-popover__tags">
+          {project.tags.map(t => <span key={t} className="card-popover__tag">{t}</span>)}
+        </div>
+      )}
+      <button
+        className="card-popover__btn"
+        onClick={() => navigate(project.detailPath)}
+      >
+        VIEW PROJECT →
+      </button>
+    </div>,
+    document.body
+  )
 
-      <span className="folder-card__title">{project.title}</span>
-      <span className="folder-card__num">{project.num}</span>
-
-      <div className="folder-card__bar" />
-    </div>
+  return (
+    <>
+      <div
+        ref={ref}
+        className="folder-card"
+        style={{ '--accent': accent }}
+        onClick={() => navigate(project.detailPath)}
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
+      >
+        <div className="folder-card__top">
+          {project.iconType === 'image' && project.icon
+            ? <img src={project.icon} alt="" className="folder-card__img" />
+            : <span className="folder-card__emoji">{project.icon}</span>
+          }
+        </div>
+        <span className="folder-card__title">{project.title}</span>
+        <span className="folder-card__num">{project.num}</span>
+        <div className="folder-card__bar" />
+      </div>
+      {popoverEl}
+    </>
   )
 }
 
@@ -93,10 +145,11 @@ export default function ProjectFolders({ projects }) {
           <p className="section__label">Active Digital Solutions</p>
           <span className="folders-preamble__count">{projects.length} tools deployed</span>
         </div>
-        <h2 className="folders-preamble__title">Built &amp; Running</h2>
-        <p className="folders-preamble__body">
-          We categorize our work into three themes — each one designed around the people who live inside a hospital every day.
-        </p>
+        <ScrollRevealText text="Built & Running" className="folders-preamble__title" />
+        <ScrollRevealText
+          text="We categorize our work into three themes — each one designed around the people who live inside a hospital every day."
+          className="folders-preamble__body"
+        />
       </div>
 
       {CATEGORIES.map(({ key, label, accent, tagline, slogan, prose, banner, bannerGradient }) => {
@@ -119,7 +172,7 @@ export default function ProjectFolders({ projects }) {
                 className="folders-group__banner-img"
               />
               <div className="folders-group__banner-overlay" />
-              <p className="folders-group__slogan" style={{ color: accent }}>{slogan}</p>
+              <ScrollRevealText text={slogan} className="folders-group__slogan" />
             </div>
 
             <div className="folders-group__header">
@@ -134,7 +187,7 @@ export default function ProjectFolders({ projects }) {
 
             <div className="folders-row">
               {group.map((p, i) => (
-                <FolderCard key={p.detailPath} project={p} idx={i} accent={accent} />
+                <FolderCard key={p.detailPath} project={p} idx={i} accent={accent} categoryLabel={label} />
               ))}
             </div>
           </div>

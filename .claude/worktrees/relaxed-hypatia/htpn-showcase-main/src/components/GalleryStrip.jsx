@@ -2,9 +2,10 @@ import { useRef, useState } from 'react'
 
 const SLOTS = 6
 
-export default function GalleryStrip({ label = 'Screenshot' }) {
+export default function GalleryStrip({ label = 'Screenshot', images }) {
   const trackRef = useRef(null)
   const drag = useRef({ active: false, startX: 0, scrollLeft: 0 })
+  const slots = images?.length || SLOTS
   const [current, setCurrent] = useState(1)
 
   const onMouseDown = (e) => {
@@ -23,7 +24,7 @@ export default function GalleryStrip({ label = 'Screenshot' }) {
     const walk = (x - drag.current.startX) * 1.2
     trackRef.current.scrollLeft = drag.current.scrollLeft - walk
     const idx = Math.round(trackRef.current.scrollLeft / 262) + 1
-    setCurrent(Math.max(1, Math.min(SLOTS, idx)))
+    setCurrent(Math.max(1, Math.min(slots, idx)))
   }
 
   const endDrag = () => {
@@ -35,22 +36,29 @@ export default function GalleryStrip({ label = 'Screenshot' }) {
     <div className="gallery-strip">
       <div className="gallery-strip__header">
         <span className="gallery-strip__label">{label}</span>
-        <span className="gallery-strip__counter">{current} / {SLOTS}</span>
+        <span className="gallery-strip__counter">{current} / {slots}</span>
       </div>
       <div
         ref={trackRef}
-        className="gallery-strip__track"
+        className={`gallery-strip__track${images?.length ? ' gallery-strip__track--images' : ''}`}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
         onMouseUp={endDrag}
         onMouseLeave={endDrag}
         style={{ overflowX: 'hidden' }}
       >
-        {Array.from({ length: SLOTS }).map((_, i) => (
-          <div key={i} className="gallery-strip__slot">
-            {label} {i + 1}
-          </div>
-        ))}
+        {images?.length
+          ? images.map((src, i) => (
+              <div key={i} className="gallery-strip__slot gallery-strip__slot--img">
+                <img src={src} alt={`${label} ${i + 1}`} />
+              </div>
+            ))
+          : Array.from({ length: SLOTS }).map((_, i) => (
+              <div key={i} className="gallery-strip__slot">
+                {label} {i + 1}
+              </div>
+            ))
+        }
       </div>
     </div>
   )

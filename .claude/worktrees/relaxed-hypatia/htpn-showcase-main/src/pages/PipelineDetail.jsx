@@ -52,7 +52,21 @@ export default function PipelineDetail() {
           <span className="detail-demo-btn detail-demo-btn--disabled">Demo coming soon</span>
         </header>
 
-        <GalleryStrip label="Concept Visual" />
+        {item.video && (
+          <div className="detail-video-wrap">
+            <video
+              src={item.video}
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="detail-video"
+            />
+          </div>
+        )}
+
+        <GalleryStrip label="Concept Visual" images={item.conceptImages} />
 
         <div className="spec-cards">
           <div className="spec-card-new">

@@ -42,6 +42,19 @@ export default function PipelineDrone() {
           </p>
         </div>
 
+        {/* Video */}
+        <div className="project-page-block" style={{ padding: 0, overflow: 'hidden', borderRadius: '12px', background: '#000' }}>
+          <video
+            src="/drone.mp4"
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ width: '100%', display: 'block', maxHeight: '520px', objectFit: 'contain', background: '#000' }}
+          />
+        </div>
+
         {/* Problem / Solution */}
         <div className="project-page-block two-col">
           <div className="project-page-block-inner">

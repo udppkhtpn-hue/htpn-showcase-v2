@@ -1,0 +1,246 @@
+/* ── AMR Detail Page ──────────────────────────────────── */
+.amr-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.amr-tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+.amr-governance-note {
+  font-size: 12px;
+  color: rgba(245,245,240,0.4);
+  letter-spacing: 0.04em;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+/* ── Video caption ────────────────────────────────────── */
+.amr-video-caption {
+  font-size: 11px;
+  color: rgba(245,245,240,0.4);
+  text-align: center;
+  padding: 10px 16px;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  background: rgba(245,245,240,0.02);
+}
+
+/* ── Image grid ───────────────────────────────────────── */
+.amr-img-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.amr-img-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.amr-img-wrap img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.amr-img-caption {
+  font-size: 11px;
+  color: rgba(245,245,240,0.4);
+  padding: 10px 14px;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  background: rgba(245,245,240,0.02);
+}
+
+/* ── Problem / Solution ───────────────────────────────── */
+.amr-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.amr-block-inner {
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  border-radius: 2px;
+}
+
+.amr-block-inner--solution {
+  border-color: rgba(5, 150, 105, 0.3);
+  background: rgba(5, 150, 105, 0.03);
+}
+
+.amr-block-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+
+.amr-block-title--problem { color: #f5a623; }
+.amr-block-title--solution { color: #059669; }
+
+/* ── Benefits ─────────────────────────────────────────── */
+.amr-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.amr-benefit {
+  border: 1px solid var(--border);
+  padding: 24px 20px;
+  border-radius: 2px;
+  background: rgba(245,245,240,0.02);
+}
+
+.amr-benefit__icon { font-size: 28px; margin-bottom: 12px; }
+
+.amr-benefit__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+
+.amr-benefit__desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Timeline ─────────────────────────────────────────── */
+.amr-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.amr-timeline__phase {
+  background: var(--bg);
+  padding: 24px 20px;
+}
+
+.amr-timeline__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.amr-timeline__phase-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.amr-timeline__weeks {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.amr-timeline__items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.amr-timeline__items li {
+  font-size: 12px;
+  color: var(--muted);
+  padding-left: 14px;
+  position: relative;
+}
+
+.amr-timeline__items li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+  font-size: 10px;
+}
+
+/* ── Technical Specs ──────────────────────────────────── */
+.amr-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.amr-spec {
+  background: var(--bg);
+  padding: 20px 20px;
+}
+
+.amr-spec__label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.amr-spec__value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* ── Partner ──────────────────────────────────────────── */
+.amr-partner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  border: 1px solid var(--border);
+  padding: 28px 24px;
+  border-radius: 2px;
+}
+
+.amr-partner__icon { font-size: 32px; flex-shrink: 0; }
+
+.amr-partner__name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .amr-benefits { grid-template-columns: repeat(2, 1fr); }
+  .amr-timeline { grid-template-columns: repeat(2, 1fr); }
+  .amr-specs { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .amr-two-col { grid-template-columns: 1fr; }
+  .amr-img-grid { grid-template-columns: 1fr; }
+  .amr-benefits { grid-template-columns: 1fr; }
+  .amr-timeline { grid-template-columns: 1fr; }
+  .amr-specs { grid-template-columns: 1fr; }
+}
