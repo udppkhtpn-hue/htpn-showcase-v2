@@ -1733,4 +1733,8 @@
   .stats-row { grid-template-columns: 1fr 1fr; }
   .footer { grid-template-columns: 1fr; gap: 32px; }
   .site-nav__grid { grid-template-columns: 1fr; }
+  .folders-row { grid-template-columns: 1fr; }
+  .folder-card { cursor: default; aspect-ratio: unset; min-height: 160px; }
+  .folder-card:hover { background: rgba(245, 245, 240, 0.04); border-color: var(--border); }
+  .card-popover { display: none !important; }
 }
