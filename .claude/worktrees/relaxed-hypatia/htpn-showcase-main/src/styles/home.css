@@ -659,74 +659,127 @@
   border-bottom: 1px solid var(--border);
 }
 
+/* ── App Card — redesigned ────────────────────────────── */
 .folder-card {
-  background: rgba(245, 245, 240, 0.04);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: none;
+  background: rgba(245, 245, 240, 0.03);
   border: 1px solid var(--border);
   border-top: 2px solid var(--accent, var(--teal));
   border-radius: 3px;
-  cursor: none;
-  position: relative;
-  overflow: hidden;
-  will-change: transform;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  min-height: 200px;
   aspect-ratio: 4/3;
+  will-change: transform;
+  transition: background 0.35s ease, border-color 0.35s ease;
 }
 
 .folder-card:hover {
-  background: rgba(245, 245, 240, 0.07);
-  border-color: var(--accent, var(--teal));
+  background: rgba(245, 245, 240, 0.065);
+  border-left-color: var(--accent, var(--teal));
+  border-right-color: var(--accent, var(--teal));
 }
 
-.folder-card__top {
+/* Dot-grid texture — top-right, revealed on hover */
+.folder-card__dots {
   position: absolute;
-  inset: 0;
+  top: 0; right: 0;
+  width: 55%; height: 55%;
+  background-image: radial-gradient(circle, var(--accent, var(--teal)) 1px, transparent 1px);
+  background-size: 11px 11px;
+  opacity: 0;
+  -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 65%);
+  mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 65%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.folder-card:hover .folder-card__dots { opacity: 1; }
+
+/* Top bar */
+.folder-card__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.folder-card__num {
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(245,245,240,0.28);
+  font-family: var(--font);
+}
+
+.folder-card__live {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--teal);
+  border: 1px solid rgba(0,201,167,0.3);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+/* Icon area */
+.folder-card__icon-wrap {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .folder-card__img {
-  width: 75%;
-  height: 75%;
+  width: 62%;
+  height: 62%;
   object-fit: contain;
-  opacity: 1;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.folder-card:hover .folder-card__img { opacity: 1; transform: scale(1.04); }
 
 .folder-card__emoji {
-  font-size: clamp(80px, 10vw, 140px);
-  opacity: 0.9;
+  font-size: clamp(64px, 8vw, 110px);
+  opacity: 0.85;
   line-height: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.folder-card:hover .folder-card__emoji { opacity: 1; transform: scale(1.06); }
+
+/* Footer */
+.folder-card__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.folder-card__cat {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent, var(--teal));
+  opacity: 0.7;
 }
 
 .folder-card__title {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 48px 16px 14px;
-  background: linear-gradient(to top, rgba(10,10,10,0.92) 40%, transparent 100%);
-  font-family: var(--font-heading);
-  font-size: clamp(14px, 1.5vw, 20px);
-  font-weight: 100;
-  letter-spacing: 0.02em;
-  line-height: 1.2;
-  color: #ffffff;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: rgba(245,245,240,0.7);
+  margin: 0;
   transition: color 0.3s ease;
 }
+.folder-card:hover .folder-card__title { color: rgba(245,245,240,0.95); }
 
-.folder-card:hover .folder-card__title { color: var(--accent, var(--teal)); }
-
-.folder-card__num {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  opacity: 0.6;
-}
-
+/* Bottom accent bar */
 .folder-card__bar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -735,8 +788,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
-.folder-card:hover .folder-card__bar { opacity: 0.6; }
+.folder-card:hover .folder-card__bar { opacity: 0.55; }
 
 /* ── Hover Popover Card ───────────────────────────────── */
 .card-popover {
@@ -1744,9 +1796,11 @@
   /* 2-col card grid that fits without overlap */
   .folders-row { grid-template-columns: repeat(2, 1fr); gap: 2px; }
   .folder-card { min-height: 0; aspect-ratio: 1 / 1; cursor: default; }
-  .folder-card__img { width: 60%; height: 60%; }
-  .folder-card__emoji { font-size: clamp(36px, 12vw, 56px); }
-  .folder-card__title { font-size: 11px; padding: 28px 8px 10px; }
-  .folder-card:hover { background: rgba(245,245,240,0.04); border-color: var(--border); }
+  .folder-card__img { width: 55%; height: 55%; }
+  .folder-card__emoji { font-size: clamp(32px, 10vw, 52px); }
+  .folder-card__title { font-size: 10px; }
+  .folder-card__cat { display: none; }
+  .folder-card:hover { background: rgba(245,245,240,0.03); border-left-color: var(--border); border-right-color: var(--border); }
+  .folder-card:hover .folder-card__dots { opacity: 0; }
   .card-popover { display: none !important; }
 }

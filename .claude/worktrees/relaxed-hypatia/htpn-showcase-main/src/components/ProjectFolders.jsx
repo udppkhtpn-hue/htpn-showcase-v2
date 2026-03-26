@@ -154,14 +154,30 @@ function FolderCard({ project, idx, accent, categoryLabel }) {
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
       >
-        <div className="folder-card__top">
+        {/* Dot-grid texture — fades in on hover (top-right corner) */}
+        <div className="folder-card__dots" />
+
+        {/* Top bar: project number + live status */}
+        <div className="folder-card__topbar">
+          <span className="folder-card__num">{project.num}</span>
+          {project.status === 'live' && <span className="folder-card__live">LIVE</span>}
+        </div>
+
+        {/* Icon */}
+        <div className="folder-card__icon-wrap">
           {project.iconType === 'image' && project.icon
             ? <img src={project.icon} alt="" className="folder-card__img" />
             : <span className="folder-card__emoji">{project.icon}</span>
           }
         </div>
-        <span className="folder-card__title">{project.title}</span>
-        <span className="folder-card__num">{project.num}</span>
+
+        {/* Footer: category + title */}
+        <div className="folder-card__footer">
+          <span className="folder-card__cat">{categoryLabel}</span>
+          <h3 className="folder-card__title">{project.title}</h3>
+        </div>
+
+        {/* Bottom accent line */}
         <div className="folder-card__bar" />
       </div>
       {popoverEl}
