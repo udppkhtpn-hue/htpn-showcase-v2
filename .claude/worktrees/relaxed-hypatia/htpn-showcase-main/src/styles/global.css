@@ -3,24 +3,21 @@
 /* Sangbleu Kingdom — place font files in /public/fonts/ */
 @font-face {
   font-family: 'Sangbleu Kingdom';
-  src: url('/fonts/SangbleuKingdom-Regular.woff2') format('woff2'),
-       url('/fonts/SangbleuKingdom-Regular.woff') format('woff');
+  src: url('/fonts/SangbleuKingdom-Regular.woff.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Sangbleu Kingdom';
-  src: url('/fonts/SangbleuKingdom-Italic.woff2') format('woff2'),
-       url('/fonts/SangbleuKingdom-Italic.woff') format('woff');
+  src: url('/fonts/SangbleuKingdom-Italic-woff.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: 'Sangbleu Kingdom';
-  src: url('/fonts/SangbleuKingdom-Medium.woff2') format('woff2'),
-       url('/fonts/SangbleuKingdom-Medium.woff') format('woff');
+  src: url('/fonts/SangbleuKingdom-Medium.woff.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
