@@ -11,7 +11,7 @@ const CATEGORIES = [
     label: "Patient's Journey",
     accent: '#f06292',
     tagline: 'Tools in the hands of patients — before they even see a doctor.',
-    slogan: 'Patients arrive prepared, not blank.',
+    slogan: 'Patients arrive prepared.',
     prose: "From first registration to discharge, we've rebuilt the patient experience from the ground up. Our tools guide patients through appointment prep, medication reminders, and health literacy — so every consultation begins with context, not confusion.",
     banner: '/banner-patient1.png',
     bannerGradient: 'linear-gradient(135deg, rgba(240,98,146,0.18) 0%, rgba(240,98,146,0.04) 100%)',
@@ -37,6 +37,38 @@ const CATEGORIES = [
     bannerGradient: 'linear-gradient(135deg, rgba(0,201,167,0.18) 0%, rgba(0,201,167,0.04) 100%)',
   },
 ]
+
+function BannerStrip({ banner, bannerGradient, accent, slogan }) {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    gsap.set(el, { opacity: 0, y: 80 })
+    gsap.to(el, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 95%', once: true },
+    })
+    return () => ScrollTrigger.getAll().forEach(t => {
+      if (t.vars?.trigger === el) t.kill()
+    })
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className="folders-group__banner"
+      style={{ background: bannerGradient, borderTop: `2px solid ${accent}22` }}
+    >
+      <img src={banner} alt="" className="folders-group__banner-img" />
+      <div className="folders-group__banner-overlay" />
+      <ScrollRevealText text={slogan} className="folders-group__slogan" />
+    </div>
+  )
+}
 
 function FolderCard({ project, idx, accent, categoryLabel }) {
   const ref = useRef(null)
@@ -161,21 +193,7 @@ export default function ProjectFolders({ projects }) {
           <div key={key} className="folders-group">
 
             {/* Banner image strip */}
-            <div
-              className="folders-group__banner"
-              style={{
-                background: bannerGradient,
-                borderTop: `2px solid ${accent}22`,
-              }}
-            >
-              <img
-                src={banner}
-                alt=""
-                className="folders-group__banner-img"
-              />
-              <div className="folders-group__banner-overlay" />
-              <ScrollRevealText text={slogan} className="folders-group__slogan" />
-            </div>
+            <BannerStrip banner={banner} bannerGradient={bannerGradient} accent={accent} slogan={slogan} />
 
             <div className="folders-group__header">
               <h2 className="folders-group__title" style={{ color: accent }}>

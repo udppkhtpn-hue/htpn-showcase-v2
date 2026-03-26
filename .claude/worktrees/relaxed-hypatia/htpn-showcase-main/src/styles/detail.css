@@ -193,14 +193,14 @@
   border-left: 3px solid transparent;
 }
 
-/* Alternate solid backgrounds for clear section distinction */
+/* Alternating solid / transparent sections — first solid, second transparent */
 .detail-block:nth-child(odd)  {
   background: #0f1a18;
   border-left-color: rgba(0, 201, 167, 0.6);
 }
 .detail-block:nth-child(even) {
-  background: #111520;
-  border-left-color: rgba(100, 140, 220, 0.5);
+  background: transparent;
+  border-left-color: rgba(100, 140, 220, 0.3);
 }
 
 .detail-block__title {
@@ -263,6 +263,28 @@
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
+}
+
+.detail-block__cta .detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 0;
+}
+
+.detail-block__cta .detail-back:hover {
+  border-color: var(--fg);
+  color: var(--fg);
 }
 
 /* ── Gallery Strip ────────────────────────────────────── */

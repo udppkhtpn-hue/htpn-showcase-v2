@@ -83,8 +83,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 0 40px 48px;
+  padding: 0 40px 28vh;
   overflow: hidden;
+  overflow-clip-margin: 12px;
   background: linear-gradient(to bottom, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.45) 55%, transparent 100%);
 }
 
@@ -130,7 +131,7 @@
 .hero__line--2 {
   align-items: baseline;
   gap: 20px;
-  padding-left: 4vw;
+  padding-left: 2vw;
 }
 
 .hero__line--3 {
@@ -512,7 +513,7 @@
 .story-block {
   position: relative;
   z-index: 2;
-  margin-top: -22vh;
+  margin-top: -8vh;
   padding: 120px 40px 140px;
   border-top: none;
   background: linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.35) 60%, rgba(10,10,10,0.75) 100%);
@@ -1702,7 +1703,7 @@
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 900px) {
-  .hero--untold { padding: 0 24px 40px; }
+  .hero--untold { padding: 0 24px 28vh; }
   .section { padding: 80px 24px; }
   .story-block { padding: 80px 24px; }
   .project-row { grid-template-columns: 1fr; gap: 32px; }
@@ -1736,6 +1737,9 @@
 
   /* prevent horizontal overflow */
   body, .hero--untold, .section, .story-block { overflow-x: hidden; max-width: 100vw; }
+
+  /* hide star so Healthcare fits on one line without clipping */
+  .hero__accent-star { display: none; }
 
   /* 2-col card grid that fits without overlap */
   .folders-row { grid-template-columns: repeat(2, 1fr); gap: 2px; }

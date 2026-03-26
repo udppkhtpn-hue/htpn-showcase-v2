@@ -36,7 +36,7 @@ const CATEGORY_INTROS = {
   patient: {
     label: "Patient's Journey",
     accent: '#f06292',
-    tagline: 'Patients arrive prepared, not blank.',
+    tagline: 'Patients arrive prepared.',
     desc: "Tools that put the hospital in the patient's hands — before the consultation even starts. Scan a QR code in the waiting room, fill your history on your phone, log your baby's kicks from your ward bed. By the time the doctor walks in, the groundwork is already done.",
   },
   doctor: {

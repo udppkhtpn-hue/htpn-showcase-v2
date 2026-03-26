@@ -275,6 +275,10 @@ export default function PipelineFacialScan() {
           </div>
         </div>
 
+        <div className="project-page-back" style={{ marginTop: '40px' }}>
+          <Link to="/#pipeline" className="back-link">← Back to Pipeline</Link>
+        </div>
+
       </main>
       <Footer />
     </>
