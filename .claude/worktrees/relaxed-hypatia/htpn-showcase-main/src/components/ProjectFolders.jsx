@@ -84,6 +84,9 @@ function StackCard({ project, idx, accent, categoryLabel }) {
   const creditStr = formatCredit(project.credit)
   const stackTop = 20 + idx * 100
 
+  // Strip leading '#' for the large number display, e.g. '#01' → '01'
+  const numDisplay = project.num.replace(/^#/, '')
+
   return (
     <div
       className="stack-card-wrapper"
@@ -91,23 +94,25 @@ function StackCard({ project, idx, accent, categoryLabel }) {
     >
       <div className="stack-card" style={{ '--accent': accent }}>
 
-        {/* ── PEEK HEADER — top ~100px, visible when card is buried ── */}
+        {/* ── HEADER — large number + title (top ~110px = peek when buried) ── */}
         <div className="stack-card__header">
           <div className="stack-card__header-meta">
-            <span className="stack-card__num">{project.num}</span>
+            <span className="stack-card__num">{numDisplay}</span>
             {project.status === 'live' && (
               <span className="stack-card__live">LIVE</span>
             )}
-            <span className="stack-card__cat-label">{categoryLabel}</span>
           </div>
           <h2 className="stack-card__title">{project.title}</h2>
+          <span className="stack-card__cat-label">{categoryLabel}</span>
         </div>
 
-        {/* ── BODY — full detail shown when card is on top ── */}
+        {/* ── DASHED DIVIDER ── */}
+        <hr className="stack-card__divider" />
+
+        {/* ── BODY — full detail shown when card is fully visible ── */}
         <div className="stack-card__content">
 
           <div className="stack-card__info">
-            <hr className="stack-card__divider" />
             <p className="stack-card__desc">{project.desc}</p>
 
             {project.tags?.length > 0 && (
