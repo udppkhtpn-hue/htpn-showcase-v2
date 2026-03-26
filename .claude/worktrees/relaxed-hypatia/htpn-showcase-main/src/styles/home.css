@@ -663,9 +663,15 @@
   padding-bottom: 60px;
 }
 
-/* Each wrapper provides 100 vh of scroll distance */
+/* Each wrapper is 200vh tall.
+   Wrappers 2…N use margin-top:-100vh so they OVERLAP with the previous.
+   This keeps the previous card's sticky zone alive while the new card rises,
+   which is the only way CSS sticky can produce simultaneous buried-card peeks. */
 .stack-card-wrapper {
-  height: 100vh;
+  height: 200vh;
+}
+.stack-card-wrapper + .stack-card-wrapper {
+  margin-top: -100vh;
 }
 
 /* The card itself: sticky, rises from below.
@@ -1718,7 +1724,7 @@
   .folders-group__slogan { bottom: 16px; left: 20px; right: 20px; }
 
   /* Disable sticky stacking on tablet — cards flow normally */
-  .stack-card-wrapper { height: auto; margin-bottom: 16px; }
+  .stack-card-wrapper { height: auto; margin-bottom: 16px; margin-top: 0 !important; }
   .stack-card {
     position: relative;
     top: 0 !important;
@@ -1742,7 +1748,7 @@
   .hero__accent-star { display: none; }
 
   /* Stack cards: flat list on mobile */
-  .stack-card-wrapper { height: auto; margin-bottom: 12px; }
+  .stack-card-wrapper { height: auto; margin-bottom: 12px; margin-top: 0 !important; }
   .stack-card {
     position: relative;
     top: 0 !important;
