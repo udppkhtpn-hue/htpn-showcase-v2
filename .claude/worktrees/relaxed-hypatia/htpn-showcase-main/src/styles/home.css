@@ -651,277 +651,213 @@
   max-width: 48ch;
 }
 
-.folders-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid var(--border);
+/* ── Sticky Stacking Cards ────────────────────────────── */
+.stack-group {
+  margin-bottom: 0;
+  padding-bottom: 80px;
 }
 
-/* ── App Card — redesigned ────────────────────────────── */
-.folder-card {
+/* Track: positions sticky cards in a shared scroll context */
+.stack-cards-track {
   position: relative;
+  padding-bottom: 60px;
+}
+
+/* Each wrapper provides 100 vh of scroll distance */
+.stack-card-wrapper {
+  height: 100vh;
+}
+
+/* The card itself: sticky, rises from below */
+.stack-card {
+  position: sticky;
+  top: var(--stack-top, 20px);
+  z-index: var(--z, 1);
+  height: calc(100vh - var(--stack-top, 20px) - 16px);
+  min-height: 300px;
+
+  background: #f5f5f0;
+  color: #0f1a18;
+  border-radius: 16px;
+  border-top: 3px solid var(--accent, var(--teal));
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.25),
+    0 20px 60px rgba(0,0,0,0.35),
+    0 1px 0 rgba(255,255,255,0.06) inset;
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  cursor: none;
-  background: rgba(245, 245, 240, 0.03);
-  border: 1px solid var(--border);
-  border-top: 2px solid var(--accent, var(--teal));
-  border-radius: 3px;
-  aspect-ratio: 4/3;
-  will-change: transform;
-  transition: background 0.35s ease, border-color 0.35s ease;
+  cursor: default;
+  transition: box-shadow 0.3s ease;
 }
 
-.folder-card:hover {
-  background: rgba(245, 245, 240, 0.065);
-  border-left-color: var(--accent, var(--teal));
-  border-right-color: var(--accent, var(--teal));
-}
-
-/* Dot-grid texture — top-right, revealed on hover */
-.folder-card__dots {
-  position: absolute;
-  top: 0; right: 0;
-  width: 55%; height: 55%;
-  background-image: radial-gradient(circle, var(--accent, var(--teal)) 1px, transparent 1px);
-  background-size: 11px 11px;
-  opacity: 0;
-  -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 65%);
-  mask-image: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 65%);
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.folder-card:hover .folder-card__dots { opacity: 1; }
-
-/* Top bar */
-.folder-card__topbar {
+/* ── Peek header — visible when card is buried under next card ── */
+.stack-card__header {
+  flex-shrink: 0;
+  padding: 20px 32px 18px;
+  border-bottom: 1px solid rgba(15,26,24,0.08);
+  min-height: 100px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px 0;
+  flex-direction: column;
+  gap: 8px;
+  background: #f5f5f0;
   position: relative;
   z-index: 1;
 }
 
-.folder-card__num {
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  color: rgba(245,245,240,0.28);
-  font-family: var(--font);
+.stack-card__header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.folder-card__live {
+.stack-card__num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--accent, var(--teal));
+  text-transform: uppercase;
+}
+
+.stack-card__live {
   font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: var(--teal);
-  border: 1px solid rgba(0,201,167,0.3);
-  padding: 2px 7px;
-  border-radius: 2px;
-}
-
-/* Icon area */
-.folder-card__icon-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-
-.folder-card__img {
-  width: 62%;
-  height: 62%;
-  object-fit: contain;
-  opacity: 0.9;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.folder-card:hover .folder-card__img { opacity: 1; transform: scale(1.04); }
-
-.folder-card__emoji {
-  font-size: clamp(64px, 8vw, 110px);
-  opacity: 0.85;
-  line-height: 1;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.folder-card:hover .folder-card__emoji { opacity: 1; transform: scale(1.06); }
-
-/* Footer */
-.folder-card__footer {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 10px 14px 14px;
-  position: relative;
-  z-index: 1;
-}
-
-.folder-card__cat {
-  font-size: 8px;
-  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent, var(--teal));
-  opacity: 0.7;
-}
-
-.folder-card__title {
-  font-size: clamp(12px, 1.1vw, 14px);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-  color: rgba(245,245,240,0.7);
-  margin: 0;
-  transition: color 0.3s ease;
-}
-.folder-card:hover .folder-card__title { color: rgba(245,245,240,0.95); }
-
-/* Bottom accent bar */
-.folder-card__bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
+  color: #fff;
   background: var(--accent, var(--teal));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.folder-card:hover .folder-card__bar { opacity: 0.55; }
-
-/* ── Hover Popover Card ───────────────────────────────── */
-.card-popover {
-  position: fixed;
-  z-index: 999;
-  background: rgba(12, 16, 22, 0.97);
-  border: 1px solid rgba(245,245,240,0.12);
-  border-top: 2px solid var(--accent, var(--teal));
-  border-radius: 8px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  pointer-events: auto;
-  animation: popoverIn 0.18s ease forwards;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.8);
-  overflow-y: auto;
-  max-height: 90vh;
+  padding: 2px 7px;
+  border-radius: 3px;
 }
 
-@keyframes popoverIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.card-popover__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-popover__num {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  color: rgba(245,245,240,0.75);
-}
-
-.card-popover__live {
+.stack-card__cat-label {
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--teal);
-  border: 1px solid var(--teal);
-  border-radius: 20px;
-  padding: 2px 8px;
-}
-
-.card-popover__cat {
-  font-size: 10px;
-  font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid;
-  border-radius: 20px;
-  padding: 3px 10px;
-  width: fit-content;
+  color: rgba(15,26,24,0.4);
+  margin-left: auto;
 }
 
-.card-popover__icon {
-  display: flex;
-  justify-content: center;
-}
-
-.card-popover__icon img,
-.card-popover__icon span {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  font-size: 72px;
-  line-height: 1;
-}
-
-.card-popover__title {
-  font-size: 16px;
+.stack-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(18px, 2.4vw, 30px);
   font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: var(--fg);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #0f1a18;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.card-popover__desc {
-  font-size: 12px;
-  line-height: 1.6;
-  color: rgba(245,245,240,0.85);
-  margin: 0;
+/* ── Content area — main body shown when card is on top ── */
+.stack-card__content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 32px;
+  padding: 24px 32px 28px;
+  overflow: hidden;
+  min-height: 0;
 }
 
-.card-popover__credit {
-  font-size: 11px;
-  color: rgba(245,245,240,0.8);
-  margin: 0;
-  line-height: 1.5;
+.stack-card__divider {
+  border: none;
+  border-top: 1px solid rgba(15,26,24,0.1);
+  margin: 0 0 18px;
 }
 
-.card-popover__credit strong { color: #ffffff; font-weight: 600; }
-.card-popover__credit em    { color: rgba(245,245,240,0.75); font-style: normal; }
+.stack-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  overflow: hidden;
+}
 
-.card-popover__tags {
+.stack-card__desc {
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.65;
+  color: rgba(15,26,24,0.72);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stack-card__tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.card-popover__tag {
-  font-size: 10px;
+.stack-card__tag {
+  font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent, var(--teal));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--teal)) 35%, transparent);
   padding: 3px 9px;
-  border: 1px solid rgba(245,245,240,0.15);
-  border-radius: 20px;
-  color: var(--muted);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--accent, var(--teal)) 6%, transparent);
 }
 
-.card-popover__btn {
-  margin-top: 4px;
-  padding: 10px 16px;
-  font-family: var(--font);
+.stack-card__credit {
+  font-size: 11px;
+  color: rgba(15,26,24,0.45);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.stack-card__btn {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 10px 22px;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--accent, var(--teal));
-  background: transparent;
-  border: 1px solid var(--accent, var(--teal));
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--accent, var(--teal));
+  border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
-  text-transform: uppercase;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.stack-card__btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
 }
 
-.card-popover__btn:hover {
-  background: var(--accent, var(--teal));
-  color: #0a0a0a;
+/* Visual column — right side icon */
+.stack-card__visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(15,26,24,0.04);
+}
+
+.stack-card__icon-img {
+  max-width: 72%;
+  max-height: 72%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+.stack-card__icon-emoji {
+  font-size: clamp(56px, 6vw, 96px);
+  line-height: 1;
+  opacity: 0.85;
 }
 
 /* ── Pipeline Explainer ───────────────────────────────── */
@@ -1778,7 +1714,17 @@
   .hero__float-card { padding: 14px 18px; }
   .folders-group__header { grid-template-columns: 1fr; gap: 16px; }
   .folders-group__slogan { bottom: 16px; left: 20px; right: 20px; }
-  .folders-row { grid-template-columns: repeat(2, 1fr); }
+
+  /* Disable sticky stacking on tablet — cards flow normally */
+  .stack-card-wrapper { height: auto; margin-bottom: 16px; }
+  .stack-card {
+    position: relative;
+    top: 0 !important;
+    height: auto;
+    min-height: 260px;
+  }
+  .stack-card__content { grid-template-columns: 1fr; gap: 16px; }
+  .stack-card__visual { min-height: 140px; border-radius: 8px; }
 }
 
 @media (max-width: 600px) {
@@ -1793,14 +1739,18 @@
   /* hide star so Healthcare fits on one line without clipping */
   .hero__accent-star { display: none; }
 
-  /* 2-col card grid that fits without overlap */
-  .folders-row { grid-template-columns: repeat(2, 1fr); gap: 2px; }
-  .folder-card { min-height: 0; aspect-ratio: 1 / 1; cursor: default; }
-  .folder-card__img { width: 55%; height: 55%; }
-  .folder-card__emoji { font-size: clamp(32px, 10vw, 52px); }
-  .folder-card__title { font-size: 10px; }
-  .folder-card__cat { display: none; }
-  .folder-card:hover { background: rgba(245,245,240,0.03); border-left-color: var(--border); border-right-color: var(--border); }
-  .folder-card:hover .folder-card__dots { opacity: 0; }
-  .card-popover { display: none !important; }
+  /* Stack cards: flat list on mobile */
+  .stack-card-wrapper { height: auto; margin-bottom: 12px; }
+  .stack-card {
+    position: relative;
+    top: 0 !important;
+    height: auto;
+    min-height: 0;
+    border-radius: 12px;
+  }
+  .stack-card__header { padding: 16px 20px 14px; min-height: 0; }
+  .stack-card__title { font-size: clamp(15px, 4vw, 20px); }
+  .stack-card__content { grid-template-columns: 1fr; gap: 12px; padding: 16px 20px 20px; }
+  .stack-card__visual { min-height: 120px; border-radius: 8px; }
+  .stack-card__desc { -webkit-line-clamp: 3; }
 }

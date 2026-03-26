@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -70,118 +69,79 @@ function BannerStrip({ banner, bannerGradient, accent, slogan }) {
   )
 }
 
-function FolderCard({ project, idx, accent, categoryLabel }) {
-  const ref = useRef(null)
+function formatCredit(credit) {
+  if (!credit) return null
+  const parts = []
+  if (credit.aiTeam) parts.push(`AI: ${credit.aiTeam}`)
+  if (credit.by) parts.push(credit.by)
+  if (credit.coAuthor) parts.push(credit.coAuthor)
+  if (credit.dept) parts.push(credit.dept)
+  return parts.join(' · ')
+}
+
+function StackCard({ project, idx, accent, categoryLabel }) {
   const navigate = useNavigate()
-  const [popover, setPopover] = useState(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    gsap.set(el, { opacity: 0, y: 80 })
-    gsap.to(el, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      delay: idx * 0.12,
-      scrollTrigger: { trigger: el, start: 'top 95%', once: true },
-    })
-    return () => ScrollTrigger.getAll().forEach(t => {
-      if (t.vars?.trigger === el) t.kill()
-    })
-  }, [])
-
-  const onEnter = () => {
-    const rect = ref.current.getBoundingClientRect()
-    setPopover({ top: rect.top, left: rect.left, width: rect.width, height: rect.height })
-  }
-  const onLeave = () => {
-    gsap.to(ref.current, { y: 0, scale: 1, duration: 0.35, ease: 'power2.inOut' })
-    setPopover(null)
-  }
-
-  const popoverEl = popover && createPortal(
-    <div
-      className="card-popover"
-      style={{ top: popover.top, left: popover.left, width: popover.width, '--accent': accent }}
-      onMouseEnter={() => setPopover(popover)}
-      onMouseLeave={onLeave}
-    >
-      <div className="card-popover__header">
-        <span className="card-popover__num">{project.num}</span>
-        {project.status === 'live' && <span className="card-popover__live">LIVE</span>}
-      </div>
-      <span className="card-popover__cat" style={{ color: accent, borderColor: accent + '55' }}>
-        {categoryLabel}
-      </span>
-      <div className="card-popover__icon">
-        {project.iconType === 'image' && project.icon
-          ? <img src={project.icon} alt="" />
-          : <span>{project.icon}</span>
-        }
-      </div>
-      <h3 className="card-popover__title">{project.title}</h3>
-      <p className="card-popover__desc">{project.desc}</p>
-      {project.credit && (
-        <p className="card-popover__credit">
-          Co-developed by <strong>{project.credit.by}</strong>{' '}
-          <em>({project.credit.dept})</em>
-        </p>
-      )}
-      {project.tags?.length > 0 && (
-        <div className="card-popover__tags">
-          {project.tags.map(t => <span key={t} className="card-popover__tag">{t}</span>)}
-        </div>
-      )}
-      <button
-        className="card-popover__btn"
-        onClick={() => navigate(project.detailPath)}
-      >
-        VIEW PROJECT →
-      </button>
-    </div>,
-    document.body
-  )
+  const creditStr = formatCredit(project.credit)
+  const stackTop = 20 + idx * 100
 
   return (
-    <>
-      <div
-        ref={ref}
-        className="folder-card"
-        style={{ '--accent': accent }}
-        onClick={() => navigate(project.detailPath)}
-        onMouseEnter={onEnter}
-        onMouseLeave={onLeave}
-      >
-        {/* Dot-grid texture — fades in on hover (top-right corner) */}
-        <div className="folder-card__dots" />
+    <div
+      className="stack-card-wrapper"
+      style={{ '--stack-top': `${stackTop}px`, '--z': idx + 1 }}
+    >
+      <div className="stack-card" style={{ '--accent': accent }}>
 
-        {/* Top bar: project number + live status */}
-        <div className="folder-card__topbar">
-          <span className="folder-card__num">{project.num}</span>
-          {project.status === 'live' && <span className="folder-card__live">LIVE</span>}
+        {/* ── PEEK HEADER — top ~100px, visible when card is buried ── */}
+        <div className="stack-card__header">
+          <div className="stack-card__header-meta">
+            <span className="stack-card__num">{project.num}</span>
+            {project.status === 'live' && (
+              <span className="stack-card__live">LIVE</span>
+            )}
+            <span className="stack-card__cat-label">{categoryLabel}</span>
+          </div>
+          <h2 className="stack-card__title">{project.title}</h2>
         </div>
 
-        {/* Icon */}
-        <div className="folder-card__icon-wrap">
-          {project.iconType === 'image' && project.icon
-            ? <img src={project.icon} alt="" className="folder-card__img" />
-            : <span className="folder-card__emoji">{project.icon}</span>
-          }
-        </div>
+        {/* ── BODY — full detail shown when card is on top ── */}
+        <div className="stack-card__content">
 
-        {/* Footer: category + title */}
-        <div className="folder-card__footer">
-          <span className="folder-card__cat">{categoryLabel}</span>
-          <h3 className="folder-card__title">{project.title}</h3>
-        </div>
+          <div className="stack-card__info">
+            <hr className="stack-card__divider" />
+            <p className="stack-card__desc">{project.desc}</p>
 
-        {/* Bottom accent line */}
-        <div className="folder-card__bar" />
+            {project.tags?.length > 0 && (
+              <div className="stack-card__tags">
+                {project.tags.map(t => (
+                  <span key={t} className="stack-card__tag">{t}</span>
+                ))}
+              </div>
+            )}
+
+            {creditStr && (
+              <p className="stack-card__credit">{creditStr}</p>
+            )}
+
+            {project.detailPath && (
+              <button
+                className="stack-card__btn"
+                onClick={() => navigate(project.detailPath)}
+              >
+                View Project →
+              </button>
+            )}
+          </div>
+
+          <div className="stack-card__visual">
+            {project.iconType === 'image' && project.icon
+              ? <img src={project.icon} alt="" className="stack-card__icon-img" />
+              : <span className="stack-card__icon-emoji">{project.icon}</span>
+            }
+          </div>
+
+        </div>
       </div>
-      {popoverEl}
-    </>
+    </div>
   )
 }
 
@@ -206,11 +166,12 @@ export default function ProjectFolders({ projects }) {
         const group = projects.filter(p => p.category === key)
         if (!group.length) return null
         return (
-          <div key={key} className="folders-group">
+          <div key={key} className="stack-group">
 
-            {/* Banner image strip */}
+            {/* Category banner */}
             <BannerStrip banner={banner} bannerGradient={bannerGradient} accent={accent} slogan={slogan} />
 
+            {/* Category header */}
             <div className="folders-group__header">
               <h2 className="folders-group__title" style={{ color: accent }}>
                 {label}
@@ -221,11 +182,13 @@ export default function ProjectFolders({ projects }) {
               </div>
             </div>
 
-            <div className="folders-row">
+            {/* Sticky stacking cards */}
+            <div className="stack-cards-track">
               {group.map((p, i) => (
-                <FolderCard key={p.detailPath} project={p} idx={i} accent={accent} categoryLabel={label} />
+                <StackCard key={p.num} project={p} idx={i} accent={accent} categoryLabel={label} />
               ))}
             </div>
+
           </div>
         )
       })}
