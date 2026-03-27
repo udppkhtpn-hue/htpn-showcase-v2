@@ -5,10 +5,10 @@ import '../styles/navbar.css'
 const NAV_LINKS = [
   { label: 'Projects', id: 'projects' },
   { label: 'Pipeline', id: 'pipeline' },
-  { label: 'In Development', id: 'in-development' },
   { label: 'About', id: 'about' },
   { label: 'Our Journey', id: 'journey' },
   { label: 'Training', id: 'training' },
+  { label: 'In Development', id: 'in-development' },
   { label: 'Contact', id: 'contact' },
 ]
 

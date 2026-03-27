@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import '../styles/detail.css'
+import '../styles/amr.css'
 
 const ACCENT = '#a78bfa'
 
@@ -158,6 +160,20 @@ export default function PipelinePrison() {
             <p style={{ fontSize: '0.95rem', color: 'var(--text2)', lineHeight: 1.75, margin: 0 }}>
               One of five HTPN digital transformation initiatives formally registered under Malaysia's RKB framework — a government initiative to reduce bureaucratic burden and accelerate public sector innovation. The Malaysian Productivity Corporation (MPC) serves as the guiding body throughout implementation.
             </p>
+          </div>
+        </div>
+
+        {/* POC Partner */}
+        <div className="detail-block">
+          <h2 className="detail-block__title">POC Partner</h2>
+          <div className="amr-partner">
+            <span className="amr-partner__icon">🤝</span>
+            <div>
+              <div className="amr-partner__name">Roketz Sdn Bhd</div>
+              <p className="detail-block__text">
+                Roketz Sdn Bhd (Registration No: 1503799W) is a Malaysian technology firm incorporated on March 16, 2023, that specializes in artificial intelligence (AI) and digital transformation solutions, where they apply their digital expertise to enhance operational efficiency and support the empowerment of AI-integrated systems within local healthcare and administrative frameworks.
+              </p>
+            </div>
           </div>
         </div>
 

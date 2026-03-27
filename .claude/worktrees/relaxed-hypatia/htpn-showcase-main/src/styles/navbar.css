@@ -160,6 +160,8 @@
 .nav__overlay--open .nav__link-item:nth-child(3) .nav__link { transition-delay: 0.15s; }
 .nav__overlay--open .nav__link-item:nth-child(4) .nav__link { transition-delay: 0.2s; }
 .nav__overlay--open .nav__link-item:nth-child(5) .nav__link { transition-delay: 0.25s; }
+.nav__overlay--open .nav__link-item:nth-child(6) .nav__link { transition-delay: 0.3s; }
+.nav__overlay--open .nav__link-item:nth-child(7) .nav__link { transition-delay: 0.35s; }
 
 .nav__link:hover { color: var(--teal); }
 .nav__link-arrow { font-size: 0.5em; opacity: 0.4; }
@@ -188,6 +190,8 @@
 @media (max-width: 768px) {
   .nav { padding: 18px 24px; }
   .nav--scrolled { padding: 12px 24px; }
-  .nav__overlay { padding: 24px; }
+  .nav__overlay { padding: 24px; justify-content: flex-start; padding-top: 80px; overflow-y: auto; }
+  .nav__links { margin-top: 0; padding-bottom: 100px; }
+  .nav__link { font-size: clamp(22px, 6vw, 32px); padding: 13px 0; }
   .nav__overlay-footer { left: 24px; right: 24px; bottom: 24px; }
 }

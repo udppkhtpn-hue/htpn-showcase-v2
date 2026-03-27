@@ -32,12 +32,14 @@
   padding: 16px 0; border-bottom: 1px solid rgba(245,245,240,0.06);
 }
 .prd-section-item:last-child { border-bottom: none; }
+/* div wrapper for title+desc (used by most pages) */
+.prd-section-item > div { flex: 1; min-width: 0; }
 .prd-section-num {
   font-size: 11px; font-weight: 700; color: var(--teal);
-  letter-spacing: 0.12em; min-width: 28px; padding-top: 1px;
+  letter-spacing: 0.12em; min-width: 28px; flex-shrink: 0; padding-top: 1px;
 }
-.prd-section-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
-.prd-section-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; }
+.prd-section-title { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 4px; display: block; }
+.prd-section-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin: 0; display: block; }
 
 /* ── Feature cards (2×2) ─────────────────────────────── */
 .prd-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -96,10 +98,60 @@
 .prd-credit-box__label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .prd-credit-box__value { font-size: 14px; font-weight: 600; color: var(--fg); }
 
+/* ── prd-section-item BEM variants (used in TherapyAI, etc.) ── */
+.prd-section-item__num {
+  font-size: 11px; font-weight: 700; color: var(--teal);
+  letter-spacing: 0.12em; min-width: 28px; flex-shrink: 0; padding-top: 1px;
+}
+.prd-section-item__title {
+  font-size: 13px; font-weight: 600; color: var(--fg);
+  display: block; margin-bottom: 3px;
+}
+.prd-section-item__desc {
+  font-size: 12px; color: var(--muted); line-height: 1.6; display: block;
+}
+
+/* ── prd-block-inner heading ──────────────────────────── */
+.prd-block-inner__heading {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--fg); margin-bottom: 12px;
+}
+
+/* ── Workflow as ol/li (EBLEstimator, SkinDiary) ──────── */
+ol.prd-workflow {
+  list-style: none;
+  counter-reset: none;
+  padding: 0; margin: 0;
+}
+ol.prd-workflow li {
+  background: var(--bg);
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+ol.prd-workflow li:last-child { border-bottom: none; }
+ol.prd-workflow li strong { color: var(--fg); }
+
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .prd-workflow { grid-template-columns: 1fr; }
   .prd-alerts { grid-template-columns: 1fr; }
+
+  /* Mobile — increase body text to readable sizes */
+  .prd-section-desc         { font-size: 15px; }
+  .prd-section-item__desc   { font-size: 15px; }
+  .prd-section-title        { font-size: 15px; }
+  .prd-section-item__title  { font-size: 15px; }
+  .prd-workflow-step__desc  { font-size: 14px; }
+  .prd-workflow-step__title { font-size: 14px; }
+  .prd-feature__desc        { font-size: 14px; }
+  .prd-feature__title       { font-size: 14px; }
+  .prd-alert__desc          { font-size: 14px; }
+  .prd-block-inner__heading { font-size: 13px; }
+  ol.prd-workflow li        { font-size: 15px; }
+  .prd-credit-box__value    { font-size: 15px; }
 }
 @media (max-width: 640px) {
   .prd-two-col { grid-template-columns: 1fr; }

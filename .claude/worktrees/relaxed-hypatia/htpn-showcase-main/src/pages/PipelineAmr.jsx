@@ -98,11 +98,7 @@ export default function PipelineAmr() {
         {/* Images */}
         <div className="amr-img-grid">
           <div className="amr-img-wrap">
-            <img src="/amr-detail-dark-1.jpeg" alt="AMR NEO-6 robot close-up" />
-            <p className="amr-img-caption">AMR NEO-6 robot close-up</p>
-          </div>
-          <div className="amr-img-wrap">
-            <img src="/amr-detail-dark-2.jpeg" alt="AMR NEO-6 — In operation at Hospital Kajang" />
+            <img src="/AMR2.PNG" alt="AMR NEO-6 — In operation at Hospital Kajang" />
             <p className="amr-img-caption">AMR NEO-6 — In operation at Hospital Kajang</p>
           </div>
         </div>

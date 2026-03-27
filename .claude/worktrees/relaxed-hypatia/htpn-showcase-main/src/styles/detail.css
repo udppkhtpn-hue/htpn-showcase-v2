@@ -2,9 +2,9 @@
 .detail-page {
   min-height: 100vh;
   background: var(--bg);
-  background-image: url('/hospital1.png');
-  background-size: cover;
-  background-position: center top;
+  background-image: url('/hospital2.png');
+  background-size: 70% auto;
+  background-position: center 30%;
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
@@ -117,6 +117,27 @@
   color: rgba(245,245,240,0.3);
   letter-spacing: 0.06em;
   margin-bottom: 28px;
+}
+
+/* "#07 · Doctor's Journey" subtitle line used in some pages */
+.detail-number {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+/* Inline tag chips used in detail-meta tag rows */
+.detail-tag {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--muted);
 }
 
 .detail-disclaimer {
@@ -369,9 +390,22 @@
   .detail-container { padding: 100px 24px 60px; }
   .detail-block { padding: 32px 24px; margin: 0 -24px; }
   .spec-cards { grid-template-columns: 1fr 1fr; }
+
+  /* Mobile body text — readable sizes */
+  .detail-subtitle   { font-size: 16px; max-width: 100%; }
+  .detail-block__text { font-size: 16px; max-width: 100%; }
+  .detail-features li { font-size: 15px; }
+  .detail-credit     { font-size: 13px; }
+  .detail-disclaimer { font-size: 13px; }
+  .detail-title      { line-height: 1.1; }
+  .spec-card-new__value { font-size: 15px; }
+  .spec-card-new__label { font-size: 11px; }
 }
 
 @media (max-width: 480px) {
   .spec-cards { grid-template-columns: 1fr; }
   .detail-block__cta { flex-direction: column; align-items: flex-start; }
+  .detail-subtitle   { font-size: 16px; }
+  .detail-block__text { font-size: 16px; }
+  .detail-features li { font-size: 15px; }
 }

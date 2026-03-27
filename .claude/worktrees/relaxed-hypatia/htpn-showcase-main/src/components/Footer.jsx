@@ -18,6 +18,8 @@ export default function Footer() {
         <button className="footer__link" onClick={() => scrollTo('projects')}>Projects</button>
         <button className="footer__link" onClick={() => scrollTo('pipeline')}>Innovation Pipeline</button>
         <button className="footer__link" onClick={() => scrollTo('about')}>About</button>
+        <button className="footer__link" onClick={() => scrollTo('journey')}>Our Journey</button>
+        <button className="footer__link" onClick={() => scrollTo('training')}>Training</button>
         <button className="footer__link" onClick={() => scrollTo('in-development')}>In Development</button>
         <button className="footer__link" onClick={() => scrollTo('contact')}>Contact</button>
       </div>

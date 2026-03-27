@@ -193,57 +193,54 @@ function AboutSection() {
         </div>
       </div>
 
-      <div className="about-grid">
-        <div className="about__text reveal">
-          <ScrollRevealText
-            text="A team of clinicians, doctors, and nurses at HTPN Kajang — building digital tools that solve real problems in everyday hospital workflow without waiting for procurement cycles."
-            cursor={false}
-          />
-        </div>
-
-        <div className="about__details">
-          <div className="reveal">
-            <p className="about__detail-label">Hospital</p>
-            <p className="about__detail-value">Hospital Tengku Permaisuri Norashikin (HTPN)<br />Kajang, Selangor</p>
-          </div>
-          <div className="reveal">
-            <p className="about__detail-label">Focus Areas</p>
-            <p className="about__detail-value">
-              Patient Journey · Doctor's Workflow<br />
-              Management Productivity · AI Integration
-            </p>
-          </div>
-          <div className="reveal">
-            <p className="about__detail-label">Approach</p>
-            <p className="about__detail-value">
-              Built by the people who use it.<br />
-              Deployed on the wards. Used daily.
-            </p>
-          </div>
-        </div>
+      <div className="about__text reveal">
+        <ScrollRevealText
+          text="A team of clinicians, doctors, and nurses at HTPN Kajang — building digital tools that solve real problems in everyday hospital workflow without waiting for procurement cycles."
+          cursor={false}
+        />
       </div>
 
-      {/* Director Card */}
-      <div className="about-director reveal">
-        <img src="/director.png" alt="Dr Hj Muhd Siv Azhar Merican bin Abdullah" className="about-director__photo" />
-        <div>
-          <p className="about-director__label">Pengarah Hospital</p>
-          <h3 className="about-director__name">Dr Hj Muhd Siv Azhar Merican bin Abdullah</h3>
-          <p className="about-director__desc">
-            Under the leadership and mentorship of our hospital director, the AI Team at HTPN Kajang has been empowered to innovate from within — translating frontline ideas into real, deployable digital solutions that serve patients and staff alike.
-          </p>
-          <p className="about-director__desc">
-            The AI Team at HTPN Kajang is an internal innovation unit dedicated to building practical digital solutions that address real frontline problems — designed and deployed by the people who use them daily.
-          </p>
-          <p className="about-director__desc">
-            Our approach is deeply collaborative. The innovation unit works directly with clinicians and hospital departments across HTPN — it is the frontline personnel who identify the problems and drive the solutions, while the AI Team contributes the technical know-how in vibe coding, automation, and AI-assisted development.
-          </p>
-          <p className="about-director__desc">
-            Operating within Malaysia's MOH infrastructure and leveraging Google Workspace, our tools are PDPA-compliant, mobile-first, and built to serve both clinical and administrative needs — without waiting for top-down procurement.
-          </p>
-          <p className="about-director__desc">
-            From a 135-year-old government hospital, we're proving that meaningful digital transformation starts at the ward level.
-          </p>
+      {/* Director — photo+name left, story paragraphs right */}
+      <div className="about-director-row reveal">
+        <div className="about-director--caption">
+          <img src="/director.png" alt="Dr Hj Muhd Siv Azhar Merican bin Abdullah" className="about-director__photo" />
+          <div className="about-director__caption">
+            <p className="about-director__label">Pengarah Hospital</p>
+            <h3 className="about-director__name">Dr Hj Muhd Siv Azhar Merican bin Abdullah</h3>
+          </div>
+        </div>
+
+        <div className="about-director-story">
+          <ScrollRevealText
+            text="Under the leadership and mentorship of our hospital director, the AI Team at HTPN Kajang has been empowered to innovate from within — translating frontline ideas into real, deployable digital solutions that serve patients and staff alike."
+            className="about-director__desc"
+            cursor={false}
+            start="top 90%"
+          />
+          <ScrollRevealText
+            text="The AI Team at HTPN Kajang is an internal innovation unit dedicated to building practical digital solutions that address real frontline problems — designed and deployed by the people who use them daily."
+            className="about-director__desc"
+            cursor={false}
+            start="top 90%"
+          />
+          <ScrollRevealText
+            text="Our approach is deeply collaborative. The innovation unit works directly with clinicians and hospital departments across HTPN — it is the frontline personnel who identify the problems and drive the solutions, while the AI Team contributes the technical know-how in vibe coding, automation, and AI-assisted development."
+            className="about-director__desc"
+            cursor={false}
+            start="top 90%"
+          />
+          <ScrollRevealText
+            text="Operating within Malaysia's MOH infrastructure and leveraging Google Workspace, our tools are PDPA-compliant, mobile-first, and built to serve both clinical and administrative needs — without waiting for top-down procurement."
+            className="about-director__desc"
+            cursor={false}
+            start="top 90%"
+          />
+          <ScrollRevealText
+            text="From a 135-year-old government hospital, we're proving that meaningful digital transformation starts at the ward level."
+            className="about-director__desc"
+            cursor={false}
+            start="top 90%"
+          />
         </div>
       </div>
 
@@ -257,20 +254,6 @@ function AboutSection() {
           <span>Dr Naim bin Abdul Malek</span>
           <span>Dr Muhammad Syafiz bin Ruzain</span>
         </div>
-      </div>
-
-      <div className="stats-row">
-        {[
-          { num: '16+', label: 'Live Deployments' },
-          { num: '4', label: 'Pipeline Projects' },
-          { num: '3', label: 'Clinical Journeys' },
-          { num: '1', label: 'Shared Mission' },
-        ].map(({ num, label }) => (
-          <div key={label} className="stat-cell reveal">
-            <div className="stat-cell__num">{num}</div>
-            <div className="stat-cell__label">{label}</div>
-          </div>
-        ))}
       </div>
     </section>
   )
@@ -294,6 +277,26 @@ const upcomingInvitations = [
 
 function JourneySection() {
   const sectionRef = useScrollReveal('.reveal')
+  const listRef = useRef(null)
+
+  useEffect(() => {
+    if (!listRef.current) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        listRef.current.querySelectorAll('.journey__item'),
+        { opacity: 0, x: 80 },
+        {
+          opacity: 1, x: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: listRef.current, start: 'top 85%', once: true },
+        }
+      )
+    }, listRef)
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="journey" className="section" ref={sectionRef}>
       <div className="section__header">
@@ -306,9 +309,9 @@ function JourneySection() {
         From our own wards to hospital networks across Malaysia — the AI Team HTPN has grown into a recognised voice in clinical AI adoption and digital health education.
       </p>
 
-      <div className="journey__timeline">
+      <div className="journey__timeline" ref={listRef}>
         {partnerships.map((p, i) => (
-          <div key={i} className="journey__item reveal">
+          <div key={i} className="journey__item">
             <div className="journey__item-num">{String(i + 1).padStart(2, '0')}</div>
             <div className="journey__item-body">
               <div className="journey__item-org">{p.org}</div>
@@ -364,6 +367,26 @@ const trainingCourses = [
 
 function TrainingSection() {
   const sectionRef = useScrollReveal('.reveal')
+  const listRef = useRef(null)
+
+  useEffect(() => {
+    if (!listRef.current) return
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        listRef.current.querySelectorAll('.training__item'),
+        { opacity: 0, x: -80 },
+        {
+          opacity: 1, x: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: listRef.current, start: 'top 85%', once: true },
+        }
+      )
+    }, listRef)
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section id="training" className="section" ref={sectionRef}>
       <div className="section__header">
@@ -376,9 +399,9 @@ function TrainingSection() {
         Beyond deploying tools, the AI Team runs a structured internal training programme — bringing AI literacy directly to clinical and administrative staff at HTPN.
       </p>
 
-      <div className="training__list">
+      <div className="training__list" ref={listRef}>
         {trainingCourses.map((c, i) => (
-          <div key={i} className={`training__item reveal${c.recent ? ' training__item--recent' : ''}`}>
+          <div key={i} className={`training__item${c.recent ? ' training__item--recent' : ''}`}>
             <div className="training__item-num">{String(i + 1).padStart(2, '0')}</div>
             <div className="training__item-body">
               <div className="training__item-title">{c.title}</div>
@@ -539,14 +562,13 @@ export default function Home() {
       </div>
       <Ticker />
       <ProjectsSection />
-      <PipelineSection />
       <BeliefSection />
+      <PipelineSection />
       <AboutSection />
       <JourneySection />
       <TrainingSection />
       <InDevelopmentSection />
       <ContactSection />
-      <SiteNavigator />
       <Footer />
     </main>
   )

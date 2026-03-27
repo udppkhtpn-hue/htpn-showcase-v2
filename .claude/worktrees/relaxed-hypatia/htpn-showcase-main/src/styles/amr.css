@@ -17,7 +17,7 @@
 }
 
 .amr-governance-note {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(245,245,240,0.4);
   letter-spacing: 0.04em;
   margin-top: 16px;
@@ -26,7 +26,7 @@
 
 /* ── Video caption ────────────────────────────────────── */
 .amr-video-caption {
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(245,245,240,0.4);
   text-align: center;
   padding: 10px 16px;
@@ -37,9 +37,8 @@
 
 /* ── Image grid ───────────────────────────────────────── */
 .amr-img-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  display: flex;
+  justify-content: center;
   margin-bottom: 0;
 }
 
@@ -50,17 +49,19 @@
   background: #000;
   display: flex;
   flex-direction: column;
+  max-width: 480px;
+  width: 100%;
 }
 
 .amr-img-wrap img {
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
   display: block;
+  object-fit: contain;
+  max-height: 340px;
 }
 
 .amr-img-caption {
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(245,245,240,0.4);
   padding: 10px 14px;
   margin: 0;
@@ -87,7 +88,7 @@
 }
 
 .amr-block-title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.06em;
   margin-bottom: 16px;
@@ -113,14 +114,14 @@
 .amr-benefit__icon { font-size: 28px; margin-bottom: 12px; }
 
 .amr-benefit__title {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--fg);
   margin-bottom: 8px;
 }
 
 .amr-benefit__desc {
-  font-size: 12px;
+  font-size: 15px;
   color: var(--muted);
   line-height: 1.65;
   margin: 0;
@@ -169,7 +170,7 @@
 }
 
 .amr-timeline__items li {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   padding-left: 14px;
   position: relative;
@@ -206,7 +207,7 @@
 }
 
 .amr-spec__value {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--fg);
 }
@@ -235,6 +236,17 @@
   .amr-benefits { grid-template-columns: repeat(2, 1fr); }
   .amr-timeline { grid-template-columns: repeat(2, 1fr); }
   .amr-specs { grid-template-columns: repeat(2, 1fr); }
+
+  /* Mobile readable text */
+  .amr-benefit__desc     { font-size: 14px; }
+  .amr-benefit__title    { font-size: 14px; }
+  .amr-timeline__items li { font-size: 14px; }
+  .amr-spec__value       { font-size: 15px; }
+  .amr-governance-note   { font-size: 13px; }
+  .amr-img-caption       { font-size: 12px; }
+  .amr-video-caption     { font-size: 12px; }
+  .amr-block-title       { font-size: 14px; }
+  .amr-partner__name     { font-size: 15px; }
 }
 
 @media (max-width: 640px) {

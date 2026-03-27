@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
 import '../styles/home.css'
 
+// Only render on true pointer devices (not touch/mobile)
+const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
+
 export default function CustomCursor() {
   const dotRef = useRef(null)
   const ringRef = useRef(null)
@@ -58,6 +61,8 @@ export default function CustomCursor() {
       obs.disconnect()
     }
   }, [])
+
+  if (isTouch) return null
 
   return (
     <div ref={wrapRef} className="cursor" style={{ opacity: 0 }}>

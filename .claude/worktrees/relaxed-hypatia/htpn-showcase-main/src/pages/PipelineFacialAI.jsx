@@ -309,6 +309,20 @@ export default function PipelineFacialAI() {
           </div>
         </div>
 
+        {/* POC Partner */}
+        <div className="detail-block">
+          <h2 className="detail-block__title">POC Partner</h2>
+          <div className="amr-partner">
+            <span className="amr-partner__icon">🤝</span>
+            <div>
+              <div className="amr-partner__name">Roketz Sdn Bhd</div>
+              <p className="detail-block__text">
+                Roketz Sdn Bhd (Registration No: 1503799W) is a Malaysian technology firm incorporated on March 16, 2023, that specializes in artificial intelligence (AI) and digital transformation solutions, where they apply their digital expertise to enhance operational efficiency and support the empowerment of AI-integrated systems within local healthcare and administrative frameworks.
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="detail-block__cta">
           <button className="detail-back" onClick={handleBack}>← Back to Pipeline</button>
         </div>
