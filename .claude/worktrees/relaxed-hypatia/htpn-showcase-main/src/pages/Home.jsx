@@ -389,6 +389,32 @@ function TrainingSection() {
 
   return (
     <section id="training" className="section" ref={sectionRef}>
+      <div className="training__gallery">
+        <p className="training__gallery-label">Photos from the field</p>
+        <div className="training__marquee-wrap">
+          <div className="training__marquee-row">
+            <div className="training__marquee-track">
+              {['/gallery1.jpg','/gallery2.jpg','/gallery3.jpg','/gallery4.jpg','/gallery5.jpg',
+                '/gallery1.jpg','/gallery2.jpg','/gallery3.jpg','/gallery4.jpg','/gallery5.jpg'].map((src, i) => (
+                <div key={i} className="training__marquee-img">
+                  <img src={src} alt={`Training photo ${i + 1}`} draggable="false" />
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="training__marquee-row training__marquee-row--reverse">
+            <div className="training__marquee-track">
+              {['/gallery6.jpg','/gallery7.JPG','/gallery8.JPG','/gallery9.JPG','/gallery10.jpg',
+                '/gallery6.jpg','/gallery7.JPG','/gallery8.JPG','/gallery9.JPG','/gallery10.jpg'].map((src, i) => (
+                <div key={i} className="training__marquee-img">
+                  <img src={src} alt={`Training photo ${i + 6}`} draggable="false" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="section__header">
         <div>
           <p className="section__label reveal">05B — Internal Training</p>

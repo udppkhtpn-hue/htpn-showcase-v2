@@ -1464,6 +1464,69 @@
   flex-shrink: 0;
 }
 
+/* ── Training Gallery Marquee ─────────────────────────── */
+.training__gallery {
+  margin-top: 0;
+  margin-bottom: 60px;
+}
+
+.training__gallery-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,245,240,0.3);
+  margin-bottom: 24px;
+}
+
+.training__marquee-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.training__marquee-row {
+  overflow: hidden;
+}
+
+.training__marquee-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: marquee-left 30s linear infinite;
+}
+
+.training__marquee-row--reverse .training__marquee-track {
+  animation: marquee-right 30s linear infinite;
+}
+
+.training__marquee-img {
+  flex-shrink: 0;
+  width: 320px;
+  height: 240px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #111;
+}
+
+.training__marquee-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  display: block;
+}
+
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 /* ── Stats ────────────────────────────────────────────── */
 .stats-row {
   display: grid;
