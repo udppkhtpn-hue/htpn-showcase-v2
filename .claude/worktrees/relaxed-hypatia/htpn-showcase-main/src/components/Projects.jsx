@@ -78,9 +78,14 @@ function renderCard(project) {
       <div className="card-header">
         <span className="card-num">{project.num}</span>
         <span className={`card-status status-${project.status}`}>
-          {project.status === 'live' ? 'Live' : 'Under Maintenance'}
+          {project.status === 'live' ? 'Live' : project.status === 'demo' ? '⚗ Demo' : 'Under Maintenance'}
         </span>
       </div>
+      {project.badges && project.badges.length > 0 && (
+        <div className="card-badges">
+          {project.badges.map(b => <span key={b} className="card-badge-extra">{b}</span>)}
+        </div>
+      )}
       <div className={`card-category-badge ${project.category}-badge`}>
         {project.categoryLabel}
       </div>
@@ -100,10 +105,15 @@ function renderCard(project) {
           View Project →
         </Link>
       )}
+      {project.href && (
+        <a href={project.href} target="_blank" rel="noopener noreferrer" className="card-view-btn">
+          View Project →
+        </a>
+      )}
     </div>
   )
 
-  return project.detailPath
+  return (project.detailPath || project.href)
     ? <ElectricBorder key={project.num} color={project.accent}>{card}</ElectricBorder>
     : <div key={project.num}>{card}</div>
 }
@@ -134,7 +144,7 @@ export default function Projects() {
       <div className="section-label">01 — Core Projects</div>
       <h2 className="section-title">Active Digital Solutions</h2>
       <p className="section-desc">
-        Sixteen tools live across clinical, patient-facing, management, and AI utility functions — built in-house by the AI Team and frontline staff.
+        Eighteen tools live across clinical, patient-facing, management, and AI utility functions — built in-house by the AI Team and frontline staff.
       </p>
 
       <div className="projects-stats-row">

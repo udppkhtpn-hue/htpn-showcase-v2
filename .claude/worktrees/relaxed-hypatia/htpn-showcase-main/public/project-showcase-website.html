@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTPN Digital Showcase Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0f0f;
+      --bg-card: #111918;
+      --bg-card2: #141f1e;
+      --teal: #0d9488;
+      --teal-light: #14b8a6;
+      --teal-dim: rgba(13,148,136,0.15);
+      --teal-border: rgba(13,148,136,0.25);
+      --text: #e2e8e8;
+      --text-muted: #8fa8a6;
+      --text-dim: #5a7a78;
+      --white: #ffffff;
+      --badge-live: #064e3b;
+      --badge-live-text: #34d399;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Urbanist', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10,15,15,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--teal-border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 50%; }
+    .nav-logo span { color: var(--text-muted); font-weight: 400; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--teal-light); }
+
+    /* BACK LINK */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin: 2rem 0 1.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--teal-light); }
+
+    /* CONTAINER */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem 5rem;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid var(--teal-border);
+      margin-bottom: 2.5rem;
+    }
+    .badge-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+      align-items: center;
+    }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .badge-num {
+      background: transparent;
+      border: 1px solid var(--teal-border);
+      color: var(--teal-light);
+    }
+    .badge-live {
+      background: var(--badge-live);
+      color: var(--badge-live-text);
+    }
+    .badge-free {
+      background: rgba(20,184,166,0.1);
+      border: 1px solid var(--teal-border);
+      color: var(--teal-light);
+    }
+    .badge-sub {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.4rem;
+    }
+    .hero-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .hero-text h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 0.5rem;
+    }
+    .hero-text .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+    .hero-text .credit {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .hero-text .credit strong { color: var(--text-muted); }
+
+    /* CTA */
+    .cta-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.75rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 700;
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-light); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      color: var(--teal-light);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid var(--teal-border);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: var(--teal-dim); }
+
+    .disclaimer {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 0.6rem;
+    }
+
+    /* SPECS ROW */
+    .specs-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px;
+      background: var(--teal-border);
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+    .spec-cell {
+      background: var(--bg-card);
+      padding: 1rem 1.2rem;
+    }
+    .spec-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 0.25rem;
+    }
+    .spec-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--teal-light);
+    }
+
+    /* SECTION */
+    section {
+      margin-bottom: 2.5rem;
+    }
+    section h2 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--teal-border);
+    }
+    section p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.85rem;
+    }
+
+    /* FEATURE GRID */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 1.2rem 1.3rem;
+    }
+    .feature-card .icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .feature-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .feature-card p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    /* TAG ROW */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    .tag {
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+    }
+    .tag.teal {
+      background: var(--teal-dim);
+      border-color: var(--teal-border);
+      color: var(--teal-light);
+    }
+
+    /* NUMBERED LIST */
+    .section-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .section-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+    }
+    .section-list .num {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--teal);
+      background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      border-radius: 6px;
+      padding: 0.15rem 0.45rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .section-list .li-content h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .section-list .li-content p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* STAT ROW */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--teal-border);
+      border-radius: 12px;
+      padding: 1.1rem;
+      text-align: center;
+    }
+    .stat-card .stat-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--teal-light);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-card .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--teal-border);
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .footer-logo img { width: 28px; border-radius: 50%; }
+    .footer-logo-text { font-size: 0.82rem; }
+    .footer-logo-text strong { display: block; color: var(--text); font-weight: 700; }
+    .footer-logo-text span { color: var(--text-dim); font-size: 0.75rem; }
+    footer p { font-size: 0.75rem; color: var(--text-dim); }
+
+    @media (max-width: 600px) {
+      .hero-top { flex-direction: column; gap: 1rem; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="https://ai-htpn-landingpage.netlify.app/logo.jpg" alt="HTPN Logo" />
+    AI Team HTPN
+    <span>· Hospital Tengku Permaisuri Norashikin · Kajang</span>
+  </a>
+  <ul>
+    <li><a href="#">Projects</a></li>
+    <li><a href="#">Pipeline</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Journey</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <a href="#" class="back-link">← Back to Projects</a>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge-row">
+      <span class="badge badge-num">#17</span>
+      <span class="badge badge-live">● Live</span>
+      <span class="badge badge-free">🎁 Free to use</span>
+      <span class="badge badge-sub">Vite + React · Vercel</span>
+    </div>
+
+    <div class="hero-top">
+      <div class="hero-icon">🌐</div>
+      <div class="hero-text">
+        <h1>HTPN Digital Showcase Website</h1>
+        <p class="subtitle">A centralised public portfolio of all HTPN AI Team digital tools — one link to share with anyone, anywhere</p>
+        <p class="credit">Built by <strong>Dr Fairis, Dr Naim, Dr Syafiz</strong> · AI Team HTPN</p>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a href="https://htpn-showcase-v2.vercel.app/" target="_blank" class="btn-primary">
+        Open Showcase Site →
+      </a>
+      <a href="https://ai-htpn-landingpage.netlify.app/" target="_blank" class="btn-secondary">
+        View Legacy Version
+      </a>
+    </div>
+    <p class="disclaimer">Publicly accessible. No login required. Hosted on Vercel.</p>
+  </div>
+
+  <!-- SPECS -->
+  <div class="specs-row">
+    <div class="spec-cell">
+      <div class="spec-label">Tech Stack</div>
+      <div class="spec-value">Vite + React 18</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-label">Deployment</div>
+      <div class="spec-value">Vercel</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-label">Animations</div>
+      <div class="spec-value">GSAP</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-label">Tools Featured</div>
+      <div class="spec-value">16+ Projects</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-label">Access</div>
+      <div class="spec-value">Public · No login</div>
+    </div>
+  </div>
+
+  <!-- WHAT IT IS -->
+  <section>
+    <h2>What it is</h2>
+    <p>
+      The HTPN Digital Showcase is the AI Team's public-facing portfolio website — a single link that presents all 16+ clinical digital tools built in-house by HTPN's frontline staff. It serves as the team's official digital identity: a credible, professional front door for sharing their work with hospital directors, KKM stakeholders, conference organisers, and peer hospitals across Malaysia.
+    </p>
+    <p>
+      Before the showcase site, each tool existed in isolation — links shared ad hoc via WhatsApp, with no central place to understand the full scope of what the team had built. The showcase solves that by bringing everything together: project descriptions, tech details, team credits, the innovation pipeline, the team's journey, and contact information — all in one polished, always-accessible URL.
+    </p>
+  </section>
+
+  <!-- STATS -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">16+</div>
+      <div class="stat-label">Live Tools Featured</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Pipeline Projects</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">9+</div>
+      <div class="stat-label">Internal Training Sessions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1</div>
+      <div class="stat-label">Link to Share Everything</div>
+    </div>
+  </div>
+
+  <!-- SITE SECTIONS -->
+  <section>
+    <h2>6 sections across the site</h2>
+    <ul class="section-list">
+      <li>
+        <span class="num">01</span>
+        <div class="li-content">
+          <h4>Active Digital Solutions — Core Projects</h4>
+          <p>16 live tools across Patient's Journey, Doctor's Journey, and Management Productivity — each with its own dedicated project page covering purpose, tech stack, UX features, and clinical context.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <div class="li-content">
+          <h4>KIV — In Development</h4>
+          <p>4 scoped but not yet built: GPS Attendance Tracking, Automated Messaging, Gynae Census Dashboard, and CGR Analytics Dashboard.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <div class="li-content">
+          <h4>Innovation Pipeline</h4>
+          <p>4 frontier projects: AMR specimen robot, drone specimen transfer, prison virtual clinic, and facial photoplethysmography AI for non-invasive vitals and HbA1c reading.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">04</span>
+        <div class="li-content">
+          <h4>About the Team</h4>
+          <p>Team profile, hospital director endorsement, and the collaborative model — frontline staff identify the problems, the AI Team builds the solutions.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">05</span>
+        <div class="li-content">
+          <h4>Our Journey — Beyond HTPN</h4>
+          <p>National and international footprint: LSE, Future Healthcare Asia 2025, MIH Megatrend 2025, Monash Digital Health, and AI workshops at HSAJB, Hospital Pulau Pinang, and JKN Sarawak.</p>
+        </div>
+      </li>
+      <li>
+        <span class="num">06</span>
+        <div class="li-content">
+          <h4>Internal Training Log</h4>
+          <p>9 structured internal training sessions documented from July 2025 to March 2026, covering medical, nursing, O&G, and KPPK departments.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- WHY IT MATTERS -->
+  <section>
+    <h2>Key features & design decisions</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon">🎨</div>
+        <h3>GSAP-Animated Dark Teal Aesthetic</h3>
+        <p>Smooth scroll animations, staggered card reveals, and a dark teal palette with the Urbanist typeface — modelled after modern portfolio sites like untold.site. Designed to look credible to external audiences, not just internal hospital stakeholders.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📄</div>
+        <h3>Individual Project Pages</h3>
+        <p>Each of the 16+ tools has a dedicated page with clinical context, tech specs, UX feature breakdown, workflow summary, and a live demo link — structured like a product brief, not a slide deck.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📱</div>
+        <h3>Mobile-First & Shareable</h3>
+        <p>Fully responsive and accessible on any phone — built to be shared via a single WhatsApp link and read on a mobile screen by a hospital director, conference organiser, or visiting delegation.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">☁️</div>
+        <h3>Vercel Deployment</h3>
+        <p>Migrated from Netlify to Vercel to resolve build credit and peer dependency issues. CI/CD via GitHub — changes pushed to the repo deploy automatically to the live URL.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🗂️</div>
+        <h3>Category Filter</h3>
+        <p>Projects are filterable by journey type — Patient, Doctor, Management — allowing different audiences to quickly find tools relevant to their domain.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔗</div>
+        <h3>Single Source of Truth</h3>
+        <p>Replaces scattered WhatsApp links, email attachments, and verbal descriptions with one canonical URL representing everything the AI Team has built, deployed, and is working on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH & CONTEXT -->
+  <section>
+    <h2>Tech stack & build approach</h2>
+    <p>
+      Built using Vite + React 18 as a single-page application, with GSAP (GreenSock Animation Platform) powering scroll-triggered and entrance animations. Styled with custom CSS using the Urbanist typeface throughout. The project is maintained on GitHub and deployed to Vercel via automatic CI/CD — any update pushed to the repository goes live immediately.
+    </p>
+    <p>
+      The site was built using the AI Team's signature "vibe coding" approach — rapid prototyping with AI as the technical driver — starting as a single HTML file, progressively migrated to a full React + Vite architecture as the tool count and page complexity grew.
+    </p>
+    <div class="tag-row">
+      <span class="tag teal">React 18</span>
+      <span class="tag teal">Vite</span>
+      <span class="tag teal">GSAP</span>
+      <span class="tag teal">Vercel</span>
+      <span class="tag teal">GitHub CI/CD</span>
+      <span class="tag">Urbanist Font</span>
+      <span class="tag">Dark Teal Aesthetic</span>
+      <span class="tag">Mobile-First</span>
+      <span class="tag">Single-Page App</span>
+    </div>
+  </section>
+
+  <!-- WHO IT IS FOR -->
+  <section>
+    <h2>Who it is for & why it matters</h2>
+    <p>
+      The showcase site is built for four key audiences: hospital directors and KKM leadership who need a quick, credible overview of what the team has built; conference organisers and academic institutions evaluating the team for speaking invitations; peer hospitals considering adopting or adapting these tools; and the general public interested in what a government hospital in Malaysia can build from within.
+    </p>
+    <p>
+      It is also a living record of institutional memory — a permanent, indexed documentation of every tool the AI Team has built since 2024, ensuring that the work is not lost to WhatsApp chats, shared drives, or staff transfers. As the team grows and more tools are added, the showcase scales with it.
+    </p>
+
+    <div style="margin-top:1.2rem;">
+      <a href="https://htpn-showcase-v2.vercel.app/" target="_blank" class="btn-primary">
+        Open Showcase Site →
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="https://ai-htpn-landingpage.netlify.app/logo.jpg" alt="HTPN Logo" />
+    <div class="footer-logo-text">
+      <strong>AI Team HTPN Kajang</strong>
+      <span>Hospital Tengku Permaisuri Norashikin · Kajang, Selangor</span>
+    </div>
+  </div>
+  <p>© 2026 HTPN Kajang · Kementerian Kesihatan Malaysia</p>
+</footer>
+
+</body>
+</html>

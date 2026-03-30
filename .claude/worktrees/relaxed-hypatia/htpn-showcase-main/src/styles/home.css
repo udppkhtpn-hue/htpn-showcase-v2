@@ -784,6 +784,39 @@
   margin-top: 6px;
 }
 
+.stack-card__demo {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.3);
+  padding: 3px 9px;
+  border-radius: 3px;
+  margin-top: 6px;
+}
+
+.stack-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.stack-card__badge-extra {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,245,240,0.45);
+  background: rgba(245,245,240,0.04);
+  border: 1px solid rgba(245,245,240,0.1);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
 .stack-card__title {
   font-family: var(--font-heading);
   font-size: clamp(20px, 2.8vw, 36px);

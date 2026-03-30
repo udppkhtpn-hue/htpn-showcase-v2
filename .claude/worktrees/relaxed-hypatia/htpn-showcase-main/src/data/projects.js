@@ -56,7 +56,7 @@ export const projects = [
     accent: '#3b82f6',
     detailPath: '/projects/skin-diary',
   },
-  // ── Doctor's Journey (#05–#08) ────────────────────
+  // ── Doctor's Journey (#05–#09) ────────────────────
   {
     num: '#05',
     status: 'live',
@@ -112,6 +112,21 @@ export const projects = [
     tags: ['AI', 'Psychiatry', 'Transcription'],
     accent: '#ef4444',
     detailPath: '/projects/therapy-ai',
+  },
+  {
+    num: '#18',
+    status: 'demo',
+    badges: ['Research Prototype', '🔒 HITL Required'],
+    category: 'doctor',
+    categoryLabel: "Doctor's Journey",
+    icon: '📋',
+    iconType: 'emoji',
+    title: 'Clinical Document Checker',
+    desc: 'AI-assisted SOAP note generation, ICD-11 coding, documentation quality review, and medico-legal risk flagging — with mandatory clinician sign-off before export.',
+    credit: { aiTeam: 'Dr Naim' },
+    tags: ['AI', 'Documentation', 'HITL', 'ICD-11'],
+    accent: '#0ea5a0',
+    href: '/project-clinical-doc-checker.html',
   },
   // ── Management (#09–#13) ──────────────────────────
   {
@@ -224,6 +239,20 @@ export const projects = [
     tags: ['Patient Safety', 'Quality', 'MOH Standard'],
     accent: '#1d4ed8',
     detailPath: '/projects/incident-form',
+  },
+  {
+    num: '#17',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '🌐',
+    iconType: 'emoji',
+    title: 'HTPN Digital Showcase Website',
+    desc: "The AI Team's public portfolio — a single link presenting all 16+ HTPN digital tools to hospital directors, KKM stakeholders, and peer hospitals across Malaysia.",
+    credit: { aiTeam: 'Dr Fairis, Dr Naim, Dr Syafiz' },
+    tags: ['Portfolio', 'Documentation', 'Web App'],
+    accent: '#00e5a0',
+    href: '/project-showcase-website.html',
   },
 ];
 

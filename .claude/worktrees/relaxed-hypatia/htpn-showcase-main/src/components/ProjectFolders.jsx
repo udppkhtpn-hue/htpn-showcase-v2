@@ -132,7 +132,13 @@ function StackCard({ project, accent, categoryLabel, navigate }) {
         <div className="stack-card__header-meta">
           <span className="stack-card__num">{numDisplay}</span>
           {project.status === 'live' && <span className="stack-card__live">LIVE</span>}
+          {project.status === 'demo' && <span className="stack-card__demo">⚗ Demo</span>}
         </div>
+        {project.badges?.length > 0 && (
+          <div className="stack-card__badges">
+            {project.badges.map(b => <span key={b} className="stack-card__badge-extra">{b}</span>)}
+          </div>
+        )}
         <h2 className="stack-card__title">{project.title}</h2>
         <span className="stack-card__cat-label">{categoryLabel}</span>
         {project.tags?.length > 0 && (
@@ -158,6 +164,11 @@ function StackCard({ project, accent, categoryLabel, navigate }) {
             <button className="stack-card__btn" onClick={() => navigate(project.detailPath)}>
               View Project →
             </button>
+          )}
+          {project.href && (
+            <a href={project.href} target="_blank" rel="noopener noreferrer" className="stack-card__btn">
+              View Project →
+            </a>
           )}
         </div>
       </div>
