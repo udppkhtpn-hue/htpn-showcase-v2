@@ -114,7 +114,7 @@ export const projects = [
     detailPath: '/projects/therapy-ai',
   },
   {
-    num: '#18',
+    num: '#09',
     status: 'demo',
     badges: ['Research Prototype', '🔒 HITL Required'],
     category: 'doctor',
@@ -128,9 +128,9 @@ export const projects = [
     accent: '#0ea5a0',
     href: '/project-clinical-doc-checker.html',
   },
-  // ── Management (#09–#13) ──────────────────────────
+  // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#09',
+    num: '#10',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -144,7 +144,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#10',
+    num: '#11',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -159,7 +159,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#11',
+    num: '#12',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -173,7 +173,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#12',
+    num: '#13',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -187,7 +187,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#13',
+    num: '#14',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -201,7 +201,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#14',
+    num: '#15',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#15',
+    num: '#16',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -227,7 +227,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#16',
+    num: '#17',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -241,7 +241,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#17',
+    num: '#18',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
