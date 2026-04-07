@@ -63,6 +63,17 @@
   white-space: nowrap;
 }
 
+.nav__cio-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  opacity: 0.92;
+  transition: opacity 0.2s ease;
+}
+.nav__cio-logo:hover { opacity: 1; }
+
 .nav__toggle {
   position: relative;
   z-index: 102;

@@ -56,6 +56,12 @@ export default function Navbar() {
           </div>
         </button>
 
+        <img
+          src="/HTPN CIO logo.jpg"
+          alt="HTPN Clinical Intelligence Office"
+          className="nav__cio-logo"
+        />
+
         <button
           className="nav__toggle"
           onClick={() => setOpen(o => !o)}

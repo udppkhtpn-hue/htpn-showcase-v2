@@ -49,6 +49,17 @@
 /* ── Header ───────────────────────────────────────────── */
 .detail-header { margin-bottom: 60px; }
 
+.detail-cio-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  object-fit: cover;
+  opacity: 0.9;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 229, 160, 0.25);
+  display: block;
+}
+
 .detail-meta {
   display: flex;
   align-items: center;

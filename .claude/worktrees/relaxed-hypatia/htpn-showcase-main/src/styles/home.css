@@ -213,6 +213,17 @@
   animation: fadeUp 0.7s ease 1s forwards;
 }
 
+.hero__cio-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  opacity: 0.88;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+.hero__cio-logo:hover { opacity: 1; }
+
 .hero__subtitle {
   font-size: clamp(13px, 1.2vw, 16px);
   color: var(--muted);

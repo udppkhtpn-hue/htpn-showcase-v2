@@ -64,6 +64,11 @@ export default function ProjectDetail() {
         <button className="detail-back" onClick={handleBack}>← Back to Projects</button>
 
         <header className="detail-header">
+          <img
+            src="/HTPN CIO logo.jpg"
+            alt="HTPN Clinical Intelligence Office"
+            className="detail-cio-logo"
+          />
           <div className="detail-meta">
             <span className="detail-journey">( {project.categoryLabel} )</span>
             <span className="detail-num">{project.num}</span>

@@ -86,6 +86,11 @@ function HeroSection() {
           <span>SCROLL TO DISCOVER</span>
           <div className="hero__scroll-line" />
         </div>
+        <img
+          src="/HTPN CIO logo.jpg"
+          alt="HTPN Clinical Intelligence Office"
+          className="hero__cio-logo"
+        />
       </div>
 
     </section>
