@@ -234,7 +234,7 @@ export const projects = [
     icon: '🔴',
     iconType: 'emoji',
     title: 'Patient Safety Incident Reporting Form',
-    desc: 'Fully digital MOH IR 2.0 / 2017 form for patient safety incident reporting — auto-generates a HSAIR reference number on submission, with a locked Risk Manager section and print-ready output. Developed by HSAJB as a direct outcome of HTPN AI Team\'s knowledge-sharing session.',
+    desc: 'Fully digital MOH IR 2.0 / 2017 form for patient safety incident reporting — auto-generates a HSAIR reference number on submission, with a locked Risk Manager section and print-ready output. Developed by HSAJB as a direct outcome of HTPN Healthcare Intelligence Office\'s knowledge-sharing session.',
     credit: { by: 'Quality Unit, HSAJB', dept: 'Hospital Sultanah Aminah Johor Bahru' },
     tags: ['Patient Safety', 'Quality', 'MOH Standard'],
     accent: '#1d4ed8',

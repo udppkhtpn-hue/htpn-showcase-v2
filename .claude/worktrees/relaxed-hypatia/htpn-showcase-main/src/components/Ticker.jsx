@@ -1,5 +1,5 @@
 const ITEMS = [
-  'HTPN AI Team',
+  'HTPN Healthcare Intelligence Office',
   'Hospital Tengku Permaisuri Norashikin',
   '16+ Live Tools',
   'Built by Clinicians',

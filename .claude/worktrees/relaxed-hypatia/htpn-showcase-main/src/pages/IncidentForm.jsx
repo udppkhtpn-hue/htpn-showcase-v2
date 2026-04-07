@@ -97,7 +97,7 @@ export default function IncidentForm() {
           <p className="project-page-credit">
             Built by <strong style={{ color: 'var(--text)' }}>Quality Unit, HSAJB</strong>
             &nbsp;·&nbsp; <span style={{ color: 'var(--text2)' }}>Hospital Sultanah Aminah Johor Bahru</span>
-            &nbsp;·&nbsp; <span style={{ color: '#60a5fa', fontSize: '0.85rem' }}>Peer transfer from HTPN AI Team</span>
+            &nbsp;·&nbsp; <span style={{ color: '#60a5fa', fontSize: '0.85rem' }}>Peer transfer from HTPN Healthcare Intelligence Office</span>
           </p>
           <a
             href={DEMO_URL}
@@ -136,7 +136,7 @@ export default function IncidentForm() {
           <p className="block-text">
             A fully digital version of the MOH Malaysia standard{' '}
             <strong style={{ color: 'var(--text)' }}>Patient Safety Incident Reporting Form (IR 2.0 / 2017)</strong>,
-            developed by the Quality Unit at HSAJB as a direct outcome of the HTPN AI Team's knowledge-sharing session
+            developed by the Quality Unit at HSAJB as a direct outcome of the HTPN Healthcare Intelligence Office's knowledge-sharing session
             in early February 2026. It replaces the paper-based IR form entirely — allowing clinical staff to report
             patient safety incidents digitally from any device. On submission, an auto-generated reference number in
             the format <strong style={{ color: ACCENT }}>HSAIR/####/MM/YYYY</strong> is issued for tracking.
@@ -228,7 +228,7 @@ export default function IncidentForm() {
           <h2 className="block-title">Origin & Significance</h2>
           <p className="block-text">
             Developed by HSAJB's Quality Unit as a direct outcome of the{' '}
-            <strong style={{ color: 'var(--text)' }}>HTPN AI Team's sharing session in early February 2026</strong> —
+            <strong style={{ color: 'var(--text)' }}>HTPN Healthcare Intelligence Office's sharing session in early February 2026</strong> —
             a textbook example of peer hospital knowledge transfer producing a working clinical tool.
             It digitises the official MOH IR 2.0 form used across all MOH hospitals nationwide for patient safety
             incident notification. The 5-day e-IR submission reminder and mandatory RCA trigger for Severe/Death

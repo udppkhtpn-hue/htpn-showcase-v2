@@ -72,7 +72,7 @@ export default function ProjectIncidentForm() {
 
         <div className="detail-block">
           <h2 className="detail-block__title">What It Is</h2>
-          <p className="detail-block__text">A digitised replacement for paper-based patient safety incident reporting. Generates auto-tracked reference numbers in format HSAIR/####/MM/YYYY. Accessible from any device for clinical staff. Developed by Quality Unit, HSAJB as a direct outcome of HTPN AI Team's knowledge-sharing session.</p>
+          <p className="detail-block__text">A digitised replacement for paper-based patient safety incident reporting. Generates auto-tracked reference numbers in format HSAIR/####/MM/YYYY. Accessible from any device for clinical staff. Developed by Quality Unit, HSAJB as a direct outcome of HTPN Healthcare Intelligence Office's knowledge-sharing session.</p>
         </div>
 
         <div className="detail-block">
@@ -167,7 +167,7 @@ export default function ProjectIncidentForm() {
         <div className="detail-block">
           <div className="prd-credit-box">
             <span className="prd-credit-box__label">Built By</span>
-            <span className="prd-credit-box__value">Developed by Quality Unit, HSAJB · Hospital Sultanah Aminah Johor Bahru · Built as a direct outcome of HTPN AI Team's knowledge-sharing session</span>
+            <span className="prd-credit-box__value">Developed by Quality Unit, HSAJB · Hospital Sultanah Aminah Johor Bahru · Built as a direct outcome of HTPN Healthcare Intelligence Office's knowledge-sharing session</span>
           </div>
         </div>
       </div>

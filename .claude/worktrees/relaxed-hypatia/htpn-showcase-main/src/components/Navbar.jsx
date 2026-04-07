@@ -50,17 +50,14 @@ export default function Navbar() {
       <nav className={`nav${scrolled ? ' nav--scrolled' : ''}${open ? ' nav--open' : ''}`}>
         <button className="nav__logo" onClick={() => handleLink('hero')}>
           <img src="/img_1.jpg" alt="HTPN Logo" className="nav__logo-img" />
+          <div className="nav__cio-wrap">
+            <img src="/HTPN CIO logo.jpg" alt="HTPN Healthcare Intelligence Office" className="nav__cio-logo" />
+          </div>
           <div className="nav__logo-text">
-            <span className="nav__logo-name">HTPN <span className="nav__logo-ai">AI</span></span>
-            <span className="nav__logo-sub">Hospital Tengku Permaisuri Norashikin</span>
+            <span className="nav__logo-name">HTPN <span className="nav__logo-ai">HIO</span></span>
+            <span className="nav__logo-sub">Healthcare Intelligence Office</span>
           </div>
         </button>
-
-        <img
-          src="/HTPN CIO logo.jpg"
-          alt="HTPN Clinical Intelligence Office"
-          className="nav__cio-logo"
-        />
 
         <button
           className="nav__toggle"

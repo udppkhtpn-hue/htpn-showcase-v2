@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div>
-        <div className="footer__logo">HTPN <span>AI</span> Team</div>
+        <div className="footer__logo">HTPN <span>Healthcare Intelligence</span> Office</div>
         <p className="footer__tagline">
           Clinician-built digital tools<br />
           Hospital Tengku Permaisuri Norashikin<br />
@@ -25,7 +25,7 @@ export default function Footer() {
       </div>
 
       <div className="footer__copy">
-        © {new Date().getFullYear()} HTPN AI Team<br />
+        © {new Date().getFullYear()} HTPN Healthcare Intelligence Office<br />
         Built with purpose.
       </div>
     </footer>

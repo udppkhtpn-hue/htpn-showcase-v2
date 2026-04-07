@@ -27,7 +27,7 @@ export default function SiteNavigator() {
           ))}
         </div>
         <div className="site-nav__section">
-          <p className="site-nav__section-title">HTPN AI Team</p>
+          <p className="site-nav__section-title">HTPN Healthcare Intelligence Office</p>
           <p className="site-nav__link" style={{ cursor: 'default' }}>Hospital Tengku Permaisuri Norashikin</p>
           <p className="site-nav__link" style={{ cursor: 'default' }}>Kajang, Selangor</p>
           <p className="site-nav__link" style={{ cursor: 'default' }}>Kementerian Kesihatan Malaysia</p>

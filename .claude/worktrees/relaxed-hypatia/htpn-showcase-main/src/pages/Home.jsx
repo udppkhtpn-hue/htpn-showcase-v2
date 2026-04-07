@@ -505,7 +505,7 @@ function ContactSection() {
   const sectionRef = useScrollReveal('.reveal')
 
   const handleSubmit = () => {
-    const subject = `HTPN AI Team — ${topic}`
+    const subject = `HTPN Healthcare Intelligence Office — ${topic}`
     const body = name ? `Hi, I'm ${name}. I'd like to discuss ${topic}.` : ''
     window.location.href = `mailto:htpnaiteam@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
