@@ -50,7 +50,7 @@ function HeroSection() {
 
       {/* Top bar */}
       <div className="hero__topbar">
-        <span className="hero__eyebrow">HTPN · AI Team · Kajang</span>
+        <span className="hero__eyebrow">HTPN · HIO · Kajang</span>
         <span className="hero__eyebrow">Hospital Tengku Permaisuri Norashikin</span>
       </div>
 
