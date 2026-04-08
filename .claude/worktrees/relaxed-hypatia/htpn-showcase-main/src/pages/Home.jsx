@@ -217,19 +217,19 @@ function AboutSection() {
 
         <div className="about-director-story">
           <ScrollRevealText
-            text="Under the leadership and mentorship of our hospital director, the AI Team at HTPN Kajang has been empowered to innovate from within — translating frontline ideas into real, deployable digital solutions that serve patients and staff alike."
+            text="Under the leadership and mentorship of our hospital director, the Healthcare Intelligence Office at HTPN Kajang has been empowered to innovate from within — translating frontline ideas into real, deployable digital solutions that serve patients and staff alike."
             className="about-director__desc"
             cursor={false}
             start="top 90%"
           />
           <ScrollRevealText
-            text="The AI Team at HTPN Kajang is an internal innovation unit dedicated to building practical digital solutions that address real frontline problems — designed and deployed by the people who use them daily."
+            text="The Healthcare Intelligence Office at HTPN Kajang is an internal innovation unit dedicated to building practical digital solutions that address real frontline problems — designed and deployed by the people who use them daily."
             className="about-director__desc"
             cursor={false}
             start="top 90%"
           />
           <ScrollRevealText
-            text="Our approach is deeply collaborative. The innovation unit works directly with clinicians and hospital departments across HTPN — it is the frontline personnel who identify the problems and drive the solutions, while the AI Team contributes the technical know-how in vibe coding, automation, and AI-assisted development."
+            text="Our approach is deeply collaborative. The innovation unit works directly with clinicians and hospital departments across HTPN — it is the frontline personnel who identify the problems and drive the solutions, while the Healthcare Intelligence Office contributes the technical know-how in vibe coding, automation, and AI-assisted development."
             className="about-director__desc"
             cursor={false}
             start="top 90%"
@@ -250,7 +250,7 @@ function AboutSection() {
       </div>
 
       {/* Team Photo */}
-      <img src="/team.jpg" alt="AI Team HTPN Kajang" className="about-team-photo reveal" />
+      <img src="/team.jpg" alt="Healthcare Intelligence Office HTPN Kajang" className="about-team-photo reveal" />
       <p className="about-team-caption reveal">AI Team HTPN Kajang</p>
       <div className="about-team-members reveal">
         <p className="about-team-members__label">AI Team Members</p>
