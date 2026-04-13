@@ -339,6 +339,38 @@ function JourneySection() {
           <div className="journey__stat-label">Conferences & Presentations</div>
           <div className="journey__stat-sub">National & International</div>
         </div>
+        <div className="journey__stat journey__stat--teal">
+          <span className="journey__stat-icon">👥</span>
+          <div className="journey__stat-num">157</div>
+          <div className="journey__stat-label">External Participants</div>
+          <div className="journey__stat-sub">Across 4 hospitals</div>
+        </div>
+      </div>
+
+      <div className="journey__participants reveal">
+        <p className="journey__participants-label">External Participants Breakdown</p>
+        <div className="journey__participants-list">
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Hospital Kepala Batas, Kedah</span>
+            <span className="journey__participant-count">57</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Hospital Sultanah Aminah (AI Tools), Johor Bahru</span>
+            <span className="journey__participant-count">48</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Hospital Pulau Pinang, Pulau Pinang</span>
+            <span className="journey__participant-count">42</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">National Center for Food Security (DLP), Sepang</span>
+            <span className="journey__participant-count">10</span>
+          </div>
+          <div className="journey__participant-row journey__participant-row--total">
+            <span className="journey__participant-org">Subtotal</span>
+            <span className="journey__participant-count">157</span>
+          </div>
+        </div>
       </div>
 
       <div className="journey__upcoming reveal">
@@ -441,6 +473,57 @@ function TrainingSection() {
             {c.recent && <span className="training__item-badge">Most Recent</span>}
           </div>
         ))}
+      </div>
+
+      <div className="journey__participants reveal">
+        <p className="journey__participants-label">Internal Participants Breakdown</p>
+        <div className="journey__participants-list">
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Kursus Transformasi Kerja (AI)</span>
+            <span className="journey__participant-count">82</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Pengenalan AI 2025</span>
+            <span className="journey__participant-count">100</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Supercharge Obstetric (AI)</span>
+            <span className="journey__participant-count">28</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">AI for Daily Task (Clinical)</span>
+            <span className="journey__participant-count">20</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Appliance of AI (KPPK)</span>
+            <span className="journey__participant-count">9</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">AI Coding Camp</span>
+            <span className="journey__participant-count">22</span>
+          </div>
+          <div className="journey__participant-row">
+            <span className="journey__participant-org">Penggunaan AI (PSY)</span>
+            <span className="journey__participant-count">22</span>
+          </div>
+          <div className="journey__participant-row journey__participant-row--total">
+            <span className="journey__participant-org">Subtotal</span>
+            <span className="journey__participant-count">430</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="training__grand-total reveal">
+        <div className="training__grand-total-inner">
+          <div className="training__grand-total-label">Grand Total Participants</div>
+          <div className="training__grand-total-num">587</div>
+          <div className="training__grand-total-breakdown">
+            <span>430 Internal</span>
+            <span className="training__grand-total-sep">+</span>
+            <span>157 External</span>
+          </div>
+          <p className="training__grand-total-sub">AI Innovation For All · HIO @ HTPN</p>
+        </div>
       </div>
     </section>
   )
