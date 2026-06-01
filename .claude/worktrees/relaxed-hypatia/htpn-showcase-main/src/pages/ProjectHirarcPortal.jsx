@@ -32,7 +32,7 @@ export default function ProjectHirarcPortal() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MOH HIRARC Portal</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#23 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#25 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

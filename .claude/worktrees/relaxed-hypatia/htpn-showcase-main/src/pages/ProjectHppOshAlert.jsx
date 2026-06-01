@@ -32,7 +32,7 @@ export default function ProjectHppOshAlert() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">HPP OSH-Alert</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#24 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#26 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

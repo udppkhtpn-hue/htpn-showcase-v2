@@ -21,7 +21,7 @@ export default function ProjectRosterGenerator() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Smart Roster Generator</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#11 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#14 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

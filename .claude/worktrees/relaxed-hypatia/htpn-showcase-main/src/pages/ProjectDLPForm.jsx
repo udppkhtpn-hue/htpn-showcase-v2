@@ -21,7 +21,7 @@ export default function ProjectDLPForm() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">DLP Reporting Web Form</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#13 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#16 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

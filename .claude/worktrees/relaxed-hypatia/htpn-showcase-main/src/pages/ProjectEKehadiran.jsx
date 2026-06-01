@@ -32,7 +32,7 @@ export default function ProjectEKehadiran() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem E-Kehadiran Kursus</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#19 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#21 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

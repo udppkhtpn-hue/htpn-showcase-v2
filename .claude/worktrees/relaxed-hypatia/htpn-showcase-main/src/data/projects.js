@@ -130,7 +130,7 @@ export const projects = [
   },
   // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#10',
+    num: '#12',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -144,7 +144,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#11',
+    num: '#13',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -159,7 +159,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#12',
+    num: '#14',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -173,7 +173,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#13',
+    num: '#15',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -187,7 +187,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#14',
+    num: '#16',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -201,7 +201,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#15',
+    num: '#17',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#16',
+    num: '#18',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -227,7 +227,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#17',
+    num: '#19',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -241,7 +241,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#18',
+    num: '#20',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -255,7 +255,7 @@ export const projects = [
     href: '/project-showcase-website.html',
   },
   {
-    num: '#19',
+    num: '#21',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -269,7 +269,7 @@ export const projects = [
     detailPath: '/projects/e-kehadiran',
   },
   {
-    num: '#20',
+    num: '#22',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -283,7 +283,7 @@ export const projects = [
     detailPath: '/projects/mental-wellbeing',
   },
   {
-    num: '#21',
+    num: '#23',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -297,7 +297,7 @@ export const projects = [
     detailPath: '/projects/medmove-pro',
   },
   {
-    num: '#22',
+    num: '#24',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -311,7 +311,7 @@ export const projects = [
     detailPath: '/projects/medevac-portal',
   },
   {
-    num: '#23',
+    num: '#25',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -353,7 +353,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#24',
+    num: '#26',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -367,7 +367,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#25',
+    num: '#27',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
