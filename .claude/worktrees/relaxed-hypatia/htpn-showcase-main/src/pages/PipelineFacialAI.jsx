@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useEffect } from 'react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Footer from '../components/Footer'
@@ -93,6 +94,13 @@ export default function PipelineFacialAI() {
 
   return (
     <div className="detail-page">
+      <Helmet>
+        <title>Facial AI — Vital Signs Scan · HTPN Pipeline</title>
+        <meta name="description" content="A 35–50 second smartphone face scan that reads vital signs using facial photoplethysmography — no needles, no reagents. Clinically validated at HTPN Emergency Department across a 400-patient, 3-phase study." />
+        <link rel="canonical" href="https://htpn-showcase-v2.vercel.app/pipeline/facial-scan-ai" />
+        <meta property="og:title" content="Facial AI — Vital Signs Scan · HTPN Pipeline" />
+        <meta property="og:url" content="https://htpn-showcase-v2.vercel.app/pipeline/facial-scan-ai" />
+      </Helmet>
       <div className="detail-container fai-container">
         <button className="detail-back" onClick={handleBack}>← Back to Pipeline</button>
 

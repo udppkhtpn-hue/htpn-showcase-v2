@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useEffect } from 'react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Footer from '../components/Footer'
@@ -55,6 +56,13 @@ export default function PipelineAmr() {
 
   return (
     <div className="detail-page">
+      <Helmet>
+        <title>AMR — Autonomous Mobile Robot · HTPN Pipeline</title>
+        <meta name="description" content="Proof of Concept for deploying an autonomous mobile robot at Hospital Tengku Permaisuri Norashikin to transport laboratory specimens from the Emergency Department to the Pathology Lab — cutting turnaround time and minimising exposure risk." />
+        <link rel="canonical" href="https://htpn-showcase-v2.vercel.app/pipeline/amr" />
+        <meta property="og:title" content="AMR — Autonomous Mobile Robot · HTPN Pipeline" />
+        <meta property="og:url" content="https://htpn-showcase-v2.vercel.app/pipeline/amr" />
+      </Helmet>
       <div className="detail-container">
         <button className="detail-back" onClick={handleBack}>← Back to Pipeline</button>
 

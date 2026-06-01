@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Footer from '../components/Footer'
 import GalleryStrip from '../components/GalleryStrip'
@@ -58,8 +59,19 @@ export default function ProjectDetail() {
     navigate('/')
   }
 
+  const canonicalUrl = `https://htpn-showcase-v2.vercel.app/projects/${slug}`
+
   return (
     <div className="detail-page">
+      <Helmet>
+        <title>{project.title} — HTPN HIO</title>
+        <meta name="description" content={project.desc} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`${project.title} — HTPN HIO`} />
+        <meta property="og:description" content={project.desc} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+      </Helmet>
       <div className="detail-container">
         <button className="detail-back" onClick={handleBack}>← Back to Projects</button>
 

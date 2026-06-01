@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://htpn-showcase-v2.vercel.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/preconsult-gynae</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/preconsult-obstetric</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/fetal-kick-chart</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/ot-scheduling</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/gynae-census</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/ebl-estimator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/therapy-ai</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/ed-dashboard</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/dlp-dashboard</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/roster-generator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/cgr-form</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/dlp-form</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/portal-aktiviti</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/incident-form</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/pdf-editor</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/projects/skin-diary</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/pipeline/amr</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/pipeline/facial-scan-ai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/pipeline/prison-virtual-clinic</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://htpn-showcase-v2.vercel.app/pipeline/drone-specimen</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+</urlset>

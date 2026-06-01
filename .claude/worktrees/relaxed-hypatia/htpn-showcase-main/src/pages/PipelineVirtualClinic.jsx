@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useEffect } from 'react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Footer from '../components/Footer'
@@ -56,6 +57,13 @@ export default function PipelineVirtualClinic() {
 
   return (
     <div className="detail-page">
+      <Helmet>
+        <title>Prison Virtual Clinic · HTPN Pipeline</title>
+        <meta name="description" content="Secure specialist teleconsultation platform enabling HTPN doctors to conduct virtual clinics with prisoners at Kajang Prison — improving access to specialist care while eliminating escort logistics and transport costs." />
+        <link rel="canonical" href="https://htpn-showcase-v2.vercel.app/pipeline/prison-virtual-clinic" />
+        <meta property="og:title" content="Prison Virtual Clinic · HTPN Pipeline" />
+        <meta property="og:url" content="https://htpn-showcase-v2.vercel.app/pipeline/prison-virtual-clinic" />
+      </Helmet>
       <div className="detail-container">
         <button className="detail-back" onClick={handleBack}>← Back to Pipeline</button>
 

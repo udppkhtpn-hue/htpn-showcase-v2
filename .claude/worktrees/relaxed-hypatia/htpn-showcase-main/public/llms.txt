@@ -1,0 +1,121 @@
+# HTPN Healthcare Intelligence Office — Digital Health Showcase
+
+## About
+This is the official digital showcase of the Healthcare Intelligence Office (HIO) at Hospital Tengku Permaisuri Norashikin (HTPN), Kajang, Selangor, Malaysia — a public hospital under the Ministry of Health Malaysia (KKM).
+
+The HIO team builds homegrown digital health tools created by clinicians and healthcare staff to solve real problems in their own departments — without waiting for top-down IT procurement.
+
+Website: https://htpn-showcase-v2.vercel.app
+Contact: udppkhtpn@moh.gov.my
+
+---
+
+## Live Projects
+
+### Patient's Journey
+
+**GynaeClerk — Gynae Pre-Consultation**
+Mobile-first digital clerking form for gynaecology SOPD. Patients fill 8 structured clinical sections on their own phone via QR code while waiting, handing doctors a complete history before the consult.
+Built by: Dr Hamizah, Dr Asma' (O&G Dept)
+URL: https://htpn-showcase-v2.vercel.app/projects/preconsult-gynae
+
+**AntenatalClerk — Obstetric Pre-Consultation**
+Mobile-first antenatal clerking form. Patients complete 32 structured steps on their phone via QR code while waiting, giving the doctor a full obstetric history before the consultation begins.
+Built by: Dr Koghila, Dr Liyana (O&G Dept)
+URL: https://htpn-showcase-v2.vercel.app/projects/preconsult-obstetric
+
+**Fetal Kick Chart App**
+Mobile web tool for admitted expectant mothers to log and monitor daily fetal movements — supporting early detection of fetal distress with real-time staff visibility.
+Built by: Matron Norziah, KJ Manimala, KJ Zanariah, KJ Nur Azimah (O&G Dept)
+URL: https://htpn-showcase-v2.vercel.app/projects/fetal-kick-chart
+
+### Doctor's Journey
+
+**OT Scheduling System**
+Digital booking system for seamless Operating Theatre slot reservations with live schedule displays — accessible online by all departments for surgical planning.
+Built by: Dr Fairis, Dr Nida (Anaesthesiology)
+URL: https://htpn-showcase-v2.vercel.app/projects/ot-scheduling
+
+**Gynae Census Web Form**
+Daily digital logging of gynaecological procedures enabling census tracking, annual report generation, and access to credentialing or training logbook records.
+Built by: Dr Hazimah, Dr Missdalia, Dr Zulaikha (O&G Dept)
+URL: https://htpn-showcase-v2.vercel.app/projects/gynae-census
+
+**EBL Estimator AI App**
+AI-powered clinical tool that calculates Estimated Blood Loss during surgeries and deliveries by analysing uploaded photos — supporting rapid intraoperative decisions.
+Built by: Dr Amalyna, Dr Anita bt Ali (O&G Dept)
+URL: https://htpn-showcase-v2.vercel.app/projects/ebl-estimator
+
+**TherapyAI**
+AI-powered clinical assistant that automates transcription, structured note generation, and risk stratification for psychological therapy sessions.
+Built by: Dr Naim (Psychiatry)
+URL: https://htpn-showcase-v2.vercel.app/projects/therapy-ai
+
+**Skin Diary Generator**
+Pharmacist tool to instantly generate personalised, print-ready patient instruction sheets for prescribed dermatology topical creams — bilingual, fully offline.
+Built by: Pn Hanim (Farmasi · Paediatric Dermatology)
+URL: https://htpn-showcase-v2.vercel.app/projects/skin-diary
+
+### Management Productivity
+
+**ED Patient Acuity Dashboard**
+Real-time Emergency Department dashboard displaying live patient acuity, triage categories, and bed status — giving clinical leads instant situational awareness.
+URL: https://htpn-showcase-v2.vercel.app/projects/ed-dashboard
+
+**DLP Delivery Performance Dashboard**
+Analytics dashboard tracking delivery performance metrics for the hospital's logistics and pharmacy distribution.
+URL: https://htpn-showcase-v2.vercel.app/projects/dlp-dashboard
+
+**Roster Scheduling Web App**
+Web-based tool that instantly generates oncall and duty rosters for medical and support staff — eliminating manual scheduling conflicts. Free to use.
+URL: https://htpn-showcase-v2.vercel.app/projects/roster-generator
+
+**CGR Web Form**
+Digital form for Clinical Governance and Risk reporting — replacing paper-based submissions.
+URL: https://htpn-showcase-v2.vercel.app/projects/cgr-form
+
+**DLP Web Form**
+Digital form for DLP (Delivery Performance) data entry.
+URL: https://htpn-showcase-v2.vercel.app/projects/dlp-form
+
+**JPPOBG Portal Aktiviti**
+Activity portal for the O&G department's JPPOBG committee — built by Dr Anita Rina bt Ali.
+URL: https://htpn-showcase-v2.vercel.app/projects/portal-aktiviti
+
+**Incident Reporting Form**
+Digital incident reporting web application replacing paper forms for hospital safety incident logging.
+URL: https://htpn-showcase-v2.vercel.app/projects/incident-form
+
+**Slide Deck OCR PDF Editor**
+Web-based AI editor that uses Gemini OCR to read and unlock text inside NotebookLM AI-generated slide deck PDFs — allowing edits directly in the browser. Free to use.
+URL: https://htpn-showcase-v2.vercel.app/projects/pdf-editor
+
+---
+
+## Pipeline Projects (In Development)
+
+**AMR — Autonomous Mobile Robot**
+Proof of Concept for deploying an autonomous mobile robot at Hospital Kajang to transport laboratory specimens from the Emergency Department to the Pathology Lab — cutting turnaround time and minimising human exposure risk. Partnership with Delta Global Automation.
+URL: https://htpn-showcase-v2.vercel.app/pipeline/amr
+
+**Drone Specimen Transfer**
+Drone-based transfer of specimens and medications between the Main Building and the Women & Child Centre — autonomous logistics across the HTPN campus.
+URL: https://htpn-showcase-v2.vercel.app/pipeline/drone-specimen
+
+**Prison Virtual Clinic**
+Secure specialist teleconsultation platform enabling HTPN doctors to conduct virtual clinics with prisoners at Kajang Prison via the Roketz platform.
+URL: https://htpn-showcase-v2.vercel.app/pipeline/prison-virtual-clinic
+
+**Facial AI — Vital Signs & HbA1c Scan**
+A 35–50 second smartphone face scan that reads vital signs using facial photoplethysmography — no needles, no reagents. Clinically validated at HTPN's Emergency Department across a 400-patient, 3-phase study.
+URL: https://htpn-showcase-v2.vercel.app/pipeline/facial-scan-ai
+
+---
+
+## About the HIO Team
+The Healthcare Intelligence Office (HIO) at HTPN Kajang is led by clinicians who build, test, and deploy digital tools within their own wards and departments. The team operates on a principle of radical practicality: if it solves a real problem faced by staff or patients today, it gets built.
+
+Hospital: Hospital Tengku Permaisuri Norashikin (HTPN)
+Location: Kajang, Selangor, Malaysia
+Ministry: Ministry of Health Malaysia (KKM / MOH)
+Contact: udppkhtpn@moh.gov.my

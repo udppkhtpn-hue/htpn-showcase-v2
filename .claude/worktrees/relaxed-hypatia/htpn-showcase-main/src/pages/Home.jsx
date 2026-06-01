@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Ticker from '../components/Ticker'
@@ -12,6 +13,19 @@ import { projects } from '../data/projects'
 import { pipelineItems } from '../data/pipeline'
 import { inDevelopmentItems } from '../data/inDevelopment'
 import '../styles/home.css'
+
+function HomeMeta() {
+  return (
+    <Helmet>
+      <title>HTPN Healthcare Intelligence Office — Digital Health Showcase</title>
+      <meta name="description" content="Homegrown digital health tools built by clinicians at Hospital Tengku Permaisuri Norashikin (HTPN), Kajang, Selangor, Malaysia. Patient apps, AI tools, and clinical dashboards — built in-house, deployed in real wards." />
+      <link rel="canonical" href="https://htpn-showcase-v2.vercel.app/" />
+      <meta property="og:title" content="HTPN Healthcare Intelligence Office — Digital Health Showcase" />
+      <meta property="og:description" content="Clinician-built digital health solutions from HTPN Kajang. Patient pre-consultation apps, AI blood loss estimators, fetal kick charts, OT scheduling, and more." />
+      <meta property="og:url" content="https://htpn-showcase-v2.vercel.app/" />
+    </Helmet>
+  )
+}
 
 function useScrollReveal(selector, opts = {}) {
   const ref = useRef(null)
@@ -669,6 +683,7 @@ export default function Home() {
 
   return (
     <main>
+      <HomeMeta />
       <div className="hero-story-group">
         <HeroSection />
         <WireframeSection />
