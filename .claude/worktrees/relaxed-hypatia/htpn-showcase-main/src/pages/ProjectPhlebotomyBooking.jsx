@@ -32,7 +32,7 @@ export default function ProjectPhlebotomyBooking() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Hospital Marudi Phlebotomy Appointment System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#24 · Patient's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#24 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">
@@ -57,7 +57,7 @@ export default function ProjectPhlebotomyBooking() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Patient's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Booking By</span>

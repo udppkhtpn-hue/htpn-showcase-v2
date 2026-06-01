@@ -262,7 +262,9 @@ export default function ProjectFolders({ projects }) {
       <CategoryStats projects={projects} />
 
       {CATEGORIES.map(({ key, label, accent, tagline, slogan, prose, banner, bannerGradient }) => {
-        const group = projects.filter(p => p.category === key)
+        const group = projects
+          .filter(p => p.category === key)
+          .sort((a, b) => parseInt(a.num.replace('#', '')) - parseInt(b.num.replace('#', '')))
         if (!group.length) return null
         return (
           <div key={key} className="stack-group">

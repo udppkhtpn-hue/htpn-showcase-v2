@@ -327,8 +327,8 @@ export const projects = [
   {
     num: '#24',
     status: 'live',
-    category: 'patient',
-    categoryLabel: "Patient's Journey",
+    category: 'doctor',
+    categoryLabel: "Doctor's Journey",
     icon: '🩸',
     iconType: 'emoji',
     title: 'Hospital Marudi Phlebotomy Appointment System — Blood Sampling Engine',
