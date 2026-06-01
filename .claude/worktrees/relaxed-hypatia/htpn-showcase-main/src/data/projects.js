@@ -352,6 +352,20 @@ export const projects = [
     accent: '#a78bfa',
     detailPath: '/projects/physio-measure-pro',
   },
+  {
+    num: '#26',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '⚠️',
+    iconType: 'emoji',
+    title: 'HPP OSH-Alert — Automated NADOPOD Incident Reporting App',
+    desc: 'A mobile-first incident reporting and tracking engine for Hospital Pulau Pinang — streamlining mandatory NADOPOD hazard reporting with instant .docx form generation, direct WhatsApp supervisor alerts, and central Google Sheets dashboard tracking.',
+    credit: { by: 'Jabatan Perubatan Dan Kesihatan Pekerjaan & Unit OSH Hospital Pulau Pinang' },
+    tags: ['Occupational Health (OSH)', 'Automated Form Engine', 'Google Sheets Infrastructure'],
+    accent: '#fb923c',
+    detailPath: '/projects/hpp-osh-alert',
+  },
 ];
 
 export const kivItems = [

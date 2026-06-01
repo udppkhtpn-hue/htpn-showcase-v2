@@ -90,6 +90,11 @@ URL: https://htpn-showcase-v2.vercel.app/projects/incident-form
 Web-based AI editor that uses Gemini OCR to read and unlock text inside NotebookLM AI-generated slide deck PDFs — allowing edits directly in the browser. Free to use.
 URL: https://htpn-showcase-v2.vercel.app/projects/pdf-editor
 
+**HPP OSH-Alert — Automated NADOPOD Incident Reporting App**
+A mobile-first NADOPOD incident reporting and tracking engine for Hospital Pulau Pinang under OSH Act 1994. Dual-portal system: Mod Staf (field reporting with compliance timeline banners, single-tap incident entry, live shift counter) and Mod Admin (case logs, instant .docx generation, direct WhatsApp supervisor alerts, Google Sheets integration). Covers needlestick injuries, hazardous exposures, and occupational disease notifications with 24h and 48h deadline compliance tracking.
+Built by: Jabatan Perubatan Dan Kesihatan Pekerjaan & Unit OSH Hospital Pulau Pinang
+URL: https://htpn-showcase-v2.vercel.app/projects/hpp-osh-alert
+
 **Sistem E-Kehadiran Kursus — Digital Training Log**
 A centralized, paperless attendance registration and analytics portal for hospital staff training — replacing fragmented manual logs with instant IC validation, automatic age calculation, and a role-based administrative tracking dashboard. Features QR code-based registration, bilingual interface, and one-click CSV export for KKM compliance audits.
 Built by: Unit Pengurusan & JPPOBG, Jabatan Pentadbiran HTPN
