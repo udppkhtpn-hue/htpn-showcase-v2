@@ -175,7 +175,7 @@ export default function ProjectEKehadiran() {
         <div className="detail-block">
           <div className="prd-credit-box">
             <span className="prd-credit-box__label">Developed By</span>
-            <span className="prd-credit-box__value">Unit Pengurusan & JPPOBG · Jabatan Pentadbiran HTPN</span>
+            <span className="prd-credit-box__value">Jabatan Kesihatan Negeri Sarawak</span>
           </div>
         </div>
 

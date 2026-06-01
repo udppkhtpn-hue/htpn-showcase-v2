@@ -42,7 +42,7 @@ export default function ProjectMentalWellbeing() {
         </div>
 
         <p className="detail-subtitle">
-          A high-frequency, 100% anonymous mental wellness pulse tool developed for the Occupational Safety and Health Unit (UKKP) — replacing reactive, once-a-year mental health screenings with proactive, monthly departmental morale tracking to catch clinical burnout early.
+          A high-frequency, 100% anonymous mental wellness pulse tool developed by Jabatan Kesihatan Negeri Sarawak — replacing reactive, once-a-year mental health screenings with proactive, monthly departmental morale tracking to catch clinical burnout early.
         </p>
 
         <div className="detail-block">
@@ -214,7 +214,7 @@ export default function ProjectMentalWellbeing() {
         <div className="detail-block">
           <div className="prd-credit-box">
             <span className="prd-credit-box__label">Developed By</span>
-            <span className="prd-credit-box__value">Unit Keselamatan dan Kesihatan Pekerjaan (UKKP) · Hospital Tengku Permaisuri Norashikin</span>
+            <span className="prd-credit-box__value">Jabatan Kesihatan Negeri Sarawak</span>
           </div>
         </div>
 
