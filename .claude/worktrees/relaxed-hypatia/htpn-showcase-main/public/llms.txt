@@ -95,6 +95,11 @@ A centralized, paperless attendance registration and analytics portal for hospit
 Built by: Unit Pengurusan & JPPOBG, Jabatan Pentadbiran HTPN
 URL: https://htpn-showcase-v2.vercel.app/projects/e-kehadiran
 
+**Mental Wellbeing Monitoring Portal — Departmental Morale Tracker**
+A high-frequency, 100% anonymous mental wellness pulse tool for the Occupational Safety and Health Unit (UKKP) HTPN — replacing once-a-year screenings with monthly departmental morale tracking to catch clinical burnout early. Uses Whooley Depression Screening and Anxiety Scale. Captures only non-identifying metadata (unit, job title, age). Aggregate analytics only — no individual identity tracking.
+Built by: Unit Keselamatan dan Kesihatan Pekerjaan (UKKP) HTPN
+URL: https://htpn-showcase-v2.vercel.app/projects/mental-wellbeing
+
 ---
 
 ## Pipeline Projects (In Development)

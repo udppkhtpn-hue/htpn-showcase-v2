@@ -21,6 +21,7 @@ import ProjectPortalAktiviti from './pages/ProjectPortalAktiviti'
 import ProjectIncidentForm from './pages/ProjectIncidentForm'
 import ProjectPDFEditor from './pages/ProjectPDFEditor'
 import ProjectEKehadiran from './pages/ProjectEKehadiran'
+import ProjectMentalWellbeing from './pages/ProjectMentalWellbeing'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/projects/incident-form" element={<ProjectIncidentForm />} />
         <Route path="/projects/pdf-editor" element={<ProjectPDFEditor />} />
         <Route path="/projects/e-kehadiran" element={<ProjectEKehadiran />} />
+        <Route path="/projects/mental-wellbeing" element={<ProjectMentalWellbeing />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

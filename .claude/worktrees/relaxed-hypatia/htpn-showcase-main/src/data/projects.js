@@ -268,6 +268,20 @@ export const projects = [
     accent: '#f59e0b',
     detailPath: '/projects/e-kehadiran',
   },
+  {
+    num: '#20',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '🧠',
+    iconType: 'emoji',
+    title: 'Mental Wellbeing Monitoring Portal — Departmental Morale Tracker',
+    desc: 'A high-frequency, 100% anonymous mental wellness pulse tool for the Occupational Safety and Health Unit (UKKP) — replacing once-a-year screenings with monthly departmental morale tracking to catch clinical burnout early.',
+    credit: { by: 'Unit Keselamatan dan Kesihatan Pekerjaan (UKKP) HTPN' },
+    tags: ['Occupational Health', 'Self-Screening', 'Anonymized Analytics'],
+    accent: '#818cf8',
+    detailPath: '/projects/mental-wellbeing',
+  },
 ];
 
 export const kivItems = [

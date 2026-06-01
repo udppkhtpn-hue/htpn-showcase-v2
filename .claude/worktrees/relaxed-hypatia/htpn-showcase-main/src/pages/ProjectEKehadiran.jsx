@@ -7,17 +7,12 @@ import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
 
+const ACCENT = '#f59e0b'
+
 export default function ProjectEKehadiran() {
   const navigate = useNavigate()
-
-  useEffect(() => {
-    return () => ScrollTrigger.getAll().forEach(t => t.kill())
-  }, [])
-
-  const handleBack = () => {
-    sessionStorage.setItem('scrollTo', '#projects')
-    navigate('/')
-  }
+  useEffect(() => { return () => ScrollTrigger.getAll().forEach(t => t.kill()) }, [])
+  const handleBack = () => { sessionStorage.setItem('scrollTo', '#projects'); navigate('/') }
 
   return (
     <div className="detail-page">
@@ -30,170 +25,144 @@ export default function ProjectEKehadiran() {
       </Helmet>
 
       <div className="detail-container">
+
         <button className="detail-back" onClick={handleBack}>← Back to Projects</button>
 
-        {/* Header */}
-        <header className="detail-header">
-          <img src="/HTPN CIO logo.jpg" alt="HTPN Healthcare Intelligence Office" className="detail-cio-logo" />
-          <div className="detail-meta-row">
-            <span className="detail-num">#19</span>
-            <span className="detail-status detail-status--live">LIVE</span>
-            <span className="detail-category">Management Productivity</span>
-          </div>
+        <div className="detail-header">
+          <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem E-Kehadiran Kursus</h1>
-          <p className="detail-subtitle">Digital Training Log</p>
-          <p className="detail-desc">
-            A centralized, paperless attendance registration and analytics portal for hospital staff training — replacing fragmented manual logs with instant IC validation, automatic age calculation, and a role-based administrative tracking dashboard.
-          </p>
-          <div className="detail-tags">
-            {['Human Resources & Administration', 'Role-Based Dashboard', 'Bilingual'].map(t => (
-              <span key={t} className="detail-tag">{t}</span>
-            ))}
-          </div>
-          <p className="detail-credit">
-            <span>Unit Pengurusan & JPPOBG · Jabatan Pentadbiran HTPN</span>
-          </p>
-        </header>
+          <p className="detail-number" style={{ color: ACCENT }}>#19 · Management Productivity</p>
+        </div>
 
-        <hr className="detail-divider" />
+        <div className="detail-meta">
+          <span className="detail-tag">Human Resources & Administration</span>
+          <span className="detail-tag">Role-Based Dashboard</span>
+          <span className="detail-tag">Bilingual</span>
+        </div>
 
-        {/* Problem Statement */}
-        <section className="rich-section">
-          <h2 className="rich-section__title">The Problem</h2>
-          <p className="rich-section__lead">
-            Continuous professional development and course attendance are mandatory parameters for public healthcare staff compliance, credentialing, and annual promotion tracking within the Ministry of Health (KKM) framework. At HTPN, this relied entirely on pen-and-paper registration sheets and isolated spreadsheets managed by individual department supervisors.
-          </p>
-          <div className="rich-problems">
-            {[
-              {
-                num: '01',
-                title: 'Data Fragmentation',
-                desc: 'Training metrics were trapped within separate silos across clinical and non-clinical units, preventing a unified hospital-wide overview for management.',
-              },
-              {
-                num: '02',
-                title: 'High Human Error Rates',
-                desc: 'Manual transcription led to misspelled names, invalid IC numbers, and missing records — undermining the integrity of compliance data.',
-              },
-              {
-                num: '03',
-                title: 'Severe Administrative Backlogs',
-                desc: 'Compiling mandatory annual training summaries for KKM required weeks of manual data compilation, chasing physical sign-in files, and re-keying records into master lists.',
-              },
-            ].map(p => (
-              <div key={p.num} className="rich-problem-card">
-                <span className="rich-problem-num">{p.num}</span>
-                <div>
-                  <h3 className="rich-problem-title">{p.title}</h3>
-                  <p className="rich-problem-desc">{p.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <p className="detail-subtitle">
+          A centralized, paperless attendance registration and analytics portal for hospital staff training — replacing fragmented manual logs with instant IC validation, automatic age calculation, and an administrative tracking dashboard.
+        </p>
 
-        <hr className="detail-divider" />
-
-        {/* System Architecture */}
-        <section className="rich-section">
-          <h2 className="rich-section__title">System Architecture & Features</h2>
-          <p className="rich-section__lead">
-            A mobile-first dual-portal ecosystem that fully digitizes the course attendance lifecycle — from registration to reporting.
-          </p>
-
-          <div className="rich-dual-portal">
-            {/* Staff Portal */}
-            <div className="rich-portal-card">
-              <div className="rich-portal-badge rich-portal-badge--staff">Staf / Peserta Portal</div>
-              <h3 className="rich-portal-title">Front-End Registration Interface</h3>
-              <ul className="rich-feature-list">
-                <li>High-contrast, touch-optimized input cards for fast field entry on mobile or kiosk terminals</li>
-                <li>Generates unique, session-specific <strong>QR codes</strong> — staff scan to open registration directly on their personal browsers</li>
-                <li><strong>Umur Automatik</strong> — real-time age calculation derived instantly from the IC number structural pattern</li>
-                <li>Bilingual interface (Bahasa Malaysia / English) for inclusive access across all staff roles</li>
-              </ul>
+        <div className="detail-block">
+          <div className="spec-cards">
+            <div className="spec-card-new">
+              <span className="spec-card-new__label">Pillar</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Management Productivity</span>
             </div>
-
-            {/* Admin Portal */}
-            <div className="rich-portal-card">
-              <div className="rich-portal-badge rich-portal-badge--admin">Pentadbir / Admin Portal</div>
-              <h3 className="rich-portal-title">Back-End Management Panel</h3>
-              <ul className="rich-feature-list">
-                <li>Filter entire attendance logs by <strong>Year</strong>, <strong>Course Type</strong>, <strong>Session Title</strong>, or <strong>Department</strong></li>
-                <li>Live tracking metrics: Total Attendees, Total Course Types, Active Departments</li>
-                <li>One-click <strong>CSV export</strong> for KKM compliance audits — turning weeks of compilation into seconds</li>
-                <li>Authenticated admin login wall preventing unauthorized access to staff database registry</li>
-              </ul>
+            <div className="spec-card-new">
+              <span className="spec-card-new__label">Access</span>
+              <span className="spec-card-new__value">QR Code (Mobile) · Admin Portal</span>
+            </div>
+            <div className="spec-card-new">
+              <span className="spec-card-new__label">Languages</span>
+              <span className="spec-card-new__value">Bahasa Malaysia · English</span>
+            </div>
+            <div className="spec-card-new">
+              <span className="spec-card-new__label">Export</span>
+              <span className="spec-card-new__value">One-click CSV (KKM Compliance)</span>
+            </div>
+            <div className="spec-card-new">
+              <span className="spec-card-new__label">Status</span>
+              <span className="spec-card-new__value" style={{ color: '#4ade80' }}>Live · Deployed</span>
             </div>
           </div>
-        </section>
+        </div>
 
-        <hr className="detail-divider" />
-
-        {/* Data Privacy */}
-        <section className="rich-section">
-          <h2 className="rich-section__title">Data Privacy & Governance</h2>
-          <p className="rich-section__lead">
-            Built for a public healthcare ecosystem under strict PDPA and Ministry of Health data safety standards.
+        <div className="detail-block">
+          <h2 className="detail-block__title">THE PROBLEM</h2>
+          <p className="detail-subtitle" style={{ marginBottom: '1.5rem' }}>
+            Continuous professional development is mandatory for public healthcare staff compliance, credentialing, and annual promotion tracking within the KKM framework. At HTPN, this relied entirely on pen-and-paper registration sheets and isolated spreadsheets managed by individual department supervisors.
           </p>
-          <div className="rich-privacy-grid">
-            {[
-              {
-                icon: '🔐',
-                title: 'Secured Access',
-                desc: 'The administrator dashboard is sealed behind a dedicated authentication wall — preventing unauthorized access to the staff database registry.',
-              },
-              {
-                icon: '🫥',
-                title: 'IC Masking',
-                desc: 'IC numbers use automatic background masking ("95010101XXXX") to shield personal data from nearby public sight during active field entry.',
-              },
-              {
-                icon: '🛡️',
-                title: 'Zero-Leak Pipeline',
-                desc: 'No image caching or personal data trails are held exposed on unsecured browser structures — entries route directly into structured, secure database tables.',
-              },
-            ].map(p => (
-              <div key={p.title} className="rich-privacy-card">
-                <span className="rich-privacy-icon">{p.icon}</span>
-                <h3 className="rich-privacy-title">{p.title}</h3>
-                <p className="rich-privacy-desc">{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+          <ul className="prd-section-list">
+            <li className="prd-section-item">
+              <span className="prd-section-item__num">01</span>
+              <span className="prd-section-item__title">Data Fragmentation</span>
+              <span className="prd-section-item__desc">Training metrics were trapped within separate silos across clinical and non-clinical units — preventing a unified hospital-wide overview for management.</span>
+            </li>
+            <li className="prd-section-item">
+              <span className="prd-section-item__num">02</span>
+              <span className="prd-section-item__title">High Human Error Rates</span>
+              <span className="prd-section-item__desc">Manual transcription led to misspelled names, invalid IC numbers, and missing records — undermining the integrity of compliance data.</span>
+            </li>
+            <li className="prd-section-item">
+              <span className="prd-section-item__num">03</span>
+              <span className="prd-section-item__title">Severe Administrative Backlogs</span>
+              <span className="prd-section-item__desc">Compiling mandatory annual training summaries for KKM required weeks of manual data compilation, chasing physical sign-in files, and re-keying records into master lists.</span>
+            </li>
+          </ul>
+        </div>
 
-        <hr className="detail-divider" />
+        <div className="detail-block">
+          <h2 className="detail-block__title">DUAL-PORTAL ARCHITECTURE</h2>
+          <ul className="prd-section-list">
+            <li className="prd-section-item">
+              <span className="prd-section-item__num" style={{ background: 'rgba(245,158,11,0.15)', color: ACCENT }}>S</span>
+              <span className="prd-section-item__title">Staf / Peserta Portal — Front-End Registration</span>
+              <span className="prd-section-item__desc">High-contrast, touch-optimized input cards for fast field entry on mobile or kiosk terminals. Staff scan a unique, session-specific QR code to open registration directly on their personal browser. Features <strong>Umur Automatik</strong> — real-time age calculation derived instantly from the IC number structural pattern.</span>
+            </li>
+            <li className="prd-section-item">
+              <span className="prd-section-item__num" style={{ background: 'rgba(245,158,11,0.15)', color: ACCENT }}>A</span>
+              <span className="prd-section-item__title">Pentadbir / Admin Portal — Back-End Management Panel</span>
+              <span className="prd-section-item__desc">Filter entire attendance logs by Year, Course Type, Session Title, or Department. Live tracking metrics: Total Attendees, Total Course Types, Active Departments. One-click CSV export for KKM compliance audits — turning weeks of compilation into seconds. Sealed behind a dedicated authentication wall.</span>
+            </li>
+          </ul>
+        </div>
 
-        {/* Impact */}
-        <section className="rich-section">
-          <h2 className="rich-section__title">Measurable Impact</h2>
-          <div className="rich-impact-grid">
-            {[
-              {
-                icon: '📊',
-                title: 'One-Click Reporting',
-                desc: 'Built-in CSV export turns a multi-week data compilation marathon into a single-click spreadsheet download for immediate compliance audits.',
-              },
-              {
-                icon: '⏱️',
-                title: 'Admin Time Recovered',
-                desc: 'Removes the daily administrative burden from department supervisors — returning clinical heads and administrators to primary operational duties.',
-              },
-              {
-                icon: '🎯',
-                title: 'Targeted Training Allocation',
-                desc: 'Real-time graphical distribution trends show exactly which units are lagging behind training targets — enabling proactive educational interventions.',
-              },
-            ].map(i => (
-              <div key={i.title} className="rich-impact-card">
-                <span className="rich-impact-icon">{i.icon}</span>
-                <h3 className="rich-impact-title">{i.title}</h3>
-                <p className="rich-impact-desc">{i.desc}</p>
-              </div>
-            ))}
+        <div className="detail-block">
+          <h2 className="detail-block__title">KEY FEATURES</h2>
+          <ul className="detail-features">
+            <li>Session-specific QR code generation for frictionless staff registration</li>
+            <li>Automatic IC-derived age calculation ("Umur Automatik") — no manual entry</li>
+            <li>Real-time entry validation to prevent invalid IC numbers and missing fields</li>
+            <li>Filter logs by Year, Course Type, Session Title, or Department</li>
+            <li>Live institutional metrics: Total Attendees, Course Types, Active Departments</li>
+            <li>One-click CSV export for immediate KKM compliance audits</li>
+            <li>Bilingual interface — Bahasa Malaysia and English</li>
+            <li>IC masking format ("95010101XXXX") for privacy during public entry</li>
+          </ul>
+        </div>
+
+        <div className="detail-block">
+          <h2 className="detail-block__title">PRIVACY &amp; GOVERNANCE</h2>
+          <div className="prd-block-inner prd-block-inner--accent">
+            <ul className="detail-features">
+              <li>Administrator dashboard sealed behind a dedicated authentication wall ("Log Masuk Admin")</li>
+              <li>IC numbers use automatic masking format ("95010101XXXX") to shield data from public view</li>
+              <li>No image caching or personal data trails exposed on unsecured browser structures</li>
+              <li>Entries routed directly into structured, secure database tables</li>
+              <li>Compliant with Personal Data Protection Act (PDPA) and MOH data safety policies</li>
+            </ul>
           </div>
-        </section>
+        </div>
+
+        <div className="detail-block">
+          <h2 className="detail-block__title">MEASURABLE IMPACT</h2>
+          <ul className="prd-section-list">
+            <li className="prd-section-item">
+              <span className="prd-section-item__num">📊</span>
+              <span className="prd-section-item__title">Streamlined Reporting</span>
+              <span className="prd-section-item__desc">Built-in CSV export turns a multi-week data compilation marathon into a single-click spreadsheet download for immediate compliance audits.</span>
+            </li>
+            <li className="prd-section-item">
+              <span className="prd-section-item__num">⏱️</span>
+              <span className="prd-section-item__title">Admin Time Recovered</span>
+              <span className="prd-section-item__desc">Removes the daily administrative burden from department supervisors — returning clinical heads and administrators to primary operational duties.</span>
+            </li>
+            <li className="prd-section-item">
+              <span className="prd-section-item__num">🎯</span>
+              <span className="prd-section-item__title">Targeted Training Allocation</span>
+              <span className="prd-section-item__desc">Real-time distribution trends show exactly which units are lagging behind training targets — enabling proactive educational interventions and optimal resource distribution.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div className="detail-block">
+          <div className="prd-credit-box">
+            <span className="prd-credit-box__label">Developed By</span>
+            <span className="prd-credit-box__value">Unit Pengurusan & JPPOBG · Jabatan Pentadbiran HTPN</span>
+          </div>
+        </div>
 
       </div>
 
