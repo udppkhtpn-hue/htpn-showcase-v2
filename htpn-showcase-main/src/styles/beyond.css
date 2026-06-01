@@ -95,3 +95,90 @@
   gap: 16px;
   margin-top: 40px;
 }
+
+/* ── Training Photo Gallery ── */
+.training-gallery {
+  margin-top: 3rem;
+}
+
+.training-gallery__label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,245,240,0.3);
+  margin-bottom: 1rem;
+}
+
+.gallery-strip {
+  position: relative;
+  overflow: hidden;
+  height: 360px;
+  cursor: grab;
+  border-radius: 4px;
+}
+
+.gallery-strip:active { cursor: grabbing; }
+
+.gallery-strip__track {
+  display: flex;
+  height: 100%;
+  user-select: none;
+}
+
+.gallery-slide {
+  flex-shrink: 0;
+  width: calc(100% - 80px);
+  height: 100%;
+  margin-right: 12px;
+  background: #111;
+  border: 1px dashed rgba(245,245,240,0.1);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.gallery-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,245,240,0.2);
+  background: transparent;
+  color: rgba(245,245,240,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.gallery-arrow:hover {
+  background: rgba(245,245,240,0.1);
+  border-color: rgba(245,245,240,0.4);
+}
+
+.gallery-counter {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: rgba(245,245,240,0.3);
+}
+
+@media (max-width: 600px) {
+  .gallery-strip { height: 260px; }
+  .gallery-slide { width: calc(100% - 32px); }
+}

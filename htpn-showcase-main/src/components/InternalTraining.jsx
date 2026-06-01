@@ -1,4 +1,13 @@
 import { trainingItems } from '../data/training'
+import GalleryStrip from './GalleryStrip'
+
+const TRAINING_PHOTOS = [
+  { src: '/img_1.jpg', alt: 'Training session 1' },
+  { src: '/img_2.jpg', alt: 'Training session 2' },
+  { src: '/img_3.png', alt: 'Training session 3' },
+  { src: '/img_4.jpg', alt: 'Training session 4' },
+  { src: '/img_5.jpg', alt: 'Training session 5' },
+]
 
 export default function InternalTraining() {
   return (
@@ -34,6 +43,11 @@ export default function InternalTraining() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="training-gallery">
+        <div className="training-gallery__label">Photos from the field</div>
+        <GalleryStrip slides={TRAINING_PHOTOS} label="Training" />
       </div>
     </section>
   )
