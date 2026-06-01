@@ -95,6 +95,31 @@ A centralized, paperless attendance registration and analytics portal for hospit
 Built by: Unit Pengurusan & JPPOBG, Jabatan Pentadbiran HTPN
 URL: https://htpn-showcase-v2.vercel.app/projects/e-kehadiran
 
+**PhysioMeasurePro — Automated Outcome Measure Engine**
+An advanced clinical calculator and KKM-compliant reporting engine for physical therapists at HTPN. Covers 3 domains: Neurological (BBS, SCIM, MoCA, NIH Stroke Scale, Tinetti), Musculoskeletal (ODI, NDI, PSFS, FABQ, NPRS), and Cardiopulmonary (6MWT, 2MWT, Borg, mMRC, ISWT, ICU Mobility Scale). Instant automated risk categorization, auto-generated clinical problem lists, and suggested treatment plans. One-click KKM-compliant print-ready PDF. Receiving outstanding user feedback from physiotherapists.
+Built by: Jabatan Fisioterapi & Pemulihan Kesihatan HTPN
+URL: https://htpn-showcase-v2.vercel.app/projects/physio-measure-pro
+
+**Hospital Marudi Phlebotomy Appointment System — Blood Sampling Engine**
+A highly scalable pre-consultation phlebotomy booking platform for manual hospital ecosystems. Ward and outpatient staff pre-schedule blood draws before specialist appointments, eliminating "result not ready" consultations. Features specimen type routing (FBC, FBS, RP, LFT, FLP, UFEME), patient and staff audit modules, and an admin portal for daily workload monitoring. Scalable SaaS architecture deployable across multiple peripheral hospitals.
+Built by: Hospital Marudi & HTPN AI Knowledge-Sharing Network
+URL: https://htpn-showcase-v2.vercel.app/projects/phlebotomy-booking
+
+**MOH HIRARC Portal — Digital Occupational Safety & Health Ledger**
+A cloud-based workplace risk assessment engine aligned with OSH Act 1994 and DOSH 2008 guidelines. Replaces static Excel HIRARC logs with a 3-step compliance pipeline: Basic Information Intake, Hazard Identification with automated Likelihood × Severity risk scoring (color-coded Low/Medium/High thresholds), and Executive Summary with auto-calculated 12-month review dates. Features live dashboard alerts for HIGH-risk hazards, one-click CSV and print-ready PDF export for DOSH inspections.
+Built by: Unit Keselamatan & Kesihatan Pekerjaan (UKKP) Hospital Umum Sarawak
+URL: https://htpn-showcase-v2.vercel.app/projects/hirarc-portal
+
+**MEDEVAC E-Request Portal — Airborne Emergency Logistics Engine**
+A centralized medical evacuation submission portal for JKN Sarawak. Digitizes emergency air transfer coordination across Sarawak's vast geography — from remote district clinics to major tertiary centers. Three-hub architecture: Logistics (hospital routing, multi-agency authorization), Clinical (patient triage check-grid, diagnosis, transfer justification), and Weight Engine (dynamic escort manifest with real-time weight tracking). Generates instant locked PDF flight manifests. Prevents aircraft weight overruns and cuts flight activation lag.
+Built by: Jabatan Kesihatan Negeri Sarawak (JKNS) & HTPN AI Knowledge-Sharing Network
+URL: https://htpn-showcase-v2.vercel.app/projects/medevac-portal
+
+**MedMove Pro — Interfacility Patient Transport Engine**
+A centralized, multi-role dispatch and fleet management system for patient transport. Replaces manual phone-based coordination with instant transport booking, automated driver assignment, and live performance analytics. Four role-based portals: Staff (booking), Dispatcher (queue & fleet), Driver (mobile), Manager (analytics). Tracks fleet utilization, completion rates, and provides immutable audit logs.
+Built by: Jabatan Kesihatan Negeri Sarawak
+URL: https://htpn-showcase-v2.vercel.app/projects/medmove-pro
+
 **Mental Wellbeing Monitoring Portal — Departmental Morale Tracker**
 A high-frequency, 100% anonymous mental wellness pulse tool for the Occupational Safety and Health Unit (UKKP) HTPN — replacing once-a-year screenings with monthly departmental morale tracking to catch clinical burnout early. Uses Whooley Depression Screening and Anxiety Scale. Captures only non-identifying metadata (unit, job title, age). Aggregate analytics only — no individual identity tracking.
 Built by: Unit Keselamatan dan Kesihatan Pekerjaan (UKKP) HTPN

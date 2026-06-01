@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOH HIRARC System</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    
+    <!-- Babel (Translates JSX so the browser can read it) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- PDF Export Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+        const { useState, useEffect, useMemo } = React;
+
+        // --- ICON GENERATOR FOR STANDALONE HTML ---
+        // Maps the Lucide React imports to the standalone browser version
+        const createIcon = (iconName) => ({ size = 24, className = "" }) => {
+            const svgHTML = lucide.icons[iconName] 
+                ? lucide.icons[iconName].toSvg({ width: size, height: size, class: className }) 
+                : `<svg width="${size}" height="${size}" class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>`;
+            return <span className="inline-flex items-center justify-center" dangerouslySetInnerHTML={{ __html: svgHTML }} />;
+        };
+
+        const Activity = createIcon('activity');
+        const AlertTriangle = createIcon('alert-triangle');
+        const CheckCircle = createIcon('check-circle');
+        const Clock = createIcon('clock');
+        const FileText = createIcon('file-text');
+        const Home = createIcon('home');
+        const List = createIcon('list');
+        const Plus = createIcon('plus');
+        const Search = createIcon('search');
+        const Settings = createIcon('settings');
+        const ShieldAlert = createIcon('shield-alert');
+        const SlidersHorizontal = createIcon('sliders-horizontal');
+        const Trash2 = createIcon('trash-2');
+        const Upload = createIcon('upload');
+        const Download = createIcon('download');
+        const Printer = createIcon('printer');
+        const ChevronDown = createIcon('chevron-down');
+        const ChevronUp = createIcon('chevron-up');
+        const Zap = createIcon('zap');
+
+        // --- CONSTANTS & DICTIONARIES (DOSH 2008 Based) ---
+
+        const HAZARD_CATEGORIES = [
+          'Physical', 'Chemical', 'Biological', 'Ergonomic', 'Psychosocial', 
+          'Mechanical', 'Electrical', 'Environmental', 'Fire', 'Radiation', 
+          'Sharps', 'Manual Handling', 'Infection Exposure', 'Slips Trips Falls'
+        ];
+
+        const DEPARTMENTS = [
+          'Emergency & Trauma', 'Outpatient (OPD)', 'Intensive Care Unit (ICU)', 
+          'Operating Theatre (OT)', 'Orthopaedics', 'Paediatrics', 'Obstetrics & Gynaecology',
+          'Radiology', 'Pathology/Laboratory', 'Pharmacy', 'CSSD', 'Dietetics & Catering',
+          'Housekeeping', 'Engineering/Maintenance'
+        ];
+
+        const LIKELIHOOD_SCALE = [
+          { val: 1, label: '1 - Rare' }, { val: 2, label: '2 - Unlikely' },
+          { val: 3, label: '3 - Possible' }, { val: 4, label: '4 - Likely' }, { val: 5, label: '5 - Almost Certain' }
+        ];
+
+        const SEVERITY_SCALE = [
+          { val: 1, label: '1 - Negligible' }, { val: 2, label: '2 - Minor' },
+          { val: 3, label: '3 - Moderate' }, { val: 4, label: '4 - Major' }, { val: 5, label: '5 - Catastrophic' }
+        ];
+
+        const CONTROL_SUGGESTIONS = {
+          'Sharps': 'Elimination: Needleless systems where possible.\nEngineering: Safety-engineered devices, sharps disposal containers at point of use.\nAdmin: Safe disposal SOPs, staff competency training.\nPPE: Double gloving for high-risk procedures.',
+          'Manual Handling': 'Engineering: Use hoists, slide sheets, adjustable beds.\nAdmin: Team lifting protocols, ergonomic training, patient handling SOP.\nPPE: Non-slip footwear.',
+          'Chemical': 'Engineering: Fume hoods, chemical storage cabinets, proper ventilation.\nAdmin: SDS reference available, spill management procedure, restricted access.\nPPE: Chemical-resistant gloves, aprons, eye protection.',
+          'Slips Trips Falls': 'Engineering: Anti-slip flooring, proper lighting, secure cables.\nAdmin: Warning signage, immediate spill cleaning routine, regular floor inspections.',
+          'Biological': 'Engineering: Biosafety cabinets, negative pressure rooms.\nAdmin: Infection control SOPs, regular immunization, waste segregation.\nPPE: N95 masks, gowns, face shields, gloves.',
+          'Psychosocial': 'Admin: Workload management, debriefing sessions, employee assistance program (EAP), zero-tolerance policy for workplace violence.',
+          'Default': 'Apply Hierarchy of Controls:\n1. Elimination\n2. Substitution\n3. Engineering Controls\n4. Administrative Controls\n5. PPE'
+        };
+
+        // --- MOCK INITIAL DATA ---
+        const initialData = [
+          {
+            id: 'HRC-2026-001', department: 'Emergency & Trauma', unit: 'Red Zone', activity: 'Patient Resuscitation',
+            processDesc: 'Handling severe trauma patients requiring immediate intervention.', assessor: 'Dr. Aminah', date: '2026-05-10', reviewDate: '2026-08-10', status: 'Approved',
+            hazards: [
+              { id: 'h1', category: 'Biological', description: 'Exposure to bloodborne pathogens', effect: 'Infection (HIV, Hep B/C)', existingControls: 'Standard precautions', likelihood: 3, severity: 4, riskScore: 12, riskLevel: 'Medium', recommendedControls: 'Strict adherence to PPE, regular training.', pic: 'SN Siti', dueDate: '2026-06-01', controlStatus: 'In Progress' },
+              { id: 'h2', category: 'Sharps', description: 'Needlestick injury during IV insertion', effect: 'Infection', existingControls: 'Sharps bins available', likelihood: 4, severity: 4, riskScore: 16, riskLevel: 'High', recommendedControls: 'Implement safety-engineered needles.', pic: 'Sister Wong', dueDate: '2026-05-20', controlStatus: 'Open' }
+            ]
+          },
+          {
+            id: 'HRC-2026-002', department: 'Dietetics & Catering', unit: 'Main Kitchen', activity: 'Food Preparation',
+            processDesc: 'Cooking and preparing meals for patients.', assessor: 'Chef Raj', date: '2026-04-15', reviewDate: '2027-04-15', status: 'Approved',
+            hazards: [
+              { id: 'h3', category: 'Slips Trips Falls', description: 'Wet floors from washing', effect: 'Fractures, sprains', existingControls: 'Warning signs', likelihood: 4, severity: 2, riskScore: 8, riskLevel: 'Medium', recommendedControls: 'Use anti-slip mats, immediate spill cleanup protocol.', pic: 'Chef Raj', dueDate: '2026-05-01', controlStatus: 'Completed' }
+            ]
+          }
+        ];
+
+        // --- HELPER FUNCTIONS ---
+
+        const calculateRisk = (l, s) => {
+          const score = l * s;
+          let level = 'Low'; let color = 'bg-green-100 text-green-800 border-green-200'; let action = 'Acceptable Risk. Maintain controls.';
+          if (score >= 5 && score <= 14) { level = 'Medium'; color = 'bg-yellow-100 text-yellow-800 border-yellow-200'; action = 'Requires attention. Implement additional controls.'; }
+          if (score >= 15) { level = 'High'; color = 'bg-red-100 text-red-800 border-red-200'; action = 'Unacceptable. Immediate action required. Escalate to management.'; }
+          return { score, level, color, action };
+        };
+
+        const generateSummary = (hazards) => {
+          if (!hazards || hazards.length === 0) return "No hazards assessed yet.";
+          const maxScore = Math.max(...hazards.map(h => h.riskScore));
+          
+          if (maxScore >= 15) return "Based on the assessment, this activity carries a HIGH risk due to the likelihood and severity of potential consequences. Immediate engineering and administrative controls are strongly recommended before continuation of this work activity. Escalate to OSH Unit.";
+          if (maxScore >= 5) return "This activity carries a MEDIUM risk. It requires attention and additional control measures should be implemented within a reasonable timeframe to reduce the risk to an acceptable level.";
+          return "This activity carries a LOW, acceptable risk. Existing controls are generally adequate. Continue current measures and monitor periodically.";
+        };
+
+        const getRecommendedReviewDate = (maxScore) => {
+          const date = new Date();
+          if (maxScore >= 15) date.setMonth(date.getMonth() + 3); // High: 3 months
+          else if (maxScore >= 5) date.setMonth(date.getMonth() + 6); // Med: 6 months
+          else date.setFullYear(date.getFullYear() + 1); // Low: 12 months
+          return date.toISOString().split('T')[0];
+        };
+
+        // --- MAIN APPLICATION COMPONENT ---
+
+        function App() {
+          const [currentView, setCurrentView] = useState('dashboard'); // dashboard, list, form, print
+          const [records, setRecords] = useState(initialData);
+          const [editingRecord, setEditingRecord] = useState(null);
+          const [printData, setPrintData] = useState(null);
+
+          // Stats calculation
+          const totalRecords = records.length;
+          const allHazards = records.flatMap(r => r.hazards);
+          const highRiskCount = allHazards.filter(h => h.riskScore >= 15 && h.controlStatus !== 'Completed').length;
+          
+          // Handlers
+          const handleSaveRecord = (record) => {
+            if (editingRecord) {
+              setRecords(records.map(r => r.id === record.id ? record : r));
+            } else {
+              setRecords([record, ...records]);
+            }
+            setCurrentView('list');
+            setEditingRecord(null);
+          };
+
+          const handleEdit = (record) => {
+            setEditingRecord(record);
+            setCurrentView('form');
+          };
+
+          const handleDelete = (id) => {
+            if(window.confirm('Are you sure you want to delete this record?')) {
+              setRecords(records.filter(r => r.id !== id));
+            }
+          };
+
+          const handlePrint = (record) => {
+            setPrintData(record);
+            setCurrentView('print');
+          };
+
+          const exportCSV = () => {
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Record ID,Department,Unit,Activity,Hazard Category,Hazard Description,Effect,Existing Controls,Likelihood,Severity,Risk Score,Risk Level,Recommended Controls,PIC,Due Date,Status\n";
+            
+            records.forEach(r => {
+              r.hazards.forEach(h => {
+                const row = [
+                  r.id, r.department, r.unit, r.activity, 
+                  h.category, h.description, h.effect, h.existingControls,
+                  h.likelihood, h.severity, h.riskScore, h.riskLevel,
+                  h.recommendedControls, h.pic, h.dueDate, h.controlStatus
+                ].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",");
+                csvContent += row + "\n";
+              });
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "HIRARC_Export.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+
+          return (
+            <div className="min-h-screen bg-slate-50 flex text-slate-800 font-sans">
+              
+              {/* SIDEBAR (Hide when printing) */}
+              {currentView !== 'print' && (
+                <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col hidden md:flex shrink-0">
+                  <div className="p-4 border-b border-slate-800 flex items-center space-x-3">
+                    <div className="bg-blue-600 text-white p-2 rounded-lg">
+                      <ShieldAlert size={24} />
+                    </div>
+                    <div>
+                      <h1 className="text-white font-bold text-lg leading-tight">MOH HIRARC</h1>
+                      <p className="text-xs text-slate-400">DOSH 2008 Standard</p>
+                    </div>
+                  </div>
+                  <nav className="flex-1 py-4 space-y-1">
+                    <SidebarItem icon={<Home/>} label="Dashboard" active={currentView==='dashboard'} onClick={() => setCurrentView('dashboard')} />
+                    <SidebarItem icon={<Plus/>} label="New Assessment" active={currentView==='form' && !editingRecord} onClick={() => { setEditingRecord(null); setCurrentView('form'); }} />
+                    <SidebarItem icon={<List/>} label="Master List" active={currentView==='list'} onClick={() => setCurrentView('list')} />
+                  </nav>
+                  <div className="p-4 border-t border-slate-800 text-xs text-slate-500">
+                    <p>Logged in as: Unit PIC</p>
+                    <p>Hospital Umum Sarawak</p>
+                  </div>
+                </aside>
+              )}
+
+              {/* MAIN CONTENT */}
+              <main className="flex-1 flex flex-col max-w-full overflow-hidden">
+                
+                {/* HEADER (Hide when printing) */}
+                {currentView !== 'print' && (
+                  <header className="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-6 shrink-0">
+                    <h2 className="text-xl font-semibold text-slate-800">
+                      {currentView === 'dashboard' && 'Safety Dashboard'}
+                      {currentView === 'list' && 'Master HIRARC List'}
+                      {currentView === 'form' && (editingRecord ? 'Edit HIRARC Record' : 'New HIRARC Assessment')}
+                    </h2>
+                    <div className="flex items-center space-x-4">
+                      <button onClick={exportCSV} className="text-slate-500 hover:text-blue-600 flex items-center text-sm font-medium transition-colors">
+                        <Download size={16} className="mr-2" /> Export CSV
+                      </button>
+                      <div className="h-8 w-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold border border-blue-200">
+                        PIC
+                      </div>
+                    </div>
+                  </header>
+                )}
+
+                {/* CONTENT AREA */}
+                <div className={`flex-1 overflow-auto ${currentView !== 'print' ? 'p-6' : 'p-0 bg-white'}`}>
+                  {currentView === 'dashboard' && <DashboardView records={records} total={totalRecords} highRisk={highRiskCount} />}
+                  {currentView === 'list' && <ListView records={records} onEdit={handleEdit} onDelete={handleDelete} onPrint={handlePrint} />}
+                  {currentView === 'form' && <FormView initialData={editingRecord} onSave={handleSaveRecord} onCancel={() => setCurrentView('list')} />}
+                  {currentView === 'print' && <PrintableView data={printData} onBack={() => setCurrentView('list')} />}
+                </div>
+              </main>
+            </div>
+          );
+        }
+
+        // --- SUB-COMPONENTS ---
+
+        function SidebarItem({ icon, label, active, onClick }) {
+          return (
+            <button 
+              onClick={onClick}
+              className={`w-full flex items-center space-x-3 px-6 py-3 text-sm font-medium transition-colors ${
+                active ? 'bg-blue-600/10 text-blue-400 border-r-4 border-blue-500' : 'hover:bg-slate-800 hover:text-white'
+              }`}
+            >
+              {React.cloneElement(icon, { size: 18 })}
+              <span>{label}</span>
+            </button>
+          );
+        }
+
+        // --- 1. DASHBOARD VIEW ---
+        function DashboardView({ records, total, highRisk }) {
+          const allHazards = records.flatMap(r => r.hazards);
+          
+          // Simple stats
+          const pendingReviews = records.filter(r => new Date(r.reviewDate) < new Date()).length;
+          const completedControls = allHazards.filter(h => h.controlStatus === 'Completed').length;
+          const totalControls = allHazards.length;
+          const completionRate = totalControls ? Math.round((completedControls / totalControls) * 100) : 0;
+
+          return (
+            <div className="space-y-6 max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <StatCard title="Total Assessments" value={total} icon={<FileText className="text-blue-500"/>} color="blue" />
+                <StatCard title="High Risk Hazards" value={highRisk} icon={<AlertTriangle className="text-red-500"/>} color="red" alert={highRisk > 0} />
+                <StatCard title="Overdue Reviews" value={pendingReviews} icon={<Clock className="text-orange-500"/>} color="orange" alert={pendingReviews > 0} />
+                <StatCard title="Controls Implemented" value={`${completionRate}%`} icon={<CheckCircle className="text-emerald-500"/>} color="emerald" />
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center"><ShieldAlert size={20} className="mr-2 text-red-500"/> Immediate Action Required</h3>
+                  {highRisk === 0 ? (
+                    <div className="text-center py-8 text-slate-500">No unresolved high-risk hazards found. Great job!</div>
+                  ) : (
+                    <div className="space-y-3">
+                      {allHazards.filter(h => h.riskScore >= 15 && h.controlStatus !== 'Completed').map(h => (
+                        <div key={h.id} className="flex items-start p-3 bg-red-50 border border-red-100 rounded-lg">
+                          <div className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded mr-3 mt-0.5">Score: {h.riskScore}</div>
+                          <div className="flex-1">
+                            <p className="font-semibold text-slate-800 text-sm">{h.description}</p>
+                            <p className="text-xs text-slate-500 mt-1">PIC: {h.pic} | Due: {h.dueDate}</p>
+                          </div>
+                          <button className="text-xs font-medium text-blue-600 hover:underline">View</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                  <h3 className="text-lg font-semibold mb-4">Risk Matrix Guide</h3>
+                  <div className="grid grid-cols-5 gap-1 text-[10px] text-center font-bold">
+                    <div className="col-span-5 text-left text-xs mb-1 text-slate-500">Likelihood (L) x Severity (S)</div>
+                    {Array.from({length: 25}).map((_, i) => {
+                      const x = (i % 5) + 1; const y = 5 - Math.floor(i / 5); const val = x * y;
+                      let bg = val >= 15 ? 'bg-red-400' : val >= 5 ? 'bg-yellow-400' : 'bg-green-400';
+                      return <div key={i} className={`${bg} text-white/90 py-1 rounded-sm`}>{val}</div>
+                    })}
+                    <div className="col-span-5 text-left text-xs mt-2 text-slate-600 space-y-1">
+                      <p><span className="inline-block w-3 h-3 bg-red-400 rounded-sm mr-1"></span> 15-25: High (Stop work)</p>
+                      <p><span className="inline-block w-3 h-3 bg-yellow-400 rounded-sm mr-1"></span> 5-12: Medium (Add controls)</p>
+                      <p><span className="inline-block w-3 h-3 bg-green-400 rounded-sm mr-1"></span> 1-4: Low (Monitor)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        function StatCard({ title, value, icon, color, alert }) {
+          return (
+            <div className={`bg-white rounded-xl shadow-sm border ${alert ? 'border-red-300' : 'border-slate-200'} p-5 relative overflow-hidden`}>
+              {alert && <div className="absolute top-0 right-0 w-2 h-full bg-red-500 animate-pulse"></div>}
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-sm font-medium text-slate-500 mb-1">{title}</p>
+                  <h3 className="text-3xl font-bold text-slate-800">{value}</h3>
+                </div>
+                <div className={`p-3 rounded-lg bg-${color}-50`}>
+                  {icon}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        // --- 2. MASTER LIST VIEW ---
+        function ListView({ records, onEdit, onDelete, onPrint }) {
+          const [searchTerm, setSearchTerm] = useState('');
+          const [filterDept, setFilterDept] = useState('All');
+
+          const filtered = records.filter(r => 
+            (filterDept === 'All' || r.department === filterDept) &&
+            (r.activity.toLowerCase().includes(searchTerm.toLowerCase()) || r.unit.toLowerCase().includes(searchTerm.toLowerCase()))
+          );
+
+          return (
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-full max-w-6xl mx-auto">
+              <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center bg-slate-100 rounded-lg px-3 py-2 w-full sm:w-1/3 border border-slate-200">
+                  <Search size={18} className="text-slate-400 mr-2" />
+                  <input 
+                    type="text" placeholder="Search activities or units..." 
+                    className="bg-transparent border-none outline-none text-sm w-full"
+                    value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                <div className="flex items-center space-x-2 w-full sm:w-auto">
+                  <SlidersHorizontal size={18} className="text-slate-400" />
+                  <select 
+                    className="text-sm border-slate-200 rounded-lg bg-slate-50 p-2 outline-none cursor-pointer w-full sm:w-auto"
+                    value={filterDept} onChange={(e) => setFilterDept(e.target.value)}
+                  >
+                    <option value="All">All Departments</option>
+                    {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <div className="overflow-x-auto flex-1">
+                <table className="w-full text-left text-sm text-slate-600">
+                  <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200 uppercase text-xs">
+                    <tr>
+                      <th className="px-4 py-3">ID / Date</th>
+                      <th className="px-4 py-3">Department / Unit</th>
+                      <th className="px-4 py-3">Work Activity</th>
+                      <th className="px-4 py-3">Max Risk</th>
+                      <th className="px-4 py-3 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {filtered.length === 0 ? (
+                      <tr><td colSpan="5" className="text-center py-8 text-slate-400">No records found.</td></tr>
+                    ) : filtered.map(r => {
+                      const maxScore = Math.max(...r.hazards.map(h => h.riskScore), 0);
+                      const trueLevel = maxScore >= 15 ? 'High' : maxScore >= 5 ? 'Medium' : 'Low';
+                      const badgeColor = trueLevel === 'High' ? 'bg-red-100 text-red-800' : trueLevel === 'Medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800';
+
+                      return (
+                        <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                          <td className="px-4 py-3">
+                            <div className="font-semibold text-slate-800">{r.id}</div>
+                            <div className="text-xs text-slate-400">{r.date}</div>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="text-slate-800">{r.department}</div>
+                            <div className="text-xs">{r.unit}</div>
+                          </td>
+                          <td className="px-4 py-3 font-medium text-slate-800">{r.activity}</td>
+                          <td className="px-4 py-3">
+                             <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}`}>
+                               {trueLevel} ({maxScore})
+                             </span>
+                          </td>
+                          <td className="px-4 py-3 text-right space-x-2 whitespace-nowrap">
+                            <button onClick={() => onPrint(r)} className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-blue-700 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded shadow-sm transition-colors" title="Preview / Export PDF">
+                              <Printer size={14} className="mr-1" /> Print/PDF
+                            </button>
+                            <button onClick={() => onEdit(r)} className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded shadow-sm transition-colors" title="Edit">
+                              <Activity size={14} className="mr-1" /> Edit
+                            </button>
+                            <button onClick={() => onDelete(r.id)} className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-red-700 hover:text-red-800 bg-red-50 hover:bg-red-100 border border-red-200 rounded shadow-sm transition-colors" title="Delete">
+                              <Trash2 size={14} className="mr-1" /> Delete
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        }
+
+        // --- 3. FORM VIEW (Create/Edit) ---
+        function FormView({ initialData, onSave, onCancel }) {
+          const [formData, setFormData] = useState(initialData || {
+            id: `HRC-${new Date().getFullYear()}-${Math.floor(Math.random()*1000).toString().padStart(3,'0')}`,
+            department: '', unit: '', activity: '', processDesc: '', assessor: '', 
+            date: new Date().toISOString().split('T')[0], 
+            reviewDate: '', status: 'Draft',
+            hazards: []
+          });
+
+          const [activeTab, setActiveTab] = useState('basic'); 
+
+          const updateField = (field, value) => {
+            setFormData(prev => ({ ...prev, [field]: value }));
+          };
+
+          const addHazard = () => {
+            const newHazard = {
+              id: `h_${Date.now()}`, category: 'Physical', description: '', effect: '', existingControls: '',
+              likelihood: 1, severity: 1, riskScore: 1, riskLevel: 'Low',
+              recommendedControls: '', pic: '', dueDate: '', controlStatus: 'Open'
+            };
+            setFormData(prev => ({ ...prev, hazards: [...prev.hazards, newHazard] }));
+            setActiveTab('hazards');
+          };
+
+          const updateHazard = (id, field, value) => {
+            setFormData(prev => {
+              const updatedHazards = prev.hazards.map(h => {
+                if (h.id !== id) return h;
+                const updated = { ...h, [field]: value };
+                
+                if (field === 'likelihood' || field === 'severity') {
+                  const l = field === 'likelihood' ? Number(value) : Number(h.likelihood);
+                  const s = field === 'severity' ? Number(value) : Number(h.severity);
+                  const risk = calculateRisk(l, s);
+                  updated.riskScore = risk.score;
+                  updated.riskLevel = risk.level;
+                }
+                return updated;
+              });
+              return { ...prev, hazards: updatedHazards };
+            });
+          };
+
+          const removeHazard = (id) => {
+            setFormData(prev => ({ ...prev, hazards: prev.hazards.filter(h => h.id !== id) }));
+          };
+
+          const suggestControls = (hazardId, category) => {
+            const suggestion = CONTROL_SUGGESTIONS[category] || CONTROL_SUGGESTIONS['Default'];
+            updateHazard(hazardId, 'recommendedControls', suggestion);
+          };
+
+          const handleFinalSave = () => {
+            let finalData = {...formData};
+            if (finalData.hazards.length > 0) {
+              const maxScore = Math.max(...finalData.hazards.map(h => h.riskScore));
+              finalData.reviewDate = getRecommendedReviewDate(maxScore);
+            }
+            onSave(finalData);
+          };
+
+          const maxRiskScore = formData.hazards.length > 0 ? Math.max(...formData.hazards.map(h => h.riskScore)) : 0;
+
+          return (
+            <div className="max-w-5xl mx-auto pb-20">
+              <div className="flex space-x-1 bg-slate-200/50 p-1 rounded-xl mb-6 w-fit mx-auto sm:mx-0">
+                {['basic', 'hazards', 'review'].map((tab, idx) => (
+                  <button key={tab} onClick={() => setActiveTab(tab)}
+                    className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
+                      activeTab === tab ? 'bg-white text-blue-700 shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    {idx + 1}. {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
+              </div>
+
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                {activeTab === 'basic' && (
+                  <div className="p-6 space-y-6">
+                    <h3 className="text-lg font-semibold text-slate-800 border-b pb-2">Basic Information</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Department</label>
+                        <select className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-blue-500"
+                          value={formData.department} onChange={e => updateField('department', e.target.value)}>
+                          <option value="">Select Department...</option>
+                          {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Unit / Location</label>
+                        <input type="text" className="w-full border border-slate-300 rounded-lg p-2.5 outline-none" 
+                          value={formData.unit} onChange={e => updateField('unit', e.target.value)} placeholder="e.g. Ward 4A, Kitchen" />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Work Activity</label>
+                        <input type="text" className="w-full border border-slate-300 rounded-lg p-2.5 outline-none font-semibold" 
+                          value={formData.activity} onChange={e => updateField('activity', e.target.value)} placeholder="e.g. Manual lifting of immobile patient" />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Process Description</label>
+                        <textarea rows="2" className="w-full border border-slate-300 rounded-lg p-2.5 outline-none" 
+                          value={formData.processDesc} onChange={e => updateField('processDesc', e.target.value)} placeholder="Briefly describe the steps involved..."></textarea>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Assessor Name</label>
+                        <input type="text" className="w-full border border-slate-300 rounded-lg p-2.5 outline-none" 
+                          value={formData.assessor} onChange={e => updateField('assessor', e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Assessment Date</label>
+                        <input type="date" className="w-full border border-slate-300 rounded-lg p-2.5 outline-none" 
+                          value={formData.date} onChange={e => updateField('date', e.target.value)} />
+                      </div>
+                    </div>
+                    <div className="flex justify-end pt-4">
+                      <button onClick={() => setActiveTab('hazards')} className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700">Next: Hazard ID</button>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'hazards' && (
+                  <div className="p-6 bg-slate-50 min-h-[500px]">
+                    <div className="flex justify-between items-center mb-6">
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-800">Hazard Identification & Risk Control</h3>
+                        <p className="text-sm text-slate-500">Add all hazards associated with the activity: <span className="font-semibold text-slate-700">{formData.activity || 'Unspecified Activity'}</span></p>
+                      </div>
+                      <button onClick={addHazard} className="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg font-medium hover:bg-blue-200 flex items-center">
+                        <Plus size={18} className="mr-1" /> Add Hazard
+                      </button>
+                    </div>
+
+                    {formData.hazards.length === 0 ? (
+                      <div className="text-center py-12 bg-white rounded-xl border border-dashed border-slate-300">
+                        <ShieldAlert className="mx-auto text-slate-300 mb-3" size={48} />
+                        <p className="text-slate-500">No hazards added yet.</p>
+                        <button onClick={addHazard} className="mt-4 text-blue-600 font-medium hover:underline">Add First Hazard</button>
+                      </div>
+                    ) : (
+                      <div className="space-y-6">
+                        {formData.hazards.map((hazard, index) => (
+                          <HazardCard 
+                            key={hazard.id} 
+                            hazard={hazard} 
+                            index={index} 
+                            updateHazard={updateHazard} 
+                            removeHazard={removeHazard}
+                            suggestControls={suggestControls}
+                          />
+                        ))}
+                      </div>
+                    )}
+                    
+                    {formData.hazards.length > 0 && (
+                      <div className="flex justify-end mt-8">
+                        <button onClick={() => setActiveTab('review')} className="bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700">Next: Review & Summary</button>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === 'review' && (
+                  <div className="p-6 space-y-6">
+                    <h3 className="text-lg font-semibold text-slate-800 border-b pb-2">Executive Summary & Finalization</h3>
+                    
+                    <div className={`p-4 rounded-xl border ${maxRiskScore >= 15 ? 'bg-red-50 border-red-200' : maxRiskScore >= 5 ? 'bg-yellow-50 border-yellow-200' : 'bg-green-50 border-green-200'}`}>
+                      <h4 className="font-semibold mb-2 flex items-center">
+                        <Zap size={18} className="mr-2" /> Auto-Generated Summary
+                      </h4>
+                      <p className="text-sm text-slate-700 italic">{generateSummary(formData.hazards)}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Recommended Next Review Date</label>
+                        <div className="flex items-center space-x-3">
+                          <input type="date" className="border border-slate-300 rounded-lg p-2.5 outline-none bg-slate-50 text-slate-600 w-full" 
+                            value={formData.reviewDate || getRecommendedReviewDate(maxRiskScore)} 
+                            onChange={e => updateField('reviewDate', e.target.value)} />
+                          <span className="text-xs text-slate-500 w-32">(Auto-calculated based on Max Risk)</span>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Overall Status</label>
+                        <select className="w-full border border-slate-300 rounded-lg p-2.5 outline-none"
+                          value={formData.status} onChange={e => updateField('status', e.target.value)}>
+                          <option value="Draft">Draft</option>
+                          <option value="Pending Review">Pending Review</option>
+                          <option value="Approved">Approved (Final)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between items-center pt-8 border-t mt-8">
+                      <button onClick={onCancel} className="text-slate-500 font-medium hover:text-slate-700 px-4 py-2">Cancel</button>
+                      <button onClick={handleFinalSave} className="bg-emerald-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-emerald-700 shadow-md flex items-center">
+                        <CheckCircle size={20} className="mr-2"/> Save HIRARC Record
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        }
+
+        function HazardCard({ hazard, index, updateHazard, removeHazard, suggestControls }) {
+          const [isExpanded, setIsExpanded] = useState(true);
+          const riskInfo = calculateRisk(hazard.likelihood, hazard.severity);
+
+          return (
+            <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+              <div 
+                className={`p-4 border-b border-slate-100 flex justify-between items-center cursor-pointer transition-colors ${isExpanded ? 'bg-slate-50' : 'hover:bg-slate-50'}`}
+                onClick={() => setIsExpanded(!isExpanded)}
+              >
+                <div className="flex items-center space-x-4">
+                  <span className="bg-blue-600 text-white font-bold h-6 w-6 flex items-center justify-center rounded-full text-xs">{index + 1}</span>
+                  <div>
+                    <h4 className="font-semibold text-slate-800">{hazard.description || 'New Hazard'}</h4>
+                    <p className="text-xs text-slate-500">{hazard.category}</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold border ${riskInfo.color}`}>
+                    {riskInfo.level} Risk ({hazard.riskScore})
+                  </span>
+                  <button className="text-slate-400 hover:text-slate-600" onClick={(e) => { e.stopPropagation(); setIsExpanded(!isExpanded); }}>
+                    {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              {isExpanded && (
+                <div className="p-5 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h5 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2 flex justify-between items-center">
+                      1. Identification
+                      <button onClick={() => removeHazard(hazard.id)} className="text-red-500 hover:text-red-700 flex items-center normal-case tracking-normal font-medium text-xs bg-red-50 px-2 py-1 rounded">
+                        <Trash2 size={12} className="mr-1"/> Remove
+                      </button>
+                    </h5>
+                    
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="col-span-2">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Hazard Category</label>
+                        <select className="w-full border border-slate-300 rounded p-2 text-sm outline-none bg-slate-50"
+                          value={hazard.category} onChange={e => updateHazard(hazard.id, 'category', e.target.value)}>
+                          {HAZARD_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                        </select>
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Hazard Event/Description</label>
+                        <textarea rows="2" className="w-full border border-slate-300 rounded p-2 text-sm outline-none"
+                          value={hazard.description} onChange={e => updateHazard(hazard.id, 'description', e.target.value)} 
+                          placeholder="e.g. Wet floor near sink..."></textarea>
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Possible Effect (Severity)</label>
+                        <input type="text" className="w-full border border-slate-300 rounded p-2 text-sm outline-none"
+                          value={hazard.effect} onChange={e => updateHazard(hazard.id, 'effect', e.target.value)} 
+                          placeholder="e.g. Slip, fall resulting in fracture" />
+                      </div>
+                      <div className="col-span-2">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Existing Risk Controls (If any)</label>
+                        <input type="text" className="w-full border border-slate-300 rounded p-2 text-sm outline-none"
+                          value={hazard.existingControls} onChange={e => updateHazard(hazard.id, 'existingControls', e.target.value)} 
+                          placeholder="e.g. Routine cleaning twice daily" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h5 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">2. Assessment & Control</h5>
+                    <div className="flex space-x-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Likelihood (L)</label>
+                        <select className="w-full border border-slate-300 rounded p-2 text-sm outline-none font-medium"
+                          value={hazard.likelihood} onChange={e => updateHazard(hazard.id, 'likelihood', e.target.value)}>
+                          {LIKELIHOOD_SCALE.map(l => <option key={l.val} value={l.val}>{l.label}</option>)}
+                        </select>
+                      </div>
+                      <div className="flex items-center justify-center pt-4 text-slate-400 font-bold">X</div>
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Severity (S)</label>
+                        <select className="w-full border border-slate-300 rounded p-2 text-sm outline-none font-medium"
+                          value={hazard.severity} onChange={e => updateHazard(hazard.id, 'severity', e.target.value)}>
+                          {SEVERITY_SCALE.map(s => <option key={s.val} value={s.val}>{s.label}</option>)}
+                        </select>
+                      </div>
+                      <div className="flex items-center justify-center pt-4 text-slate-400 font-bold">=</div>
+                      <div className="w-24 flex flex-col items-center justify-center pt-4">
+                         <span className={`text-2xl font-black ${riskInfo.level === 'High' ? 'text-red-600' : riskInfo.level === 'Medium' ? 'text-orange-500' : 'text-green-600'}`}>
+                           {hazard.riskScore}
+                         </span>
+                         <span className="text-[10px] uppercase font-bold text-slate-500">{riskInfo.level}</span>
+                      </div>
+                    </div>
+
+                    <div className="border border-blue-200 bg-blue-50/50 rounded-lg p-3">
+                      <div className="flex justify-between items-center mb-2">
+                        <label className="block text-xs font-bold text-blue-800">Recommended Control Measures</label>
+                        <button 
+                          onClick={() => suggestControls(hazard.id, hazard.category)}
+                          className="text-[10px] bg-blue-600 text-white px-2 py-1 rounded font-medium hover:bg-blue-700 flex items-center shadow-sm"
+                        >
+                          <Zap size={10} className="mr-1" /> Smart Suggest
+                        </button>
+                      </div>
+                      <textarea rows="3" className="w-full border border-blue-200 rounded p-2 text-sm outline-none bg-white focus:border-blue-400"
+                          value={hazard.recommendedControls} onChange={e => updateHazard(hazard.id, 'recommendedControls', e.target.value)} 
+                          placeholder="Describe Hierarchy of Controls to be implemented..."></textarea>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">PIC / Person in Charge</label>
+                        <input type="text" className="w-full border border-slate-300 rounded p-2 text-sm outline-none"
+                          value={hazard.pic} onChange={e => updateHazard(hazard.id, 'pic', e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Target Due Date</label>
+                        <input type="date" className="w-full border border-slate-300 rounded p-2 text-sm outline-none"
+                          value={hazard.dueDate} onChange={e => updateHazard(hazard.id, 'dueDate', e.target.value)} />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-slate-700 mb-1">Status</label>
+                        <select className="w-full border border-slate-300 rounded p-2 text-sm outline-none"
+                          value={hazard.controlStatus} onChange={e => updateHazard(hazard.id, 'controlStatus', e.target.value)}>
+                          <option value="Open">Open</option>
+                          <option value="In Progress">In Progress</option>
+                          <option value="Completed">Completed</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        }
+
+        // --- 4. PRINTABLE VIEW (DOSH TABLE FORMAT) ---
+        function PrintableView({ data, onBack }) {
+          const [isExporting, setIsExporting] = useState(false);
+
+          if (!data) return null;
+
+          const handleExportPDF = () => {
+            setIsExporting(true);
+            const element = document.getElementById('printable-document');
+            
+            const opt = {
+              margin:       10,
+              filename:     `HIRARC_${data.id}.pdf`,
+              image:        { type: 'jpeg', quality: 0.98 },
+              html2canvas:  { scale: 2, useCORS: true },
+              jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+            window.html2pdf().set(opt).from(element).save().then(() => setIsExporting(false));
+          };
+
+          return (
+            <div className="bg-white min-h-screen text-black print-container relative w-full overflow-auto text-sm">
+              <div className="print:hidden p-4 bg-slate-800 text-white flex justify-between items-center sticky top-0 z-50 shadow-md">
+                <p className="text-sm font-medium">Print Preview Mode. Export as PDF or Print directly.</p>
+                <div className="space-x-3 flex items-center">
+                  <button 
+                    onClick={handleExportPDF} 
+                    disabled={isExporting} 
+                    className="bg-emerald-600 px-4 py-2 rounded text-sm font-medium hover:bg-emerald-500 disabled:opacity-50 flex items-center"
+                  >
+                    <Download size={16} className="mr-2" />
+                    {isExporting ? 'Generating PDF...' : 'Export as PDF'}
+                  </button>
+                  <button onClick={() => window.print()} className="bg-blue-600 px-4 py-2 rounded text-sm font-medium hover:bg-blue-500 flex items-center">
+                    <Printer size={16} className="mr-2" /> Print Now
+                  </button>
+                  <button onClick={onBack} className="bg-slate-600 px-4 py-2 rounded text-sm font-medium hover:bg-slate-500">Close</button>
+                </div>
+              </div>
+
+              <div id="printable-document" className="p-8 max-w-[297mm] mx-auto bg-white" style={{ minHeight: '210mm' }}>
+                <div className="text-center border-b-2 border-black pb-4 mb-6">
+                  <h1 className="text-2xl font-bold uppercase tracking-wide">Hazard Identification, Risk Assessment and Risk Control (HIRARC) Form</h1>
+                  <p className="text-sm mt-1">Based on DOSH Malaysia Guidelines 2008</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-x-8 gap-y-2 mb-6 text-sm">
+                  <div className="flex border-b border-gray-300 pb-1"><span className="w-40 font-bold">Company/Hospital:</span> <span>Hospital Umum Sarawak</span></div>
+                  <div className="flex border-b border-gray-300 pb-1"><span className="w-40 font-bold">Assessment Date:</span> <span>{data.date}</span></div>
+                  <div className="flex border-b border-gray-300 pb-1"><span className="w-40 font-bold">Process/Location:</span> <span>{data.department} / {data.unit}</span></div>
+                  <div className="flex border-b border-gray-300 pb-1"><span className="w-40 font-bold">Assessor Name:</span> <span>{data.assessor}</span></div>
+                  <div className="flex border-b border-gray-300 pb-1 col-span-2"><span className="w-40 font-bold shrink-0">Work Activity:</span> <span>{data.activity} - {data.processDesc}</span></div>
+                </div>
+
+                <table className="w-full border-collapse border border-black text-xs">
+                  <thead className="bg-gray-100 font-bold text-center">
+                    <tr>
+                      <th colSpan="3" className="border border-black p-2">1. Hazard Identification</th>
+                      <th colSpan="4" className="border border-black p-2">2. Risk Assessment</th>
+                      <th colSpan="3" className="border border-black p-2">3. Risk Control</th>
+                    </tr>
+                    <tr>
+                      <th className="border border-black p-2 w-8">No</th>
+                      <th className="border border-black p-2 w-48">Hazard</th>
+                      <th className="border border-black p-2 w-48">Which can cause / Effect</th>
+                      <th className="border border-black p-2 w-32">Existing Risk Control</th>
+                      <th className="border border-black p-2 w-8" title="Likelihood">L</th>
+                      <th className="border border-black p-2 w-8" title="Severity">S</th>
+                      <th className="border border-black p-2 w-16">Risk</th>
+                      <th className="border border-black p-2">Recommended Control Measures</th>
+                      <th className="border border-black p-2 w-24">PIC</th>
+                      <th className="border border-black p-2 w-20">Due Date</th>
+                    </tr>
+                  </thead>
+                  <tbody className="align-top">
+                    {data.hazards.length === 0 && (
+                      <tr><td colSpan="10" className="border border-black p-4 text-center italic text-gray-500">No hazards documented.</td></tr>
+                    )}
+                    {data.hazards.map((h, i) => (
+                      <tr key={h.id}>
+                        <td className="border border-black p-2 text-center">{i + 1}</td>
+                        <td className="border border-black p-2">{h.description}<br/><span className="text-[10px] italic text-gray-600">({h.category})</span></td>
+                        <td className="border border-black p-2">{h.effect}</td>
+                        <td className="border border-black p-2">{h.existingControls || 'None'}</td>
+                        <td className="border border-black p-2 text-center font-bold">{h.likelihood}</td>
+                        <td className="border border-black p-2 text-center font-bold">{h.severity}</td>
+                        <td className="border border-black p-2 text-center">
+                          <div className="font-bold">{h.riskScore}</div>
+                          <div className={`text-[10px] font-bold uppercase mt-1 ${h.riskLevel === 'High' ? 'text-black' : ''}`}>
+                            {h.riskLevel}
+                          </div>
+                        </td>
+                        <td className="border border-black p-2 whitespace-pre-wrap">{h.recommendedControls}</td>
+                        <td className="border border-black p-2 text-center">{h.pic}</td>
+                        <td className="border border-black p-2 text-center">{h.dueDate}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <div className="mt-12 grid grid-cols-2 gap-12">
+                  <div>
+                    <p className="font-bold mb-8">Prepared by (Assessor/PIC):</p>
+                    <div className="border-b border-black w-full mb-2"></div>
+                    <p>Name: {data.assessor}</p>
+                    <p>Date: {data.date}</p>
+                  </div>
+                  <div>
+                    <p className="font-bold mb-8">Reviewed & Approved by (Head/Manager):</p>
+                    <div className="border-b border-black w-full mb-2"></div>
+                    <p>Name: _______________________</p>
+                    <p>Date: _______________________</p>
+                  </div>
+                </div>
+              </div>
+              <style dangerouslySetInnerHTML={{__html: `
+                @media print {
+                  body * { visibility: hidden; }
+                  .print-container, .print-container * { visibility: visible; }
+                  .print-container { position: absolute; left: 0; top: 0; width: 100%; margin: 0; padding: 0; box-shadow: none; background: white;}
+                  .print\\:hidden { display: none !important; }
+                  @page { size: landscape; margin: 10mm; }
+                }
+              `}} />
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
