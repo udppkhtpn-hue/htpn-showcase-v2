@@ -90,6 +90,11 @@ URL: https://htpn-showcase-v2.vercel.app/projects/incident-form
 Web-based AI editor that uses Gemini OCR to read and unlock text inside NotebookLM AI-generated slide deck PDFs — allowing edits directly in the browser. Free to use.
 URL: https://htpn-showcase-v2.vercel.app/projects/pdf-editor
 
+**Sistem eBooking — Institutional Resource & Room Scheduler**
+A centralized self-service room booking and scheduling platform for Hospital Pulau Pinang. Replaces paper logbooks with a 3-layer system: Staff Dashboard (live color-coded availability, self-service booking), Interactive Calendar (Month/Week/Day views, per-room filtering, 7 bookable venues), and Admin Panel (approval queue, conflict prevention, usage history). Platform algorithm eliminates double-bookings at point of entry. IC-based audit trail for all reservations.
+Built by: Jabatan Teknologi Maklumat (IT Department) Hospital Pulau Pinang
+URL: https://htpn-showcase-v2.vercel.app/projects/sistem-ebooking
+
 **HPP OSH-Alert — Automated NADOPOD Incident Reporting App**
 A mobile-first NADOPOD incident reporting and tracking engine for Hospital Pulau Pinang under OSH Act 1994. Dual-portal system: Mod Staf (field reporting with compliance timeline banners, single-tap incident entry, live shift counter) and Mod Admin (case logs, instant .docx generation, direct WhatsApp supervisor alerts, Google Sheets integration). Covers needlestick injuries, hazardous exposures, and occupational disease notifications with 24h and 48h deadline compliance tracking.
 Built by: Jabatan Perubatan Dan Kesihatan Pekerjaan & Unit OSH Hospital Pulau Pinang

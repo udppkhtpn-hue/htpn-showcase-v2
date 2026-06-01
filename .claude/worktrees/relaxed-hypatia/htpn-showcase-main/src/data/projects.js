@@ -366,6 +366,20 @@ export const projects = [
     accent: '#fb923c',
     detailPath: '/projects/hpp-osh-alert',
   },
+  {
+    num: '#27',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '🗓️',
+    iconType: 'emoji',
+    title: 'Sistem eBooking — Institutional Resource & Room Scheduler',
+    desc: 'A centralized, self-service room booking and scheduling platform for Hospital Pulau Pinang — replacing manual logbooks with live availability tracking, instant conflict checks, and administrative scheduling controls.',
+    credit: { by: 'Jabatan Teknologi Maklumat (IT Department) Hospital Pulau Pinang' },
+    tags: ['Facility Logistics', 'Real-Time Calendar Sync', 'Multi-Room Allocation'],
+    accent: '#06b6d4',
+    detailPath: '/projects/sistem-ebooking',
+  },
 ];
 
 export const kivItems = [

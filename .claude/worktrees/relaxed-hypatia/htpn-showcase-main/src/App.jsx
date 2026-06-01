@@ -28,6 +28,7 @@ import ProjectHirarcPortal from './pages/ProjectHirarcPortal'
 import ProjectPhlebotomyBooking from './pages/ProjectPhlebotomyBooking'
 import ProjectPhysioMeasurePro from './pages/ProjectPhysioMeasurePro'
 import ProjectHppOshAlert from './pages/ProjectHppOshAlert'
+import ProjectSistemEbooking from './pages/ProjectSistemEbooking'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -76,6 +77,7 @@ export default function App() {
         <Route path="/projects/phlebotomy-booking" element={<ProjectPhlebotomyBooking />} />
         <Route path="/projects/physio-measure-pro" element={<ProjectPhysioMeasurePro />} />
         <Route path="/projects/hpp-osh-alert" element={<ProjectHppOshAlert />} />
+        <Route path="/projects/sistem-ebooking" element={<ProjectSistemEbooking />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />
