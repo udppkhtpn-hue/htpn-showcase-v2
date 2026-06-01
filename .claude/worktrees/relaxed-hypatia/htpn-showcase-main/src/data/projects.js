@@ -254,6 +254,20 @@ export const projects = [
     accent: '#00e5a0',
     href: '/project-showcase-website.html',
   },
+  {
+    num: '#19',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '📋',
+    iconType: 'emoji',
+    title: 'Sistem E-Kehadiran Kursus — Digital Training Log',
+    desc: 'A centralized, paperless attendance registration and analytics portal for hospital staff training — replacing fragmented manual logs with instant IC validation, automatic age calculation, and an administrative tracking dashboard.',
+    credit: { by: 'Unit Pengurusan & JPPOBG', dept: 'Jabatan Pentadbiran HTPN' },
+    tags: ['HR', 'Training', 'Bilingual'],
+    accent: '#f59e0b',
+    detailPath: '/projects/e-kehadiran',
+  },
 ];
 
 export const kivItems = [

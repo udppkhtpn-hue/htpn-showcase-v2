@@ -90,6 +90,11 @@ URL: https://htpn-showcase-v2.vercel.app/projects/incident-form
 Web-based AI editor that uses Gemini OCR to read and unlock text inside NotebookLM AI-generated slide deck PDFs — allowing edits directly in the browser. Free to use.
 URL: https://htpn-showcase-v2.vercel.app/projects/pdf-editor
 
+**Sistem E-Kehadiran Kursus — Digital Training Log**
+A centralized, paperless attendance registration and analytics portal for hospital staff training — replacing fragmented manual logs with instant IC validation, automatic age calculation, and a role-based administrative tracking dashboard. Features QR code-based registration, bilingual interface, and one-click CSV export for KKM compliance audits.
+Built by: Unit Pengurusan & JPPOBG, Jabatan Pentadbiran HTPN
+URL: https://htpn-showcase-v2.vercel.app/projects/e-kehadiran
+
 ---
 
 ## Pipeline Projects (In Development)
