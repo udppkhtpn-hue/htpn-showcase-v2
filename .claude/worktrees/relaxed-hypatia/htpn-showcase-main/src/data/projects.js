@@ -325,7 +325,7 @@ export const projects = [
     detailPath: '/projects/hirarc-portal',
   },
   {
-    num: '#24',
+    num: '#10',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -339,7 +339,7 @@ export const projects = [
     detailPath: '/projects/phlebotomy-booking',
   },
   {
-    num: '#25',
+    num: '#11',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -353,7 +353,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#26',
+    num: '#24',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -367,7 +367,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#27',
+    num: '#25',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',

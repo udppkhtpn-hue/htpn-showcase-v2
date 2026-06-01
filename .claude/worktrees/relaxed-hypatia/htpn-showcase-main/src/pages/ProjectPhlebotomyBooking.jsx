@@ -32,7 +32,7 @@ export default function ProjectPhlebotomyBooking() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Hospital Marudi Phlebotomy Appointment System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#24 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#10 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">
