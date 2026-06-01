@@ -8,6 +8,7 @@ import '../styles/detail.css'
 import '../styles/project-rich.css'
 
 const ACCENT = '#818cf8'
+const DEMO_URL = 'https://mentalscreening.vercel.app/'
 
 export default function ProjectMentalWellbeing() {
   const navigate = useNavigate()
@@ -43,6 +44,20 @@ export default function ProjectMentalWellbeing() {
         <p className="detail-subtitle">
           A high-frequency, 100% anonymous mental wellness pulse tool developed for the Occupational Safety and Health Unit (UKKP) — replacing reactive, once-a-year mental health screenings with proactive, monthly departmental morale tracking to catch clinical burnout early.
         </p>
+
+        <div className="detail-block">
+          <div className="detail-block__cta">
+            <a
+              href={DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="detail-demo-btn"
+              style={{ background: ACCENT, color: '#0a0a0a' }}
+            >
+              Open Demo →
+            </a>
+          </div>
+        </div>
 
         <div className="detail-block">
           <div className="spec-cards">

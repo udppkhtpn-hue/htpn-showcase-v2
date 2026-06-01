@@ -8,6 +8,7 @@ import '../styles/detail.css'
 import '../styles/project-rich.css'
 
 const ACCENT = '#f59e0b'
+const DEMO_URL = 'https://script.google.com/macros/s/AKfycbxpfW3CSF9Si5Jt-8mawGjydZJwpwrUgkh33qUDecd9YsqzPG3ibKfjA34plgaP7kGnYg/exec'
 
 export default function ProjectEKehadiran() {
   const navigate = useNavigate()
@@ -43,6 +44,20 @@ export default function ProjectEKehadiran() {
         <p className="detail-subtitle">
           A centralized, paperless attendance registration and analytics portal for hospital staff training — replacing fragmented manual logs with instant IC validation, automatic age calculation, and an administrative tracking dashboard.
         </p>
+
+        <div className="detail-block">
+          <div className="detail-block__cta">
+            <a
+              href={DEMO_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="detail-demo-btn"
+              style={{ background: ACCENT, color: '#0a0a0a' }}
+            >
+              Open Demo →
+            </a>
+          </div>
+        </div>
 
         <div className="detail-block">
           <div className="spec-cards">
