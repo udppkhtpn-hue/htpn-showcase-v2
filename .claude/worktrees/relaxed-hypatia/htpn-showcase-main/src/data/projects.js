@@ -347,7 +347,7 @@ export const projects = [
     iconType: 'emoji',
     title: 'PhysioMeasurePro — Automated Outcome Measure Engine',
     desc: 'An advanced clinical calculator and reporting engine for physical therapists — automating multi-disciplinary outcome metrics (BBS, SCIM, ODI) to instantly generate KKM-compliant diagnostic lists and localized rehabilitation plans.',
-    credit: { by: 'Jabatan Kesihatan Negeri Sarawak' },
+    credit: { by: 'Hospital Aman Sarawak' },
     tags: ['Physiotherapy & Rehabilitation', 'Clinical Decision Support', 'AI Treatment Mapping'],
     accent: '#a78bfa',
     detailPath: '/projects/physio-measure-pro',
