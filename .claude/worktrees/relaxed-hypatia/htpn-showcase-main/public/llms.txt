@@ -97,7 +97,7 @@ URL: https://htpn-showcase-v2.vercel.app/projects/e-kehadiran
 
 **PhysioMeasurePro — Automated Outcome Measure Engine**
 An advanced clinical calculator and KKM-compliant reporting engine for physical therapists at HTPN. Covers 3 domains: Neurological (BBS, SCIM, MoCA, NIH Stroke Scale, Tinetti), Musculoskeletal (ODI, NDI, PSFS, FABQ, NPRS), and Cardiopulmonary (6MWT, 2MWT, Borg, mMRC, ISWT, ICU Mobility Scale). Instant automated risk categorization, auto-generated clinical problem lists, and suggested treatment plans. One-click KKM-compliant print-ready PDF. Receiving outstanding user feedback from physiotherapists.
-Built by: Jabatan Fisioterapi & Pemulihan Kesihatan HTPN
+Built by: Jabatan Kesihatan Negeri Sarawak
 URL: https://htpn-showcase-v2.vercel.app/projects/physio-measure-pro
 
 **Hospital Marudi Phlebotomy Appointment System — Blood Sampling Engine**
