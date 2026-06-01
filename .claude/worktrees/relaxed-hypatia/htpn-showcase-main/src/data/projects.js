@@ -319,7 +319,7 @@ export const projects = [
     iconType: 'emoji',
     title: 'MOH HIRARC Portal — Digital Occupational Safety & Health Ledger',
     desc: 'A cloud-based workplace risk assessment engine aligned with the OSH Act 1994 and DOSH 2008 guidelines — replacing static Excel logs with dynamic risk score calculations, automated review alerts, and print-ready regulatory safety sheets.',
-    credit: { by: 'Unit Keselamatan & Kesihatan Pekerjaan (UKKP) Hospital Umum Sarawak' },
+    credit: { by: 'Hospital Mukah Sarawak' },
     tags: ['DOSH 2008 Standard', 'Risk Matrix Automation', 'Compliance Auditing'],
     accent: '#84cc16',
     detailPath: '/projects/hirarc-portal',

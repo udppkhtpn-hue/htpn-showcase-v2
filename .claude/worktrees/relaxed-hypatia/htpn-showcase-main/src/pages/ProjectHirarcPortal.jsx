@@ -215,7 +215,7 @@ export default function ProjectHirarcPortal() {
         <div className="detail-block">
           <div className="prd-credit-box">
             <span className="prd-credit-box__label">Developed By</span>
-            <span className="prd-credit-box__value">Unit Keselamatan & Kesihatan Pekerjaan (UKKP) · Hospital Umum Sarawak</span>
+            <span className="prd-credit-box__value">Hospital Mukah Sarawak</span>
           </div>
         </div>
 

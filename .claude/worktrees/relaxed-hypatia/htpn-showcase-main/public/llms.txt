@@ -107,7 +107,7 @@ URL: https://htpn-showcase-v2.vercel.app/projects/phlebotomy-booking
 
 **MOH HIRARC Portal — Digital Occupational Safety & Health Ledger**
 A cloud-based workplace risk assessment engine aligned with OSH Act 1994 and DOSH 2008 guidelines. Replaces static Excel HIRARC logs with a 3-step compliance pipeline: Basic Information Intake, Hazard Identification with automated Likelihood × Severity risk scoring (color-coded Low/Medium/High thresholds), and Executive Summary with auto-calculated 12-month review dates. Features live dashboard alerts for HIGH-risk hazards, one-click CSV and print-ready PDF export for DOSH inspections.
-Built by: Unit Keselamatan & Kesihatan Pekerjaan (UKKP) Hospital Umum Sarawak
+Built by: Hospital Mukah Sarawak
 URL: https://htpn-showcase-v2.vercel.app/projects/hirarc-portal
 
 **MEDEVAC E-Request Portal — Airborne Emergency Logistics Engine**
