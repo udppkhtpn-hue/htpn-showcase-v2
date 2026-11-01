@@ -32,7 +32,7 @@ export default function ProjectKempenDermaDarah() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Kempen Derma Darah</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#30 · Patient's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#04 · Patient's Journey</p>
         </div>
 
         <div className="detail-meta">

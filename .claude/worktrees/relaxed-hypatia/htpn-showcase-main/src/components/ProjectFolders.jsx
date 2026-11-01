@@ -6,8 +6,6 @@ import ScrollRevealText from './ScrollRevealText'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const PEEK = 100   // px of each buried card that peeks above the next
-
 const CATEGORIES = [
   {
     key: 'patient',
@@ -121,123 +119,89 @@ function CategoryStats({ projects }) {
   )
 }
 
-/* Single card — rendered inside the pinned track */
-function StackCard({ project, accent, categoryLabel, navigate }) {
+/* Single project card */
+function ProjectCard({ project, accent, categoryLabel, navigate }) {
   const numDisplay = project.num.replace(/^#/, '')
   const creditStr = formatCredit(project.credit)
   return (
-    <div className="stack-card" style={{ '--accent': accent }}>
-
-      <div className="stack-card__header">
-        <div className="stack-card__header-meta">
-          <span className="stack-card__num">{numDisplay}</span>
-          {project.status === 'live' && <span className="stack-card__live">LIVE</span>}
-          {project.status === 'demo' && <span className="stack-card__demo">⚗ Demo</span>}
-        </div>
-        {project.badges?.length > 0 && (
-          <div className="stack-card__badges">
-            {project.badges.map(b => <span key={b} className="stack-card__badge-extra">{b}</span>)}
-          </div>
-        )}
-        <h2 className="stack-card__title">{project.title}</h2>
-        <span className="stack-card__cat-label">{categoryLabel}</span>
-        {project.tags?.length > 0 && (
-          <div className="stack-card__tags">
-            {project.tags.map(t => <span key={t} className="stack-card__tag">{t}</span>)}
-          </div>
-        )}
+    <article className="pcard" style={{ '--accent': accent }}>
+      <div className="pcard__top">
+        <span className="pcard__num">{numDisplay}</span>
+        {project.status === 'live' && <span className="pcard__live">LIVE</span>}
+        {project.status === 'demo' && <span className="pcard__demo">⚗ Demo</span>}
       </div>
 
-      <hr className="stack-card__divider" />
+      <h3 className="pcard__title">{project.title}</h3>
+      <span className="pcard__cat">{categoryLabel}</span>
 
-      <div className="stack-card__content">
-        <p className="stack-card__desc">{project.desc}</p>
-        <div className="stack-card__visual">
-          {project.iconType === 'image' && project.icon
-            ? <img src={project.icon} alt="" className="stack-card__icon-img" />
-            : <span className="stack-card__icon-emoji">{project.icon}</span>
-          }
+      {project.tags?.length > 0 && (
+        <div className="pcard__tags">
+          {project.tags.slice(0, 3).map(t => <span key={t} className="pcard__tag">{t}</span>)}
         </div>
-        <div className="stack-card__footer">
-          {creditStr && <p className="stack-card__credit">{creditStr}</p>}
-          {project.detailPath && (
-            <button className="stack-card__btn" onClick={() => navigate(project.detailPath)}>
-              View Project →
-            </button>
-          )}
-          {project.href && (
-            <a href={project.href} target="_blank" rel="noopener noreferrer" className="stack-card__btn">
-              View Project →
-            </a>
-          )}
+      )}
+
+      <hr className="pcard__divider" />
+
+      <p className="pcard__desc">{project.desc}</p>
+
+      <div className="pcard__footer">
+        {creditStr && <p className="pcard__credit">{creditStr}</p>}
+        {project.detailPath && (
+          <button className="pcard__btn" onClick={() => navigate(project.detailPath)}>
+            View Project →
+          </button>
+        )}
+        {project.href && (
+          <a href={project.href} target="_blank" rel="noopener noreferrer" className="pcard__btn">
+            View Project →
+          </a>
+        )}
+      </div>
+    </article>
+  )
+}
+
+/* One horizontally scrollable row of cards */
+function CardRow({ items, accent, label, rowNo, rowCount }) {
+  const trackRef = useRef(null)
+  const navigate = useNavigate()
+
+  const scrollBy = (dir) => {
+    const el = trackRef.current
+    if (!el) return
+    const card = el.querySelector('.pcard')
+    const step = card ? card.getBoundingClientRect().width + 20 : 340
+    el.scrollBy({ left: dir * step * 2, behavior: 'smooth' })
+  }
+
+  return (
+    <div className="hrow" style={{ '--accent': accent }}>
+      <div className="hrow__head">
+        <span className="hrow__label">
+          {rowCount > 1 ? `Row ${rowNo} · ` : ''}{items.length} {items.length === 1 ? 'project' : 'projects'}
+        </span>
+        <div className="hrow__arrows">
+          <button type="button" className="hrow__arrow" aria-label="Scroll left" onClick={() => scrollBy(-1)}>←</button>
+          <button type="button" className="hrow__arrow" aria-label="Scroll right" onClick={() => scrollBy(1)}>→</button>
         </div>
       </div>
-
+      <div ref={trackRef} className="hrow__track">
+        {items.map(p => (
+          <ProjectCard key={p.num} project={p} accent={accent} categoryLabel={label} navigate={navigate} />
+        ))}
+      </div>
     </div>
   )
 }
 
-/* Pinned group — GSAP drives each card rising and covering */
-function StackGroup({ group, accent, label }) {
-  const trackRef = useRef(null)
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const el = trackRef.current
-    if (!el) return
-
-    const ctx = gsap.context(() => {
-      const cards = Array.from(el.querySelectorAll(':scope > .stack-card'))
-      const N = cards.length
-      if (N < 2) return
-
-      const vh = window.innerHeight
-      /* Read the fixed navbar height so the pin starts just below it */
-      const navEl = document.querySelector('nav, header, .site-header, .navbar')
-      const navH = navEl ? Math.round(navEl.getBoundingClientRect().height) : 0
-
-      /* z-order: last card on top */
-      cards.forEach((c, i) => gsap.set(c, { zIndex: i + 1 }))
-
-      /* Cards 1..N-1 start below the viewport */
-      for (let i = 1; i < N; i++) {
-        gsap.set(cards[i], { y: vh })
-      }
-
-      /* Timeline: new card rises to PEEK; previous card slides to y=0 (fully buried).
-         Only ONE card peeks at the top at any time — works for any N. */
-      const tl = gsap.timeline({ paused: true })
-      for (let i = 1; i < N; i++) {
-        tl.to(cards[i], { y: PEEK, ease: 'none', duration: 1 }, i - 1)
-        if (i >= 2) {
-          tl.to(cards[i - 1], { y: 0, ease: 'none', duration: 1 }, i - 1)
-        }
-      }
-
-      /* Pin the track just below the navbar, scrub through the full stack */
-      ScrollTrigger.create({
-        trigger: el,
-        start: `top ${navH}px`,
-        end: `+=${(N - 1) * vh}`,
-        pin: true,
-        scrub: true,
-        animation: tl,
-      })
-    }, el)
-
-    return () => ctx.revert()
-  }, [group.length])
-
+/* Split a category into rows (rowSize cards each); small categories stay on one row */
+function CardRows({ group, accent, label, rowSize }) {
+  const rows = []
+  for (let i = 0; i < group.length; i += rowSize) rows.push(group.slice(i, i + rowSize))
   return (
-    <div ref={trackRef} className="stack-cards-track">
-      {group.map((p) => (
-        <StackCard
-          key={p.num}
-          project={p}
-          accent={accent}
-          categoryLabel={label}
-          navigate={navigate}
-        />
+    <div className="hrows">
+      {rows.map((items, i) => (
+        <CardRow key={items[0].num} items={items} accent={accent} label={label} rowNo={i + 1} rowCount={rows.length} />
       ))}
     </div>
   )
@@ -276,7 +240,7 @@ export default function ProjectFolders({ projects }) {
                 <ScrollRevealText text={prose} className="folders-group__prose" />
               </div>
             </div>
-            <StackGroup group={group} accent={accent} label={label} />
+            <CardRows group={group} accent={accent} label={label} rowSize={key === 'management' ? 5 : Infinity} />
           </div>
         )
       })}

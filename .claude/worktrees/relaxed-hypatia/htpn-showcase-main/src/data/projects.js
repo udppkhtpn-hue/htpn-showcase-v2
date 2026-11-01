@@ -43,7 +43,7 @@ export const projects = [
     detailPath: '/projects/fetal-kick-chart',
   },
   {
-    num: '#04',
+    num: '#05',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -58,7 +58,7 @@ export const projects = [
   },
   // ── Doctor's Journey (#05–#09) ────────────────────
   {
-    num: '#05',
+    num: '#06',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -72,7 +72,7 @@ export const projects = [
     detailPath: '/projects/ot-scheduling',
   },
   {
-    num: '#06',
+    num: '#07',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -86,7 +86,7 @@ export const projects = [
     detailPath: '/projects/gynae-census',
   },
   {
-    num: '#07',
+    num: '#08',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -100,7 +100,7 @@ export const projects = [
     detailPath: '/projects/ebl-estimator',
   },
   {
-    num: '#08',
+    num: '#09',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -114,7 +114,7 @@ export const projects = [
     detailPath: '/projects/therapy-ai',
   },
   {
-    num: '#09',
+    num: '#10',
     status: 'demo',
     badges: ['Research Prototype', '🔒 HITL Required'],
     category: 'doctor',
@@ -130,7 +130,7 @@ export const projects = [
   },
   // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#12',
+    num: '#13',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -144,7 +144,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#13',
+    num: '#14',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -159,7 +159,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#14',
+    num: '#15',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -173,7 +173,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#15',
+    num: '#16',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -187,7 +187,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#16',
+    num: '#17',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -201,7 +201,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#17',
+    num: '#18',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#18',
+    num: '#19',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -227,7 +227,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#19',
+    num: '#20',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -241,7 +241,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#20',
+    num: '#21',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -255,7 +255,7 @@ export const projects = [
     href: '/project-showcase-website.html',
   },
   {
-    num: '#21',
+    num: '#22',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -269,7 +269,7 @@ export const projects = [
     detailPath: '/projects/e-kehadiran',
   },
   {
-    num: '#22',
+    num: '#23',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -283,7 +283,7 @@ export const projects = [
     detailPath: '/projects/mental-wellbeing',
   },
   {
-    num: '#23',
+    num: '#24',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -297,7 +297,7 @@ export const projects = [
     detailPath: '/projects/medmove-pro',
   },
   {
-    num: '#24',
+    num: '#25',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -311,7 +311,7 @@ export const projects = [
     detailPath: '/projects/medevac-portal',
   },
   {
-    num: '#25',
+    num: '#26',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -325,7 +325,7 @@ export const projects = [
     detailPath: '/projects/hirarc-portal',
   },
   {
-    num: '#10',
+    num: '#11',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -339,7 +339,7 @@ export const projects = [
     detailPath: '/projects/phlebotomy-booking',
   },
   {
-    num: '#11',
+    num: '#12',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -353,7 +353,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#26',
+    num: '#27',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -367,7 +367,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#27',
+    num: '#28',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -381,7 +381,7 @@ export const projects = [
     detailPath: '/projects/sistem-ebooking',
   },
   {
-    num: '#28',
+    num: '#29',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -395,7 +395,7 @@ export const projects = [
     detailPath: '/projects/pharmacy-logistic-jasmin',
   },
   {
-    num: '#29',
+    num: '#30',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -409,7 +409,7 @@ export const projects = [
     detailPath: '/projects/psikiatri-hpd',
   },
   {
-    num: '#30',
+    num: '#04',
     status: 'live',
     category: 'patient',
     categoryLabel: "Patient's Journey",
