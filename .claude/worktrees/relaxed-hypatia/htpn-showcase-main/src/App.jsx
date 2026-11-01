@@ -33,6 +33,8 @@ import ProjectPharmacyLogisticJasmin from './pages/ProjectPharmacyLogisticJasmin
 import ProjectPsikiatriHPD from './pages/ProjectPsikiatriHPD'
 import ProjectKempenDermaDarah from './pages/ProjectKempenDermaDarah'
 import ProjectOTLeaveRegister from './pages/ProjectOTLeaveRegister'
+import ProjectAduanHPD from './pages/ProjectAduanHPD'
+import ProjectVehicleBookingHPD from './pages/ProjectVehicleBookingHPD'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -86,6 +88,8 @@ export default function App() {
         <Route path="/projects/psikiatri-hpd" element={<ProjectPsikiatriHPD />} />
         <Route path="/projects/kempen-derma-darah" element={<ProjectKempenDermaDarah />} />
         <Route path="/projects/ot-leave-register" element={<ProjectOTLeaveRegister />} />
+        <Route path="/projects/aduan-hpd" element={<ProjectAduanHPD />} />
+        <Route path="/projects/vehicle-booking-hpd" element={<ProjectVehicleBookingHPD />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />
