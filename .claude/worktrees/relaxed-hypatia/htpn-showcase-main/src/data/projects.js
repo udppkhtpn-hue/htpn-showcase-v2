@@ -618,6 +618,20 @@ export const projects = [
     accent: '#93c5fd',
     detailPath: '/projects/patholab-pro',
   },
+  {
+    num: '#45',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '🚨',
+    iconType: 'emoji',
+    title: 'SJAM KPW Dispatch & Analytics — Pre-Hospital Care Database',
+    desc: 'An ambulance dispatch and handover system for St. John Ambulance — live fleet analytics, a touch-optimised booking form with GPS lock and vitals steppers, a transfer queue, and structured SBAR summaries.',
+    credit: { by: 'St. John Ambulance of Malaysia · Wilayah Persekutuan Pre-Hospital Care & Dispatch Division' },
+    tags: ['Ambulance Dispatch', 'Fleet Analytics', 'SBAR Handover'],
+    accent: '#fbbf24',
+    detailPath: '/projects/sjam-dispatch',
+  },
 ];
 
 export const kivItems = [
