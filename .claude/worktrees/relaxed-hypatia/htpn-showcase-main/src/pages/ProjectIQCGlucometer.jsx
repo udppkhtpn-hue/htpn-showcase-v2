@@ -32,7 +32,7 @@ export default function ProjectIQCGlucometer() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">IQC Glucometer POCT — Kawalan Kualiti Dalaman Harian</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#39 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#42 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

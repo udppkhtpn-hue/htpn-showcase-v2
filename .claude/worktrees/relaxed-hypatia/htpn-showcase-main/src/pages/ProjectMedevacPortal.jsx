@@ -32,7 +32,7 @@ export default function ProjectMedevacPortal() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MEDEVAC E-Request Portal</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#28 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#31 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

@@ -41,6 +41,11 @@ import ProjectELampiranD from './pages/ProjectELampiranD'
 import ProjectNursingCensus from './pages/ProjectNursingCensus'
 import ProjectMaternalAssessment from './pages/ProjectMaternalAssessment'
 import ProjectIQCGlucometer from './pages/ProjectIQCGlucometer'
+import ProjectPocketNurse from './pages/ProjectPocketNurse'
+import ProjectMedPulseMAR from './pages/ProjectMedPulseMAR'
+import ProjectTBIS from './pages/ProjectTBIS'
+import ProjectDutyRotator from './pages/ProjectDutyRotator'
+import ProjectPathoLabPro from './pages/ProjectPathoLabPro'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -102,6 +107,11 @@ export default function App() {
         <Route path="/projects/nursing-census" element={<ProjectNursingCensus />} />
         <Route path="/projects/maternal-assessment" element={<ProjectMaternalAssessment />} />
         <Route path="/projects/iqc-glucometer" element={<ProjectIQCGlucometer />} />
+        <Route path="/projects/pocket-nurse" element={<ProjectPocketNurse />} />
+        <Route path="/projects/medpulse-mar" element={<ProjectMedPulseMAR />} />
+        <Route path="/projects/tbis-10a1" element={<ProjectTBIS />} />
+        <Route path="/projects/duty-rotator" element={<ProjectDutyRotator />} />
+        <Route path="/projects/patholab-pro" element={<ProjectPathoLabPro />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

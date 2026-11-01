@@ -36,7 +36,7 @@ export default function ProjectAduanHPD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Aduan HPD</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#35 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#38 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">
