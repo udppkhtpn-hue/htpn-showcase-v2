@@ -32,7 +32,7 @@ export default function ProjectMedPulseMAR() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MedPulse MAR — Medication Administration Record &amp; Dual-Sign Safety System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#19 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#21 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">

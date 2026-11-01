@@ -50,6 +50,8 @@ import ProjectSJAMDispatch from './pages/ProjectSJAMDispatch'
 import ProjectKlinikDiabetes from './pages/ProjectKlinikDiabetes'
 import ProjectMemoryClinic from './pages/ProjectMemoryClinic'
 import ProjectIMDutyPlanner from './pages/ProjectIMDutyPlanner'
+import ProjectKlinikReumatologi from './pages/ProjectKlinikReumatologi'
+import ProjectCardioFlow from './pages/ProjectCardioFlow'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -120,6 +122,8 @@ export default function App() {
         <Route path="/projects/klinik-diabetes-pintar" element={<ProjectKlinikDiabetes />} />
         <Route path="/projects/memory-clinic" element={<ProjectMemoryClinic />} />
         <Route path="/projects/im-duty-planner" element={<ProjectIMDutyPlanner />} />
+        <Route path="/projects/klinik-reumatologi" element={<ProjectKlinikReumatologi />} />
+        <Route path="/projects/cardioflow" element={<ProjectCardioFlow />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

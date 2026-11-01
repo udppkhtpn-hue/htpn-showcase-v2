@@ -32,7 +32,7 @@ export default function ProjectDutyRotator() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Duty Rotator — Medical Officer On-Call Roster &amp; Conflict Scheduler</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#45 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#47 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

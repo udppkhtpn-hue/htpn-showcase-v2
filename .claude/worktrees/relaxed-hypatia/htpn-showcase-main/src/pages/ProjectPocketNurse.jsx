@@ -32,7 +32,7 @@ export default function ProjectPocketNurse() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Pocket Nurse — Clinical Dilution, Infusion &amp; Antidote Decision Support</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#18 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#20 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">

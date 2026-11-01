@@ -23,7 +23,7 @@ export default function ProjectTherapyAI() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--pipeline">RESEARCH DEMO</span>
           <h1 className="detail-title">TherapyAI</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#12 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#14 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">

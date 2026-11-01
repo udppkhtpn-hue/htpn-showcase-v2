@@ -43,7 +43,7 @@ export const projects = [
     detailPath: '/projects/fetal-kick-chart',
   },
   {
-    num: '#08',
+    num: '#10',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -58,7 +58,7 @@ export const projects = [
   },
   // ── Doctor's Journey (#05–#09) ────────────────────
   {
-    num: '#09',
+    num: '#11',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -72,7 +72,7 @@ export const projects = [
     detailPath: '/projects/ot-scheduling',
   },
   {
-    num: '#10',
+    num: '#12',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -86,7 +86,7 @@ export const projects = [
     detailPath: '/projects/gynae-census',
   },
   {
-    num: '#11',
+    num: '#13',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -100,7 +100,7 @@ export const projects = [
     detailPath: '/projects/ebl-estimator',
   },
   {
-    num: '#12',
+    num: '#14',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -114,7 +114,7 @@ export const projects = [
     detailPath: '/projects/therapy-ai',
   },
   {
-    num: '#13',
+    num: '#15',
     status: 'demo',
     badges: ['Research Prototype', '🔒 HITL Required'],
     category: 'doctor',
@@ -130,7 +130,7 @@ export const projects = [
   },
   // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#21',
+    num: '#23',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -144,7 +144,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#22',
+    num: '#24',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -159,7 +159,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#23',
+    num: '#25',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -173,7 +173,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#24',
+    num: '#26',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -187,7 +187,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#25',
+    num: '#27',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -201,7 +201,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#26',
+    num: '#28',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#27',
+    num: '#29',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -227,7 +227,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#28',
+    num: '#30',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -241,7 +241,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#29',
+    num: '#31',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -255,7 +255,7 @@ export const projects = [
     href: '/project-showcase-website.html',
   },
   {
-    num: '#30',
+    num: '#32',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -269,7 +269,7 @@ export const projects = [
     detailPath: '/projects/e-kehadiran',
   },
   {
-    num: '#31',
+    num: '#33',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -283,7 +283,7 @@ export const projects = [
     detailPath: '/projects/mental-wellbeing',
   },
   {
-    num: '#32',
+    num: '#34',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -297,7 +297,7 @@ export const projects = [
     detailPath: '/projects/medmove-pro',
   },
   {
-    num: '#33',
+    num: '#35',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -311,7 +311,7 @@ export const projects = [
     detailPath: '/projects/medevac-portal',
   },
   {
-    num: '#34',
+    num: '#36',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -325,7 +325,7 @@ export const projects = [
     detailPath: '/projects/hirarc-portal',
   },
   {
-    num: '#14',
+    num: '#16',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -339,7 +339,7 @@ export const projects = [
     detailPath: '/projects/phlebotomy-booking',
   },
   {
-    num: '#15',
+    num: '#17',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -353,7 +353,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#35',
+    num: '#37',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -367,7 +367,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#36',
+    num: '#38',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -381,7 +381,7 @@ export const projects = [
     detailPath: '/projects/sistem-ebooking',
   },
   {
-    num: '#37',
+    num: '#39',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -395,7 +395,7 @@ export const projects = [
     detailPath: '/projects/pharmacy-logistic-jasmin',
   },
   {
-    num: '#38',
+    num: '#40',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -423,7 +423,7 @@ export const projects = [
     detailPath: '/projects/kempen-derma-darah',
   },
   {
-    num: '#39',
+    num: '#41',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -437,7 +437,7 @@ export const projects = [
     detailPath: '/projects/ot-leave-register',
   },
   {
-    num: '#40',
+    num: '#42',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -451,7 +451,7 @@ export const projects = [
     detailPath: '/projects/aduan-hpd',
   },
   {
-    num: '#41',
+    num: '#43',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -465,7 +465,7 @@ export const projects = [
     detailPath: '/projects/vehicle-booking-hpd',
   },
   {
-    num: '#16',
+    num: '#18',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -479,7 +479,7 @@ export const projects = [
     detailPath: '/projects/akasia-ward',
   },
   {
-    num: '#42',
+    num: '#44',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -493,7 +493,7 @@ export const projects = [
     detailPath: '/projects/cp-portal',
   },
   {
-    num: '#17',
+    num: '#19',
     status: 'dev',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -507,7 +507,7 @@ export const projects = [
     detailPath: '/projects/e-lampiran-d',
   },
   {
-    num: '#43',
+    num: '#45',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -535,7 +535,7 @@ export const projects = [
     detailPath: '/projects/maternal-assessment',
   },
   {
-    num: '#44',
+    num: '#46',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -549,7 +549,7 @@ export const projects = [
     detailPath: '/projects/iqc-glucometer',
   },
   {
-    num: '#18',
+    num: '#20',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -563,7 +563,7 @@ export const projects = [
     detailPath: '/projects/pocket-nurse',
   },
   {
-    num: '#19',
+    num: '#21',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -577,7 +577,7 @@ export const projects = [
     detailPath: '/projects/medpulse-mar',
   },
   {
-    num: '#20',
+    num: '#22',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Doctor's Journey",
@@ -591,7 +591,7 @@ export const projects = [
     detailPath: '/projects/tbis-10a1',
   },
   {
-    num: '#45',
+    num: '#47',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -605,7 +605,7 @@ export const projects = [
     detailPath: '/projects/duty-rotator',
   },
   {
-    num: '#46',
+    num: '#48',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -619,7 +619,7 @@ export const projects = [
     detailPath: '/projects/patholab-pro',
   },
   {
-    num: '#47',
+    num: '#49',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -661,7 +661,7 @@ export const projects = [
     detailPath: '/projects/memory-clinic',
   },
   {
-    num: '#48',
+    num: '#50',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -673,6 +673,34 @@ export const projects = [
     tags: ['On-Call Scheduling', 'Workload Equity', 'Anti-Fatigue Rules'],
     accent: '#fda4af',
     detailPath: '/projects/im-duty-planner',
+  },
+  {
+    num: '#08',
+    status: 'live',
+    category: 'patient',
+    categoryLabel: "Patient's Journey",
+    icon: '🦴',
+    iconType: 'emoji',
+    title: 'Klinik Reumatologi — Pre-Consultation Assessment',
+    desc: 'A bilingual waiting-room assessment for rheumatology patients — vitals, flare symptom screening, a 0–10 pain slider, morning stiffness, medication list, and adherence, compiled into a handover for the rheumatologist.',
+    credit: { by: 'Rheumatology Specialty Service & Clinical Informatics Working Group · National Medical Services KKM' },
+    tags: ['Rheumatology Triage', 'Disease Activity', 'Bilingual (EN/MS)'],
+    accent: '#f9a8d4',
+    detailPath: '/projects/klinik-reumatologi',
+  },
+  {
+    num: '#09',
+    status: 'live',
+    category: 'patient',
+    categoryLabel: "Patient's Journey",
+    icon: '❤️',
+    iconType: 'emoji',
+    title: 'CardioFlow — HF Clinic Portal',
+    desc: 'A heart failure clinic intake — a four-step patient wizard, a self-care quiz that flags knowledge gaps, nursing vitals and fluid assessment, and a standardised note exported as text for the hospital information system.',
+    credit: { by: 'Cardiology Specialty Service & Digital Health Working Group · National Medical Services KKM' },
+    tags: ['Heart Failure Triage', 'Self-Care Quiz', 'HIS-Ready Note'],
+    accent: '#5eead4',
+    detailPath: '/projects/cardioflow',
   },
 ];
 
