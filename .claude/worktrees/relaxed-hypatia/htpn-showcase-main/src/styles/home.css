@@ -1331,11 +1331,14 @@
 
 .journey__stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
   margin-top: 32px;
+}
+@media (max-width: 900px) {
+  .journey__stats { grid-template-columns: repeat(2, 1fr); }
 }
 
 .journey__stat--teal .journey__stat-num { color: var(--teal); }

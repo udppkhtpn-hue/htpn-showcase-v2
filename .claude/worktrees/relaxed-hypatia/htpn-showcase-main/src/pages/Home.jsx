@@ -284,14 +284,24 @@ const partnerships = [
   { org: 'MPC & Roketz Sdn Bhd', desc: 'Organised four AI workshop series in collaboration, upskilling clinical and administrative staff.' },
   { org: 'London School of Economics', desc: 'Participated and presented an AI project at the Data Science & AI Course.' },
   { org: 'Future Healthcare Asia Conference 2025', desc: 'Invited Speaker on AI ethics and data security.' },
-  { org: 'AI Workshop, Cluster Hospitals Penang', desc: "Invited Speaker, sharing HTPN's digitalisation journey." },
   { org: 'MIH Megatrend 2025', desc: "Presented a poster showcasing HTPN's AI-driven digital transformation." },
-  { org: 'Hospital Sultanah Aminah, Johor Bahru', desc: "Conducted a full AI workshop for the hospital's clinical and administrative team." },
 ]
 
-const upcomingInvitations = [
-  { icon: '🏥', org: 'Hospital Pulau Pinang', desc: 'AI Workshop — Invitation Accepted' },
-  { icon: '🌿', org: 'Jabatan Kesihatan Negeri Sarawak', desc: 'AI Workshop — Invitation Accepted' },
+const externalWorkshops = [
+  { org: 'Hospital Port Dickson', desc: '14–15 October 2026' },
+  { org: 'Southern Zone Obstetrics & Gynaecology Services MOH, Johor Bahru', desc: '8–9 October 2026' },
+  { org: 'Hospital Cyberjaya', desc: '24–25 September 2026' },
+  { org: 'St John Ambulance Federal Territory Kuala Lumpur Branch', desc: '18 September 2026' },
+  { org: 'National Medical Services MOH, Subang Jaya', desc: '9–10 September 2026' },
+  { org: 'National Family Medicine Profession Division MOH, Putrajaya', desc: '6–7 July 2026' },
+  { org: 'Northern Zone Obstetrics & Gynaecology Services MOH, Alor Setar', desc: '23–24 June 2026' },
+  { org: 'PUSPANITA Hospital Kuala Lumpur Branch', desc: '5 June 2026' },
+  { org: 'Occupational & Environmental Health Unit (KPAS), JKN Selangor, Kuala Lumpur', desc: '20–22 May 2026' },
+  { org: 'Sarawak State Health Department (JKN Sarawak)', desc: '12–13 May 2026' },
+  { org: 'Central Zone Obstetrics & Gynaecology Services MOH, Putrajaya', desc: '29–30 April 2026' },
+  { org: 'Hospital Pulau Pinang', desc: '30–31 March 2026' },
+  { org: 'Hospital Sultanah Aminah, Pasir Gudang, Johor', desc: '5 February 2026' },
+  { org: 'Hospital Kepala Batas and Hospitals under Seberang Perai Cluster, Penang', desc: '5–6 November 2025' },
 ]
 
 function JourneySection() {
@@ -325,27 +335,57 @@ function JourneySection() {
         </div>
       </div>
       <p className="journey__subtitle reveal">
-        From our own wards to hospital networks across Malaysia — the AI Team HTPN has grown into a recognised voice in clinical AI adoption and digital health education.
+        From our own wards to hospital networks across Malaysia — the HTPN Healthcare Intelligence Office has grown into a recognised voice in clinical AI adoption and digital health education.
       </p>
 
-      <div className="journey__timeline" ref={listRef}>
-        {partnerships.map((p, i) => (
-          <div key={i} className="journey__item">
-            <div className="journey__item-num">{String(i + 1).padStart(2, '0')}</div>
-            <div className="journey__item-body">
-              <div className="journey__item-org">{p.org}</div>
-              <p className="journey__item-desc">{p.desc}</p>
+      <div ref={listRef}>
+        <p className="journey__upcoming-label">Partnerships &amp; Presentations</p>
+        <div className="journey__timeline">
+          {partnerships.map((p, i) => (
+            <div key={i} className="journey__item">
+              <div className="journey__item-num">{String(i + 1).padStart(2, '0')}</div>
+              <div className="journey__item-body">
+                <div className="journey__item-org">{p.org}</div>
+                <p className="journey__item-desc">{p.desc}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <p className="journey__upcoming-label" style={{ marginTop: '56px' }}>
+          External Workshops — The Use of Artificial Intelligence for Productivity in Healthcare (Lead Speaker &amp; Master Trainer)
+        </p>
+        <div className="journey__timeline">
+          {externalWorkshops.map((w, i) => (
+            <div key={i} className="journey__item">
+              <div className="journey__item-num">{String(i + 1).padStart(2, '0')}</div>
+              <div className="journey__item-body">
+                <div className="journey__item-org">{w.org}</div>
+                <p className="journey__item-desc">{w.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="journey__stats reveal">
         <div className="journey__stat">
           <span className="journey__stat-icon">🎓</span>
-          <div className="journey__stat-num">7+</div>
-          <div className="journey__stat-label">Workshops Conducted</div>
+          <div className="journey__stat-num">35</div>
+          <div className="journey__stat-label">Workshops Delivered</div>
+          <div className="journey__stat-sub">15 external</div>
+        </div>
+        <div className="journey__stat journey__stat--teal">
+          <span className="journey__stat-icon">👥</span>
+          <div className="journey__stat-num">1,500+</div>
+          <div className="journey__stat-label">Healthcare Workers Trained</div>
           <div className="journey__stat-sub">Across Malaysia</div>
+        </div>
+        <div className="journey__stat">
+          <span className="journey__stat-icon">⚡</span>
+          <div className="journey__stat-num">15</div>
+          <div className="journey__stat-label">Workshops in the Last 2 Months</div>
+          <div className="journey__stat-sub">As of November 2026</div>
         </div>
         <div className="journey__stat">
           <span className="journey__stat-icon">🏛️</span>
@@ -353,16 +393,10 @@ function JourneySection() {
           <div className="journey__stat-label">Conferences & Presentations</div>
           <div className="journey__stat-sub">National & International</div>
         </div>
-        <div className="journey__stat journey__stat--teal">
-          <span className="journey__stat-icon">👥</span>
-          <div className="journey__stat-num">157</div>
-          <div className="journey__stat-label">External Participants</div>
-          <div className="journey__stat-sub">Across 4 hospitals</div>
-        </div>
       </div>
 
       <div className="journey__participants reveal">
-        <p className="journey__participants-label">External Participants Breakdown</p>
+        <p className="journey__participants-label">Recorded Attendance — Selected External Sessions</p>
         <div className="journey__participants-list">
           <div className="journey__participant-row">
             <span className="journey__participant-org">Hospital Kepala Batas, Kedah</span>
@@ -386,19 +420,6 @@ function JourneySection() {
           </div>
         </div>
       </div>
-
-      <div className="journey__upcoming reveal">
-        <p className="journey__upcoming-label">Upcoming Invitations</p>
-        <div className="journey__upcoming-grid">
-          {upcomingInvitations.map((inv, i) => (
-            <div key={i} className="journey__upcoming-card">
-              <span className="journey__upcoming-icon">{inv.icon}</span>
-              <div className="journey__upcoming-org">{inv.org}</div>
-              <p className="journey__upcoming-desc">{inv.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   )
 }
@@ -414,6 +435,13 @@ const trainingCourses = [
   { title: 'AI for Daily Tasks in Clinical Setting — Medical Dept, Part 3', date: '27 February 2026' },
   { title: 'Supercharge Obstetrics With AI — Obstetrics & Gynaecology Dept, Part 2', date: '3 March 2026' },
   { title: 'Coding Camp — Obstetrics Department', date: '10 March 2026', recent: true },
+]
+
+const internalDepartments = [
+  { icon: '🧠', org: 'Psychiatry Department' },
+  { icon: '🔬', org: 'Pathology, Pharmacy & Forensic Departments' },
+  { icon: '🩺', org: 'Rehabilitation & Infection Control Units' },
+  { icon: '📋', org: 'Clinical Management & Supervisory Units' },
 ]
 
 function TrainingSection() {
@@ -473,7 +501,7 @@ function TrainingSection() {
         </div>
       </div>
       <p className="journey__subtitle reveal">
-        Beyond deploying tools, the AI Team runs a structured internal training programme — bringing AI literacy directly to clinical and administrative staff at HTPN.
+        Beyond deploying tools, the Healthcare Intelligence Office runs a structured internal training programme — bringing AI literacy directly to clinical and administrative staff at HTPN.
       </p>
 
       <div className="training__list" ref={listRef}>
@@ -489,52 +517,26 @@ function TrainingSection() {
         ))}
       </div>
 
-      <div className="journey__participants reveal">
-        <p className="journey__participants-label">Internal Participants Breakdown</p>
-        <div className="journey__participants-list">
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">Kursus Transformasi Kerja (AI)</span>
-            <span className="journey__participant-count">82</span>
-          </div>
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">Pengenalan AI 2025</span>
-            <span className="journey__participant-count">100</span>
-          </div>
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">Supercharge Obstetric (AI)</span>
-            <span className="journey__participant-count">28</span>
-          </div>
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">AI for Daily Task (Clinical)</span>
-            <span className="journey__participant-count">20</span>
-          </div>
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">Appliance of AI (KPPK)</span>
-            <span className="journey__participant-count">9</span>
-          </div>
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">AI Coding Camp</span>
-            <span className="journey__participant-count">22</span>
-          </div>
-          <div className="journey__participant-row">
-            <span className="journey__participant-org">Penggunaan AI (PSY)</span>
-            <span className="journey__participant-count">22</span>
-          </div>
-          <div className="journey__participant-row journey__participant-row--total">
-            <span className="journey__participant-org">Subtotal</span>
-            <span className="journey__participant-count">430</span>
-          </div>
+      <div className="journey__upcoming reveal">
+        <p className="journey__upcoming-label">Also Delivered Internally To</p>
+        <div className="journey__upcoming-grid">
+          {internalDepartments.map((d, i) => (
+            <div key={i} className="journey__upcoming-card">
+              <span className="journey__upcoming-icon">{d.icon}</span>
+              <div className="journey__upcoming-org">{d.org}</div>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="training__grand-total reveal">
         <div className="training__grand-total-inner">
-          <div className="training__grand-total-label">Grand Total Participants</div>
-          <div className="training__grand-total-num">587</div>
+          <div className="training__grand-total-label">Healthcare Workers Trained</div>
+          <div className="training__grand-total-num">1,500+</div>
           <div className="training__grand-total-breakdown">
-            <span>430 Internal</span>
-            <span className="training__grand-total-sep">+</span>
-            <span>157 External</span>
+            <span>35 Workshops</span>
+            <span className="training__grand-total-sep">·</span>
+            <span>15 External</span>
           </div>
           <p className="training__grand-total-sub">AI Innovation For All · HIO @ HTPN</p>
         </div>
