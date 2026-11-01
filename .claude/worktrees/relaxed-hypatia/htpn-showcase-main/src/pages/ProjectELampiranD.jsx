@@ -34,7 +34,7 @@ export default function ProjectELampiranD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--dev">IN DEVELOPMENT</span>
           <h1 className="detail-title">Sistem e-Lampiran D HPD</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#15 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#17 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">

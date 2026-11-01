@@ -35,7 +35,7 @@ export default function ProjectNursingCensus() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Laporan Harian Kejururawatan Hospital Port Dickson</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#41 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#43 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

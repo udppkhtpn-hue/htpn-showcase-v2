@@ -23,7 +23,7 @@ export default function ProjectOTScheduling() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">OT Scheduling System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#07 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#09 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">

@@ -32,7 +32,7 @@ export default function ProjectPathoLabPro() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">PathoLab Pro — Anatomic Pathology Workload Tracking &amp; Laboratory Data Management</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#44 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#46 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

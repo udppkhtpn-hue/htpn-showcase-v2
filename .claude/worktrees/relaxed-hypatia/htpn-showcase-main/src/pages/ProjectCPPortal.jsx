@@ -35,7 +35,7 @@ export default function ProjectCPPortal() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Credentialing &amp; Privileging (C&amp;P) Monitoring Portal &amp; e-Form</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#40 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#42 · Management Productivity</p>
         </div>
 
         <div className="detail-meta">

@@ -23,7 +23,7 @@ export default function ProjectEBLEstimator() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--pipeline">PENDING VALIDATION</span>
           <h1 className="detail-title">EBL Estimator AI App</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#09 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#11 · Doctor's Journey</p>
         </div>
 
         <div className="detail-meta">
