@@ -195,8 +195,9 @@ function CardRow({ items, accent, label, rowNo, rowCount }) {
   )
 }
 
-/* Split a category into rows (rowSize cards each); small categories stay on one row */
-function CardRows({ group, accent, label, rowSize }) {
+/* Split a category into rows of ROW_SIZE cards, each row scrolling horizontally */
+const ROW_SIZE = 5
+function CardRows({ group, accent, label, rowSize = ROW_SIZE }) {
   const rows = []
   for (let i = 0; i < group.length; i += rowSize) rows.push(group.slice(i, i + rowSize))
   return (
@@ -241,7 +242,7 @@ export default function ProjectFolders({ projects }) {
                 <ScrollRevealText text={prose} className="folders-group__prose" />
               </div>
             </div>
-            <CardRows group={group} accent={accent} label={label} rowSize={key === 'management' ? 5 : Infinity} />
+            <CardRows group={group} accent={accent} label={label} />
           </div>
         )
       })}
