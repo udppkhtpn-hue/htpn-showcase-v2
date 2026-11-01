@@ -403,6 +403,8 @@
   gap: 20px;
 }
 
+.detail-shots--single { grid-template-columns: 1fr; }
+
 .detail-shot {
   display: block;
   border: 1px solid var(--border);

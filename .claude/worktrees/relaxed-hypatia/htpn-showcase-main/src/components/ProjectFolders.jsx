@@ -129,6 +129,7 @@ function ProjectCard({ project, accent, categoryLabel, navigate }) {
         <span className="pcard__num">{numDisplay}</span>
         {project.status === 'live' && <span className="pcard__live">LIVE</span>}
         {project.status === 'demo' && <span className="pcard__demo">⚗ Demo</span>}
+        {project.status === 'dev' && <span className="pcard__demo">🛠 In Development</span>}
       </div>
 
       <h3 className="pcard__title">{project.title}</h3>
@@ -214,7 +215,7 @@ export default function ProjectFolders({ projects }) {
       <div className="folders-preamble">
         <div className="folders-preamble__top">
           <p className="section__label">Active Digital Solutions</p>
-          <span className="folders-preamble__count">{projects.length} tools deployed</span>
+          <span className="folders-preamble__count">{projects.filter(p => p.status !== 'dev').length} tools deployed</span>
         </div>
         <ScrollRevealText text="Built & Running" className="folders-preamble__title" />
         <ScrollRevealText

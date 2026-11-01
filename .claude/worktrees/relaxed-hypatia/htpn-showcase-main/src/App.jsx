@@ -35,6 +35,12 @@ import ProjectKempenDermaDarah from './pages/ProjectKempenDermaDarah'
 import ProjectOTLeaveRegister from './pages/ProjectOTLeaveRegister'
 import ProjectAduanHPD from './pages/ProjectAduanHPD'
 import ProjectVehicleBookingHPD from './pages/ProjectVehicleBookingHPD'
+import ProjectAkasiaWard from './pages/ProjectAkasiaWard'
+import ProjectCPPortal from './pages/ProjectCPPortal'
+import ProjectELampiranD from './pages/ProjectELampiranD'
+import ProjectNursingCensus from './pages/ProjectNursingCensus'
+import ProjectMaternalAssessment from './pages/ProjectMaternalAssessment'
+import ProjectIQCGlucometer from './pages/ProjectIQCGlucometer'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -90,6 +96,12 @@ export default function App() {
         <Route path="/projects/ot-leave-register" element={<ProjectOTLeaveRegister />} />
         <Route path="/projects/aduan-hpd" element={<ProjectAduanHPD />} />
         <Route path="/projects/vehicle-booking-hpd" element={<ProjectVehicleBookingHPD />} />
+        <Route path="/projects/akasia-ward" element={<ProjectAkasiaWard />} />
+        <Route path="/projects/cp-portal" element={<ProjectCPPortal />} />
+        <Route path="/projects/e-lampiran-d" element={<ProjectELampiranD />} />
+        <Route path="/projects/nursing-census" element={<ProjectNursingCensus />} />
+        <Route path="/projects/maternal-assessment" element={<ProjectMaternalAssessment />} />
+        <Route path="/projects/iqc-glucometer" element={<ProjectIQCGlucometer />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />
