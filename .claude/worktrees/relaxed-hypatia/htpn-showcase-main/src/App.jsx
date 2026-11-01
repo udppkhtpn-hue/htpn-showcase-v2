@@ -29,6 +29,10 @@ import ProjectPhlebotomyBooking from './pages/ProjectPhlebotomyBooking'
 import ProjectPhysioMeasurePro from './pages/ProjectPhysioMeasurePro'
 import ProjectHppOshAlert from './pages/ProjectHppOshAlert'
 import ProjectSistemEbooking from './pages/ProjectSistemEbooking'
+import ProjectPharmacyLogisticJasmin from './pages/ProjectPharmacyLogisticJasmin'
+import ProjectPsikiatriHPD from './pages/ProjectPsikiatriHPD'
+import ProjectKempenDermaDarah from './pages/ProjectKempenDermaDarah'
+import ProjectOTLeaveRegister from './pages/ProjectOTLeaveRegister'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -78,6 +82,10 @@ export default function App() {
         <Route path="/projects/physio-measure-pro" element={<ProjectPhysioMeasurePro />} />
         <Route path="/projects/hpp-osh-alert" element={<ProjectHppOshAlert />} />
         <Route path="/projects/sistem-ebooking" element={<ProjectSistemEbooking />} />
+        <Route path="/projects/pharmacy-logistic-jasmin" element={<ProjectPharmacyLogisticJasmin />} />
+        <Route path="/projects/psikiatri-hpd" element={<ProjectPsikiatriHPD />} />
+        <Route path="/projects/kempen-derma-darah" element={<ProjectKempenDermaDarah />} />
+        <Route path="/projects/ot-leave-register" element={<ProjectOTLeaveRegister />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />
