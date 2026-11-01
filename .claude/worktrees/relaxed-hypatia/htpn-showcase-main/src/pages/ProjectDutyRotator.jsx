@@ -8,6 +8,7 @@ import '../styles/detail.css'
 import '../styles/project-rich.css'
 
 const ACCENT = '#f0abfc'
+const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6336542059/236e8329327033a3b42c82277f7bece3/doctor_roster_generator__30_.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9ollqzrHV9SeDak-l63ytDaGhlxHSB7Jm9VMITN4Hyp5bFxqnzbfEptKc7UKM0e_iku5PIkLjk6dMKgl8o7DpmM18aJt6p_GgfZj5ds-AL3FkZ4ckCcP1ls7LTrFkBsPQFPxKVXKAkBr_TNefiA7yzcoi79DMQenZiQLyU_YPb9tA=='
 
 export default function ProjectDutyRotator() {
   const navigate = useNavigate()
@@ -43,6 +44,14 @@ export default function ProjectDutyRotator() {
         <p className="detail-subtitle">
           An on-call duty planning and leave conflict application for medical officers and department roster coordinators — letting clinicians declare unavailability, leave, and training before assignments are finalised, so the monthly roster is built around real constraints instead of corrected afterwards.
         </p>
+
+        <div className="detail-block">
+          <div className="detail-block__cta">
+            <a href={DEMO_URL} target="_blank" rel="noopener noreferrer" className="detail-demo-btn" style={{ background: ACCENT, color: '#0a0a0a' }}>
+              Open Demo →
+            </a>
+          </div>
+        </div>
 
         <div className="detail-block">
           <div className="spec-cards">

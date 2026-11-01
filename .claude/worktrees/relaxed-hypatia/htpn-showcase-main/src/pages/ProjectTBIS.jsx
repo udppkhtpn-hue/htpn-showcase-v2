@@ -8,6 +8,7 @@ import '../styles/detail.css'
 import '../styles/project-rich.css'
 
 const ACCENT = '#fdba74'
+const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6344013405/dbf2d9f4aed82e4c235a021702df9584/simulasi_cetakan_tbis_10a_1.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9qwYwgH2JKTM5sFLe0-cwRb_GekKOGCECPkmwjYM0XvP_dsksSbFXWC4Uof0oslxJ8vhkyCQcyS-D1mPZqGekAf9oe_RQvLBUOD9rbzPr-khq9Gm60pRgsv_CBcZHhLGAH-PBRe1yESgAC3SOCc8cIX84SneNdfKmrcj-V1lSbsGg=='
 
 export default function ProjectTBIS() {
   const navigate = useNavigate()
@@ -43,6 +44,14 @@ export default function ProjectTBIS() {
         <p className="detail-subtitle">
           A digital reproduction of the five-page Borang TBIS 10A-1 (Pindaan 2024) for medical officers, clinic doctors, and TB surveillance nurses — replacing a handwritten, error-prone statutory register with a guided, validated form that prints as the official schedule or is sent to district health inspectors by email.
         </p>
+
+        <div className="detail-block">
+          <div className="detail-block__cta">
+            <a href={DEMO_URL} target="_blank" rel="noopener noreferrer" className="detail-demo-btn" style={{ background: ACCENT, color: '#0a0a0a' }}>
+              Open Demo →
+            </a>
+          </div>
+        </div>
 
         <div className="detail-block">
           <div className="spec-cards">

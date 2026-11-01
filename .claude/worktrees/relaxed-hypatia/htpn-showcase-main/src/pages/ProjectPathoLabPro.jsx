@@ -8,6 +8,7 @@ import '../styles/detail.css'
 import '../styles/project-rich.css'
 
 const ACCENT = '#93c5fd'
+const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/138452377/594b9ad19e76d1e0624900cd01f78811/patholab_pro_workload_dashboard__1_.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9rsSi9Vj3CIca-8ZVa5e0Oz3NtgCY38UmwZ4fGp9yFRPfetQMchreHIZOhKj87pph9w5NxZgRJjpJT7iBLa7fUk5fSBv1FkYKQKpR13P5_rcRW1sD7ngsWQuu420OOrDC4x6cyy3CfykIPmZxckT11xrSIxPmN9RT9HggjJtNXkpOia5uxN2jpR72lyT8iuH4k='
 
 export default function ProjectPathoLabPro() {
   const navigate = useNavigate()
@@ -43,6 +44,14 @@ export default function ProjectPathoLabPro() {
         <p className="detail-subtitle">
           A laboratory workload analytics and spreadsheet processing application for medical laboratory technologists, anatomic pathologists, and laboratory managers — replacing paper tally books and shift registers with real-time specimen metrics and in-browser editing of on-call request spreadsheets.
         </p>
+
+        <div className="detail-block">
+          <div className="detail-block__cta">
+            <a href={DEMO_URL} target="_blank" rel="noopener noreferrer" className="detail-demo-btn" style={{ background: ACCENT, color: '#0a0a0a' }}>
+              Open Demo →
+            </a>
+          </div>
+        </div>
 
         <div className="detail-block">
           <div className="spec-cards">
