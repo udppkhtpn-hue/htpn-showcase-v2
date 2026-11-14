@@ -34,6 +34,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'roster-generator',
   'skin-diary',
   'tbis-10a1',
+  'wound-care-360',
 ])
 
 export function screenshotFor(detailPath = '') {
