@@ -2047,3 +2047,50 @@
   color: #fff;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+
+/* ── App search ───────────────────────────────────────── */
+.psearch { margin: 0 0 56px; }
+.psearch__box {
+  position: relative;
+  display: flex; align-items: center;
+  background: rgba(245,245,240,0.04);
+  border: 1px solid rgba(245,245,240,0.14);
+  border-radius: 14px;
+  transition: border-color 0.25s, background 0.25s;
+}
+.psearch__box:focus-within { border-color: var(--teal); background: rgba(245,245,240,0.07); }
+.psearch__icon { position: absolute; left: 20px; color: var(--muted); pointer-events: none; }
+.psearch__input {
+  flex: 1; min-width: 0;
+  background: transparent; border: 0; outline: 0;
+  color: var(--fg); font: inherit; font-size: 17px;
+  padding: 20px 56px 20px 54px;
+  cursor: none;
+}
+.psearch__input::placeholder { color: var(--muted); }
+.psearch__input::-webkit-search-cancel-button { display: none; }
+.psearch__clear {
+  position: absolute; right: 12px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(245,245,240,0.08); border: 0; color: var(--fg);
+  font-size: 14px; cursor: none;
+}
+.psearch__clear:hover { background: var(--teal); color: var(--bg); }
+.psearch__count {
+  margin: 24px 0 20px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+}
+.psearch__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 20px;
+}
+.psearch__grid .pcard { flex: none; width: auto; }
+@media (hover: none) and (pointer: coarse) {
+  .psearch__input, .psearch__clear { cursor: auto; }
+}
+@media (max-width: 768px) {
+  .psearch { margin-bottom: 40px; }
+  .psearch__input { font-size: 16px; padding: 18px 52px 18px 50px; }
+  .psearch__grid { grid-template-columns: 1fr; }
+}

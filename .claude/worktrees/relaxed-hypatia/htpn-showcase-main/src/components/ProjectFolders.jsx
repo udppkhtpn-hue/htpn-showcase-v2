@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -219,7 +219,66 @@ function CardRows({ group, accent, label, rowSize = ROW_SIZE }) {
   )
 }
 
+/* Search across title, description, tags, credit, facility, category, number and status */
+function searchText(p) {
+  const c = p.credit || {}
+  return [p.num, p.title, p.desc, (p.tags || []).join(' '), c.by, c.dept, c.coAuthor, c.aiTeam,
+    p.facility, p.categoryLabel, p.status === 'dev' ? 'in development' : p.status].join(' ').toLowerCase()
+}
+
+function ProjectSearch({ projects, query, setQuery }) {
+  const navigate = useNavigate()
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean)
+  const results = useMemo(() => {
+    if (!terms.length) return []
+    return projects
+      .filter(p => { const t = searchText(p); return terms.every(w => t.includes(w)) })
+      .sort((a, b) => parseInt(a.num.replace('#', '')) - parseInt(b.num.replace('#', '')))
+  }, [projects, query])
+  const catOf = (key) => CATEGORIES.find(c => c.key === key) || CATEGORIES[0]
+
+  return (
+    <div className="psearch">
+      <div className="psearch__box">
+        <svg className="psearch__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+        <input
+          type="search"
+          className="psearch__input"
+          placeholder="Search all apps — name, topic, hospital, author…"
+          aria-label="Search apps"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          onKeyDown={e => { if (e.key === 'Escape') setQuery('') }}
+        />
+        {query && (
+          <button type="button" className="psearch__clear" aria-label="Clear search" onClick={() => setQuery('')}>✕</button>
+        )}
+      </div>
+
+      {terms.length > 0 && (
+        <div className="psearch__results">
+          <p className="psearch__count" role="status">
+            {results.length === 0
+              ? `No apps match “${query.trim()}”`
+              : `${results.length} ${results.length === 1 ? 'app' : 'apps'} found`}
+          </p>
+          {results.length > 0 && (
+            <div className="psearch__grid">
+              {results.map(p => {
+                const cat = catOf(p.category)
+                return <ProjectCard key={p.num} project={p} accent={cat.accent} categoryLabel={p.categoryLabel || cat.label} navigate={navigate} />
+              })}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function ProjectFolders({ projects }) {
+  const [query, setQuery] = useState('')
+  const searching = query.trim().length > 0
   return (
     <section id="projects" className="section folders-section">
 
@@ -237,7 +296,9 @@ export default function ProjectFolders({ projects }) {
 
       <CategoryStats projects={projects} />
 
-      {CATEGORIES.map(({ key, label, accent, tagline, slogan, prose, banner, bannerGradient }) => {
+      <ProjectSearch projects={projects} query={query} setQuery={setQuery} />
+
+      {!searching && CATEGORIES.map(({ key, label, accent, tagline, slogan, prose, banner, bannerGradient }) => {
         const group = projects
           .filter(p => p.category === key)
           .sort((a, b) => parseInt(a.num.replace('#', '')) - parseInt(b.num.replace('#', '')))
