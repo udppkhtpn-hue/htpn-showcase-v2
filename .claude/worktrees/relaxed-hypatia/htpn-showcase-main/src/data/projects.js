@@ -46,7 +46,7 @@ export const projects = [
     detailPath: '/projects/fetal-kick-chart',
   },
   {
-    num: '#15',
+    num: '#16',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -62,7 +62,7 @@ export const projects = [
   },
   // ── Clinician's Journey (#05–#09) ────────────────────
   {
-    num: '#16',
+    num: '#17',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -77,7 +77,7 @@ export const projects = [
     detailPath: '/projects/ot-scheduling',
   },
   {
-    num: '#17',
+    num: '#18',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -92,7 +92,7 @@ export const projects = [
     detailPath: '/projects/gynae-census',
   },
   {
-    num: '#18',
+    num: '#19',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -107,7 +107,7 @@ export const projects = [
     detailPath: '/projects/ebl-estimator',
   },
   {
-    num: '#19',
+    num: '#20',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -122,7 +122,7 @@ export const projects = [
     detailPath: '/projects/therapy-ai',
   },
   {
-    num: '#20',
+    num: '#21',
     facility: 'HTPN',
     status: 'demo',
     badges: ['Research Prototype', '🔒 HITL Required'],
@@ -139,7 +139,7 @@ export const projects = [
   },
   // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#34',
+    num: '#35',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -154,7 +154,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#35',
+    num: '#36',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -170,7 +170,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#36',
+    num: '#37',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -185,7 +185,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#37',
+    num: '#38',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -200,7 +200,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#38',
+    num: '#39',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#39',
+    num: '#40',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -230,7 +230,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#40',
+    num: '#41',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -243,7 +243,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#41',
+    num: '#42',
     facility: 'Hospital Sultanah Aminah Johor Bahru',
     status: 'live',
     category: 'management',
@@ -258,7 +258,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#42',
+    num: '#43',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -273,7 +273,7 @@ export const projects = [
     href: '/project-showcase-website.html',
   },
   {
-    num: '#43',
+    num: '#44',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -288,7 +288,7 @@ export const projects = [
     detailPath: '/projects/e-kehadiran',
   },
   {
-    num: '#44',
+    num: '#45',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -303,7 +303,7 @@ export const projects = [
     detailPath: '/projects/mental-wellbeing',
   },
   {
-    num: '#45',
+    num: '#46',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -318,7 +318,7 @@ export const projects = [
     detailPath: '/projects/medmove-pro',
   },
   {
-    num: '#46',
+    num: '#47',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -333,7 +333,7 @@ export const projects = [
     detailPath: '/projects/medevac-portal',
   },
   {
-    num: '#47',
+    num: '#48',
     facility: 'Hospital Mukah',
     status: 'live',
     category: 'management',
@@ -348,7 +348,7 @@ export const projects = [
     detailPath: '/projects/hirarc-portal',
   },
   {
-    num: '#21',
+    num: '#22',
     facility: 'Hospital Marudi',
     status: 'live',
     category: 'doctor',
@@ -363,7 +363,7 @@ export const projects = [
     detailPath: '/projects/phlebotomy-booking',
   },
   {
-    num: '#22',
+    num: '#23',
     facility: 'Hospital Aman Sarawak',
     status: 'live',
     category: 'doctor',
@@ -378,7 +378,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#48',
+    num: '#49',
     facility: 'Hospital Pulau Pinang',
     status: 'live',
     category: 'management',
@@ -393,7 +393,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#49',
+    num: '#50',
     facility: 'Hospital Pulau Pinang',
     status: 'live',
     category: 'management',
@@ -408,7 +408,7 @@ export const projects = [
     detailPath: '/projects/sistem-ebooking',
   },
   {
-    num: '#50',
+    num: '#51',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -422,7 +422,7 @@ export const projects = [
     detailPath: '/projects/pharmacy-logistic-jasmin',
   },
   {
-    num: '#51',
+    num: '#52',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -452,7 +452,7 @@ export const projects = [
     detailPath: '/projects/kempen-derma-darah',
   },
   {
-    num: '#52',
+    num: '#53',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -467,7 +467,7 @@ export const projects = [
     detailPath: '/projects/ot-leave-register',
   },
   {
-    num: '#53',
+    num: '#54',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -482,7 +482,7 @@ export const projects = [
     detailPath: '/projects/aduan-hpd',
   },
   {
-    num: '#54',
+    num: '#55',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -497,7 +497,7 @@ export const projects = [
     detailPath: '/projects/vehicle-booking-hpd',
   },
   {
-    num: '#23',
+    num: '#24',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'doctor',
@@ -512,7 +512,7 @@ export const projects = [
     detailPath: '/projects/akasia-ward',
   },
   {
-    num: '#55',
+    num: '#56',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -527,7 +527,7 @@ export const projects = [
     detailPath: '/projects/cp-portal',
   },
   {
-    num: '#24',
+    num: '#25',
     facility: 'Hospital Port Dickson',
     status: 'dev',
     category: 'doctor',
@@ -542,7 +542,7 @@ export const projects = [
     detailPath: '/projects/e-lampiran-d',
   },
   {
-    num: '#56',
+    num: '#57',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -572,7 +572,7 @@ export const projects = [
     detailPath: '/projects/maternal-assessment',
   },
   {
-    num: '#57',
+    num: '#58',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -587,7 +587,7 @@ export const projects = [
     detailPath: '/projects/iqc-glucometer',
   },
   {
-    num: '#25',
+    num: '#26',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'doctor',
@@ -602,7 +602,7 @@ export const projects = [
     detailPath: '/projects/pocket-nurse',
   },
   {
-    num: '#26',
+    num: '#27',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'doctor',
@@ -617,7 +617,7 @@ export const projects = [
     detailPath: '/projects/medpulse-mar',
   },
   {
-    num: '#27',
+    num: '#28',
     facility: 'Hospital Cyberjaya',
     status: 'live',
     category: 'doctor',
@@ -632,7 +632,7 @@ export const projects = [
     detailPath: '/projects/tbis-10a1',
   },
   {
-    num: '#58',
+    num: '#59',
     facility: 'Hospital Cyberjaya',
     status: 'live',
     category: 'management',
@@ -647,7 +647,7 @@ export const projects = [
     detailPath: '/projects/duty-rotator',
   },
   {
-    num: '#59',
+    num: '#60',
     facility: 'Hospital Cyberjaya',
     status: 'live',
     category: 'management',
@@ -662,7 +662,7 @@ export const projects = [
     detailPath: '/projects/patholab-pro',
   },
   {
-    num: '#60',
+    num: '#61',
     facility: 'St John Ambulance Malaysia (WP)',
     status: 'live',
     category: 'management',
@@ -707,7 +707,7 @@ export const projects = [
     detailPath: '/projects/memory-clinic',
   },
   {
-    num: '#61',
+    num: '#62',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -751,7 +751,7 @@ export const projects = [
     detailPath: '/projects/cardioflow',
   },
   {
-    num: '#28',
+    num: '#29',
     facility: 'FMS Pahang',
     status: 'live',
     category: 'doctor',
@@ -766,7 +766,7 @@ export const projects = [
     detailPath: '/projects/growth-chart',
   },
   {
-    num: '#29',
+    num: '#30',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -781,7 +781,7 @@ export const projects = [
     detailPath: '/projects/ams-round-manager',
   },
   {
-    num: '#30',
+    num: '#31',
     facility: 'HTPN',
     status: 'demo',
     category: 'doctor',
@@ -796,7 +796,7 @@ export const projects = [
     detailPath: '/projects/resushero',
   },
   {
-    num: '#62',
+    num: '#63',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -856,7 +856,7 @@ export const projects = [
     detailPath: '/projects/medexa',
   },
   {
-    num: '#31',
+    num: '#32',
     status: 'live',
     category: 'doctor',
     categoryLabel: "Clinician's Journey",
@@ -869,7 +869,7 @@ export const projects = [
     detailPath: '/projects/wound-care-360',
   },
   {
-    num: '#32',
+    num: '#33',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -907,13 +907,13 @@ export const projects = [
     iconType: 'emoji',
     title: 'Minda Trek — Home Activity Program for Children (Occupational Therapy)',
     desc: "A home-based occupational therapy app for children aged 5 to 12. Eleven game-style activities, each linked to a skill such as memory, fine motor control, attention and self-care, with star rewards, a two-hour screen-time guide and progress reports for parents, used under the direction of the child's occupational therapist.",
-    credit: { by: 'Occupational Therapy HTPN Team, Healthcare Intelligence Office HTPN', dept: 'Occupational Therapy Unit' },
+    credit: { by: 'Occupational Therapy HTPN Team, Healthcare Intelligence Office HTPN', dept: 'Occupational Therapy Unit · HTPN Kajang' },
     tags: ['Paediatric OT', 'Home Program', 'Bahasa Malaysia'],
     accent: '#6366f1',
     detailPath: '/projects/minda-trek',
   },
   {
-    num: '#33',
+    num: '#34',
     facility: 'HTPN',
     status: 'live',
     category: 'doctor',
@@ -922,10 +922,25 @@ export const projects = [
     iconType: 'emoji',
     title: 'SPECTRA — Sensory Profile Evaluation & Clinical Therapy Remote Assistant',
     desc: 'A web tool for the Occupational Therapy Unit. Parents or caregivers complete the Child Sensory Profile 2 questionnaire (86 questions, Bahasa Melayu or English) with automatic scoring. The therapist reviews scores, edits and approves a clinical summary and home programme, then sends it to the parent. All AI output needs mandatory clinician sign-off.',
-    credit: { by: 'Occupational Therapist HTPN Team, Healthcare Intelligence Office HTPN', dept: 'Occupational Therapy Unit' },
+    credit: { by: 'Occupational Therapist HTPN Team, Healthcare Intelligence Office HTPN', dept: 'Occupational Therapy Unit · HTPN Kajang' },
     tags: ['Sensory Profile 2', 'Paediatric OT', 'Human-in-the-loop'],
     accent: '#6d28d9',
     detailPath: '/projects/spectra',
+  },
+  {
+    num: '#15',
+    facility: 'HTPN',
+    status: 'live',
+    category: 'patient',
+    categoryLabel: "Patient's Journey",
+    icon: '💬',
+    iconType: 'emoji',
+    title: 'CAKAP — Communication and Knowledge Kit: Activities for Parent Empowerment',
+    desc: 'An interactive learning programme that helps parents build early communication skills with their children. Based on Modul TOPS from the Ministry of Health, it has 13 topics, each with a reading, animation, flashcards, mini games and a checklist, short quizzes, and a downloadable participation certificate. Written mainly in Bahasa Malaysia.',
+    credit: { by: 'Unit Terapi Pertuturan-Bahasa', dept: 'Jabatan Perubatan Rehabilitasi · HTPN Kajang' },
+    tags: ['Speech-Language Therapy', 'Parent Education', 'Bahasa Malaysia'],
+    accent: '#059669',
+    detailPath: '/projects/cakap',
   },
 ];
 

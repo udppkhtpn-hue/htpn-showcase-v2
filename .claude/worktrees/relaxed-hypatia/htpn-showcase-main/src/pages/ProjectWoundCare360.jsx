@@ -33,7 +33,7 @@ export default function ProjectWoundCare360() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Wound Care 360</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#31 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#32 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

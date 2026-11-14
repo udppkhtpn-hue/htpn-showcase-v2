@@ -259,7 +259,7 @@ export default function ProjectMindaTrek() {
         <div className="detail-block">
           <div className="prd-credit-box">
             <span className="prd-credit-box__label">Developed By</span>
-            <span className="prd-credit-box__value">Occupational Therapy HTPN Team · Healthcare Intelligence Office HTPN</span>
+            <span className="prd-credit-box__value">Occupational Therapy HTPN Team · Healthcare Intelligence Office HTPN · Occupational Therapy Unit, HTPN Kajang</span>
           </div>
         </div>
 

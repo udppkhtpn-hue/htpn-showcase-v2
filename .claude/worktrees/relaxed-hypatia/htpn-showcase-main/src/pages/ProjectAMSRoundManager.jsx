@@ -33,7 +33,7 @@ export default function ProjectAMSRoundManager() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">AMS Round Manager Pro</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#29 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#30 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

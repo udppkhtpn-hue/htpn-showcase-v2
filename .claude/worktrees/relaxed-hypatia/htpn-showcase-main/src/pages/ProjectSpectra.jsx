@@ -34,7 +34,7 @@ export default function ProjectSpectra() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">SPECTRA</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#33 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#34 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />
@@ -184,7 +184,7 @@ export default function ProjectSpectra() {
         <div className="detail-block">
           <div className="prd-credit-box">
             <span className="prd-credit-box__label">Developed By</span>
-            <span className="prd-credit-box__value">Occupational Therapist HTPN Team · Healthcare Intelligence Office HTPN</span>
+            <span className="prd-credit-box__value">Occupational Therapist HTPN Team · Healthcare Intelligence Office HTPN · Occupational Therapy Unit, HTPN Kajang</span>
           </div>
         </div>
 
