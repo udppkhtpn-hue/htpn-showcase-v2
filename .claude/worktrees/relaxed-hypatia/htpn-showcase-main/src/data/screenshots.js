@@ -6,6 +6,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'duty-rotator',
   'e-kehadiran',
   'ebl-estimator',
+  'family-cancer-risk-assistant',
   'fetal-kick-chart',
   'growth-chart',
   'hirarc-portal',

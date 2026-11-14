@@ -33,7 +33,7 @@ export default function ProjectMentalWellbeing() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Mental Wellbeing Monitoring Portal</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#36 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#37 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

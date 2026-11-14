@@ -56,6 +56,7 @@ import ProjectGrowthChart from './pages/ProjectGrowthChart'
 import ProjectAMSRoundManager from './pages/ProjectAMSRoundManager'
 import ProjectResusHero from './pages/ProjectResusHero'
 import ProjectClabsiGuardPro from './pages/ProjectClabsiGuardPro'
+import ProjectFamilyCancerRisk from './pages/ProjectFamilyCancerRisk'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -132,6 +133,7 @@ export default function App() {
         <Route path="/projects/ams-round-manager" element={<ProjectAMSRoundManager />} />
         <Route path="/projects/resushero" element={<ProjectResusHero />} />
         <Route path="/projects/clabsi-guard-pro" element={<ProjectClabsiGuardPro />} />
+        <Route path="/projects/family-cancer-risk-assistant" element={<ProjectFamilyCancerRisk />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

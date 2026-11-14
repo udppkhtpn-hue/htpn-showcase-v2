@@ -33,7 +33,7 @@ export default function ProjectClabsiGuardPro() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">CLABSI Guard Pro</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#54 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#55 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

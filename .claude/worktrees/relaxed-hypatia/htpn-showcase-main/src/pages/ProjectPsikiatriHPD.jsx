@@ -33,7 +33,7 @@ export default function ProjectPsikiatriHPD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Jabatan Psikiatri &amp; Kesihatan Mental (HPD)</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#43 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#44 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />
