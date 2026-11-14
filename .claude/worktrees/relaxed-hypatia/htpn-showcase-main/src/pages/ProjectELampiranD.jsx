@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#fb7185'
 const SCREENSHOTS = [
@@ -34,8 +35,10 @@ export default function ProjectELampiranD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--dev">IN DEVELOPMENT</span>
           <h1 className="detail-title">Sistem e-Lampiran D HPD</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#19 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#19 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Pharmacy Formulary</span>
@@ -71,7 +74,7 @@ export default function ProjectELampiranD() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Workflow Stream</span>

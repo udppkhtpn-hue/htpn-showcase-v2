@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrollRevealText from './ScrollRevealText'
+import { screenshotFor } from '../data/screenshots'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,7 +20,7 @@ const CATEGORIES = [
   },
   {
     key: 'doctor',
-    label: "Doctor's Journey",
+    label: "Clinician's Journey",
     accent: '#0ea5a0',
     tagline: 'Clinical tools that give clinicians their time back.',
     slogan: 'Less admin. More medicine.',
@@ -74,6 +75,7 @@ function formatCredit(credit) {
 const AI_ACCENT = '#6366f1'
 
 const STAT_ITEMS = [
+  { key: 'total', label: 'Total Apps', accent: '#F0C832', count: (ps) => ps.length },
   ...CATEGORIES.map(({ key, label, accent }) => ({ key, label, accent, filter: (p) => p.category === key })),
   {
     key: 'ai',
@@ -81,10 +83,11 @@ const STAT_ITEMS = [
     accent: AI_ACCENT,
     filter: (p) => p.tags?.some(t => /\bai\b/i.test(t)),
   },
+  { key: 'facilities', label: 'Facilities Involved', accent: '#f5f5f0', count: (ps) => new Set(ps.map(p => p.facility).filter(Boolean)).size },
 ]
 
 /* Animated counter card */
-function StatCard({ label, accent, count }) {
+function StatCard({ statKey, label, accent, count }) {
   const numRef = useRef(null)
 
   useEffect(() => {
@@ -102,7 +105,7 @@ function StatCard({ label, accent, count }) {
   }, [count])
 
   return (
-    <div className="folders-stat-card" style={{ '--accent': accent }}>
+    <div className={`folders-stat-card folders-stat-card--${statKey}`} style={{ '--accent': accent }}>
       <span ref={numRef} className="folders-stat-card__num">0</span>
       <span className="folders-stat-card__label">{label}</span>
     </div>
@@ -112,8 +115,8 @@ function StatCard({ label, accent, count }) {
 function CategoryStats({ projects }) {
   return (
     <div className="folders-stats">
-      {STAT_ITEMS.map(({ key, label, accent, filter }) => (
-        <StatCard key={key} label={label} accent={accent} count={projects.filter(filter).length} />
+      {STAT_ITEMS.map(({ key, label, accent, filter, count }) => (
+        <StatCard key={key} statKey={key} label={label} accent={accent} count={count ? count(projects) : projects.filter(filter).length} />
       ))}
     </div>
   )
@@ -131,6 +134,13 @@ function ProjectCard({ project, accent, categoryLabel, navigate }) {
         {project.status === 'demo' && <span className="pcard__demo">⚗ Demo</span>}
         {project.status === 'dev' && <span className="pcard__demo">🛠 In Development</span>}
       </div>
+
+      {screenshotFor(project.detailPath) && (
+        <div className="pcard__shot">
+          <img src={screenshotFor(project.detailPath)} alt={`${project.title} mobile view`} loading="lazy" />
+          <span className="pcard__shot-title">{project.title.split(' — ')[0]}</span>
+        </div>
+      )}
 
       <h3 className="pcard__title">{project.title}</h3>
       <span className="pcard__cat">{categoryLabel}</span>

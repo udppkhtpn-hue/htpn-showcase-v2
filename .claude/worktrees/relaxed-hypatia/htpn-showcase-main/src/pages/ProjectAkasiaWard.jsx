@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#22c55e'
 const DEMO_URL = 'https://sites.google.com/view/akasia-oh-akasia/full-page-embed'
@@ -32,8 +33,10 @@ export default function ProjectAkasiaWard() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Akasia Ward (Medical) — MO Task &amp; Ward Round Manager</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#18 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#18 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Inpatient Ward Management</span>
@@ -57,7 +60,7 @@ export default function ProjectAkasiaWard() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Users</span>

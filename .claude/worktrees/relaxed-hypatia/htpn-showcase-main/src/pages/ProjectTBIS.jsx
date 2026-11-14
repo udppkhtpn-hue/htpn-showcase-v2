@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#fdba74'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6344013405/dbf2d9f4aed82e4c235a021702df9584/simulasi_cetakan_tbis_10a_1.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9qwYwgH2JKTM5sFLe0-cwRb_GekKOGCECPkmwjYM0XvP_dsksSbFXWC4Uof0oslxJ8vhkyCQcyS-D1mPZqGekAf9oe_RQvLBUOD9rbzPr-khq9Gm60pRgsv_CBcZHhLGAH-PBRe1yESgAC3SOCc8cIX84SneNdfKmrcj-V1lSbsGg=='
@@ -32,8 +33,10 @@ export default function ProjectTBIS() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">TBIS 10A-1 Digital — Borang Notifikasi Rawatan &amp; Episod Tibi</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#22 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#22 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">TB Notification</span>
@@ -57,7 +60,7 @@ export default function ProjectTBIS() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Workflow Stream</span>

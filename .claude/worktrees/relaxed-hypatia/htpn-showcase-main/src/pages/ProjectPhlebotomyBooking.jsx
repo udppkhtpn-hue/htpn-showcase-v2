@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#e11d48'
 const DEMO_URL = 'https://script.google.com/a/macros/moh.gov.my/s/AKfycbzwx3OSqzyZHYN_DsBBs0AOS86W_kV35D53miL01NJ9cqutox26F4yYCI8ek0-Pk4hk/exec'
@@ -32,8 +33,10 @@ export default function ProjectPhlebotomyBooking() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Hospital Marudi Phlebotomy Appointment System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#16 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#16 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Outpatient Pre-Consultation</span>
@@ -57,7 +60,7 @@ export default function ProjectPhlebotomyBooking() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Booking By</span>

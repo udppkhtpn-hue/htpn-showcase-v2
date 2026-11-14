@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = 'https://script.google.com/a/macros/moh.gov.my/s/AKfycbxjbhFlte-FSS9MgkDRWJhrqy01vCwd8rTqedzatYgr-1tWXYO6EePCKP7c3pCmZTVNyg/exec'
 const ACCENT = '#f97316'
@@ -23,8 +24,10 @@ export default function ProjectGynaeCensus() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Gynae Census Web Form</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#12 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#12 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Gynaecology</span>
@@ -41,7 +44,7 @@ export default function ProjectGynaeCensus() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Journey</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Platform</span>

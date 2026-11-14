@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#84cc16'
 const DEMO_URL = '/hirarc4.html'
@@ -32,8 +33,10 @@ export default function ProjectHirarcPortal() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MOH HIRARC Portal</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#37 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#39 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">DOSH 2008 Standard</span>

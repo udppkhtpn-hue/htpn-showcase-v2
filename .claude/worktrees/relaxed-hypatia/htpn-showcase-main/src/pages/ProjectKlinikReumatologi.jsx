@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f9a8d4'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6235190338/f88ab602f8ffbb430e6fcec6d4a5e76d/rheumatology_pre_consultation_app.html?token=wUjQadwXkr4heQZxhyiKq0vhq_dAvtDGIoyPrhKKJYhB_aw7P9ejE6l1HhOu8JsVmx6jJiFHceEnNVtGoqD2VFTf_DpO1Gcu5v1PTz2MMTTR9DdFDjHfGeB_l2Orw2TPAWx2bAK40S7qd_gmjkAvMjJV7kyXocZEovwuB4EW_KjdZeSGMTuo2qLjI047kVtA0CtNsVrwLIxhrO_bHjgpcO_zalSfItwqbQH7EB8HWAyuNNhu7xhkYiKvX0iCzM_Pz5bM0---a4oBRqZC8QdY4UxpG5FgzwoSzD1WE6hrUXE='
@@ -34,6 +35,8 @@ export default function ProjectKlinikReumatologi() {
           <h1 className="detail-title">Klinik Reumatologi — Pre-Consultation Assessment</h1>
           <p className="detail-number" style={{ color: ACCENT }}>#08 · Patient's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Rheumatology Triage</span>

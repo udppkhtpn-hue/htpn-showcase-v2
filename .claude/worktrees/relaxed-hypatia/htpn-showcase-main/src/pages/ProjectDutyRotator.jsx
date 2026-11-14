@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f0abfc'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6336542059/236e8329327033a3b42c82277f7bece3/doctor_roster_generator__30_.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9ollqzrHV9SeDak-l63ytDaGhlxHSB7Jm9VMITN4Hyp5bFxqnzbfEptKc7UKM0e_iku5PIkLjk6dMKgl8o7DpmM18aJt6p_GgfZj5ds-AL3FkZ4ckCcP1ls7LTrFkBsPQFPxKVXKAkBr_TNefiA7yzcoi79DMQenZiQLyU_YPb9tA=='
@@ -32,8 +33,10 @@ export default function ProjectDutyRotator() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Duty Rotator — Medical Officer On-Call Roster &amp; Conflict Scheduler</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#48 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#50 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Clinical Roster Scheduling</span>

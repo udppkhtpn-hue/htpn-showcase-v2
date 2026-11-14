@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#fb923c'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbwpZ9vI2AqU_RYxA4-LXazHLC5m7gi22_H7JQRYKJEVPQbuy3336ku1hK6nk5R-3RBG/exec'
@@ -32,8 +33,10 @@ export default function ProjectHppOshAlert() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">HPP OSH-Alert</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#38 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#40 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Occupational Health (OSH)</span>

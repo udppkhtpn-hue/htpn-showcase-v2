@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f472b6'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6434245946/01387dc94a25948affbaaad2cc8166a0/assessment_center_registration_2.html?token=quOajtxDJdFG2NIra7AK6ZZkGLaHIu1wxlfEI8EoIKptNzYQ_ALl1Rs3kNVVVlPfBv4mTOBvAJafK7sE7GEsV_WdLOyVMThyVkI9U4hprxiFZtuYsYuAzMEbetS7iTRS1XvgBiI2d0WmLV9Tz0C3MlKUZE0D7ji__kKcilyU_UvUi6zZFuWlrRIhrmBjeu6o_UOT9uM-jJSY1ZSPNoo89rlLLP4TROCjJfdgHqNFXgE6gxJaUsNaxz7DdtAzVZVo_LYf4teM_WJ5-SJBb-ht1g=='
@@ -34,6 +35,8 @@ export default function ProjectMaternalAssessment() {
           <h1 className="detail-title">Maternal Assessment Center — Patient Registration Portal</h1>
           <p className="detail-number" style={{ color: ACCENT }}>#05 · Patient's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Obstetric Triage</span>

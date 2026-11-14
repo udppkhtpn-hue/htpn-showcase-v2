@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { projects, kivItems } from '../data/projects'
 import ElectricBorder from './ElectricBorder'
 import AnimatedCounter from './AnimatedCounter'
+import { screenshotFor } from '../data/screenshots'
 
 function CreditLine({ credit }) {
   if (credit.aiTeam) {
@@ -28,7 +29,7 @@ function CreditLine({ credit }) {
 const FILTERS = [
   { key: 'all', label: 'All' },
   { key: 'patient', label: "Patient's Journey" },
-  { key: 'doctor', label: "Doctor's Journey" },
+  { key: 'doctor', label: "Clinician's Journey" },
   { key: 'management', label: 'Management Productivity' },
 ]
 
@@ -40,7 +41,7 @@ const CATEGORY_INTROS = {
     desc: "Tools that put the hospital in the patient's hands — before the consultation even starts. Scan a QR code in the waiting room, fill your history on your phone, log your baby's kicks from your ward bed. By the time the doctor walks in, the groundwork is already done.",
   },
   doctor: {
-    label: "Doctor's Journey",
+    label: "Clinician's Journey",
     accent: '#0ea5a0',
     tagline: 'Less admin. More medicine.',
     desc: 'Every tool here buys back time. Generate a personalised medication guide in seconds. Book an OT slot without a phone call. Log a procedure without a paper form. Small frictions, eliminated — so the clinical mind can stay on the patient.',
@@ -60,7 +61,7 @@ const aiCount = projects.filter(p => p.tags.some(t => ['AI', 'AI Vision', 'Gemin
 
 const STATS = [
   { label: "Patient's Journey", count: statCount('patient'), accent: '#f06292' },
-  { label: "Doctor's Journey",  count: statCount('doctor'),  accent: '#0ea5a0' },
+  { label: "Clinician's Journey",  count: statCount('doctor'),  accent: '#0ea5a0' },
   { label: 'Management Productivity', count: statCount('management'), accent: '#00e5a0' },
   { label: 'AI-Enhanced Tools', count: aiCount, accent: '#6366f1' },
 ]
@@ -89,6 +90,11 @@ function renderCard(project) {
       <div className={`card-category-badge ${project.category}-badge`}>
         {project.categoryLabel}
       </div>
+      {screenshotFor(project.detailPath) && (
+        <div className="card-screenshot">
+          <img src={screenshotFor(project.detailPath)} alt={`${project.title} mobile view`} loading="lazy" />
+        </div>
+      )}
       <div className="card-icon">
         {project.iconType === 'image'
           ? <img src={project.icon} alt={project.title} style={{ width: '112px', height: '112px', objectFit: 'contain' }} />

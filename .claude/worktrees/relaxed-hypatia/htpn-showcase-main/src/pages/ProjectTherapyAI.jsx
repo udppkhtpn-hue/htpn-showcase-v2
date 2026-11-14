@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = 'https://therapy-ai-pipeline-eidzkvy7zqqucyufuuhxiq.streamlit.app'
 const ACCENT = '#ef4444'
@@ -23,8 +24,10 @@ export default function ProjectTherapyAI() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--pipeline">RESEARCH DEMO</span>
           <h1 className="detail-title">TherapyAI</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#14 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#14 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">AI</span>
@@ -46,7 +49,7 @@ export default function ProjectTherapyAI() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Journey</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Platform</span>

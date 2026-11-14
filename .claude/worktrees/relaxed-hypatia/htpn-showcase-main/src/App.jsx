@@ -53,6 +53,8 @@ import ProjectIMDutyPlanner from './pages/ProjectIMDutyPlanner'
 import ProjectKlinikReumatologi from './pages/ProjectKlinikReumatologi'
 import ProjectCardioFlow from './pages/ProjectCardioFlow'
 import ProjectGrowthChart from './pages/ProjectGrowthChart'
+import ProjectAMSRoundManager from './pages/ProjectAMSRoundManager'
+import ProjectResusHero from './pages/ProjectResusHero'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -126,6 +128,8 @@ export default function App() {
         <Route path="/projects/klinik-reumatologi" element={<ProjectKlinikReumatologi />} />
         <Route path="/projects/cardioflow" element={<ProjectCardioFlow />} />
         <Route path="/projects/growth-chart" element={<ProjectGrowthChart />} />
+        <Route path="/projects/ams-round-manager" element={<ProjectAMSRoundManager />} />
+        <Route path="/projects/resushero" element={<ProjectResusHero />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

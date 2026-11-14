@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#b91c1c'
 const DEMO_URL = 'https://sites.google.com/moh.gov.my/blood-bank-registry-hpd/full-page-embed'
@@ -34,6 +35,8 @@ export default function ProjectKempenDermaDarah() {
           <h1 className="detail-title">Kempen Derma Darah</h1>
           <p className="detail-number" style={{ color: ACCENT }}>#04 · Patient's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Blood Donation Registry</span>

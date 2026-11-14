@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#4ade80'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6235213298/4203b221d029fee1f851754fa0800d9e/diabetic_clinic_pre_consultation_app_latest.html?token=wUjQadwXkr4heQZxhyiKq0vhq_dAvtDGIoyPrhKKJYhB_aw7P9ejE6l1HhOu8JsVmx6jJiFHceEnNVtGoqD2VFTf_DpO1Gcu5v1PTz2MMTSVVgMGi6_KhxV3wxoFXui2gASddOrz1fNSA774g3at6geWB8hov8ZJhsN5h5tBA_iIJnVw5L0IFjxRQ67HqRsRH9siEsVW-xImJjXsJS8P5lYJHR5XFbLpRCdtHhKfNK7q8byoSWevmR1RigDV7piet5fy1Lr9ZKJMmCgseeHldKhRZ1GNN1yVl9a6ak3zDGU='
@@ -34,6 +35,8 @@ export default function ProjectKlinikDiabetes() {
           <h1 className="detail-title">Klinik Diabetes Pintar — Borang Pra-Konsultasi &amp; Saringan Menunggu</h1>
           <p className="detail-number" style={{ color: ACCENT }}>#06 · Patient's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Diabetes Triage</span>

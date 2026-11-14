@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#34d399'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6337192838/e3ae1f377bb5e23bc0342c8cffbcdadc/clinical_mar_medication_time_tracker.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9pdOQ0kj_r6SPYAyHSViiEy8LYBY1Dh04MqiGr3RYFVwa_4oDm89kO6TL2pOn8Y5sEYKlH2uJgB_T_FVjWNhujmNtE7xgFz6OEN_Uhe_rtdfWg_sv_RtHuazedGy_i7SH1aBDs2BEFylq7u2xYzu7zqK17CXBDB7VoMxt4qWwY_0aFn3mgz2A743EESoXxHWUw='
@@ -32,8 +33,10 @@ export default function ProjectMedPulseMAR() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MedPulse MAR — Medication Administration Record &amp; Dual-Sign Safety System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#21 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#21 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Inpatient e-MAR</span>
@@ -57,7 +60,7 @@ export default function ProjectMedPulseMAR() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Workflow Stream</span>

@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#1d4ed8'
 
@@ -21,8 +22,10 @@ export default function ProjectIncidentForm() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Patient Safety Incident Reporting Form</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#31 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#33 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Patient Safety</span>

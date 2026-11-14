@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#5eead4'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6232590786/8987f1a69403e6985365eebbc68b17fd/cardioflowHFclinic.html?token=wUjQadwXkr4heQZxhyiKq0vhq_dAvtDGIoyPrhKKJYhB_aw7P9ejE6l1HhOu8JsVmx6jJiFHceEnNVtGoqD2VFTf_DpO1Gcu5v1PTz2MMTSFLYj-DrVzuwvj822ZXk7rb3XAtsETsLa65Br4d3kVQRLTaCaq5Mb47VUW0dlCKT-sP_doIWBFSlfMIFUWZ7oEIlu7ISMfVk6Cyn_XPNldKvhXhCL1Nc5uggCmr_gUVXP79sSbHnhEy_gXY5jeEwod52F2KqKXYihpy15LaKmizw=='
@@ -34,6 +35,8 @@ export default function ProjectCardioFlow() {
           <h1 className="detail-title">CardioFlow — HF Clinic Portal</h1>
           <p className="detail-number" style={{ color: ACCENT }}>#09 · Patient's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Heart Failure Triage</span>

@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = '/ot-scheduling.html'
 const ACCENT = '#0ea5a0'
@@ -23,8 +24,10 @@ export default function ProjectOTScheduling() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">OT Scheduling System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#11 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#11 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">OT</span>
@@ -42,7 +45,7 @@ export default function ProjectOTScheduling() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Journey</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Coverage</span>

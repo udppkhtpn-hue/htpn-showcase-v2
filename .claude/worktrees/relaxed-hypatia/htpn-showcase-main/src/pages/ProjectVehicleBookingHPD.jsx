@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#0ea5e9'
 const DEMO_URL = 'https://script.google.com/a/macros/moh.gov.my/s/AKfycbz2XcOtPdrR968h9qnzxkiDu6QePl_y5VAG3LfgbnfYaCUymDzfIkToanESmkbhxSkd/exec'
@@ -32,8 +33,10 @@ export default function ProjectVehicleBookingHPD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem Pengurusan &amp; Tempahan Kenderaan Jabatan</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#44 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#46 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Hospital Fleet Logistics</span>

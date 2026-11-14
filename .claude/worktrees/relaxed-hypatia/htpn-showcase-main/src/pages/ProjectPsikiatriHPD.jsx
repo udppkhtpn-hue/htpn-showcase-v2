@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#8b5cf6'
 const DEMO_URL = 'https://script.google.com/a/macros/moh.gov.my/s/AKfycbxuF_4YPrF7yo56zQhTLeuLaj0wlt3go7ZmoquSfA2F7DfheCmH7noAUOFIZIkXe_5_/exec'
@@ -32,8 +33,10 @@ export default function ProjectPsikiatriHPD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Jabatan Psikiatri &amp; Kesihatan Mental (HPD)</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#41 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#43 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Hospital Administration</span>

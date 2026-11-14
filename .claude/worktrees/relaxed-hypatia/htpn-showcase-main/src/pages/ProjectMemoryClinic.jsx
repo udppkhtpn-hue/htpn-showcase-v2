@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#c084fc'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6234605902/7efdf6f274e0132216df8df3b23220d6/geriatric_memory_clinic_pre_consultation_form.html?token=wUjQadwXkr4heQZxhyiKq0vhq_dAvtDGIoyPrhKKJYhB_aw7P9ejE6l1HhOu8JsVmx6jJiFHceEnNVtGoqD2VFTf_DpO1Gcu5v1PTz2MMTTOH5V6I3SqoKHS_yN60nkyeZptLBC-KTRwdDM8muW-AfqbrCJtGVX-yNIQ_A6BMXad3u1K7DE0NNaKwn4wdBKBKfXHg2Ryfrf3tTt6ZVMsNlZGKjY2rxwEtqpAKRMhnMSK3JVAaUEB5gf-2T961MjUIsrf8hCJBFtir3eQJL46niLjhNnUuqktBIRRNG8bYak='
@@ -34,6 +35,8 @@ export default function ProjectMemoryClinic() {
           <h1 className="detail-title">Memory Clinic Intake — Geriatric Cognitive Clerking (CPG Aligned)</h1>
           <p className="detail-number" style={{ color: ACCENT }}>#07 · Patient's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Geriatric Cognitive Screening</span>

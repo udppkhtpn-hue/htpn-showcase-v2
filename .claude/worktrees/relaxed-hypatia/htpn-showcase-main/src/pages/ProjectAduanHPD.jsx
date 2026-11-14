@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#d946ef'
 const SCREENSHOTS = [
@@ -36,8 +37,10 @@ export default function ProjectAduanHPD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Aduan HPD</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#43 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#45 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Complaint Governance</span>

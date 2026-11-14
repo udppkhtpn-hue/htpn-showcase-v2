@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#93c5fd'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/138452377/594b9ad19e76d1e0624900cd01f78811/patholab_pro_workload_dashboard__1_.html?token=HkiZ1jL59LjVwzSeGM26NLweN4Tdii4YREEOI8Wa83FzLSekC2SAasplPjWKK9cn0NmIM1NJ7BJSx3K4T1RO8_VfK6HuF6yCSM-t6mRoY9rsSi9Vj3CIca-8ZVa5e0Oz3NtgCY38UmwZ4fGp9yFRPfetQMchreHIZOhKj87pph9w5NxZgRJjpJT7iBLa7fUk5fSBv1FkYKQKpR13P5_rcRW1sD7ngsWQuu420OOrDC4x6cyy3CfykIPmZxckT11xrSIxPmN9RT9HggjJtNXkpOia5uxN2jpR72lyT8iuH4k='
@@ -32,8 +33,10 @@ export default function ProjectPathoLabPro() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">PathoLab Pro — Anatomic Pathology Workload Tracking &amp; Laboratory Data Management</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#49 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#51 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Laboratory Informatics</span>

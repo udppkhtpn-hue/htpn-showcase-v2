@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#7dd3fc'
 const DEMO_URL = 'https://growthchart.netlify.app'
@@ -32,8 +33,10 @@ export default function ProjectGrowthChart() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Clinical Growth Chart App</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#23 · Doctor's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#23 · Clinician's Journey</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Paediatric Growth</span>
@@ -57,7 +60,7 @@ export default function ProjectGrowthChart() {
           <div className="spec-cards">
             <div className="spec-card-new">
               <span className="spec-card-new__label">Pillar</span>
-              <span className="spec-card-new__value" style={{ color: ACCENT }}>Doctor's Journey</span>
+              <span className="spec-card-new__value" style={{ color: ACCENT }}>Clinician's Journey</span>
             </div>
             <div className="spec-card-new">
               <span className="spec-card-new__label">Users</span>

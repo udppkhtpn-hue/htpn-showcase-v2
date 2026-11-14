@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = '/gynae-preconsult.html'
 const ACCENT = '#f06292'
@@ -30,6 +31,8 @@ export default function ProjectGynaePreConsult() {
 
         {/* Header */}
         <header className="detail-header">
+          <ProjectScreenshot />
+
           <div className="detail-meta">
             <span className="detail-journey">( Patient's Journey )</span>
             <span className="detail-num">#01</span>

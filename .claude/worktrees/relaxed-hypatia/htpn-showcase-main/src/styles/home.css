@@ -576,7 +576,7 @@
 /* ── Category Stats Row ───────────────────────────────── */
 .folders-stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 16px;
   margin-bottom: 80px;
 }
@@ -603,6 +603,13 @@
   mask-composite: exclude;
   pointer-events: none;
 }
+
+.folders-stat-card { grid-column: span 2; }
+.folders-stat-card--total { grid-column: 1 / -1; padding: 40px 36px 32px; }
+.folders-stat-card--total .folders-stat-card__num { font-size: clamp(80px, 11vw, 150px); }
+.folders-stat-card--total .folders-stat-card__label { font-size: 13px; }
+.folders-stat-card--ai,
+.folders-stat-card--facilities { grid-column: span 3; }
 
 .folders-stat-card:hover {
   background: rgba(245, 245, 240, 0.06);
@@ -781,7 +788,8 @@
 
 .pcard {
   flex: 0 0 clamp(290px, 27vw, 360px);
-  height: 470px;
+  height: auto;
+  min-height: 470px;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
@@ -916,7 +924,7 @@
 .pcard__btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
 @media (max-width: 600px) {
-  .pcard { flex-basis: 82vw; height: 450px; }
+  .pcard { flex-basis: 82vw; height: auto; min-height: 450px; }
   .hrow__arrows { display: none; }
 }
 
@@ -1983,6 +1991,11 @@
   .about-director__photo { flex: 0 0 150px; width: 150px; height: 200px; }
   .about-director-row { grid-template-columns: 1fr; gap: 32px; }
   .folders-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 60px; }
+  .folders-stat-card,
+  .folders-stat-card--ai,
+  .folders-stat-card--facilities { grid-column: span 1; }
+  .folders-stat-card--total,
+  .folders-stat-card--management { grid-column: 1 / -1; }
   .about-gallery { grid-template-columns: repeat(3, 1fr); }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .footer { grid-template-columns: 1fr 1fr; }
@@ -2016,4 +2029,21 @@
     flex: none;
     object-position: center 20%;
   }
+}
+
+/* ── Mobile screenshot strip on project cards ── */
+.pcard__shot {
+  margin: 0 -26px 16px;
+  background: #000;
+  border-bottom: 1px solid rgba(245,245,240,0.08);
+}
+.pcard__shot img { display: block; width: 100%; height: 160px; object-fit: cover; object-position: top; }
+.pcard__shot-title {
+  display: block;
+  padding: 10px 26px 11px;
+  background: #0a0a0a;
+  border-top: 2px solid var(--accent, var(--teal));
+  font-size: 14px; font-weight: 800; line-height: 1.25; letter-spacing: -0.01em;
+  color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }

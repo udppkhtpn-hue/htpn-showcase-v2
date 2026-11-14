@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f5c518'
 
@@ -21,8 +22,10 @@ export default function ProjectDLPDashboard() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Dashboard DLP</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#25 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#27 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">DLP</span>

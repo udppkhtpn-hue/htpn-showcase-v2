@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = '/obstetric-preconsult.html'
 const ACCENT = '#e8547a'
@@ -30,6 +31,8 @@ export default function ProjectObstetricPreConsult() {
 
         {/* Header */}
         <header className="detail-header">
+          <ProjectScreenshot />
+
           <div className="detail-meta">
             <span className="detail-journey">( Patient's Journey )</span>
             <span className="detail-num">#02</span>

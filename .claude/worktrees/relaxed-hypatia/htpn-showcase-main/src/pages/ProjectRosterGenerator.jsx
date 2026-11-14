@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#00e5a0'
 
@@ -21,8 +22,10 @@ export default function ProjectRosterGenerator() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Smart Roster Generator</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#26 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#28 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">HR</span>

@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#2dd4bf'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbxSYgRH_BC3mqP-IH9880PCQSmp1ro9uA4Wfp9OpfR976T-xfh8GzHMSVMqxJQiXl5cyw/exec'
@@ -32,8 +33,10 @@ export default function ProjectIQCGlucometer() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">IQC Glucometer POCT — Kawalan Kualiti Dalaman Harian</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#47 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#49 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">POCT Quality Control</span>

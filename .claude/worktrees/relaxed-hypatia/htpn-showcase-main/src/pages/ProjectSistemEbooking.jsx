@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#06b6d4'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbxuoOce1H9ElFxzu1MvyXcSnn7mFT1XY9m8_c0CL4SzfC9NuRqUdeK8ysi1DswM-Jtwig/exec'
@@ -32,8 +33,10 @@ export default function ProjectSistemEbooking() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem eBooking</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#39 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#41 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Facility Logistics</span>

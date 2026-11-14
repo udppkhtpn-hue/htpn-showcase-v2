@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f59e0b'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbxpfW3CSF9Si5Jt-8mawGjydZJwpwrUgkh33qUDecd9YsqzPG3ibKfjA34plgaP7kGnYg/exec'
@@ -32,8 +33,10 @@ export default function ProjectEKehadiran() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem E-Kehadiran Kursus</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#33 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#35 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Human Resources & Administration</span>

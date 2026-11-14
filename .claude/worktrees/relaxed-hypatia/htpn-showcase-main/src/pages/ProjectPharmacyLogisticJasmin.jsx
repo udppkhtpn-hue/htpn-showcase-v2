@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#14b8a6'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycby0b_HnO1djRuT6qBQNsg7PSzWFwOzdEcjZszgyZivYJNiCyJsnPe6dlUDCezZxDkKg/exec'
@@ -32,8 +33,10 @@ export default function ProjectPharmacyLogisticJasmin() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem Standard Items Pharmacy Logistic Ward Jasmin</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#40 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#42 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Ward Pharmacy Logistics</span>

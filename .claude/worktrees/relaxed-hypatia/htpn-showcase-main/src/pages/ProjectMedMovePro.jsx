@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#22d3ee'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbxb8EVO-qnWQgSTETOmXMHAZQ_s9GSUR1HHVW6HbWPjN86LVOpx_uuiDqfrLpgwUBPFhQ/exec'
@@ -32,8 +33,10 @@ export default function ProjectMedMovePro() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MedMove Pro</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#35 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#37 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Logistics & Fleet Dispatch</span>

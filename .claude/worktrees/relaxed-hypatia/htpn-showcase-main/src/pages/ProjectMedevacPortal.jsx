@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f97316'
 const DEMO_URL = 'https://emedevac.netlify.app'
@@ -32,8 +33,10 @@ export default function ProjectMedevacPortal() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">MEDEVAC E-Request Portal</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#36 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#38 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Aviation & Medevac Logistics</span>

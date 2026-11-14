@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#fda4af'
 const DEMO_URL = 'https://u1.padletusercontent.com/uploads/padlet-uploads-usc1/6240385831/ce479d0e5c05d1d5b1d8dcddf75cbd2c/IM_Roster.html?token=wUjQadwXkr4heQZxhyiKq0vhq_dAvtDGIoyPrhKKJYhB_aw7P9ejE6l1HhOu8JsVmx6jJiFHceEnNVtGoqD2VFTf_DpO1Gcu5v1PTz2MMTQC04HTVoZSxnvS8jYwOrYeRO8IGN7rXwbYSyXrjrmx8rCFQv9rgPFh3DLm9Yfx_LBvdu_TOWZD1jpuwTa1AL5AupiLgW2xbpeHU24VLoi5NcxOr1L2uf30SOLmPbG9wn1P9_KD22h41LzOv7pjs0hI'
@@ -32,8 +33,10 @@ export default function ProjectIMDutyPlanner() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Internal Medicine Duty Planner — Specialist &amp; Consultant On-Call Roster Engine</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#51 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#53 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">On-Call Scheduling</span>

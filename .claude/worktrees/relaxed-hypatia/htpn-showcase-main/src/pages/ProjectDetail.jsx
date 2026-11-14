@@ -7,6 +7,7 @@ import GalleryStrip from '../components/GalleryStrip'
 import SiteNavigator from '../components/SiteNavigator'
 import { projects } from '../data/projects'
 import '../styles/detail.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_LINKS = {
   'preconsult-gynae':     '/gynae-preconsult.html',
@@ -111,6 +112,8 @@ export default function ProjectDetail() {
             <span className="detail-demo-btn detail-demo-btn--disabled">Demo not available</span>
           )}
         </header>
+
+        <ProjectScreenshot />
 
         <GalleryStrip label="Screenshot" />
 

@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import SiteNavigator from '../components/SiteNavigator'
 import '../styles/detail.css'
 import '../styles/project-rich.css'
+import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#38bdf8'
 const SCREENSHOTS = [
@@ -35,8 +36,10 @@ export default function ProjectNursingCensus() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Laporan Harian Kejururawatan Hospital Port Dickson</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#46 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#48 · Management Productivity</p>
         </div>
+
+        <ProjectScreenshot />
 
         <div className="detail-meta">
           <span className="detail-tag">Nursing Bed Census</span>
