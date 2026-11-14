@@ -130,7 +130,7 @@ export const projects = [
   },
   // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#23',
+    num: '#24',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -144,7 +144,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#24',
+    num: '#25',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -159,7 +159,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#25',
+    num: '#26',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -173,7 +173,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#26',
+    num: '#27',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -187,7 +187,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#27',
+    num: '#28',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -201,7 +201,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#28',
+    num: '#29',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#29',
+    num: '#30',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -227,7 +227,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#30',
+    num: '#31',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -241,7 +241,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#31',
+    num: '#32',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -255,7 +255,7 @@ export const projects = [
     href: '/project-showcase-website.html',
   },
   {
-    num: '#32',
+    num: '#33',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -269,7 +269,7 @@ export const projects = [
     detailPath: '/projects/e-kehadiran',
   },
   {
-    num: '#33',
+    num: '#34',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -283,7 +283,7 @@ export const projects = [
     detailPath: '/projects/mental-wellbeing',
   },
   {
-    num: '#34',
+    num: '#35',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -297,7 +297,7 @@ export const projects = [
     detailPath: '/projects/medmove-pro',
   },
   {
-    num: '#35',
+    num: '#36',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -311,7 +311,7 @@ export const projects = [
     detailPath: '/projects/medevac-portal',
   },
   {
-    num: '#36',
+    num: '#37',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -353,7 +353,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#37',
+    num: '#38',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -367,7 +367,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#38',
+    num: '#39',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -381,7 +381,7 @@ export const projects = [
     detailPath: '/projects/sistem-ebooking',
   },
   {
-    num: '#39',
+    num: '#40',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -395,7 +395,7 @@ export const projects = [
     detailPath: '/projects/pharmacy-logistic-jasmin',
   },
   {
-    num: '#40',
+    num: '#41',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -423,7 +423,7 @@ export const projects = [
     detailPath: '/projects/kempen-derma-darah',
   },
   {
-    num: '#41',
+    num: '#42',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -437,7 +437,7 @@ export const projects = [
     detailPath: '/projects/ot-leave-register',
   },
   {
-    num: '#42',
+    num: '#43',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -451,7 +451,7 @@ export const projects = [
     detailPath: '/projects/aduan-hpd',
   },
   {
-    num: '#43',
+    num: '#44',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -479,7 +479,7 @@ export const projects = [
     detailPath: '/projects/akasia-ward',
   },
   {
-    num: '#44',
+    num: '#45',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -507,7 +507,7 @@ export const projects = [
     detailPath: '/projects/e-lampiran-d',
   },
   {
-    num: '#45',
+    num: '#46',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -535,7 +535,7 @@ export const projects = [
     detailPath: '/projects/maternal-assessment',
   },
   {
-    num: '#46',
+    num: '#47',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -591,7 +591,7 @@ export const projects = [
     detailPath: '/projects/tbis-10a1',
   },
   {
-    num: '#47',
+    num: '#48',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -605,7 +605,7 @@ export const projects = [
     detailPath: '/projects/duty-rotator',
   },
   {
-    num: '#48',
+    num: '#49',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -619,7 +619,7 @@ export const projects = [
     detailPath: '/projects/patholab-pro',
   },
   {
-    num: '#49',
+    num: '#50',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -661,7 +661,7 @@ export const projects = [
     detailPath: '/projects/memory-clinic',
   },
   {
-    num: '#50',
+    num: '#51',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -701,6 +701,20 @@ export const projects = [
     tags: ['Heart Failure Triage', 'Self-Care Quiz', 'HIS-Ready Note'],
     accent: '#5eead4',
     detailPath: '/projects/cardioflow',
+  },
+  {
+    num: '#23',
+    status: 'live',
+    category: 'doctor',
+    categoryLabel: "Doctor's Journey",
+    icon: '📏',
+    iconType: 'emoji',
+    title: 'Clinical Growth Chart App — WHO & CDC Paediatric Growth Charting',
+    desc: 'An installable web app that plots weight, length or height, BMI, and head circumference against WHO or CDC curves — with prematurity correction, a mid-parental target height curve, growth analysis, and PDF or PNG export.',
+    credit: { by: 'Dr Azwan Faiz · FMS Pahang' },
+    tags: ['Paediatric Growth', 'WHO & CDC Standards', 'Installable PWA'],
+    accent: '#7dd3fc',
+    detailPath: '/projects/growth-chart',
   },
 ];
 
