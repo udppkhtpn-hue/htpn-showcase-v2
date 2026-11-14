@@ -24,7 +24,7 @@ export default function ProjectGynaeCensus() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Gynae Census Web Form</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#15 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#16 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

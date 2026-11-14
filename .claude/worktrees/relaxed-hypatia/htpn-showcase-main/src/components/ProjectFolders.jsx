@@ -176,6 +176,8 @@ function ProjectCard({ project, accent, categoryLabel, navigate }) {
 function CardRow({ items, accent, label, rowNo, rowCount }) {
   const trackRef = useRef(null)
   const navigate = useNavigate()
+  const [idx, setIdx] = useState(0)
+  const [atEnd, setAtEnd] = useState(items.length <= 1)
 
   const scrollBy = (dir) => {
     const el = trackRef.current
@@ -185,8 +187,26 @@ function CardRow({ items, accent, label, rowNo, rowCount }) {
     el.scrollBy({ left: dir * step * 2, behavior: 'smooth' })
   }
 
+  const goTo = (i) => {
+    const el = trackRef.current
+    const card = el?.children[i]
+    if (card) el.scrollTo({ left: card.offsetLeft - el.offsetLeft, behavior: 'smooth' })
+  }
+
+  const onScroll = () => {
+    const el = trackRef.current
+    if (!el) return
+    let best = 0, bestDist = Infinity
+    for (let i = 0; i < el.children.length; i++) {
+      const d = Math.abs(el.children[i].offsetLeft - el.offsetLeft - el.scrollLeft)
+      if (d < bestDist) { bestDist = d; best = i }
+    }
+    setIdx(best)
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8)
+  }
+
   return (
-    <div className="hrow" style={{ '--accent': accent }}>
+    <div className={`hrow${atEnd ? ' hrow--end' : ''}`} style={{ '--accent': accent }}>
       <div className="hrow__head">
         <span className="hrow__label">
           {rowCount > 1 ? `Row ${rowNo} · ` : ''}{items.length} {items.length === 1 ? 'project' : 'projects'}
@@ -195,12 +215,30 @@ function CardRow({ items, accent, label, rowNo, rowCount }) {
           <button type="button" className="hrow__arrow" aria-label="Scroll left" onClick={() => scrollBy(-1)}>←</button>
           <button type="button" className="hrow__arrow" aria-label="Scroll right" onClick={() => scrollBy(1)}>→</button>
         </div>
+        {items.length > 1 && (
+          <span className="hrow__hint" aria-hidden="true">
+            {idx + 1} / {items.length} · {atEnd ? 'End' : 'Swipe'} <span className="hrow__hint-arrow">{atEnd ? '' : '→'}</span>
+          </span>
+        )}
       </div>
-      <div ref={trackRef} className="hrow__track">
+      <div ref={trackRef} className="hrow__track" onScroll={onScroll}>
         {items.map(p => (
           <ProjectCard key={p.num} project={p} accent={accent} categoryLabel={label} navigate={navigate} />
         ))}
       </div>
+      {items.length > 1 && (
+        <div className="hrow__dots" role="group" aria-label="Choose project in this row">
+          {items.map((p, i) => (
+            <button
+              key={p.num}
+              type="button"
+              className={`hrow__dot${i === idx ? ' is-active' : ''}`}
+              aria-label={`Go to project ${i + 1} of ${items.length}`}
+              onClick={() => goTo(i)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }

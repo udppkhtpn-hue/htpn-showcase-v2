@@ -923,10 +923,36 @@
 }
 .pcard__btn:hover { opacity: 0.88; transform: translateY(-1px); }
 
-@media (max-width: 600px) {
-  .pcard { flex-basis: 82vw; height: auto; min-height: 450px; }
-  .hrow__arrows { display: none; }
+/* Mobile swipe affordances: hint + counter, dots, right-edge fade, bigger peek of the next card */
+.hrow { position: relative; }
+.hrow__hint, .hrow__dots { display: none; }
+.hrow__dots { justify-content: center; gap: 8px; margin-top: 2px; }
+.hrow__dot {
+  width: 8px; height: 8px; padding: 0; border-radius: 50%;
+  border: 0; background: rgba(245,245,240,0.22); cursor: pointer;
+  transition: background 0.25s ease, width 0.25s ease;
 }
+.hrow__dot.is-active { width: 22px; border-radius: 4px; background: var(--accent, var(--teal)); }
+
+@media (max-width: 600px) {
+  .pcard { flex-basis: 78vw; height: auto; min-height: 450px; }
+  .hrow__arrows { display: none; }
+  .hrow__hint {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent, var(--teal));
+  }
+  .hrow__hint-arrow { display: inline-block; animation: hrow-nudge 1.2s ease-in-out infinite; }
+  .hrow__dots { display: flex; }
+  .hrow::after {
+    content: ''; position: absolute; top: 40px; right: 0; bottom: 36px; width: 36px;
+    background: linear-gradient(to right, rgba(10,10,10,0), rgba(10,10,10,0.85));
+    pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .hrow--end::after { opacity: 0; }
+}
+@keyframes hrow-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+@media (prefers-reduced-motion: reduce) { .hrow__hint-arrow { animation: none; } }
 
 /* ── Pipeline Explainer ───────────────────────────────── */
 .pipeline__explainer {

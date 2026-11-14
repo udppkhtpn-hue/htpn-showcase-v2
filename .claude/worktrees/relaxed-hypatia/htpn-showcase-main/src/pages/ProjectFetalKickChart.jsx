@@ -35,7 +35,7 @@ export default function ProjectFetalKickChart() {
 
           <div className="detail-meta">
             <span className="detail-journey">( Patient's Journey )</span>
-            <span className="detail-num">#03</span>
+            <span className="detail-num">#13</span>
             <span className="detail-badge detail-badge--live">LIVE</span>
           </div>
 

@@ -33,7 +33,7 @@ export default function ProjectGrowthChart() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Clinical Growth Chart App</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#26 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#27 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

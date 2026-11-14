@@ -33,7 +33,7 @@ export default function ProjectIMDutyPlanner() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Internal Medicine Duty Planner — Specialist &amp; Consultant On-Call Roster Engine</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#58 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#59 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

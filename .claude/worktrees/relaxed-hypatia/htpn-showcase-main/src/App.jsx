@@ -61,6 +61,7 @@ import ProjectPbacTracker from './pages/ProjectPbacTracker'
 import ProjectMedexa from './pages/ProjectMedexa'
 import ProjectWoundCare360 from './pages/ProjectWoundCare360'
 import ProjectGocAssistant from './pages/ProjectGocAssistant'
+import ProjectMyFamilyHealthApp from './pages/ProjectMyFamilyHealthApp'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -142,6 +143,7 @@ export default function App() {
         <Route path="/projects/medexa" element={<ProjectMedexa />} />
         <Route path="/projects/wound-care-360" element={<ProjectWoundCare360 />} />
         <Route path="/projects/goc-assistant" element={<ProjectGocAssistant />} />
+        <Route path="/projects/my-family-health-app" element={<ProjectMyFamilyHealthApp />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

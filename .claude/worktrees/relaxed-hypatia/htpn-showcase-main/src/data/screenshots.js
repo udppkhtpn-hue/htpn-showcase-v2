@@ -22,6 +22,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'memory-clinic',
   'mental-wellbeing',
   'ot-scheduling',
+  'my-family-health-app',
   'patholab-pro',
   'pbac-tracker',
   'pdf-editor',
