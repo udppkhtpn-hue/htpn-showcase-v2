@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#7dd3fc'
 const DEMO_URL = 'https://growthchart.netlify.app'
+const VIDEO_URL = 'https://drive.google.com/file/d/1LZLLm0ip64EYrNhfL0EGOOyNBSAGjQgV/preview'
 
 export default function ProjectGrowthChart() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectGrowthChart() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="Clinical Growth Chart App demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

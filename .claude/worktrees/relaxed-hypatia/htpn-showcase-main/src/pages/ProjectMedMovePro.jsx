@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#22d3ee'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbxb8EVO-qnWQgSTETOmXMHAZQ_s9GSUR1HHVW6HbWPjN86LVOpx_uuiDqfrLpgwUBPFhQ/exec'
+const VIDEO_URL = 'https://drive.google.com/file/d/15eKYabuQJ4S0ksUaKCnvUmhUDBSzgDYh/preview'
 
 export default function ProjectMedMovePro() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectMedMovePro() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="MedMove Pro demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f97316'
 const DEMO_URL = 'https://www.appsheet.com/start/6579b49f-dc2f-451c-a72d-1054a1afac8c'
+const VIDEO_URL = 'https://drive.google.com/file/d/177UK-hVGE6pArR7ELrhOZDR6tQMzeB2V/preview'
 
 export default function ProjectWoundCare360() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectWoundCare360() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="Wound Care 360 demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

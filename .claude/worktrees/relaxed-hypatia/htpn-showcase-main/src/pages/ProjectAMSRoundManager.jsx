@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#a3e635'
 const DEMO_URL = 'https://script.google.com/a/macros/moh.gov.my/s/AKfycbwldFm73vLM8dGNidZAIvZCaoq9rcOPbHbGhfMD_nnhjfSyqLlCRHdt0b0VStPNExwYSQ/exec'
+const VIDEO_URL = 'https://drive.google.com/file/d/1g-NP3Zw5BMtJgiRdfNW8yW3FvyZyQ7c5/preview'
 
 export default function ProjectAMSRoundManager() {
   const navigate = useNavigate()
@@ -55,6 +56,21 @@ export default function ProjectAMSRoundManager() {
             </a>
             <p className="detail-shot__caption" style={{ marginTop: '0.75rem' }}>Sign-in with an MOH (moh.gov.my) Google account is required.</p>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="AMS Round Manager Pro demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

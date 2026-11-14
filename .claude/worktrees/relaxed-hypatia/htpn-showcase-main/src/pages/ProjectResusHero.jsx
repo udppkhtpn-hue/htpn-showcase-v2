@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f87171'
 const DEMO_URL = 'https://resushero-code-blue.vercel.app/'
+const VIDEO_URL = 'https://drive.google.com/file/d/1H4XDh3xB1l9Tvg31w8VfWz03n6i1vm5M/preview'
 
 export default function ProjectResusHero() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectResusHero() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="ResusHero (BLS) — Code Blue demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

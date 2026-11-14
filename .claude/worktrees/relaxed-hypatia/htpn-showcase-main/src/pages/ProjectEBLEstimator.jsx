@@ -8,6 +8,7 @@ import '../styles/project-rich.css'
 import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = 'https://eblcalcwcc.netlify.app/'
+const VIDEO_URL = 'https://drive.google.com/file/d/18swBfZuM8n81QAJR88KRqnjzSm_mWI9j/preview'
 const ACCENT = '#ef4444'
 
 export default function ProjectEBLEstimator() {
@@ -78,6 +79,21 @@ export default function ProjectEBLEstimator() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="EBL Estimator AI App demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

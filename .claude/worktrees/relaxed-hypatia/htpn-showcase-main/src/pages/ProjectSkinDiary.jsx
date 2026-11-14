@@ -8,6 +8,7 @@ import '../styles/project-rich.css'
 import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const DEMO_URL = '/skin-diary.html'
+const VIDEO_URL = 'https://drive.google.com/file/d/1ge1nUnqruD1wl4jherWzaCW_ADEfAA3i/preview'
 const ACCENT = '#3b82f6'
 
 export default function ProjectSkinDiary() {
@@ -74,6 +75,21 @@ export default function ProjectSkinDiary() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="Skin Diary Generator demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

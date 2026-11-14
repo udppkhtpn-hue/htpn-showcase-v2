@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#ef4444'
 const DEMO_URL = 'https://clabsi-guard-pro.vercel.app/'
+const VIDEO_URL = 'https://drive.google.com/file/d/118KZgr9OGOHDPH3levJI1MGlROBU5BNS/preview'
 
 export default function ProjectClabsiGuardPro() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectClabsiGuardPro() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="CLABSI Guard Pro demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

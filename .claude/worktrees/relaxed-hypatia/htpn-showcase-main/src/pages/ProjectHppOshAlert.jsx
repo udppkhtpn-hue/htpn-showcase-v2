@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#fb923c'
 const DEMO_URL = 'https://script.google.com/macros/s/AKfycbwpZ9vI2AqU_RYxA4-LXazHLC5m7gi22_H7JQRYKJEVPQbuy3336ku1hK6nk5R-3RBG/exec'
+const VIDEO_URL = 'https://drive.google.com/file/d/16pzOuhkiYtImtjV5o1pQnH9lbKhaGX0s/preview'
 
 export default function ProjectHppOshAlert() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectHppOshAlert() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="HPP OSH-Alert demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

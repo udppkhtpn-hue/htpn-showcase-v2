@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#f43f5e'
 const DEMO_URL = 'https://htpg-pbac1.netlify.app/'
+const VIDEO_URL = 'https://drive.google.com/file/d/1W3pWEC90RAJ53CR_zdwqTHunQSv6jmM9/preview'
 
 export default function ProjectPbacTracker() {
   const navigate = useNavigate()
@@ -54,6 +55,21 @@ export default function ProjectPbacTracker() {
               Open Demo →
             </a>
           </div>
+        </div>
+
+        <div className="detail-block">
+          <figure className="detail-video">
+            <div className="detail-video__frame">
+              <iframe
+                src={VIDEO_URL}
+                title="PBAC Tracker demo video"
+                allow="autoplay"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+            <figcaption className="detail-shot__caption">Demo video of the app</figcaption>
+          </figure>
         </div>
 
         <div className="detail-block">

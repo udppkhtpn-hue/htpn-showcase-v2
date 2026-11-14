@@ -10,6 +10,7 @@ import ProjectScreenshot from '../components/ProjectScreenshot'
 
 const ACCENT = '#0d7d76'
 const DEMO_URL = 'https://family-cancer-risk-assistant.vercel.app/'
+const VIDEO_URL = 'https://canva.link/byd9ckegslfe2cj'
 
 export default function ProjectFamilyCancerRisk() {
   const navigate = useNavigate()
@@ -49,9 +50,12 @@ export default function ProjectFamilyCancerRisk() {
         </p>
 
         <div className="detail-block">
-          <div className="detail-block__cta">
+          <div className="detail-block__cta" style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
             <a href={DEMO_URL} target="_blank" rel="noopener noreferrer" className="detail-demo-btn" style={{ background: ACCENT, color: '#0a0a0a' }}>
               Open Demo →
+            </a>
+            <a href={VIDEO_URL} target="_blank" rel="noopener noreferrer" className="detail-demo-btn" style={{ background: 'transparent', color: ACCENT, border: `1px solid ${ACCENT}` }}>
+              Watch demo video →
             </a>
           </div>
         </div>
