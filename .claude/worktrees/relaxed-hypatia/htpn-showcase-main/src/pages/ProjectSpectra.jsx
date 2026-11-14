@@ -34,7 +34,7 @@ export default function ProjectSpectra() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">SPECTRA</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#34 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#35 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

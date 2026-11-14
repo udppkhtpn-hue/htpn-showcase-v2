@@ -34,7 +34,7 @@ export default function ProjectIrisIncidentReporting() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--pipeline">DEMO</span>
           <h1 className="detail-title">IRIS — Incident Reporting Information System</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#64 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#65 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

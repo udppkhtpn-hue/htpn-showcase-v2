@@ -33,7 +33,7 @@ export default function ProjectPhysioMeasurePro() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">PhysioMeasurePro</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#23 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#24 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

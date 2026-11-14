@@ -66,6 +66,8 @@ import ProjectMindaTrek from './pages/ProjectMindaTrek'
 import ProjectSpectra from './pages/ProjectSpectra'
 import ProjectCakap from './pages/ProjectCakap'
 import ProjectIrisIncidentReporting from './pages/ProjectIrisIncidentReporting'
+import ProjectSpeechgate from './pages/ProjectSpeechgate'
+import ProjectGynapse from './pages/ProjectGynapse'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -152,6 +154,8 @@ export default function App() {
         <Route path="/projects/spectra" element={<ProjectSpectra />} />
         <Route path="/projects/cakap" element={<ProjectCakap />} />
         <Route path="/projects/iris-incident-reporting" element={<ProjectIrisIncidentReporting />} />
+        <Route path="/projects/speechgate" element={<ProjectSpeechgate />} />
+        <Route path="/projects/gynapse" element={<ProjectGynapse />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

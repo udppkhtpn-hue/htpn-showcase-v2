@@ -37,6 +37,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'resushero',
   'roster-generator',
   'skin-diary',
+  'speechgate',
   'spectra',
   'tbis-10a1',
   'wound-care-360',

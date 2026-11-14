@@ -24,7 +24,7 @@ export default function ProjectSkinDiary() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Skin Diary Generator</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#16 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#17 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />
