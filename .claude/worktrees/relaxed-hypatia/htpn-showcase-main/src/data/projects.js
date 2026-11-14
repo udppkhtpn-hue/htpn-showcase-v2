@@ -795,6 +795,21 @@ export const projects = [
     accent: '#f87171',
     detailPath: '/projects/resushero',
   },
+  {
+    num: '#54',
+    facility: 'HTPN',
+    status: 'live',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '🛡️',
+    iconType: 'emoji',
+    title: 'CLABSI Guard Pro — CLABSI Prevention Training & Certification',
+    desc: 'A web training app for central line-associated bloodstream infection prevention — staff book training slots, watch learning modules, sit a timed quiz with a 90% pass mark, and receive a certificate once theory and practical (OSCE) assessments are passed, all managed from a coordinator dashboard.',
+    credit: { by: 'Dr. Aneesa Tharek', dept: 'Infection Prevention & Control (IPC) Unit' },
+    tags: ['Infection Control', 'Staff Training & Certification', 'Bilingual (EN/MS)'],
+    accent: '#ef4444',
+    detailPath: '/projects/clabsi-guard-pro',
+  },
 ];
 
 export const kivItems = [

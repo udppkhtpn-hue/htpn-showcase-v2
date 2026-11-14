@@ -1,6 +1,7 @@
 // Mobile landing-page screenshots (390px @2x WebP) in /public/screenshots
 export const SCREENSHOT_SLUGS = new Set([
   'cardioflow',
+  'clabsi-guard-pro',
   'dlp-form',
   'duty-rotator',
   'e-kehadiran',
