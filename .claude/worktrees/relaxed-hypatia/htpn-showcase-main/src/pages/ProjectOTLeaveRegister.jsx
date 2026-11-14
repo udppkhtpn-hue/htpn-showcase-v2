@@ -38,7 +38,7 @@ export default function ProjectOTLeaveRegister() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Monthly Staff Movement &amp; Leave Register</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#45 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#46 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

@@ -22,7 +22,7 @@ export default function ProjectPortalAktiviti() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Portal Aktiviti JPPOBG</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#33 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#34 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

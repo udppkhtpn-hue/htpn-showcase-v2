@@ -23,6 +23,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'mental-wellbeing',
   'ot-scheduling',
   'patholab-pro',
+  'pbac-tracker',
   'pdf-editor',
   'pharmacy-logistic-jasmin',
   'physio-measure-pro',
