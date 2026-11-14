@@ -15,6 +15,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'im-duty-planner',
   'incident-form',
   'iqc-glucometer',
+  'iris-incident-reporting',
   'klinik-diabetes-pintar',
   'klinik-reumatologi',
   'maternal-assessment',

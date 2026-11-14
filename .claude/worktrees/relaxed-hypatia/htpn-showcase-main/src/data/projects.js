@@ -942,6 +942,21 @@ export const projects = [
     accent: '#059669',
     detailPath: '/projects/cakap',
   },
+  {
+    num: '#64',
+    facility: 'Hospital Shah Alam',
+    status: 'demo',
+    category: 'management',
+    categoryLabel: 'Management Productivity',
+    icon: '🛡️',
+    iconType: 'emoji',
+    title: 'IRIS — Incident Reporting Information System (Hospital Shah Alam)',
+    desc: 'A web system for reporting patient safety and general incidents in hospital. Staff complete the Ministry of Health incident form (IR 2.0/2017) online, save drafts, attach documents and send it to the Head of Department, with roles for reporters, HODs and admins. The demo runs on synthetic data only.',
+    credit: { by: 'UPRSK HSAS, Hospital Shah Alam', dept: 'Patient Safety Unit' },
+    tags: ['Patient Safety', 'Incident Reporting', 'Innovathon 2026'],
+    accent: '#0891b2',
+    detailPath: '/projects/iris-incident-reporting',
+  },
 ];
 
 export const kivItems = [
