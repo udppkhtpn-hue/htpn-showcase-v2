@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "summary": "node scripts/generate-summary.mjs",
+    "prebuild": "node scripts/generate-summary.mjs",
     "build": "vite build",
     "postbuild": "node -e \"if(!process.env.VERCEL){require('child_process').execSync('react-snap',{stdio:'inherit'})}\"",
     "preview": "vite preview"

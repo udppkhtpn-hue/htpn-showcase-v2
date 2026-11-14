@@ -204,6 +204,8 @@ Background: fixed `/hospital2.png` with `rgba(10,10,10,0.88)` overlay via `::bef
 4. Add route to `App.jsx`: `<Route path="/projects/slug" element={<ProjectName />} />`
 5. Add slug → demo URL mapping in `ProjectDetail.jsx` `DEMO_LINKS` object (if using generic detail)
 
+**Summary file (automatic):** `npm run build` first runs `scripts/generate-summary.mjs`, which rewrites `~/Documents/HTPN-Showcase-All-Apps.md` from `projects.js` and the detail pages (all apps, numbering, facilities, links, screenshot status). It skips quietly where that folder does not exist (e.g. Vercel). Run `npm run summary` to regenerate it without a build. It needs no edits when apps are added.
+
 ### Add a new pipeline project
 1. Add entry to `src/data/pipeline.js` with `detailPath`, `cardImage`, optional `video` and `conceptImages`
 2. Create `src/pages/Pipeline<Name>.jsx`
