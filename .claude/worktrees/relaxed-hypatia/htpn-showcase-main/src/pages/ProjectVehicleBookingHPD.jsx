@@ -33,7 +33,7 @@ export default function ProjectVehicleBookingHPD() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem Pengurusan &amp; Tempahan Kenderaan Jabatan</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#50 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#51 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

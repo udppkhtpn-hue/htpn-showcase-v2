@@ -139,7 +139,7 @@ export const projects = [
   },
   // ── Management (#10–#18) ──────────────────────────
   {
-    num: '#30',
+    num: '#31',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -154,7 +154,7 @@ export const projects = [
     detailPath: '/projects/ed-dashboard',
   },
   {
-    num: '#31',
+    num: '#32',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -170,7 +170,7 @@ export const projects = [
     detailPath: '/projects/dlp-dashboard',
   },
   {
-    num: '#32',
+    num: '#33',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -185,7 +185,7 @@ export const projects = [
     detailPath: '/projects/roster-generator',
   },
   {
-    num: '#33',
+    num: '#34',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -200,7 +200,7 @@ export const projects = [
     detailPath: '/projects/cgr-form',
   },
   {
-    num: '#34',
+    num: '#35',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -215,7 +215,7 @@ export const projects = [
     detailPath: '/projects/dlp-form',
   },
   {
-    num: '#35',
+    num: '#36',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -230,7 +230,7 @@ export const projects = [
     detailPath: '/projects/pdf-editor',
   },
   {
-    num: '#36',
+    num: '#37',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -243,7 +243,7 @@ export const projects = [
     detailPath: '/projects/portal-aktiviti',
   },
   {
-    num: '#37',
+    num: '#38',
     facility: 'Hospital Sultanah Aminah Johor Bahru',
     status: 'live',
     category: 'management',
@@ -258,7 +258,7 @@ export const projects = [
     detailPath: '/projects/incident-form',
   },
   {
-    num: '#38',
+    num: '#39',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -273,7 +273,7 @@ export const projects = [
     href: '/project-showcase-website.html',
   },
   {
-    num: '#39',
+    num: '#40',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -288,7 +288,7 @@ export const projects = [
     detailPath: '/projects/e-kehadiran',
   },
   {
-    num: '#40',
+    num: '#41',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -303,7 +303,7 @@ export const projects = [
     detailPath: '/projects/mental-wellbeing',
   },
   {
-    num: '#41',
+    num: '#42',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -318,7 +318,7 @@ export const projects = [
     detailPath: '/projects/medmove-pro',
   },
   {
-    num: '#42',
+    num: '#43',
     facility: 'JKN Sarawak',
     status: 'live',
     category: 'management',
@@ -333,7 +333,7 @@ export const projects = [
     detailPath: '/projects/medevac-portal',
   },
   {
-    num: '#43',
+    num: '#44',
     facility: 'Hospital Mukah',
     status: 'live',
     category: 'management',
@@ -378,7 +378,7 @@ export const projects = [
     detailPath: '/projects/physio-measure-pro',
   },
   {
-    num: '#44',
+    num: '#45',
     facility: 'Hospital Pulau Pinang',
     status: 'live',
     category: 'management',
@@ -393,7 +393,7 @@ export const projects = [
     detailPath: '/projects/hpp-osh-alert',
   },
   {
-    num: '#45',
+    num: '#46',
     facility: 'Hospital Pulau Pinang',
     status: 'live',
     category: 'management',
@@ -408,7 +408,7 @@ export const projects = [
     detailPath: '/projects/sistem-ebooking',
   },
   {
-    num: '#46',
+    num: '#47',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -422,7 +422,7 @@ export const projects = [
     detailPath: '/projects/pharmacy-logistic-jasmin',
   },
   {
-    num: '#47',
+    num: '#48',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -452,7 +452,7 @@ export const projects = [
     detailPath: '/projects/kempen-derma-darah',
   },
   {
-    num: '#48',
+    num: '#49',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -467,7 +467,7 @@ export const projects = [
     detailPath: '/projects/ot-leave-register',
   },
   {
-    num: '#49',
+    num: '#50',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -482,7 +482,7 @@ export const projects = [
     detailPath: '/projects/aduan-hpd',
   },
   {
-    num: '#50',
+    num: '#51',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -512,7 +512,7 @@ export const projects = [
     detailPath: '/projects/akasia-ward',
   },
   {
-    num: '#51',
+    num: '#52',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -542,7 +542,7 @@ export const projects = [
     detailPath: '/projects/e-lampiran-d',
   },
   {
-    num: '#52',
+    num: '#53',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -572,7 +572,7 @@ export const projects = [
     detailPath: '/projects/maternal-assessment',
   },
   {
-    num: '#53',
+    num: '#54',
     facility: 'Hospital Port Dickson',
     status: 'live',
     category: 'management',
@@ -632,7 +632,7 @@ export const projects = [
     detailPath: '/projects/tbis-10a1',
   },
   {
-    num: '#54',
+    num: '#55',
     facility: 'Hospital Cyberjaya',
     status: 'live',
     category: 'management',
@@ -647,7 +647,7 @@ export const projects = [
     detailPath: '/projects/duty-rotator',
   },
   {
-    num: '#55',
+    num: '#56',
     facility: 'Hospital Cyberjaya',
     status: 'live',
     category: 'management',
@@ -662,7 +662,7 @@ export const projects = [
     detailPath: '/projects/patholab-pro',
   },
   {
-    num: '#56',
+    num: '#57',
     facility: 'St John Ambulance Malaysia (WP)',
     status: 'live',
     category: 'management',
@@ -707,7 +707,7 @@ export const projects = [
     detailPath: '/projects/memory-clinic',
   },
   {
-    num: '#57',
+    num: '#58',
     status: 'live',
     category: 'management',
     categoryLabel: 'Management Productivity',
@@ -796,7 +796,7 @@ export const projects = [
     detailPath: '/projects/resushero',
   },
   {
-    num: '#58',
+    num: '#59',
     facility: 'HTPN',
     status: 'live',
     category: 'management',
@@ -867,6 +867,21 @@ export const projects = [
     tags: ['Wound Care', 'Photo Documentation', 'Bilingual (BM/EN)'],
     accent: '#f97316',
     detailPath: '/projects/wound-care-360',
+  },
+  {
+    num: '#30',
+    facility: 'HTPN',
+    status: 'live',
+    category: 'doctor',
+    categoryLabel: "Clinician's Journey",
+    icon: '🗂️',
+    iconType: 'emoji',
+    title: 'HTPN GOC Assistant — Goals of Care Documentation Assistant',
+    desc: 'A clinical workflow assistant that turns a Goals of Care conversation, captured by audio or entered manually, into a consistent, reviewable record covering patient values and goals, treatment preferences, the surrogate decision-maker and the decisions reached, with a printable patient-friendly summary.',
+    credit: { dept: 'HTPN Medical' },
+    tags: ['Goals of Care', 'Structured Documentation', 'Audio Capture'],
+    accent: '#38bdf8',
+    detailPath: '/projects/goc-assistant',
   },
 ];
 
