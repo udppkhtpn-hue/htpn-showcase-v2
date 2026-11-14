@@ -33,7 +33,7 @@ export default function ProjectResusHero() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--pipeline">PROTOTYPE</span>
           <h1 className="detail-title">ResusHero (BLS) — Code Blue</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#27 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#28 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

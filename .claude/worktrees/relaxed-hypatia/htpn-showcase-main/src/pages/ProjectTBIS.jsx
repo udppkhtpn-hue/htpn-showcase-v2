@@ -33,7 +33,7 @@ export default function ProjectTBIS() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">TBIS 10A-1 Digital — Borang Notifikasi Rawatan &amp; Episod Tibi</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#24 · Clinician's Journey</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#25 · Clinician's Journey</p>
         </div>
 
         <ProjectScreenshot />

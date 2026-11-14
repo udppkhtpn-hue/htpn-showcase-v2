@@ -30,6 +30,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'pocket-nurse',
   'preconsult-gynae',
   'preconsult-obstetric',
+  'resushero',
   'roster-generator',
   'skin-diary',
   'tbis-10a1',
@@ -38,4 +39,14 @@ export const SCREENSHOT_SLUGS = new Set([
 export function screenshotFor(detailPath = '') {
   const slug = detailPath.split('/').filter(Boolean).pop()
   return SCREENSHOT_SLUGS.has(slug) ? `/screenshots/${slug}.webp` : null
+}
+
+// Optional card-thumbnail crop (CSS object-position) for screenshots whose content starts below the top
+const CARD_POSITION = {
+  resushero: 'center 24%',
+}
+
+export function cardPositionFor(detailPath = '') {
+  const slug = detailPath.split('/').filter(Boolean).pop()
+  return CARD_POSITION[slug] || 'center top'
 }

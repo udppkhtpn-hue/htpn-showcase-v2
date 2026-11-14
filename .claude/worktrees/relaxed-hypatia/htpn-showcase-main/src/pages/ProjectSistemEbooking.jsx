@@ -33,7 +33,7 @@ export default function ProjectSistemEbooking() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Sistem eBooking</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#43 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#45 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

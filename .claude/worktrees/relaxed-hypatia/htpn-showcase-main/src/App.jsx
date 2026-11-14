@@ -58,6 +58,8 @@ import ProjectResusHero from './pages/ProjectResusHero'
 import ProjectClabsiGuardPro from './pages/ProjectClabsiGuardPro'
 import ProjectFamilyCancerRisk from './pages/ProjectFamilyCancerRisk'
 import ProjectPbacTracker from './pages/ProjectPbacTracker'
+import ProjectMedexa from './pages/ProjectMedexa'
+import ProjectWoundCare360 from './pages/ProjectWoundCare360'
 import PipelineDetail from './pages/PipelineDetail'
 import PipelineAmr from './pages/PipelineAmr'
 import PipelineFacialAI from './pages/PipelineFacialAI'
@@ -136,6 +138,8 @@ export default function App() {
         <Route path="/projects/clabsi-guard-pro" element={<ProjectClabsiGuardPro />} />
         <Route path="/projects/family-cancer-risk-assistant" element={<ProjectFamilyCancerRisk />} />
         <Route path="/projects/pbac-tracker" element={<ProjectPbacTracker />} />
+        <Route path="/projects/medexa" element={<ProjectMedexa />} />
+        <Route path="/projects/wound-care-360" element={<ProjectWoundCare360 />} />
         <Route path="/projects/:slug" element={<ProjectDetail />} />
         <Route path="/pipeline/amr" element={<PipelineAmr />} />
         <Route path="/pipeline/facial-scan-ai" element={<PipelineFacialAI />} />

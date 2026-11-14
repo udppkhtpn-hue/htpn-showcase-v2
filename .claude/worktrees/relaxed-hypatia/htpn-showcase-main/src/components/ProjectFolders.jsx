@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ScrollRevealText from './ScrollRevealText'
-import { screenshotFor } from '../data/screenshots'
+import { screenshotFor, cardPositionFor } from '../data/screenshots'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -137,7 +137,7 @@ function ProjectCard({ project, accent, categoryLabel, navigate }) {
 
       {screenshotFor(project.detailPath) && (
         <div className="pcard__shot">
-          <img src={screenshotFor(project.detailPath)} alt={`${project.title} mobile view`} loading="lazy" />
+          <img src={screenshotFor(project.detailPath)} alt={`${project.title} mobile view`} loading="lazy" style={{ objectPosition: cardPositionFor(project.detailPath) }} />
           <span className="pcard__shot-title">{project.title.split(' — ')[0]}</span>
         </div>
       )}
