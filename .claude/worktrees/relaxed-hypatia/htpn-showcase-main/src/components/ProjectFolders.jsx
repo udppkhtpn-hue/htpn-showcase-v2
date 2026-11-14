@@ -264,47 +264,86 @@ function searchText(p) {
     p.facility, p.categoryLabel, p.status === 'dev' ? 'in development' : p.status].join(' ').toLowerCase()
 }
 
-function ProjectSearch({ projects, query, setQuery }) {
+function ProjectSearch({ projects, query, setQuery, cat, setCat }) {
   const navigate = useNavigate()
+  const inputRef = useRef(null)
   const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean)
+  const active = terms.length > 0 || cat !== 'all'
   const results = useMemo(() => {
-    if (!terms.length) return []
+    if (!active) return []
     return projects
-      .filter(p => { const t = searchText(p); return terms.every(w => t.includes(w)) })
+      .filter(p => (cat === 'all' || p.category === cat) && (() => { const t = searchText(p); return terms.every(w => t.includes(w)) })())
       .sort((a, b) => parseInt(a.num.replace('#', '')) - parseInt(b.num.replace('#', '')))
-  }, [projects, query])
+  }, [projects, query, cat])
   const catOf = (key) => CATEGORIES.find(c => c.key === key) || CATEGORIES[0]
 
+  // "/" jumps to the search box (unless already typing somewhere)
+  useEffect(() => {
+    const onKey = (e) => {
+      const tag = (e.target.tagName || '').toLowerCase()
+      if (e.key === '/' && tag !== 'input' && tag !== 'textarea' && !e.target.isContentEditable) {
+        e.preventDefault()
+        inputRef.current?.focus()
+        inputRef.current?.scrollIntoView({ block: 'center', behavior: 'smooth' })
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  const reset = () => { setQuery(''); setCat('all') }
+  const chips = [{ key: 'all', label: `All ${projects.length}` }, ...CATEGORIES.map(c => ({ key: c.key, label: c.label, accent: c.accent }))]
+
   return (
-    <div className="psearch">
+    <div className="psearch" id="app-search">
+      <div className="psearch__head">
+        <span className="psearch__eyebrow">Find an app</span>
+        <span className="psearch__sub">Search all {projects.length} apps by name, topic, hospital or author</span>
+      </div>
       <div className="psearch__box">
-        <svg className="psearch__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+        <svg className="psearch__icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
         <input
+          ref={inputRef}
           type="search"
           className="psearch__input"
-          placeholder="Search all apps — name, topic, hospital, author…"
+          placeholder="Try “diabetes” or “roster”…"
           aria-label="Search apps"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          onKeyDown={e => { if (e.key === 'Escape') setQuery('') }}
+          onKeyDown={e => { if (e.key === 'Escape') reset() }}
         />
-        {query && (
+        {query ? (
           <button type="button" className="psearch__clear" aria-label="Clear search" onClick={() => setQuery('')}>✕</button>
+        ) : (
+          <kbd className="psearch__kbd" aria-hidden="true">/</kbd>
         )}
       </div>
+      <div className="psearch__chips" role="group" aria-label="Filter by category">
+        {chips.map(c => (
+          <button
+            key={c.key}
+            type="button"
+            className={`psearch__chip${cat === c.key ? ' is-active' : ''}`}
+            style={c.accent ? { '--chip': c.accent } : undefined}
+            aria-pressed={cat === c.key}
+            onClick={() => setCat(c.key)}
+          >{c.label}</button>
+        ))}
+      </div>
 
-      {terms.length > 0 && (
+      {active && (
         <div className="psearch__results">
           <p className="psearch__count" role="status">
             {results.length === 0
-              ? `No apps match “${query.trim()}”`
+              ? `No apps match${query.trim() ? ` “${query.trim()}”` : ''}`
               : `${results.length} ${results.length === 1 ? 'app' : 'apps'} found`}
+            <button type="button" className="psearch__reset" onClick={reset}>Clear all</button>
           </p>
           {results.length > 0 && (
             <div className="psearch__grid">
               {results.map(p => {
-                const cat = catOf(p.category)
-                return <ProjectCard key={p.num} project={p} accent={cat.accent} categoryLabel={p.categoryLabel || cat.label} navigate={navigate} />
+                const c = catOf(p.category)
+                return <ProjectCard key={p.num} project={p} accent={c.accent} categoryLabel={p.categoryLabel || c.label} navigate={navigate} />
               })}
             </div>
           )}
@@ -316,7 +355,8 @@ function ProjectSearch({ projects, query, setQuery }) {
 
 export default function ProjectFolders({ projects }) {
   const [query, setQuery] = useState('')
-  const searching = query.trim().length > 0
+  const [cat, setCat] = useState('all')
+  const searching = query.trim().length > 0 || cat !== 'all'
   return (
     <section id="projects" className="section folders-section">
 
@@ -334,7 +374,7 @@ export default function ProjectFolders({ projects }) {
 
       <CategoryStats projects={projects} />
 
-      <ProjectSearch projects={projects} query={query} setQuery={setQuery} />
+      <ProjectSearch projects={projects} query={query} setQuery={setQuery} cat={cat} setCat={setCat} />
 
       {!searching && CATEGORIES.map(({ key, label, accent, tagline, slogan, prose, banner, bannerGradient }) => {
         const group = projects
