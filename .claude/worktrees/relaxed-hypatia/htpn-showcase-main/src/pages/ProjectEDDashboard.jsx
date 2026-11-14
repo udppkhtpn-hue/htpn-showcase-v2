@@ -22,7 +22,7 @@ export default function ProjectEDDashboard() {
         <div className="detail-header">
           <span className="detail-badge detail-badge--live">LIVE</span>
           <h1 className="detail-title">Dashboard ED</h1>
-          <p className="detail-number" style={{ color: ACCENT }}>#32 · Management Productivity</p>
+          <p className="detail-number" style={{ color: ACCENT }}>#34 · Management Productivity</p>
         </div>
 
         <ProjectScreenshot />

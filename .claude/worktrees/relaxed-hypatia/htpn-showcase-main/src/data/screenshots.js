@@ -22,6 +22,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'memory-clinic',
   'mental-wellbeing',
   'ot-scheduling',
+  'minda-trek',
   'my-family-health-app',
   'patholab-pro',
   'pbac-tracker',
@@ -34,6 +35,7 @@ export const SCREENSHOT_SLUGS = new Set([
   'resushero',
   'roster-generator',
   'skin-diary',
+  'spectra',
   'tbis-10a1',
   'wound-care-360',
 ])
